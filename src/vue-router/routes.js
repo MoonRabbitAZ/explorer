@@ -16,4 +16,6 @@ export const vueRoutes = Object.freeze({
   // holders group
   holdersPage: { name: 'holders' },
 
+  // validators map group
+  validatorsMapPage: { name: 'validators-map' },
 })

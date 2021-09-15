@@ -84,7 +84,8 @@
       "routers": {
         "explorer": "Rabbit Hole",
         "event-calendar": "Annals",
-        "holders": "Holders"
+        "holders": "Holders",
+        "map": "Map"
       }
     },
     "accounts": {
