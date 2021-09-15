@@ -45,6 +45,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Transfer form
 - ApiCaller
 - Account deposit on Account row
+- Status message on transfer form
+- Holders page
 
 #### Changed
 - Folders structure
@@ -53,6 +55,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `useCall`
   `vuex modules`
 - Icon on account row
+- Design status message
 
 #### Removed
 - Explorer helper

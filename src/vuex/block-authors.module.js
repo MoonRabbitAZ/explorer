@@ -1,7 +1,6 @@
 import { vuexTypes } from '@/vuex/types'
 import { api } from '@api'
 import { isFunction, formatNumber } from '@polkadot/util'
-import { Bus } from '@/js/helpers/event-bus'
 
 const MAX_HEADERS = 75
 
@@ -44,7 +43,6 @@ export const actions = {
   ) {
     if (lastHeader.number) {
       commit(vuexTypes.SET_LAST_HEADER, lastHeader)
-      Bus.newBlockchainHeader(lastHeader)
 
       const blockNumber = lastHeader.number.unwrap()
       let thisBlockAuthor = ''

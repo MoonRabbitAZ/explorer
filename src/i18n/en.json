@@ -1,7 +1,8 @@
 {
   "errors": {
     "default": "Something bad happened. Please try again later or contact the system owner.",
-    "network": "Network error: { msg }",
+    "network": "Network error. Please re-check your internet connection and try again.",
+    "transaction": "Transaction error. Please try again later or contact the system owner.",
     "blockchain-event-type": "We should not get here, unhandled { type }"
   },
   "validation": {
@@ -82,7 +83,8 @@
       "name": "Temples",
       "routers": {
         "explorer": "Rabbit Hole",
-        "event-calendar": "Annals"
+        "event-calendar": "Annals",
+        "holders": "Holders"
       }
     },
     "accounts": {
@@ -156,6 +158,10 @@
   "forms": {
     "create-account-form": {
       "create-account-message": "Created account { name }"
+    },
+    "transfer-form-authorize-step": {
+      "transaction-success": "Transaction completed successfully",
+      "transaction-processing": "Sending funds from { account }"
     }
   }
 }

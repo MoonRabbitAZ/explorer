@@ -165,3 +165,14 @@ export class NetworkError extends Error {
     this.message = message
   }
 }
+
+/**
+  * Transaction error
+  */
+export class TransactionError extends Error {
+  constructor (message, ...params) {
+    super(...params)
+    this.name = 'TransactionError'
+    this.message = message
+  }
+}
