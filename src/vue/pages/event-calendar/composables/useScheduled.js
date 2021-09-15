@@ -2,7 +2,7 @@ import { ref, watchEffect } from 'vue'
 import { api } from '@api'
 import { BN_ONE, BN_ZERO } from '@polkadot/util'
 import { useCall, useBlockTime } from '@/vue/composables'
-import { BLOCKCHAIN_EVENTS_TYPES } from '@/js/const/bloackchain-events-typs.const'
+import { BCH_EVENT_TYPES } from '@/js/const/blockchain-event.const'
 
 function newDate (blocks, blockTime) {
   const date = new Date(Date.now() + blocks.muln(blockTime).toNumber())
@@ -28,7 +28,7 @@ function createConstDurations (bestNumber, blockTime, items) {
 }
 
 function createCouncilMotions (bestNumber, blockTime, motions) {
-  return [[BLOCKCHAIN_EVENTS_TYPES.councilMotion, motions
+  return [[BCH_EVENT_TYPES.councilMotion, motions
     .map(({ hash, votes }) => {
       if (!votes) {
         return null
@@ -52,7 +52,7 @@ function createDispatches (bestNumber, blockTime, dispatches) {
   return dispatches.map(({ at, index }) => {
     const blocks = at.sub(bestNumber)
 
-    return [BLOCKCHAIN_EVENTS_TYPES.democracyDispatch, [{
+    return [BCH_EVENT_TYPES.democracyDispatch, [{
       ...newDate(blocks, blockTime),
       blockNumber: at,
       blocks,
@@ -66,13 +66,13 @@ function createReferendums (bestNumber, blockTime, referendums) {
     const enactBlocks = status.end.add(status.delay).isub(bestNumber)
     const voteBlocks = status.end.sub(bestNumber).isub(BN_ONE)
 
-    result.push([BLOCKCHAIN_EVENTS_TYPES.referendumVote, [{
+    result.push([BCH_EVENT_TYPES.referendumVote, [{
       ...newDate(voteBlocks, blockTime),
       blockNumber: bestNumber.add(voteBlocks),
       blocks: voteBlocks,
       info: index,
     }]])
-    result.push([BLOCKCHAIN_EVENTS_TYPES.referendumDispatch, [{
+    result.push([BCH_EVENT_TYPES.referendumDispatch, [{
       ...newDate(enactBlocks, blockTime),
       blockNumber: bestNumber.add(enactBlocks),
       blocks: enactBlocks,
@@ -115,24 +115,24 @@ function createStakingInfo (
     : []
 
   return [
-    [BLOCKCHAIN_EVENTS_TYPES.stakingEpoch, [{
+    [BCH_EVENT_TYPES.stakingEpoch, [{
       ...newDate(blocksSes, blockTime),
       blockNumber: bestNumber.add(blocksSes),
       blocks: blocksSes,
       info: sessionInfo.currentIndex.add(BN_ONE),
     }]],
-    [BLOCKCHAIN_EVENTS_TYPES.stakingEra, [{
+    [BCH_EVENT_TYPES.stakingEra, [{
       ...newDate(blocksEra, blockTime),
       blockNumber: bestNumber.add(blocksEra),
       blocks: blocksEra,
       info: sessionInfo.activeEra.add(BN_ONE),
     }]],
-    [BLOCKCHAIN_EVENTS_TYPES.stakingSlash, slashEras],
+    [BCH_EVENT_TYPES.stakingSlash, slashEras],
   ]
 }
 
 function createScheduled (bestNumber, blockTime, scheduled) {
-  return [[BLOCKCHAIN_EVENTS_TYPES.scheduler, scheduled
+  return [[BCH_EVENT_TYPES.scheduler, scheduled
     .filter(
       ([, vecSchedOpt]) => vecSchedOpt.some((schedOpt) => schedOpt.isSome))
     .reduce((items, [key, vecSchedOpt]) => {
@@ -169,7 +169,7 @@ function createAuctionInfo (
   const blocks = endBlock.sub(bestNumber)
 
   return [
-    [BLOCKCHAIN_EVENTS_TYPES.parachainAuction, [{
+    [BCH_EVENT_TYPES.parachainAuction, [{
       ...newDate(blocks, blockTime),
       blockNumber: endBlock,
       blocks,
@@ -256,28 +256,28 @@ export default function useScheduled () {
         state.value = addFiltered(
           createConstDurations(bestNumber.value, blockTime.value, [
             [
-              BLOCKCHAIN_EVENTS_TYPES.councilElection,
+              BCH_EVENT_TYPES.councilElection,
               (api.consts.elections || api.consts.phragmenElection ||
               api.consts.electionsPhragmen)?.termDuration,
             ],
             [
-              BLOCKCHAIN_EVENTS_TYPES.democracyLaunch,
+              BCH_EVENT_TYPES.democracyLaunch,
               api.consts.democracy?.launchPeriod,
             ],
             [
-              BLOCKCHAIN_EVENTS_TYPES.parachainLease,
+              BCH_EVENT_TYPES.parachainLease,
               api.consts.slots?.leasePeriod, BN_ONE,
             ],
             [
-              BLOCKCHAIN_EVENTS_TYPES.societyChallenge,
+              BCH_EVENT_TYPES.societyChallenge,
               api.consts.society?.challengePeriod,
             ],
             [
-              BLOCKCHAIN_EVENTS_TYPES.societyRotate,
+              BCH_EVENT_TYPES.societyRotate,
               api.consts.society?.rotationPeriod,
             ],
             [
-              BLOCKCHAIN_EVENTS_TYPES.treasurySpend,
+              BCH_EVENT_TYPES.treasurySpend,
               api.consts.treasury?.spendPeriod,
             ],
           ]),

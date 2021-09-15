@@ -98,6 +98,8 @@ import { ErrorHandler } from '@/js/helpers/error-handler'
 import { Bus } from '@/js/helpers/event-bus'
 import { errors } from '@/js/errors'
 
+import { BCH_EVENT_METHODS, BCH_EVENT_SECTION } from '@/js/const/blockchain-event.const'
+
 const EVENTS = {
   submit: 'submit',
 }
@@ -155,9 +157,10 @@ export default {
         try {
           if (result.status.isFinalized || result.status.isInBlock) {
             result.events
-              .filter(({ event: { section } }) => section === 'system')
+              .filter(({ event: { section } }) =>
+                section === BCH_EVENT_SECTION.system)
               .forEach(({ event: { data, method } }) => {
-                if (method === 'ExtrinsicFailed') {
+                if (method === BCH_EVENT_METHODS.extrinsicFailed) {
                   const [error] = data
                   let message = ''
 
@@ -171,7 +174,7 @@ export default {
                     message = error.toString()
                   }
                   throw new errors.TransactionError(message)
-                } else if (method === 'ExtrinsicSuccess') {
+                } else if (method === BCH_EVENT_METHODS.extrinsicSuccess) {
                   Bus.success('forms.transfer-form-authorize-step.transaction-success')
                 }
               })

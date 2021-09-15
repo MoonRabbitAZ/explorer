@@ -47,6 +47,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Account deposit on Account row
 - Status message on transfer form
 - Holders page
+- Blockchain events constants
 
 #### Changed
 - Folders structure
@@ -65,5 +66,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Initial project release
 - Initiated project with vue cli
 
-[Unreleased]: https://github.com/LedgerProject/LiV_frontend_2.0/compare/0.1.0-rc.1...main
-[0.1.0-rc.1]: https://gitlab.com/tokend/polkadot/web-client/tags/0.1.0-rc.1
+[Unreleased]: https://gitlab.com/tokend/polkadot/new-web-client/compare/0.1.0-rc.1...main
+[0.1.0-rc.1]: https://gitlab.com/tokend/polkadot/new-web-client/tags/0.1.0-rc.1
