@@ -1,0 +1,35 @@
+services:
+  - docker:18-dind
+
+variables:
+  GITHUB_REF: $CI_COMMIT_SHA
+
+stages:
+  - build
+  - publish
+
+build:
+  image: registry.gitlab.com/tokend/deployment/docker-build:latest
+  stage: build
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  tags:
+    - tokend
+  script:
+    - sh ./.ci/build.sh
+
+lint:
+  image: node:14
+  stage: build
+  tags:
+    - tokend
+  script:
+    - sh ./.ci/lint.sh
+
+unit_test:
+  image: node:14
+  stage: build
+  tags:
+    - tokend
+  script:
+    - sh ./.ci/test.sh
