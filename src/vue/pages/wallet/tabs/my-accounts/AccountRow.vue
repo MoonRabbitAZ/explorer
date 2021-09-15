@@ -137,7 +137,7 @@ export default {
   grid-gap: 2rem;
   grid-template-columns: repeat(2, 1fr) 15rem 11rem;
   align-items: center;
-  padding: 2.2rem 1.6rem;
+  padding: 1rem 1.6rem;
 }
 
 .account-row__address {

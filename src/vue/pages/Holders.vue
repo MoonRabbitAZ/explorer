@@ -10,7 +10,7 @@
     </div>
 
     <template v-if="holders">
-      <template v-if="sortedHolders">
+      <template v-if="sortedHolders.length">
         <div
           v-for="holder in sortedHolders"
           :key="holder.address"
