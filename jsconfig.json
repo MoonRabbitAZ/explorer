@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "allowSyntheticDefaultImports": false,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"],
+      "@scss/*": ["src/scss/*"],
+      "@locales/*": ["src/i18n/*"],
+      "@/vuex": ["src/vuex/*"],
+      "@/vue-router": ["src/vue-router/*"],
+      "@static/*": ["static/*"],
+      "@api": ["src/api.js"],
+      "@explorer-page/*": ["src/vue/pages/explorer/*"],
+      "@event-calendar-page/*": ["src/vue/pages/event-calendar/*"],
+      "@wallet-page/*": ["src/vue/pages/wallet/*"],
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}

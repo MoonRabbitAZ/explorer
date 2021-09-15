@@ -1,0 +1,129 @@
+<template>
+  <div
+    class="extrinsic-row"
+  >
+    <extrinsic-display
+      :extract-extrinsic="extractExtrinsic"
+      :block-number="blockNumber"
+    />
+    <div>
+      <event-display
+        v-for="({event}, id) in filtredEvents"
+        class="extrinsic-row__event-item"
+        :key="id"
+        :event="event"
+      />
+    </div>
+    <div>
+      <p class="extrinsic-row__weight">
+        {{ $fnumber(weight) }}
+      </p>
+    </div>
+    <div>
+      <p class="extrinsic-row__signer">
+        {{ signerDisplay }}
+      </p>
+    </div>
+  </div>
+</template>
+
+<script>
+import EventDisplay from '@/vue/common/EventDisplay'
+import ExtrinsicDisplay from '@/vue/common/ExtrinsicDisplay'
+
+import { toRefs, computed } from 'vue'
+import { useExtrinsic } from '@/vue/composables'
+import { getTypeDef } from '@polkadot/types'
+import { getAddress } from '@/js/helpers/account-helper'
+
+const EVENT_METHODS = {
+  success: 'ExtrinsicSuccess',
+  failed: 'ExtrinsicFailed',
+}
+
+const EVENT_SYSTEM_SECTION = 'system'
+
+export default {
+  name: 'extrinsic-row',
+
+  components: {
+    EventDisplay,
+    ExtrinsicDisplay,
+  },
+
+  props: {
+    extrinsic: { type: Object, required: true },
+    index: { type: Number, required: true },
+    events: { type: Array, required: true },
+    blockNumber: { type: Number, required: true },
+  },
+
+  setup (props) {
+    const { extrinsic, index, events } = toRefs(props)
+    const { extractExtrinsicState } = useExtrinsic()
+    const extractExtrinsic = extractExtrinsicState(extrinsic)
+
+    const filtredEvents = computed(() => {
+      return events.value.filter(({ phase }) =>
+        phase.isApplyExtrinsic && phase.asApplyExtrinsic.eq(index.value),
+      )
+    })
+
+    const weight = computed(() => {
+      const infoRecord = filtredEvents.value
+        .find(({ event: { method, section } }) =>
+          section === EVENT_SYSTEM_SECTION &&
+            [EVENT_METHODS.failed, EVENT_METHODS.success].includes(method),
+        )
+      const dispatchInfo = infoRecord
+        ? infoRecord.event.method === EVENT_METHODS.success
+          ? infoRecord.event.data[0]
+          : infoRecord.event.data[1]
+        : undefined
+      return dispatchInfo.weight
+    })
+
+    const signerDisplay = computed(() =>
+      extrinsic.value.isSigned ? getAddress(extrinsic.value.signer) : '',
+    )
+
+    return {
+      getTypeDef,
+      filtredEvents,
+      extractExtrinsic,
+      signerDisplay,
+      weight,
+    }
+  },
+}
+</script>
+
+<style lang="scss" scoped>
+@import '~@scss/mixins';
+@import '~@scss/variables';
+
+.extrinsic-row {
+  display: grid;
+  grid-gap: 0 3rem;
+  grid-template-columns:
+    repeat(2, minmax(25rem, 1fr))
+    repeat(2, minmax(12.8rem, 18rem));
+}
+
+.extrinsic-row__event-item {
+  & + & {
+    margin-top: 2rem;
+  }
+}
+
+.extrinsic-row__weight {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.extrinsic-row__signer {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: $col-app-accent;
+}
+</style>

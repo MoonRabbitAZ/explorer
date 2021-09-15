@@ -1,0 +1,69 @@
+import '@/scss/app.scss'
+
+import App from '@/App.vue'
+import router from '@/vue-router'
+
+import AppButton from '@/vue/common/AppButton'
+
+import { store } from '@/vuex'
+import { vueRoutes } from '@/vue-router/routes'
+import { CONFIG } from '@/config'
+import { i18n } from '@/i18n'
+import { ripple, clickOutside } from '@/vue/directives'
+import { createApp, h, getCurrentInstance } from 'vue'
+import {
+  useFormatDate,
+  useGlobalTranslation,
+  useFormatBalance,
+} from '@/vue/composables'
+import { formatNumber } from '@polkadot/util'
+import { initApi } from '@api'
+
+const app = createApp({
+  setup () {
+    const app = getCurrentInstance()
+    initApi()
+
+    const {
+      formatDate,
+      formatDateMY,
+      formatDateDMY,
+      formatDateDDMY,
+      formatDateDMYT,
+      formatCalendar,
+      formatCalendarInline,
+    } = useFormatDate()
+
+    const { globalize } = useGlobalTranslation()
+
+    const { toBalance } = useFormatBalance()
+
+    app.appContext.config.globalProperties.$fd = formatDate
+    app.appContext.config.globalProperties.$fdmy = formatDateMY
+    app.appContext.config.globalProperties.$fddmy = formatDateDMY
+    app.appContext.config.globalProperties.$fdddmy = formatDateDDMY
+    app.appContext.config.globalProperties.$fddmyt = formatDateDMYT
+    app.appContext.config.globalProperties.$fcalend = formatCalendar
+    app.appContext.config.globalProperties.$fcalendi = formatCalendarInline
+    app.appContext.config.globalProperties.$fbalance = toBalance
+    app.appContext.config.globalProperties.$fnumber = formatNumber
+
+    app.appContext.config.globalProperties.$tglobal = globalize
+  },
+  render: () => h(App),
+})
+
+app
+  .use(store)
+  .use(router)
+  .use(i18n)
+
+app.config.globalProperties.$routes = vueRoutes
+app.config.globalProperties.$config = CONFIG
+
+app.directive('ripple', ripple)
+app.directive('click-outside', clickOutside)
+
+app.component('AppButton', AppButton)
+
+app.mount('#app')

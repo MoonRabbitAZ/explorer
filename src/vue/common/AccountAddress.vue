@@ -1,0 +1,104 @@
+<template>
+  <div class="account-address">
+    <button
+      class="account-address__addr-btn"
+      type="button"
+      @click="isInfoOpen = !isInfoOpen"
+    >
+      <account-address-row
+        is-accent-color
+        is-text-elipsis
+        :account-address="accountAddress"
+        :is-name-display="isNameDisplay"
+      />
+    </button>
+
+    <drawer
+      class="account-address__drawer"
+      v-model:is-shown="isInfoOpen"
+      is-default-body
+    >
+      <template #heading>
+        {{ $t('information-title') }}
+      </template>
+      <div class="account-address__drawer-addr-wrap">
+        <account-address-row
+          :account-address="accountAddress"
+          icon-size="big"
+        />
+      </div>
+      <div class="account-address__drawer-balance-wrap">
+        <h3 class="account-address__drawer-balance-header">
+          {{ $t('balance-header') }}
+        </h3>
+        <account-balances :account-address="accountAddress"/>
+      </div>
+    </drawer>
+  </div>
+</template>
+
+<script>
+import Drawer from '@/vue/common/Drawer'
+import AccountBalances from '@/vue/common/AccountBalances'
+import AccountAddressRow from '@/vue/common/AccountAddressRow'
+
+import { ref } from 'vue'
+
+export default {
+  name: 'account-address',
+
+  components: { Drawer, AccountBalances, AccountAddressRow },
+
+  props: {
+    accountAddress: { type: String, required: true },
+    isNameDisplay: { type: Boolean, default: false },
+  },
+
+  setup () {
+    const isInfoOpen = ref(false)
+
+    return { isInfoOpen }
+  },
+}
+</script>
+
+<style lang="scss" scoped>
+@import '~@scss/variables';
+@import '~@scss/mixins';
+
+.account-address {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.account-address__addr-btn {
+  width: 100%;
+  cursor: pointer;
+}
+
+.account-address__drawer-addr-wrap {
+  padding: 2rem $drawer-padding;
+  display: flex;
+  align-items: center;
+  background: $col-app-block-bg;
+}
+
+.account-address__drawer-balance-header {
+  margin-bottom: 1.5rem;
+  font-size: 1.6rem;
+}
+
+.account-address__drawer-balance-wrap {
+  margin-top: 3.2rem;
+  padding: 0 $drawer-padding;
+}
+</style>
+
+<i18n>
+{
+  "en": {
+    "information-title": "Information",
+    "balance-header": "Balance"
+  }
+}
+</i18n>

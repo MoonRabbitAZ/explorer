@@ -1,0 +1,21 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.app__init {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background: url('/static/branding/app-content-bg.png') no-repeat center center;
+  background-size: cover;
+}
+
+.app__init-logo {
+  position: absolute;
+  top: 2%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 314px;
+}

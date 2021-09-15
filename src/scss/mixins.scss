@@ -1,0 +1,158 @@
+@import 'variables';
+
+@mixin respond-to($media) {
+  @if $media == xsmall {
+    @media only screen and (max-width: $x-small - 1px) {
+      @content;
+
+    }
+  }
+  @else if $media == small {
+    @media only screen and (max-width: $small - 1px) {
+      @content;
+    }
+  }
+  @else if $media == tablet {
+    @media only screen and (max-width: $tablet - 1px) {
+      @content;
+    }
+  }
+  @else if $media == medium {
+    @media only screen and (max-width: $medium) {
+      @content;
+    }
+  }
+  @else if $media == xmedium {
+    @media only screen and (max-width: $x-medium - 1px) {
+      @content;
+    }
+  }
+  @else if $media == large {
+    @media only screen and (max-width: $large - 1px) {
+      @content;
+    }
+  }
+  @else if $media == xlarge {
+    @media only screen and (max-width: $x-large - 1px) {
+      @content;
+    }
+  }
+  @else {
+    @media only screen and (max-width: $media) {
+      @content;
+    }
+  }
+}
+
+@mixin respond-to-height($media) {
+  @media only screen and (max-height: $media) {
+    @content;
+  }
+}
+
+@mixin box-shadow () {
+  box-shadow: 0 0.4rem 1rem 0 rgba(0, 0, 0, 0.15);
+}
+
+@mixin scrollbar {
+  &::-webkit-scrollbar {
+    width: 0.6rem;
+    height: 0.6rem;
+    margin-left: 2rem;
+  }
+  &::-webkit-scrollbar-track-piece {
+    background: $col-scrollbar-track-piece;
+    border-radius: 0.8rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 0.8rem;
+    background: $col-scrollbar-thumb;
+  }
+}
+
+@mixin readonly-field-border($color) {
+  border: 0.1rem solid $color;
+  background: none;
+}
+
+@mixin text-field-font-sizes {
+    font-size: $field-text-font-size;
+    line-height: $field-text-line-height;
+}
+
+@mixin label-field-font-sizes($is-small-size: false) {
+  @if $is-small-size {
+    font-size: $field-label-small-font-size;
+    line-height: $field-label-small-line-height;
+  } @else {
+    font-size: $field-label-font-size;
+    line-height: $field-label-line-height;
+  }
+}
+
+@mixin placeholder() {
+  color: $field-placeholder-color;
+  -webkit-text-fill-color: $field-placeholder-color;
+  transition: opacity $field-transition-duration;
+  font-size: 1.4rem;
+  line-height: 1.7;
+}
+
+@mixin placeholder-error() {
+  color: $field-color-error;
+  -webkit-text-fill-color: $field-color-error;
+}
+
+@mixin field-border($color-focused, $color-unfocused, $focused-selector:'') {
+  border: 0.1rem solid $color-unfocused;
+  border-radius: $field-border-radius;
+  background: radial-gradient($color-focused, $color-focused) bottom -0.1rem center no-repeat;
+  background-size: 0 0.2rem;
+  -webkit-transition-property: background-size, border-color;
+  -moz-transition-property: background-size, border-color;
+  -ms-transition-property: background-size, border-color;
+  -o-transition-property: background-size, border-color;
+  transition-property: background-size, border-color;
+  transition-duration: $field-transition-duration;
+
+  &:not([disabled]):hover {
+    border-color: $field-color-hover;
+  }
+
+  @if $focused-selector != '' {
+    #{$focused-selector},
+    &:focus {
+      border-color: $color-focused;
+    }
+  }
+
+  @else {
+    &:not([disabled]):focus {
+      border-color: $color-focused;
+    }
+  }
+}
+
+@mixin material-border($color-focused, $color-unfocused, $focused-selector:'') {
+  border: 0.1rem solid $color-unfocused;
+  border-radius: 0.4rem;
+  -webkit-transition-property: border-color;
+  -moz-transition-property: border-color;
+  -ms-transition-property: border-color;
+  -o-transition-property: border-color;
+  transition-property: border-color;
+  transition-duration: $field-transition-duration;
+
+  @if $focused-selector != '' {
+    #{$focused-selector},
+    &:focus {
+      border: 0.1rem solid $color-focused;
+    }
+  }
+
+  @else {
+    &:focus {
+      border: 0.1rem solid $color-focused;
+    }
+  }
+}

@@ -1,0 +1,91 @@
+<template>
+  <div class="info-block app__content-block">
+    <div class="info-block__main">
+      <h3 class="info-block__name">
+        {{ title }}
+      </h3>
+      <p class="info-block__value">
+        {{ value }}
+      </p>
+      <p
+        v-if="isSecondaryValueDisplay"
+        class="info-block__secondary-value"
+      >
+        {{ secondaryValue }}
+        {{ isSecondaryValueDisplay }}
+      </p>
+    </div>
+    <div
+      v-if="isSlotDisplay(SLOTS.additional)"
+    >
+      <slot :name="SLOTS.additional"/>
+    </div>
+  </div>
+</template>
+
+<script>
+
+import { computed } from 'vue'
+
+const SLOTS = {
+  additional: 'additional',
+}
+
+export default {
+  name: 'info-block',
+
+  props: {
+    title: { type: String, required: true },
+    value: { type: [String, Number], default: '' },
+    secondaryValue: { type: [String, Number], default: '' },
+  },
+
+  setup (props, { slots }) {
+    function isSlotDisplay (slotName) {
+      return !!slots[slotName]
+    }
+
+    const isSecondaryValueDisplay = computed(() =>
+      !!String(props.secondaryValue),
+    )
+
+    return {
+      isSlotDisplay,
+      isSecondaryValueDisplay,
+      SLOTS,
+    }
+  },
+}
+</script>
+
+<style lang="scss" scoped>
+@import '~@scss/mixins';
+@import '~@scss/variables';
+
+.info-block {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  min-height: $min-height-info-block;
+}
+
+.info-block__name {
+  margin-bottom: 0.3rem;
+  white-space: nowrap;
+}
+
+.info-block__value {
+  font-size: 1.6rem;
+  color: $col-app-accent;
+  white-space: nowrap;
+  margin-bottom: 0.3rem;
+}
+
+.info-block__secondary-value {
+  font-size: 1.2rem;
+  white-space: nowrap;
+  color: $col-app-accent;
+}
+
+</style>

@@ -1,0 +1,171 @@
+<template>
+  <div
+    class="block-header app__content-block"
+  >
+    <div class="block-header__content">
+      <div class="block-header__info-item">
+        <h5 class="block-header__item-header">
+          {{ $t('header-number') }}
+        </h5>
+        <p class="block-header__block-number">
+          {{ blockNumber }}
+        </p>
+      </div>
+
+      <div class="block-header__info-item">
+        <h5 class="block-header__item-header">
+          {{ $t('header-hash') }}
+        </h5>
+        <p class="block-header__item-value">
+          {{ blockHash }}
+        </p>
+      </div>
+
+      <div class="block-header__info-item">
+        <h5 class="block-header__item-header">
+          {{ $t('header-validator') }}
+        </h5>
+        <account-address :account-address="header.author.toString()" />
+      </div>
+
+      <div class="block-header__info-item">
+        <h5 class="block-header__item-header">
+          {{ $t('header-parent') }}
+        </h5>
+        <router-link
+          class="block-header__item-value block-header__link"
+          :to="{
+            ...$routes.blockInfoTab,
+            query: {
+              blockIdent: parentHash,
+            }
+          }"
+        >
+          {{ parentHash }}
+        </router-link>
+      </div>
+
+      <div class="block-header__info-item">
+        <h5 class="block-header__item-header">
+          {{ $t('header-extrinsic') }}
+        </h5>
+        <p class="block-header__item-value">
+          {{ extrinsicHash }}
+        </p>
+      </div>
+
+      <div class="block-header__info-item">
+        <h5 class="block-header__item-header">
+          {{ $t('header-condition') }}
+        </h5>
+        <p class="block-header__item-value">
+          {{ conditionHash }}
+        </p>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import AccountAddress from '@/vue/common/AccountAddress'
+
+import { toRefs, computed } from 'vue'
+
+export default {
+  name: 'block-header',
+
+  components: { AccountAddress },
+
+  props: {
+    header: { type: Object, required: true },
+  },
+
+  setup (props) {
+    const { header } = toRefs(props)
+
+    const blockNumber = computed(() => header.value.number.unwrap().toNumber())
+    const blockHash = computed(() => header.value.hash.toHex())
+    const parentHash = computed(() => header.value?.parentHash.toHex() || '')
+    const extrinsicHash = computed(() => header.value?.extrinsicsRoot.toHex())
+    const conditionHash = computed(() => header.value?.stateRoot.toHex())
+
+    return {
+      blockNumber,
+      blockHash,
+      parentHash,
+      extrinsicHash,
+      conditionHash,
+    }
+  },
+}
+</script>
+
+<style lang="scss" scoped>
+@import '~@scss/mixins';
+@import '~@scss/variables';
+
+$header-font-size: 1.2rem;
+
+.block-header {
+  padding: 2rem 1.6rem;
+
+  @include respond-to($sidebar-hide-bp) {
+    padding: 1.6rem;
+  }
+}
+
+.block-header__content {
+  display: grid;
+  grid-gap: 1.6rem 3rem;
+  grid-template-columns: min-content repeat(5, 1fr);
+  max-width: 100%;
+  width: 100%;
+
+  @include respond-to($sidebar-hide-bp) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.block-header__info-item {
+  max-width: 100%;
+  overflow: hidden;
+  display: grid;
+  grid-gap: 1rem 0;
+  grid-template-rows: $header-font-size 1fr;
+  align-items: center;
+}
+
+.block-header__item-header {
+  font-size: $header-font-size;
+  line-height: 1;
+  font-weight: 400;
+  color: $col-app-secondary;
+}
+
+.block-header__block-number {
+  font-size: 2rem;
+  color: $col-app-accent;
+}
+
+.block-header__item-value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.block-header__link {
+  color: $col-app-accent;
+}
+</style>
+
+<i18n>
+{
+  "en": {
+    "header-number": "Number",
+    "header-hash": "Hash",
+    "header-validator": "Validator",
+    "header-parent": "Parent",
+    "header-extrinsic": "Extrinsic",
+    "header-condition": "Condition",
+  }
+}
+</i18n>

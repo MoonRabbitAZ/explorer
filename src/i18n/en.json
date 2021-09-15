@@ -1,0 +1,161 @@
+{
+  "errors": {
+    "default": "Something bad happened. Please try again later or contact the system owner.",
+    "network": "Network error: { msg }",
+    "blockchain-event-type": "We should not get here, unhandled { type }"
+  },
+  "validation": {
+    "field-error_required": "Please fill in this field",
+    "field-error_minLength": "This field must contain a minimum of { minLength } symbols",
+    "field-error_maxLength": "This field must contain a maximum of { maxLength } symbols",
+    "field-error_alphaNum": "The value must consist of alphanumeric values (A-Z, a-z, 0-9)",
+    "field-error_alpha": "The value must consist of alphabetic characters (A-Z, a-z)",
+    "field-error_uniqueValue": "The value is not unique, try another",
+    "field-error_email": "This field must be a valid email",
+    "field-error_phone": "This field must be a valid phone number.",
+    "field-error_isPositive": "The value must be positive",
+    "field-error_blockIdent": "This field must be valid block hash or block number",
+    "field-error_password": "Password should contain minimum 6 symbols",
+    "field-error_sameAsPassword": "Passwords don't match",
+    "field-error_mnemonicSed": "The value must be mnemonic seed",
+    "field-error_hexSeed": "The value must be in hex format and consist of { length } characters.",
+    "field-error_amountRange": "Amount should be in the range from { from } to { to }"
+  },
+  "formats": {
+    "dates": {
+      "time": "H:mm",
+      "date": "D MMMM YYYY",
+      "my": "MMMM YYYY",
+      "datetime": "MMMM D, YYYY [at] H:mm",
+      "ddmy": "dddd, D MMMM YYYY",
+      "dmy": "DD.MM.YYYY",
+      "dmyt": "DD.MM.YYYY [at] H:mm",
+      "calendar": {
+        "sameDay": "[Today at] H:mm",
+        "lastDay": "[Yesterday at] H:mm",
+        "nextDay": "[Tomorrow at] H:mm",
+        "lastWeek": "[Last] dddd [at] H:mm",
+        "nextWeek": "[Next] dddd [at] H:mm",
+        "sameElse": "MMMM D, YYYY [at] H:mm"
+      },
+      "calendarInline": {
+        "sameDay": "[today at] H:mm",
+        "lastDay": "[yesterday at] H:mm",
+        "nextDay": "[tomorrow at] H:mm",
+        "lastWeek": "[last] dddd [at] H:mm",
+        "nextWeek": "[next] dddd [at] H:mm",
+        "sameElse": "[at] MMMM D, YYYY [at] H:mm"
+      }
+    },
+    "daysOfWeek": {
+      "sun": "sunday",
+      "mon": "monday",
+      "tue": "tuesday",
+      "wed": "wednesday",
+      "thu": "thursday",
+      "fri": "friday",
+      "sat": "saturday"
+    },
+    "months": {
+      "january": "january",
+      "february": "february",
+      "march": "march",
+      "april": "april",
+      "may": "may",
+      "june": "june",
+      "july": "july",
+      "august": "august",
+      "september": "september",
+      "october": "october",
+      "november": "november",
+      "december": "december"
+    },
+    "time": {
+      "days": "{ days }d",
+      "hours": "{ hours }h",
+      "minutes": "{ minutes }m",
+      "seconds": "{ seconds }s"
+    }
+  },
+  "routers-groups": {
+    "temples": {
+      "name": "Temples",
+      "routers": {
+        "explorer": "Rabbit Hole",
+        "event-calendar": "Annals"
+      }
+    },
+    "accounts": {
+      "name": "Accounts",
+      "routers": {
+        "wallet": "Wallet"
+      }
+    }
+  },
+  "page-tabs": {
+    "explorer": {
+      "chain-info": "Chain info",
+      "block-info": "Block info"
+    },
+    "event-calendar": {
+      "upcoming-events": "Upcoming events"
+    },
+    "wallet": {
+      "my-accounts": "My accounts"
+    }
+  },
+  "blockchain-events" :{
+    "messages": {
+      "council-election": "Election of new council candidates",
+      "council-motion": "Voting ends on council motion { id }",
+      "democracy-dispatch": "Enactment of the result of referendum { id }",
+      "democracy-launch": "Start of the next referendum voting period",
+      "parachain-auction": "End of the current parachain auction { id }",
+      "parachain-lease": "Start of the next parachain lease period { id }",
+      "referendum-dispatch": "Potential dispatch of referendum { id } (if passed)",
+      "referendum-vote": "Voting ends for referendum { id }",
+      "scheduler": "Execute named scheduled task { id }",
+      "scheduler-anonymous": "Execute anonymous scheduled task",
+      "staking-epoch": "Start of a new staking session { id }",
+      "staking-era": "Start of a new staking era { id }",
+      "staking-slash": "Application of slashes from era { id }",
+      "treasury-spend": "Start of next spending period",
+      "society-challenge": "Start of next membership challenge period",
+      "society-rotate": "Acceptance of new members and bids"
+    },
+    "links": {
+      "council-election": "via Council",
+      "council-motion": "via Council/Motions",
+      "democracy-dispatch": "via Democracy/Dispatch",
+      "democracy-launch": "via Democracy",
+      "parachain-auction": "via Parachains/Auction",
+      "parachain-lease": "via Parachains",
+      "referendum-dispatch": "via Democracy",
+      "referendum-vote": "via Democracy",
+      "scheduler": "via Democracy/Dispatch",
+      "staking-epoch": "via Staking",
+      "staking-era": "via Staking",
+      "staking-slash": "via Staking/Slashed",
+      "treasury-spend": "via Treasury",
+      "society-challenge": "via Society",
+      "society-rotate": "via Society"
+    }
+  },
+  "crypto-types": {
+    "unknown": "unknown",
+    "injected": "injected",
+    "hardware": "hardware",
+    "multisig": "multisig",
+    "proxied": "proxied",
+    "external": "external"
+  },
+  "seed-types": {
+    "mnemonic": "Mnemonic",
+    "raw": "Raw seed"
+  },
+  "forms": {
+    "create-account-form": {
+      "create-account-message": "Created account { name }"
+    }
+  }
+}

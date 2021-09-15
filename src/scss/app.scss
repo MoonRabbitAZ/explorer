@@ -1,0 +1,116 @@
+@import '~@/scss/variables';
+@import '~@/scss/mixins';
+@import '~@/scss/app-form';
+@import '../../node_modules/@mdi/font/css/materialdesignicons.min.css';
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+
+  &:focus { outline: none; }
+
+  &::selection {
+    color: $col-app-selection;
+    background: $col-app-selection-bg;
+  }
+}
+
+body,
+input,
+select,
+button,
+textarea {
+  color: $col-app-text;
+  font-family: $app-font;
+  background-color: $col-app-bg;
+  font-weight: 400;
+  letter-spacing: 0.003rem;
+}
+
+textarea,
+button,
+select,
+input,
+body,
+span,
+p { font-size: 1.2rem; }
+
+button {
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+  cursor: pointer;
+
+  background: transparent;
+
+  /* inherit font & color from ancestor */
+  color: inherit;
+  font: inherit;
+
+  /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
+  line-height: normal;
+
+  /* Corrects font smoothing for webkit */
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+
+  /* Corrects inability to style clickable `input` types in iOS */
+  -webkit-appearance: none;
+
+  /* Remove excess padding and border in Firefox 4+ */
+  &::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+  }
+}
+
+html {
+  font-size: $html-font-size;
+  overflow: auto !important;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+a {
+  font-size: 1.2rem;
+  text-decoration: none;
+  color: $col-app-link;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 100vh;
+
+  & ul,
+  li { list-style-type: none; }
+}
+
+.app__padding {
+  padding: 0 $app-padding;
+
+  @include respond-to($sidebar-hide-bp) {
+    padding: 0 $app-padding-mobile;
+  }
+}
+
+.app__content-block {
+  background: $col-app-content-block-bg;
+  border-radius: 0.4rem;
+}
+
+.app__big-title {
+  font-size: 2rem;
+  line-height: 1.1;
+}

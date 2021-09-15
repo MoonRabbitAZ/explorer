@@ -1,0 +1,150 @@
+@import '~@static/fonts/index.css';
+
+$html-font-size: 10px;
+
+/* https://material.io/guidelines/layout/responsive-ui.html#responsive-ui-breakpoints */
+$x-large: 1920px;
+$large: 1440px;
+$x-medium: 1200px;
+
+$media-desktop: 1130px;
+
+$medium: 1024px;
+$media-small-desktop: 960px;
+$tablet: 820px;
+
+$small: 600px;
+$x-small: 480px;
+
+$status-message-reposition-bp: 470px;
+$sidebar-hide-bp: 768px;
+
+$content-side-paddings-sm: 2rem;
+
+// z indexes
+$z-status-message: 210;
+$z-group-menu-links-dropdown: 1;
+$z-drawer: 10;
+$z-drawer-backdrop: -1;
+$z-app-background: -1000;
+$z-app-init-logo: -999;
+
+
+$_white: #ffffff;
+$_black: #000000;
+$_lightRed: #f65160;
+$_yellowGreen: #3cab00;
+$_orangePeel: #ffa333;
+$_lightPurple: #837fa1;
+$_outerSpace: #191d1c;
+$_clearDay: #eefffc;
+$_mirage: #1d2934;
+$_brightTurquoise: #00ffd1;
+$_endeavour: #0857ac;
+$_dustyGray: #979797;
+$_darkGreen: #00735e;
+
+// root
+$app-font: 'Consolas', "BlinkMacSystemFont", "Segoe UI", "Roboto", 
+  "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif;
+$col-app-bg: $_outerSpace;
+$col-app-block-bg: $_mirage;
+$col-app-content-block-bg: rgba($col-app-bg, 0.5);
+$col-app-text: $_clearDay;
+$col-app-text-dark: $_mirage;
+$col-app-link: $_clearDay;
+$col-app-accent: $_brightTurquoise;
+$col-app-secondary: $_dustyGray;
+$col-app-no-data: $_dustyGray;
+$col-app-selection: $col-app-text-dark;
+$col-app-selection-bg: rgba($col-app-accent, 0.5);
+$col-app-header-secondary: $col-app-secondary;
+$col-app-disabled: $_darkGreen;
+$col-app-error: $_lightRed;
+
+$col-app-button-disabled: $col-app-disabled;
+$app-button-hover-shadow: 0 0.4rem 2.4rem rgba($col-app-accent, 0.48);
+
+$app-navbar-height: 9.6rem;
+$app-padding: 4rem;
+$app-padding-mobile: 2rem;
+
+$logo-size: 3.6rem;
+$min-height-info-block: 7.4rem;
+
+// field
+$field-color-focused: $col-app-accent;
+$field-color-text: $col-app-text;
+$field-color-unfocused: $_clearDay;
+$field-color-hover: $col-app-accent;
+$field-placeholder-color: $col-app-secondary;
+$field-color-error: $_lightRed;
+$field-color-background: $col-app-content-block-bg;
+$field-inner-button: $col-app-text;
+$field-label-color: $col-app-text;
+$field-color-disabled: $col-app-disabled;
+
+$col-select-field-options-bg: $col-app-block-bg;
+$col-select-field-option: $col-app-text;
+$col-select-field-option-selected: $col-app-accent;
+$col-select-field-option-selected-text: $col-app-text-dark;
+$col-select-field-option-hover: $col-app-accent;
+$col-select-field-option-text-hover: $col-app-text-dark;
+$col-select-field-label: $field-color-text;
+$col-select-field-clear: $field-color-text;
+$col-select-field-spinner: $col-app-accent;
+
+$col-switch-field-background: $_clearDay;
+$col-switch-field-disabled: $_dustyGray;
+$col-switch-field-enabled: $_clearDay;
+$col-switch-field-enabled-background: $col-app-accent;
+
+$field-input-padding-vertical: 0.8rem;
+$field-input-padding-horizontal: 1.6rem;
+$field-border-radius: 0.4rem;
+$field-transition-duration: 0.2s;
+$field-text-font-size: 1.6rem;
+$field-text-line-height: 2.4rem;
+$field-label-font-size: 1.6rem;
+$field-label-line-height: 2.4rem;
+$field-label-small-font-size: 1.2rem;
+$field-label-small-line-height: 1.6rem;
+$field-error-margin-top: 0.4rem;
+$field-error-font-size: 1.4rem;
+$field-error-line-height: 1.25;
+
+// scrollbar
+$col-scrollbar-track-piece: rgba($_clearDay, 0.3);
+$col-scrollbar-thumb: $_clearDay;
+
+// status colors:
+$col-warning: $_orangePeel;
+$col-success: $_yellowGreen;
+$col-error: $_lightRed;
+$col-info: $_lightPurple;
+
+// status message colors:
+$col-status-msg-warning: $col-warning;
+$col-status-msg-success: $col-success;
+$col-status-msg-error: $col-error;
+$col-status-msg-info: $col-info;
+$col-status-msg-bg: $_white;
+$col-status-msg-text: $_white;
+$col-status-msg-text-dark: $_black;
+$col-status-close-btn-hover: rgba($_black, 0.1);
+
+// group menu links
+$col-group-menu-links-dropdown-shadow: 0 0.4rem 2.4rem $_outerSpace;
+
+// burger button
+$col-burger-btn: $_clearDay;
+
+// drawer
+$col-drawer-backdrop-bg: rgba($col-app-bg, 0.7);
+$drawer-padding: 3rem;
+
+// block extrinsics
+$col-block-extrinsics-border: $_clearDay;
+
+// clipboard
+$col-clipboard-success-message-bg: $col-app-bg;
