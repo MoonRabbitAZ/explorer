@@ -16,15 +16,15 @@
           :key="holder.address"
           class="holders__holder-row app__content-block"
         >
-          <div>
+          <p>
             {{ holder.currentNumber }}
-          </div>
+          </p>
           <account-address
             :account-address="holder.address"
           />
-          <div>
+          <p>
             {{ $fbalance(holder.balance) }}
-          </div>
+          </p>
         </div>
       </template>
 
@@ -74,15 +74,11 @@ export default {
     const sortedHolders = computed(() => {
       if (!holders.value) return []
 
-      const sort = holders.value.map(i => i).sort((a, b) =>
+      const sort = [...holders.value].sort((a, b) =>
         b[1].data.free.cmp(a[1].data.free)).slice(0, AMOUNT_LIST_ITEMS)
       return sort.map((item, index) => {
-        const currentNumber = index + 1 >= 10
-          ? `${index + 1}`
-          : `0${index + 1}`
-
         return {
-          currentNumber,
+          currentNumber: (index + 1 < 10 ? '0' : '') + (index + 1),
           address: keyring.encodeAddress(item[0].slice(-32)),
           balance: item[1].data.free.toString(),
         }
