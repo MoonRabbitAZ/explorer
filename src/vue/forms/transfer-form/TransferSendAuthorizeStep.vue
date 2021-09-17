@@ -97,6 +97,7 @@ import { getAccountPair, unlockAccount, lockAccount, cropAddress } from '@/js/he
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { Bus } from '@/js/helpers/event-bus'
 import { errors } from '@/js/errors'
+import { DEFAULT_TRANSACTION_NONCE } from '@/js/const/transaction-nonce.const'
 
 import { BCH_EVENT_METHODS, BCH_EVENT_SECTION } from '@/js/const/blockchain-event.const'
 
@@ -195,7 +196,7 @@ export default {
         try {
           unlockAccount(state.senderPair, formController.form.password.value)
           const options = {
-            nonce: -1,
+            nonce: DEFAULT_TRANSACTION_NONCE,
             tip: formController.form.tipAmount.value,
           }
           const unsubscribe = await props.former.attrs.tx.signAndSend(
