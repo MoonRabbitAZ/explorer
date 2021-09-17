@@ -4,7 +4,7 @@
     :style="{ 'left': `${positionLeft}px`, 'top': `${positionTop}px` }"
   >
     <div
-      v-if="isPing"
+      v-if="isPinged"
       class="validator-locator__ping"
     />
   </div>
@@ -26,20 +26,20 @@ export default {
   },
 
   setup () {
-    const isPing = ref(false)
+    const isPinged = ref(false)
     let hidePingTimeoutId
 
-    function randomDelay () {
+    function getRandomDelay () {
       const rand = MIN_DELAY + Math.random() * (MAX_DELAY + 1 - MIN_DELAY)
       return Math.floor(rand * 1000)
     }
 
     function tryPing () {
-      isPing.value = true
+      isPinged.value = true
       if (hidePingTimeoutId) clearTimeout(hidePingTimeoutId)
 
       hidePingTimeoutId = setTimeout(_ => {
-        isPing.value = false
+        isPinged.value = false
       }, PING_ANIMATION_DURATION)
     }
 
@@ -47,13 +47,13 @@ export default {
       tryPing()
       clearTimeout(pingTimeout)
 
-      pingTimeout = setTimeout(runPingTimeout, randomDelay())
-    }, randomDelay())
+      pingTimeout = setTimeout(runPingTimeout, getRandomDelay())
+    }, getRandomDelay())
 
     onBeforeUnmount(() => clearTimeout(pingTimeout))
 
     return {
-      isPing,
+      isPinged,
     }
   },
 }

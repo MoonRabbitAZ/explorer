@@ -25,7 +25,7 @@
 import ValidatorLocator from '@/vue/pages/validators-map/ValidatorLocator'
 import ChainInfoBlocks from '@explorer-page/tabs/chain-info/ChainInfoBlocks'
 
-import { ref, reactive, toRefs, onMounted } from 'vue'
+import { ref, reactive, toRefs, onMounted, onBeforeUnmount } from 'vue'
 import { VALIDATORS_LOCATIONS } from '@/js/const/validators-locations.const'
 
 const MAP_HEIGHT_ADJUST = 400 / 360
@@ -69,6 +69,8 @@ export default {
       onResize()
       window.addEventListener('resize', onResize)
     })
+
+    onBeforeUnmount(() => { window.removeEventListener('resize', onResize) })
 
     return {
       ...toRefs(state),

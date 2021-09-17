@@ -4,7 +4,7 @@
       class="app__background"
       :class="{
         'app__background--loaded': isLoaded,
-        'app__background--full-blur': isFullBlurBg
+        'app__background--blurred': isBlurredBg
       }"
     />
     <template v-if="isLoaded">
@@ -71,14 +71,14 @@ export default {
       isAppInitialised.value && isApiConnected.value,
     )
 
-    const isFullBlurBg = computed(() =>
+    const isBlurredBg = computed(() =>
       route.name === vueRoutes.validatorsMapPage.name && isLoaded.value,
     )
 
     return {
       isAppInitialised,
       isApiConnected,
-      isFullBlurBg,
+      isBlurredBg,
       isLoaded,
     }
   },
@@ -109,7 +109,7 @@ export default {
     filter: blur(0.6rem);
   }
 
-  &--full-blur {
+  &--blurred {
     background-image:
       linear-gradient(rgba($col-app-bg, 0.6), rgba($col-app-bg, 0.6)),
       url('~@static/branding/app-content-bg.png');
