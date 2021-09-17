@@ -95,6 +95,7 @@ export default {
 
 .navbar {
   height: $app-navbar-height;
+  min-height: $app-navbar-height;
   background: $col-app-block-bg;
   display: flex;
   align-items: center;

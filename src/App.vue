@@ -2,9 +2,12 @@
   <div class="app__main">
     <div
       class="app__background"
-      :class="{'app__background--loaded': isApiConnected && isAppInitialised}"
+      :class="{
+        'app__background--loaded': isLoaded,
+        'app__background--full-blur': isFullBlurBg
+      }"
     />
-    <template v-if="isApiConnected && isAppInitialised">
+    <template v-if="isLoaded">
       <router-view />
     </template>
     <div
@@ -28,10 +31,12 @@ import Loader from '@/vue/common/Loader'
 
 import { api } from '@api'
 import { loadOnReady } from '@/js/helpers/api-helper'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useStore } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import { ErrorHandler } from '@/js/helpers/error-handler'
+import { useRoute } from 'vue-router'
+import { vueRoutes } from '@/vue-router'
 
 export default {
   name: 'app',
@@ -40,6 +45,7 @@ export default {
 
   setup () {
     const store = useStore()
+    const route = useRoute()
     const isAppInitialised = ref(false)
     const isApiConnected = ref(false)
     const blockAuthorHandler = async (header) =>
@@ -61,7 +67,20 @@ export default {
       }
     })
 
-    return { isAppInitialised, isApiConnected, store }
+    const isLoaded = computed(() =>
+      isAppInitialised.value && isApiConnected.value,
+    )
+
+    const isFullBlurBg = computed(() =>
+      route.name === vueRoutes.validatorsMapPage.name && isLoaded.value,
+    )
+
+    return {
+      isAppInitialised,
+      isApiConnected,
+      isFullBlurBg,
+      isLoaded,
+    }
   },
 }
 </script>
@@ -76,14 +95,25 @@ export default {
   height: 100vh;
   top: 0;
   left: 0;
-  background: url('~@static/branding/app-content-bg.png')
-    no-repeat center center;
+  background-image: url('~@static/branding/app-content-bg.png');
+  background-position: center center;
+  background-repeat: no-repeat;
   background-size: cover;
   filter: none;
   z-index: $z-app-background;
 
   &--loaded {
+    background-image:
+      linear-gradient(rgba($col-app-bg, 0.1), rgba($col-app-bg, 0.1)),
+      url('~@static/branding/app-content-bg.png');
     filter: blur(0.6rem);
+  }
+
+  &--full-blur {
+    background-image:
+      linear-gradient(rgba($col-app-bg, 0.6), rgba($col-app-bg, 0.6)),
+      url('~@static/branding/app-content-bg.png');
+    filter: blur(2.5rem);
   }
 }
 

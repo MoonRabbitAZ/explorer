@@ -1,9 +1,7 @@
 <template>
   <div class="app-content">
     <navbar />
-    <div class="app-content__body">
-      <router-view />
-    </div>
+    <router-view />
     <app-footer class="app-content__footer"/>
   </div>
 </template>
@@ -30,12 +28,8 @@ export default {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-}
-
-.app-content__body {
-  position: relative;
-  overflow-x: auto;
-  padding-bottom: 2.6rem;
+  height: 100vh;
+  gap: 2rem;
 }
 
 .app-content__footer {
