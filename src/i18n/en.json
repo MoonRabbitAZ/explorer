@@ -104,7 +104,8 @@
       "upcoming-events": "Upcoming events"
     },
     "wallet": {
-      "my-accounts": "My accounts"
+      "my-accounts": "My accounts",
+      "staking": "Staking"
     }
   },
   "blockchain-events" :{

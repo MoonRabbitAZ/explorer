@@ -29,6 +29,10 @@ export function usePagesTabs () {
         translationName: t('page-tabs.wallet.my-accounts'),
         route: vueRoutes.myAccountsTab,
       },
+      {
+        translationName: t('page-tabs.wallet.staking'),
+        route: vueRoutes.stakingTab,
+      },
     ],
   })
 
