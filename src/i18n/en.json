@@ -85,7 +85,8 @@
         "explorer": "Rabbit Hole",
         "event-calendar": "Annals",
         "holders": "Holders",
-        "map": "Map"
+        "map": "Map",
+        "parachains": "Jurisdictions"
       }
     },
     "accounts": {
@@ -105,6 +106,9 @@
     },
     "wallet": {
       "my-accounts": "My accounts"
+    },
+    "parachains": {
+      "overview": "overview"
     }
   },
   "blockchain-events" :{

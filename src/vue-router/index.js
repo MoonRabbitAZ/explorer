@@ -14,6 +14,9 @@ import Holders from '@/vue/pages/Holders'
 
 import ValidatorsMap from '@/vue/pages/validators-map/ValidatorsMap'
 
+import Parachains from '@parachains-page/Parachains'
+import ParachainsOverviewTab from '@parachains-page/tabs/ParachainsOverviewTab'
+
 import { createRouter, createWebHistory } from 'vue-router'
 import { vueRoutes } from '@/vue-router/routes'
 
@@ -83,6 +86,19 @@ const routes = [
         path: '/map',
         name: vueRoutes.validatorsMapPage.name,
         component: ValidatorsMap,
+      },
+      {
+        path: '/parachains',
+        name: vueRoutes.parachainsPage.name,
+        component: Parachains,
+        redirect: vueRoutes.parachainsOverviewTab,
+        children: [
+          {
+            path: '/parachains/overview',
+            name: vueRoutes.parachainsOverviewTab.name,
+            component: ParachainsOverviewTab,
+          },
+        ],
       },
     ],
   },

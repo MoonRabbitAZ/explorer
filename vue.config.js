@@ -74,6 +74,7 @@ module.exports = {
         '@explorer-page': `${root}/vue/pages/explorer`,
         '@event-calendar-page': `${root}/vue/pages/event-calendar`,
         '@wallet-page': `${root}/vue/pages/wallet`,
+        '@parachains-page': `${root}/vue/pages/parachains`,
       },
     },
   },

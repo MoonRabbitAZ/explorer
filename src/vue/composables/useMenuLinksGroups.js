@@ -25,6 +25,10 @@ export function useMenuLinksGroups () {
           route: vueRoutes.explorerPage,
         },
         {
+          translationName: t('routers-groups.temples.routers.parachains'),
+          route: vueRoutes.parachainsPage,
+        },
+        {
           translationName: t('routers-groups.temples.routers.event-calendar'),
           route: vueRoutes.eventCalendarPage,
         },

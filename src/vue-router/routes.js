@@ -18,4 +18,8 @@ export const vueRoutes = Object.freeze({
 
   // validators map group
   validatorsMapPage: { name: 'validators-map' },
+
+  // parachains group
+  parachainsPage: { name: 'parachains' },
+  parachainsOverviewTab: { name: 'parachains.parachains-overview-tab' },
 })
