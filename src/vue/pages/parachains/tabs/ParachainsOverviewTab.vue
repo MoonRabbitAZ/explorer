@@ -12,6 +12,7 @@
               :key="paractainId"
               class="parachains-overview-tab__row"
               :parachain-id="paractainId"
+              :lease-period="leasePeriod"
               :last-blocks="lastEventsBlocks[paractainId]"
             />
           </template>

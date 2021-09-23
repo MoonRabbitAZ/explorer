@@ -9,26 +9,25 @@
         <p class="parachain-row__main-col">
           {{ $fnumber(parachainId) }}
         </p>
-        <p
-          v-if="heads"
-          class="parachain-row__main-col"
-        >
-          {{ cropString(heads.toString(), 6) }}
+        <p class="parachain-row__main-col">
+          <template v-if="heads">
+            {{ cropString(heads.toString(), 6) }}
+          </template>
         </p>
-        <p
-          class="parachain-row__main-col"
-          v-if="paraLifecycles">
-          {{ paraLifecycles.toString() }}
+        <p class="parachain-row__main-col">
+          <template v-if="paraLifecycles">
+            {{ paraLifecycles.toString() }}
+          </template>
         </p>
-        <p
-          class="parachain-row__main-col"
-          v-if="parachainPeriod">
-          {{ parachainPeriod }}
+        <p class="parachain-row__main-col">
+          <template v-if="parachainPeriod">
+            {{ parachainPeriod }}
+          </template>
         </p>
-        <p
-          class="parachain-row__main-col"
-        >
-          {{ endDate }}
+        <p class="parachain-row__main-col">
+          <template v-if="endDate">
+            {{ endDate }}
+          </template>
         </p>
       </div>
       <i
@@ -53,8 +52,9 @@ import ParachainRowDropdown from '@parachains-page/tabs/parachains-overview/Para
 
 import { computed, ref } from 'vue'
 import { api } from '@api'
-import { useCall } from '@/vue/composables'
+import { useCall, useBlockTime } from '@/vue/composables'
 import { cropString } from '@/js/helpers/crop-string'
+import BN from 'bn.js'
 
 export default {
   name: 'parachain-row',
@@ -73,8 +73,8 @@ export default {
   },
 
   setup (props) {
+    const { calculateTimeStr } = useBlockTime()
     const isDropdownOpened = ref(false)
-    const endDate = ref('359 days 15 hrs')
 
     const heads = useCall(api.query.paras.heads, [props.parachainId])
     const leases = useCall(api.query.slots.leases, [props.parachainId])
@@ -99,16 +99,15 @@ export default {
         : `${startBn.toString()}-${endBn.toString()}`
     })
 
-    // watchEffect(() => {
-    //   if (!parachainPeriod.value || !leasesPeriods.value) return
+    const endDate = computed(() => {
+      if (!parachainPeriod.value || !leasesPeriods.value) return
 
-    //   const periodsBn = new BN(
-    //     leasesPeriods.value[leasesPeriods.value.length - 1])
-    //     .imul(props.leasePeriod.length)
-    //     .iadd(props.leasePeriod.remainder)
-    //   const blockTime = useBlockTime(periodsBn, true)
-    //   endDate.value = blockTime.timeStr.value
-    // })
+      const periodsBn = new BN(
+        leasesPeriods.value[leasesPeriods.value.length - 1])
+        .imul(props.leasePeriod.length)
+        .iadd(props.leasePeriod.remainder)
+      return calculateTimeStr(periodsBn, true)
+    })
 
     return {
       heads,
@@ -147,7 +146,7 @@ export default {
   flex: 1;
   display: grid;
   grid-gap: 2rem;
-  grid-template-columns: 7rem repeat(2, 1fr) 12rem;
+  grid-template-columns: 7rem repeat(2, 1fr) 10rem 12rem;
   align-items: center;
 }
 

@@ -12,7 +12,6 @@
         class="info-block__secondary-value"
       >
         {{ secondaryValue }}
-        {{ isSecondaryValueDisplay }}
       </p>
     </div>
     <div

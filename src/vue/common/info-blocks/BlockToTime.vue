@@ -17,6 +17,7 @@
 import InfoBlock from '@/vue/common/InfoBlock'
 import SkeletonLoader from '@/vue/common/SkeletonLoader'
 
+import { ref } from 'vue'
 import { useBlockTime } from '@/vue/composables'
 
 export default {
@@ -28,7 +29,8 @@ export default {
   },
 
   setup () {
-    const { timeStr } = useBlockTime()
+    const { calculateTimeStr } = useBlockTime()
+    const timeStr = ref(calculateTimeStr())
 
     return {
       timeStr,

@@ -32,18 +32,16 @@ export default {
 
   setup () {
     const sessionInfo = useCall(api.derive.session?.progress)
+    const { calculateTimeStr } = useBlockTime()
 
     const epochTime = computed(() => {
       if (sessionInfo.value) {
         const progresValue =
           sessionInfo.value.sessionProgress.sub(sessionInfo.value.sessionLength)
-        const { timeStr: total } =
-          useBlockTime(sessionInfo.value.sessionLength)
-        const { timeStr: progress } = useBlockTime(progresValue)
 
         return {
-          total: total.value,
-          progress: progress.value,
+          total: calculateTimeStr(sessionInfo.value.sessionLength),
+          progress: calculateTimeStr(progresValue),
         }
       } else {
         return {
