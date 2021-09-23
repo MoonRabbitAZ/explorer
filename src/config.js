@@ -7,8 +7,7 @@ export const CONFIG = Object.freeze({
 
   BUILD_VERSION: packageJson.version,
 
-  // WSS_NODE: 'wss://node.polkadot.tokend.io',
-  WSS_NODE: 'wss://kusama.api.onfinality.io/public-ws',
+  WSS_NODE: 'wss://node.polkadot.tokend.io',
 
   API_URL: 'https://bridge.hole.moonrabbit.com/',
 })
