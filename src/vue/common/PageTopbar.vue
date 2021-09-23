@@ -23,7 +23,7 @@
 <script>
 
 export default {
-  name: 'event-calendar',
+  name: 'page-topbar',
 
   props: {
     pageName: { type: String, required: true },

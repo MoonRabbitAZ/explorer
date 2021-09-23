@@ -93,7 +93,8 @@ import { InputField, AmountField, ClipboardField } from '@/vue/fields'
 import { reactive, toRefs, computed } from 'vue'
 import { useValidators, useForm } from '@/vue/composables'
 import { TransferFormer } from '@/js/formers/TransferFormer'
-import { getAccountPair, unlockAccount, lockAccount, cropAddress } from '@/js/helpers/account-helper'
+import { getAccountPair, unlockAccount, lockAccount } from '@/js/helpers/account-helper'
+import { cropString } from '@/js/helpers/crop-string'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { Bus } from '@/js/helpers/event-bus'
 import { errors } from '@/js/errors'
@@ -208,7 +209,7 @@ export default {
           Bus.processing({
             messageId: 'forms.transfer-form-authorize-step.transaction-processing',
             messageArgs: {
-              account: cropAddress(props.former.attrs.recipientAddress),
+              account: cropString(props.former.attrs.recipientAddress),
             },
           })
           lockAccount(state.senderPair)

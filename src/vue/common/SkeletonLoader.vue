@@ -25,6 +25,7 @@ export default {
   background-color: $col-app-content-block-bg;
   overflow: hidden;
   border-radius: 0.4rem;
+  height: 4.6rem;
 
   &--without-bg {
     background-color: transparent;

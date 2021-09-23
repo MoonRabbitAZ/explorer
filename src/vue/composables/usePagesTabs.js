@@ -34,7 +34,7 @@ export function usePagesTabs () {
     parachains: [
       {
         translationName: t('page-tabs.parachains.overview'),
-        route: vueRoutes.myAccountsTab,
+        route: vueRoutes.parachainsOverviewTab,
       },
     ],
   })

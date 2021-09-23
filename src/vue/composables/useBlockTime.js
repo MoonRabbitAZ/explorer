@@ -6,7 +6,7 @@ import { reactive, toRefs } from 'vue'
 
 const DEFAULT_TIME = new BN(6000)
 
-export function useBlockTime (blocks = BN_ONE) {
+export function useBlockTime (blocks = BN_ONE, isShortTime = false) {
   const { globalize: t } = useGlobalTranslation()
   const state = reactive({
     blockTime: 0,
@@ -24,14 +24,17 @@ export function useBlockTime (blocks = BN_ONE) {
   const value = state.blockTime.mul(blocks).toNumber()
   state.time = extractTime(Math.abs(value))
   const { days, hours, minutes, seconds } = state.time
-  state.timeStr = [
+  const timeArr = [
     days ? t('formats.time.days', { days }) : null,
     hours ? t('formats.time.hours', { hours }) : null,
     minutes ? t('formats.time.minutes', { minutes }) : null,
     seconds ? t('formats.time.seconds', { seconds }) : null,
   ]
     .filter(value => !!value)
-    .join(' ') || t('formats.time.seconds', { seconds })
+
+  state.timeStr = isShortTime
+    ? timeArr.slice(0, 2).join(' ')
+    : timeArr.join(' ') || t('formats.time.seconds', { seconds })
 
   state.blockTime = state.blockTime.toNumber()
 
