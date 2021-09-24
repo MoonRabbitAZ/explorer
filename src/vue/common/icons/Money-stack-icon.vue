@@ -9,6 +9,3 @@
 <script>
 export default { name: 'money-stack-icon' }
 </script>
-
-<style lang="scss" scoped>
-</style>

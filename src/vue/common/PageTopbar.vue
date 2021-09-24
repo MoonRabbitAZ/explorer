@@ -37,7 +37,7 @@ export default {
 @import '~@/scss/mixins';
 
 .page-topbar {
-  margin: 2rem 0 3rem;
+  margin-bottom: 3rem;
   display: flex;
   align-items: center;
   height: 4rem;

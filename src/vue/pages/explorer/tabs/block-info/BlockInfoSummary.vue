@@ -42,6 +42,7 @@ import BN from 'bn.js'
 
 import { toRefs, reactive } from 'vue'
 import { api } from '@api'
+import { BCH_EVENT_METHODS, BCH_EVENT_SECTION } from '@/js/const/blockchain-event.const'
 
 export default {
   name: 'block-info-summary',
@@ -67,14 +68,26 @@ export default {
     function extractEventDetails () {
       events.value.forEach(
         ({ event: { data, method, section } }) => {
-          state.deposits = section === 'balances' && method === 'Deposit'
+          state.deposits = section === BCH_EVENT_SECTION.balances &&
+            method === BCH_EVENT_METHODS.deposit
             ? state.deposits.iadd(data[1])
             : state.deposits
-          state.transfers = section === 'balances' && method === 'Transfer'
+
+          state.transfers = section === BCH_EVENT_SECTION.balances &&
+            method === BCH_EVENT_METHODS.transfer
             ? state.transfers.iadd(data[2])
             : state.transfers
-          state.weight = section === 'system' && ['ExtrinsicFailed', 'ExtrinsicSuccess'].includes(method)
-            ? state.weight.iadd(((method === 'ExtrinsicSuccess' ? data[0] : data[1])).weight)
+
+          state.weight = section === BCH_EVENT_SECTION.system &&
+            [
+              BCH_EVENT_METHODS.extrinsicFailed,
+              BCH_EVENT_METHODS.extrinsicSuccess,
+            ].includes(method)
+            ? state.weight.iadd(
+              (method === BCH_EVENT_METHODS.extrinsicSuccess
+                ? data[0]
+                : data[1]
+              ).weight)
             : state.weight
         })
     }

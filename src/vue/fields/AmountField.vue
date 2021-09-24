@@ -56,6 +56,7 @@ export default {
     function onInput (event) {
       const formatValue = event.target.value.replace(/,/, '.')
       value.value = formatValue.match(`\\d*\\.?\\d{0,${decimal}}`)[0]
+      if (value.value === '.') value.value = '0.'
       emit(EVENTS.updateModelValue, inputToBn(value.value).toString())
     }
 

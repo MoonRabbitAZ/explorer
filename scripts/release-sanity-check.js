@@ -62,7 +62,7 @@ function validateChangelogHasVersionOnTop () {
 }
 
 function validateChangelogAnchorsLegend () {
-  const baseRepoUrl = 'https://gitlab.com/tokend/polkadot/web-client'
+  const baseRepoUrl = 'https://gitlab.com/tokend/polkadot/new-web-client'
   const anyReleaseTagRe =
     /## \[\d+\.\d+\.\d+((-rc|-x)\.\d+)?\] - \d{4}-\d{2}-\d{2}/gi
 

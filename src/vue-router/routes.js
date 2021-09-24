@@ -12,4 +12,10 @@ export const vueRoutes = Object.freeze({
   // accounts group
   walletPage: { name: 'wallet' },
   myAccountsTab: { name: 'wallet.my-accounts-tab' },
+
+  // holders group
+  holdersPage: { name: 'holders' },
+
+  // validators map group
+  validatorsMapPage: { name: 'validators-map' },
 })

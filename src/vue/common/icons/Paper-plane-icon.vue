@@ -10,6 +10,3 @@
 <script>
 export default { name: 'paper-plane-icon' }
 </script>
-
-<style lang="scss" scoped>
-</style>

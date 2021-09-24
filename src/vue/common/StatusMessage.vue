@@ -11,30 +11,29 @@
       @mouseleave="startProgressBar"
     >
       <div class="status-message__body">
-        <div class="status-message__icon-wrp">
-          <i
-            class="mdi status-message__icon"
-            :class="[`status-message__icon--${messageType}`, messageIconClass]"
+        <div class="status-message__top-bar">
+          <h2 class="status-message__title">
+            <icon
+              class="status-message__icon"
+              :class="[`status-message__icon--${messageType}`]"
+              :name="messageIconName"
+            />
+            {{ $t(`title_${messageType}`) }}
+          </h2>
+          <button
+            type="button"
+            @click="isShown = false"
+            class="status-message__close-btn"
           />
         </div>
-
-        <div class="status-message__payload">
-          <h4 class="status-message__title">
-            {{ $t(`title_${messageType}`) }}
-          </h4>
-
-          <p class="status-message__text">
-            {{ $tglobal(messageId, { context: messageType, ...messageArgs}) }}
-          </p>
-        </div>
-
-        <button
-          type="button"
-          @click="isShown = false"
-          class="status-message__close-btn"
-        />
+        <p class="status-message__text">
+          {{ $tglobal(messageId, { context: messageType, ...messageArgs}) }}
+        </p>
       </div>
-      <div class="status-message__progress-bar">
+      <div
+        v-if="messageType !== MESSAGE_TYPES.processing"
+        class="status-message__progress-bar"
+      >
         <span
           class="status-message__progress-bar-percentage"
           :style="{ 'width': getInvertedProgressPercents + '%' }"
@@ -46,24 +45,27 @@
 </template>
 
 <script>
+import Icon from '@/vue/common/Icon'
 import { Bus } from '@/js/helpers/event-bus'
 
 const DEFAULT_MESSAGE_TRANSLATION_ID = 'default-message'
-const CLOSE_TIMEOUT_MS = 5000
+const CLOSE_TIMEOUT_MS = 7500
 const SHOWN_AGAIN_PRESENCE_TIMEOUT_MS = 1000
 const ONE_HUNDRED_PERCENTS = 100
 const MAX_ANIMATION_PROGRESS = 1
 const MIN_ANIMATION_PROGRESS = 0
 
 const MESSAGE_TYPES = Object.freeze({
-  warning: 'warning',
   success: 'success',
   error: 'error',
+  processing: 'processing',
   info: 'info',
 })
 
 export default {
   name: 'status-message',
+
+  components: { Icon },
 
   data: _ => ({
     messageTitleId: '',
@@ -79,19 +81,20 @@ export default {
       paused: false,
     },
     DEFAULT_MESSAGE_TRANSLATION_ID,
+    MESSAGE_TYPES,
   }),
 
   computed: {
-    messageIconClass () {
+    messageIconName () {
       switch (this.messageType) {
         case MESSAGE_TYPES.success:
-          return 'mdi-emoticon-cool-outline'
+          return 'success'
         case MESSAGE_TYPES.error:
-          return 'mdi-emoticon-cry-outline'
+          return 'alert'
         case MESSAGE_TYPES.info:
-          return 'mdi-information-outline'
-        case MESSAGE_TYPES.warning:
-          return 'mdi-alert-outline'
+          return 'info'
+        case MESSAGE_TYPES.processing:
+          return 'rotate'
         default:
           return ''
       }
@@ -111,12 +114,12 @@ export default {
   created () {
     Bus.on(Bus.eventList.success, payload =>
       this.show(MESSAGE_TYPES.success, payload))
-    Bus.on(Bus.eventList.warning, payload =>
-      this.show(MESSAGE_TYPES.warning, payload))
     Bus.on(Bus.eventList.error, payload =>
       this.show(MESSAGE_TYPES.error, payload))
     Bus.on(Bus.eventList.info, payload =>
       this.show(MESSAGE_TYPES.info, payload))
+    Bus.on(Bus.eventList.processing, payload =>
+      this.show(MESSAGE_TYPES.processing, payload))
   },
 
   unmounted () {
@@ -146,7 +149,7 @@ export default {
         this.isShown = true
       }
 
-      this.startAnimationTimeout()
+      if (messageType !== MESSAGE_TYPES.processing) this.startAnimationTimeout()
     },
 
     startAnimationTimeout (currentAnimationTime = 0) {
@@ -209,8 +212,7 @@ export default {
 @import '~@/scss/variables';
 @import '~@/scss/mixins';
 
-$payload-padding: 2.4rem;
-$icon-padding: 2.4rem;
+$progress-bar-bg: rgba($col-app-accent, 0.2);
 
 .status-message {
   @include box-shadow();
@@ -222,22 +224,9 @@ $icon-padding: 2.4rem;
   min-width: 32rem;
   display: flex;
   flex-direction: column;
-
-  &--warning {
-    background-color: $col-status-msg-warning;
-  }
-
-  &--success {
-    background-color: $col-status-msg-bg;
-  }
-
-  &--error {
-    background-color: $col-status-msg-error;
-  }
-
-  &--info {
-    background-color: $col-status-msg-bg;
-  }
+  padding: 2rem;
+  background: $col-app-block-bg;
+  box-shadow: $col-status-shadow;
 
   &--jump {
     animation: status-message__transition-jump 0.25s ease-out;
@@ -252,111 +241,74 @@ $icon-padding: 2.4rem;
   }
 }
 
-.status-message__body {
-  display: flex;
-}
-
 .status-message__progress-bar {
-  position: absolute;
+  position: relative;
   width: 100%;
-  height: 0.5rem;
-  bottom: 0;
+  height: 0.2rem;
+  margin-top: 2rem;
+  border-radius: 0.4rem;
+  background-color: $progress-bar-bg;
 }
 
 .status-message__progress-bar-percentage {
   position: absolute;
   top: 0;
   left: 0;
-  height: 0.5rem;
+  height: 0.2rem;
   width: 100%;
-  background-color: $col-status-msg-success;
+  background-color: $col-app-accent;
   max-width: 100%;
-
-  &--success {
-    background-color: $col-status-msg-success;
-  }
-
-  &--error {
-    background-color: $col-status-msg-text;
-  }
-
-  &--info {
-    background-color: $col-status-msg-info;
-  }
-
-  &--warning {
-    background-color: $col-status-msg-text;
-  }
+  border-radius: 0.4rem;
 }
 
-.status-message__payload {
-  padding: $payload-padding $payload-padding $payload-padding 1.2rem;
+.status-message__top-bar {
+  display: flex;
+  justify-content: space-between;
   flex: 1;
+  margin-bottom: 2rem;
 }
 
 .status-message__title {
-  font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+  font-size: 1.8rem;
+  line-height: 1;
   font-weight: 700;
-  margin-bottom: 0.4rem;
-  color: $col-status-msg-text;
-}
-
-.status-message--success .status-message__title,
-.status-message--info .status-message__title {
-  color: $col-status-msg-text-dark;
+  color: $col-app-text;
 }
 
 .status-message__text {
-  font-size: 1.6rem;
-  line-height: 1.25;
-  color: $col-status-msg-text;
-}
-
-.status-message--success .status-message__text,
-.status-message--info .status-message__text {
-  color: $col-status-msg-text-dark;
-}
-
-.status-message__icon-wrp {
-  min-width: 4.2rem;
-  padding: $icon-padding 1.2rem $icon-padding $icon-padding;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+  color: $col-app-text;
 }
 
 .status-message__icon {
   display: flex;
-  font-size: 3.6rem;
+  width: 2rem;
+  height: 2rem;
+  margin-right: 1.2rem;
+  color: $col-app-text;
 
   &--success {
-    color: $col-status-msg-success;
+    color: $col-app-accent;
   }
 
   &--error {
-    color: $col-status-msg-text;
+    color: $col-app-error;
   }
 
-  &--info {
-    color: $col-status-msg-info;
-  }
-
-  &--warning {
-    color: $col-status-msg-text;
+  &--processing {
+    animation: rotate-process-icon 1s 1s ease-out infinite;
   }
 }
 
 .status-message__close-btn {
   position: relative;
-  width: 4rem;
+  width: 2rem;
   align-self: stretch;
   background-color: transparent;
   display: block;
-
-  &:hover {
-    transition: 0.2s;
-    background-color: $col-status-close-btn-hover;
-  }
 
   /* cross */
   $cross-stroke-width: 0.2rem;
@@ -370,43 +322,19 @@ $icon-padding: 2.4rem;
     position: absolute;
     height: $cross-stroke-height;
     width: $cross-stroke-width;
-    top: $payload-padding - 0.2rem;
+    top: calc(50% - (#{$cross-stroke-height} / 2));
     left: calc(50% - (#{$cross-stroke-width} / 2));
-    background-color: $col-status-msg-bg;
+    background-color: $col-app-text;
   }
 
   &:before {
-    transform: rotate(45deg);
-  }
-
-  &:after {
-    transform: rotate(-45deg);
-  }
-
-  &:hover:before {
     transform: rotate(225deg);
   }
 
-  &:hover:after {
+  &:after {
     transform: rotate(135deg);
   }
-
-  &:hover:after,
-  &:hover:before {
-    transition: 0.2s;
-    /* stylelint-disable function-calc-no-invalid */
-    top: calc(50% - (#{$cross-stroke-height} / 2));
-    /* stylelint-enable function-calc-no-invalid */
-  }
   /* /cross */
-}
-
-.status-message--success .status-message__close-btn,
-.status-message--info .status-message__close-btn {
-  &:before,
-  &:after {
-    background-color: $col-status-msg-text-dark;
-  }
 }
 
 .status-message__transition-enter-active,
@@ -433,17 +361,25 @@ $icon-padding: 2.4rem;
     transform: scale(1);
   }
 }
+@keyframes rotate-process-icon {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
 </style>
 
 <i18n locale="en" src="@locales/en.json"></i18n>
 <i18n>
 {
   "en": {
-    "title_warning": "Warning",
     "title_success": "Success",
     "title_error": "Error",
     "title_info": "Notification",
-    "default-message_warning": "Something you are doing is not recommended",
+    "title_processing": "Processing",
     "default-message_success": "Action successful",
     "default-message_error": "Something went wrong",
     "default-message_info": "Something is happening.",

@@ -93,8 +93,13 @@ import { InputField, AmountField, ClipboardField } from '@/vue/fields'
 import { reactive, toRefs, computed } from 'vue'
 import { useValidators, useForm } from '@/vue/composables'
 import { TransferFormer } from '@/js/formers/TransferFormer'
-import { getAccountPair, unlockAccount, lockAccount } from '@/js/helpers/account-helper'
+import { getAccountPair, unlockAccount, lockAccount, cropAddress } from '@/js/helpers/account-helper'
 import { ErrorHandler } from '@/js/helpers/error-handler'
+import { Bus } from '@/js/helpers/event-bus'
+import { errors } from '@/js/errors'
+import { DEFAULT_TRANSACTION_NONCE } from '@/js/const/transaction-nonce.const'
+
+import { BCH_EVENT_METHODS, BCH_EVENT_SECTION } from '@/js/const/blockchain-event.const'
 
 const EVENTS = {
   submit: 'submit',
@@ -147,18 +152,65 @@ export default {
       },
     })
 
+    function txHandler (unsubscribe) {
+      return result => {
+        if (!result?.status) return
+        try {
+          if (result.status.isFinalized || result.status.isInBlock) {
+            result.events
+              .filter(({ event: { section } }) =>
+                section === BCH_EVENT_SECTION.system)
+              .forEach(({ event: { data, method } }) => {
+                if (method === BCH_EVENT_METHODS.extrinsicFailed) {
+                  const [error] = data
+                  let message = ''
+
+                  if (error.isModule) {
+                    const mod = error.asModule
+                    const { section, name, documentation } =
+                      error.registry.findMetaError(mod)
+
+                    message = `${section}.${name}: ${documentation.join(' ')}`
+                  } else {
+                    message = error.toString()
+                  }
+                  throw new errors.TransactionError(message)
+                } else if (method === BCH_EVENT_METHODS.extrinsicSuccess) {
+                  Bus.success('forms.transfer-form-authorize-step.transaction-success')
+                }
+              })
+          }
+        } catch (e) {
+          ErrorHandler.process(e)
+        }
+
+        if (result.isCompleted) {
+          unsubscribe()
+        }
+      }
+    }
+
     function submit () {
       formController.disableForm()
       setTimeout(async () => {
         try {
           unlockAccount(state.senderPair, formController.form.password.value)
-          await props.former.attrs.tx.signAndSend(
+          const options = {
+            nonce: DEFAULT_TRANSACTION_NONCE,
+            tip: formController.form.tipAmount.value,
+          }
+          const unsubscribe = await props.former.attrs.tx.signAndSend(
             state.senderPair,
-            {
-              nonce: -1,
-              tip: formController.form.tipAmount.value,
-            })
+            options,
+            txHandler(() => unsubscribe()),
+          )
 
+          Bus.processing({
+            messageId: 'forms.transfer-form-authorize-step.transaction-processing',
+            messageArgs: {
+              account: cropAddress(props.former.attrs.recipientAddress),
+            },
+          })
           lockAccount(state.senderPair)
           emit(EVENTS.submit)
         } catch (e) {

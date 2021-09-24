@@ -13,6 +13,3 @@
 <script>
 export default { name: 'alert-icon' }
 </script>
-
-<style lang="scss" scoped>
-</style>

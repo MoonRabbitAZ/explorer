@@ -38,6 +38,9 @@ export class ErrorHandler {
       case errors.NetworkError:
         translationId = 'errors.network'
         break
+      case errors.TransactionError:
+        translationId = 'errors.transaction'
+        break
       default:
         translationId = 'errors.default'
     }

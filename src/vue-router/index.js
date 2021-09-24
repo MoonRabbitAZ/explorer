@@ -10,6 +10,10 @@ import UpcomingEventsTab from '@event-calendar-page/tabs/UpcomingEventsTab'
 import Wallet from '@wallet-page/Wallet'
 import MyAccountsTab from '@wallet-page/tabs/MyAccountsTab'
 
+import Holders from '@/vue/pages/Holders'
+
+import ValidatorsMap from '@/vue/pages/validators-map/ValidatorsMap'
+
 import { createRouter, createWebHistory } from 'vue-router'
 import { vueRoutes } from '@/vue-router/routes'
 
@@ -69,6 +73,16 @@ const routes = [
             component: MyAccountsTab,
           },
         ],
+      },
+      {
+        path: '/holders',
+        name: vueRoutes.holdersPage.name,
+        component: Holders,
+      },
+      {
+        path: '/map',
+        name: vueRoutes.validatorsMapPage.name,
+        component: ValidatorsMap,
       },
     ],
   },

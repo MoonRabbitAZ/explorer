@@ -35,13 +35,7 @@ import { toRefs, computed } from 'vue'
 import { useExtrinsic } from '@/vue/composables'
 import { getTypeDef } from '@polkadot/types'
 import { getAddress } from '@/js/helpers/account-helper'
-
-const EVENT_METHODS = {
-  success: 'ExtrinsicSuccess',
-  failed: 'ExtrinsicFailed',
-}
-
-const EVENT_SYSTEM_SECTION = 'system'
+import { BCH_EVENT_METHODS, BCH_EVENT_SECTION } from '@/js/const/blockchain-event.const'
 
 export default {
   name: 'extrinsic-row',
@@ -72,11 +66,14 @@ export default {
     const weight = computed(() => {
       const infoRecord = filtredEvents.value
         .find(({ event: { method, section } }) =>
-          section === EVENT_SYSTEM_SECTION &&
-            [EVENT_METHODS.failed, EVENT_METHODS.success].includes(method),
+          section === BCH_EVENT_SECTION.system &&
+            [
+              BCH_EVENT_METHODS.extrinsicFailed,
+              BCH_EVENT_METHODS.extrinsicSuccess,
+            ].includes(method),
         )
       const dispatchInfo = infoRecord
-        ? infoRecord.event.method === EVENT_METHODS.success
+        ? infoRecord.event.method === BCH_EVENT_METHODS.extrinsicSuccess
           ? infoRecord.event.data[0]
           : infoRecord.event.data[1]
         : undefined

@@ -39,24 +39,18 @@ class EventBus {
 
   success (payload) { this.emit(this.eventList.success, payload) }
 
-  warning (payload) { this.emit(this.eventList.warning, payload) }
+  processing (payload) { this.emit(this.eventList.processing, payload) }
 
   error (payload) { this.emit(this.eventList.error, payload) }
 
   info (payload) { this.emit(this.eventList.info, payload) }
 
-  newBlockchainHeader (payload) {
-    this.emit(this.eventList.newBlockchainHeader, payload)
-  }
-
   get eventList () {
     return {
       success: 'success',
-      warning: 'warning',
+      processing: 'processing',
       error: 'error',
       info: 'info',
-      willRequestManaged: 'will-request-managed',
-      newBlockchainHeader: 'new-blockchain-header',
     }
   }
 

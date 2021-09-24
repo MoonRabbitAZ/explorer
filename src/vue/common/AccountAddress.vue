@@ -74,6 +74,7 @@ export default {
 .account-address__addr-btn {
   width: 100%;
   cursor: pointer;
+  text-align: left;
 }
 
 .account-address__drawer-addr-wrap {
