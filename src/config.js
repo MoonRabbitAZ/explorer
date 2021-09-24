@@ -38,4 +38,12 @@ export default Object.assign(
 
     STAKING_SYSTEM_ADDRESS: 'GsvVmjr1CBHwQHw84pPHMDxgNY3iBLz6Qn7qS3CH8qPhrHz',
   },
+
+  // process.env
+  process.env
+    ? config
+    : process.env,
+  document.ENV
+    ? config
+    : document.ENV,
 )
