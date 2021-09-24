@@ -1,10 +1,10 @@
 <template>
   <div class="total-issuance">
     <info-block
-      v-if="totalIssuance"
+      v-if="currentBalance"
       class="total-issuance__info"
       :title="$t('total-issued-title')"
-      :value="$fbalance(totalIssuance)"
+      :value="$fbalance(currentBalance)"
     />
     <skeleton-loader
       v-else
@@ -17,8 +17,11 @@
 import InfoBlock from '@/vue/common/InfoBlock'
 import SkeletonLoader from '@/vue/common/SkeletonLoader'
 
+import { computed } from 'vue'
 import { api } from '@api'
 import { useCall } from '@/vue/composables'
+import { IS_MAIN_NODE, DEDUCTIBLE_BALANCE } from '@/js/const/deducticable-balance.const'
+
 export default {
   name: 'chain-info-blocks',
 
@@ -29,9 +32,14 @@ export default {
 
   setup () {
     const totalIssuance = useCall(api.query.balances?.totalIssuance)
-
+    const currentBalance = computed(() => {
+      if (!totalIssuance.value) return
+      return IS_MAIN_NODE
+        ? totalIssuance.value.sub(DEDUCTIBLE_BALANCE)
+        : totalIssuance.value
+    })
     return {
-      totalIssuance,
+      currentBalance,
     }
   },
 }

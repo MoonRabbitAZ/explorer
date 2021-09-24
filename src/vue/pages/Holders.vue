@@ -56,6 +56,7 @@ import { computed } from 'vue'
 import { api } from '@api'
 import { useCall } from '@/vue/composables'
 import { keyring } from '@polkadot/ui-keyring'
+import { ADMIN_ADDRESS, DEDUCTIBLE_BALANCE } from '@/js/const/deducticable-balance.const'
 
 const AMOUNT_LIST_ITEMS = 100
 
@@ -77,10 +78,15 @@ export default {
       const sort = [...holders.value].sort((a, b) =>
         b[1].data.free.cmp(a[1].data.free)).slice(0, AMOUNT_LIST_ITEMS)
       return sort.map((item, index) => {
+        const address = keyring.encodeAddress(item[0].slice(-32))
+        const balance = address === ADMIN_ADDRESS
+          ? item[1].data.free.sub(DEDUCTIBLE_BALANCE).toString()
+          : item[1].data.free.toString()
+
         return {
           currentNumber: (index + 1 < 10 ? '0' : '') + (index + 1),
-          address: keyring.encodeAddress(item[0].slice(-32)),
-          balance: item[1].data.free.toString(),
+          address,
+          balance,
         }
       })
     })
