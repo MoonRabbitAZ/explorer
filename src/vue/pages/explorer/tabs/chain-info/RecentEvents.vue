@@ -14,9 +14,19 @@
             <span class="recent-events__event-title">
               {{ `${item.record.event.section}.${item.record.event.method}` }}
             </span>
-            <span class="recent-events__event-block-number">
-              {{ eventBlockNumber(item) }}
-            </span>
+            <div class="recent-events__event-block-number">
+              <router-link
+                class="recent-events__event-block-number-link"
+                :to="{
+                  ...$routes.blockInfoTab,
+                  query: {
+                    blockIdent: item.blockHash,
+                  }
+                }"
+              >
+                {{ eventBlockNumber(item) }}
+              </router-link>
+            </div>
           </div>
           <div class="recent-events__event-meta">
             {{ formatMeta(item.record.event.meta) }}
@@ -99,13 +109,21 @@ export default {
 }
 
 .recent-events__event-header {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  grid-gap: 1rem;
   margin-bottom: 1rem;
 }
 
 .recent-events__event-title,
 .recent-events__event-block-number {
+  flex: 1;
+  color: $col-app-accent;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.recent-events__event-block-number-link {
   color: $col-app-accent;
 }
 

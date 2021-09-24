@@ -61,6 +61,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Icon on account row
 - Design status message
 
+#### Fixed
+- Display zero block number information
+- Last blocks and recent event design
+
 #### Removed
 - Explorer helper
 - `Hooks` folder

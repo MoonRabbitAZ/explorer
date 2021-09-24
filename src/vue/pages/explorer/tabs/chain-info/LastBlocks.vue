@@ -24,9 +24,10 @@
           <span class="last-blocks__row-block-id">
             {{ item.hash.toHex() }}
           </span>
-          <span class="last-blocks__row-account">
-            {{ getAddress(item.author) }}
-          </span>
+          <account-address
+            class="last-blocks__row-block-account"
+            :account-address="item.author.toString()"
+          />
         </div>
       </div>
     </template>
@@ -39,6 +40,8 @@
 </template>
 
 <script>
+import AccountAddress from '@/vue/common/AccountAddress'
+
 import { getAddress } from '@/js/helpers/account-helper'
 import { computed } from 'vue'
 import { useStore } from 'vuex'
@@ -46,6 +49,8 @@ import { vuexTypes } from '@/vuex'
 
 export default {
   name: 'last-blocks',
+
+  components: { AccountAddress },
 
   setup () {
     const store = useStore()
@@ -78,8 +83,8 @@ export default {
 
 .last-blocks__row {
   display: grid;
-  grid-template-columns: max-content 0.7fr 0.3fr;
-  grid-gap: 1.4rem;
+  grid-template-columns: max-content 0.7fr minmax(8rem, 1fr);
+  grid-gap: 0 1.4rem;
   align-items: center;
   height: 5.2rem;
   padding: 0 1.6rem;
@@ -87,21 +92,35 @@ export default {
   & + & {
     margin-top: 0.4rem;
   }
+
+  @include respond-to($small) {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .last-blocks__row-number-link {
   font-size: 1.6rem;
   color: $col-app-accent;
+
+  @include respond-to($small) {
+    grid-column: 1/2;
+  }
 }
 
-.last-blocks__row-account,
 .last-blocks__row-block-id {
   overflow: hidden;
   text-overflow: ellipsis;
+
+  @include respond-to($small) {
+    grid-column: 1/2;
+  }
 }
 
-.last-blocks__row-account {
-  color: $col-app-accent;
+.last-blocks__row-block-account {
+  @include respond-to($small) {
+    grid-row: 1/3;
+    grid-column: 2/3;
+  }
 }
 
 .last-blocks__no-data-message {
