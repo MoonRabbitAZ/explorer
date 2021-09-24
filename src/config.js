@@ -1,3 +1,4 @@
+import packageJson from '../package.json'
 import _isEmpty from 'lodash/isEmpty'
 
 const config = {}
@@ -27,7 +28,7 @@ export default Object.assign(
 
     STORAGE_KEY: 'moon-rabbit-storage',
 
-    BUILD_VERSION: '0.1.0-rc.1',
+    BUILD_VERSION: packageJson.version,
 
     WSS_NODE: 'wss://node.polkadot.tokend.io',
 
