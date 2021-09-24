@@ -25,7 +25,9 @@
         <h5 class="block-header__item-header">
           {{ $t('header-validator') }}
         </h5>
-        <account-address :account-address="header.author.toString()" />
+        <template v-if="header?.author">
+          <account-address :account-address="header.author.toString()" />
+        </template>
       </div>
 
       <div class="block-header__info-item">
