@@ -5,10 +5,7 @@
       :account-address="staking.address"
     />
     <p>
-      {{ $fbalance(staking.amount) }}
-    </p>
-    <p>
-      {{ `${staking.interestRate}%` }}
+      {{ $tglobal(`staking-options.types.type-${staking.stakeOptionId}`) }}
     </p>
     <p>
       {{ $fddmy(staking.createdAt) }}
@@ -16,7 +13,8 @@
     <div>
       <app-button
         scheme="secondary"
-        icon-name="money-stack"
+        :text="$t('unstake-btn')"
+        disabled
       />
     </div>
   </div>
@@ -50,8 +48,16 @@ export default {
 .staking-account-row {
   display: grid;
   grid-gap: 2rem;
-  grid-template-columns: 1fr 15rem 5rem 11rem 4.4rem;
+  grid-template-columns: 1fr 15rem 11rem max-content;
   align-items: center;
   padding: 1rem 1.6rem;
 }
 </style>
+
+<i18n>
+{
+  "en": {
+    "unstake-btn": "Unstake"
+  }
+}
+</i18n>

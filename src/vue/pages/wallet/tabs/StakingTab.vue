@@ -1,30 +1,43 @@
 <template>
   <div class="staking-tab app__padding">
-    <div class="staking-tab__top-bar">
-      <app-button
-        class="my-accounts-tab__actions-button"
-        scheme="primary"
-        :text="$t('stake-btn')"
-        @click="isStakeFormOpen = true"
-      />
-    </div>
-
-    <staking-list :staking-list="accountsStakingList"/>
-
-    <drawer
-      v-model:is-shown="isStakeFormOpen"
-      is-default-body
-      :close-by-click-outside="false"
-    >
-      <template #heading>
-        {{ $t('stake-title') }}
+    <template v-if="isLoaded">
+      <template v-if="isLoadFailed">
+        <error-message
+          :header="$t('error-header')"
+          :message="$t('error-message')"
+        />
       </template>
-      <staking-form
-        :my-accounts="allAccounts"
-        :staking-options="stakingOptions"
-        @close-drawer="isStakeFormOpen = false"
-      />
-    </drawer>
+      <template v-else>
+        <div class="staking-tab__top-bar">
+          <app-button
+            class="my-accounts-tab__actions-button"
+            scheme="primary"
+            :text="$t('stake-btn')"
+            @click="isStakeFormOpen = true"
+          />
+        </div>
+
+        <staking-list :staking-list="stakingList"/>
+
+        <drawer
+          v-model:is-shown="isStakeFormOpen"
+          is-default-body
+          :close-by-click-outside="false"
+        >
+          <template #heading>
+            {{ $t('stake-title') }}
+          </template>
+          <staking-form
+            :my-accounts="myAccounts"
+            :staking-options="stakingOptions"
+            @close-drawer="isStakeFormOpen = false"
+          />
+        </drawer>
+      </template>
+    </template>
+    <template v-else>
+      <loader />
+    </template>
   </div>
 </template>
 
@@ -32,36 +45,15 @@
 import StakingList from '@wallet-page/tabs/staking-tab/StakingList'
 import StakingForm from '@/vue/forms/StakingForm'
 import Drawer from '@/vue/common/Drawer'
+import Loader from '@/vue/common/Loader'
+import ErrorMessage from '@/vue/common/ErrorMessage'
 
-import { ref } from 'vue'
+import { reactive, toRefs } from 'vue'
 import { keyring } from '@polkadot/ui-keyring'
 import { StakingRecord } from '@/js/records/staking.record'
 import { stakingApi } from '@api'
 import { StakingOptionRecord } from '@/js/records/staking-option.record'
-
-const HARDCODE_STAKING = [
-  {
-    address: 'HNZata7iMYWmk5RvZRTiAsSDhV8366zq2YGb3tLH5Upf74F',
-    amount: '10000',
-    interestRate: '20',
-    createdAt: 1632122308000,
-  },
-  {
-    address: 'DE14BzQ1bDXWPKeLoAqdLAm1GpyAWaWF1knF74cEZeomTBM',
-    amount: '123456',
-    interestRate: '12',
-    createdAt: 1631101244000,
-
-  },
-  {
-    address: 'GsvVmjr1CBHwQHw84pPHMDxgNY3iBLz6Qn7qS3CH8qPhrHz',
-    amount: '99999999999',
-    interestRate: '120',
-    createdAt: 1632015723000,
-  },
-]
-
-const address = 'GsvVmjr1CBHwQHw84pPHMDxgNY3iBLz6Qn7qS3CH8qPhrHz'
+import { ErrorHandler } from '@/js/helpers/error-handler'
 
 export default {
   name: 'staking-tab',
@@ -70,33 +62,51 @@ export default {
     StakingList,
     StakingForm,
     Drawer,
+    Loader,
+    ErrorMessage,
   },
 
   setup () {
-    const accountsStakingList = ref([])
-    const allAccounts = ref()
-    const isStakeFormOpen = ref(false)
-    const stakingOptions = ref([])
-    accountsStakingList.value = HARDCODE_STAKING.map(i => new StakingRecord(i))
-
-    keyring.accounts.subject.subscribe(accounts => {
-      const addresses = accounts ? Object.keys(accounts) : []
-      allAccounts.value = addresses.map(address => keyring.getAccount(address))
+    const state = reactive({
+      stakingList: [],
+      myAccounts: null,
+      isStakeFormOpen: false,
+      stakingOptions: [],
+      isLoadFailed: false,
+      isLoaded: false,
     })
 
-    async function init () {
-      const { data } = await stakingApi.get('api/options')
-      stakingOptions.value = data.map(i => new StakingOptionRecord(i))
-    }
+    keyring.accounts.subject.subscribe(async (accounts) => {
+      try {
+        const addresses = accounts ? Object.keys(accounts) : []
+        state.myAccounts = addresses.map(address => keyring.getAccount(address))
 
-    init()
+        const stakings = await Promise.all(
+          addresses.map(async (address) =>
+            stakingApi.get(`api/staking/${address}`, {
+              page: {
+                limit: 100,
+              },
+            }),
+          ))
+        const options = await stakingApi.get('api/options')
+
+        state.stakingOptions =
+          options.data.map(i => new StakingOptionRecord(i))
+
+        state.stakingList = stakings.map(({ data }) => data)
+          .flat()
+          .map(i => new StakingRecord(i))
+      } catch (e) {
+        state.isLoadFailed = true
+        ErrorHandler.process(e)
+      }
+
+      state.isLoaded = true
+    })
 
     return {
-      accountsStakingList,
-      isStakeFormOpen,
-      address,
-      allAccounts,
-      stakingOptions,
+      ...toRefs(state),
     }
   },
 }
@@ -128,6 +138,8 @@ export default {
   "en": {
     "stake-title": "Stake",
     "stake-btn": "Stake",
+    "error-header": "Error",
+    "error-message": "There was an error while loading.",
   }
 }
 </i18n>

@@ -3,8 +3,8 @@
     <template v-if="isLoaded">
       <template v-if="isLoadFailed">
         <error-message
-          :header="'Error'"
-          :message="'There was an error while loading.'"
+          :header="$t('error-header')"
+          :message="$t('error-message')"
         />
       </template>
       <template v-else>
@@ -68,7 +68,7 @@ export default {
           },
         },
       })
-      return response?.data?.id ?? ''
+      return response?._rawResponse?.data?.id ?? ''
     }
 
     async function init () {
@@ -120,6 +120,8 @@ export default {
 {
   "en": {
     "info-text": "To receive tokens inside Moon Rabbit network transfer ERC20 token to this address:",
+    "error-header": "Error",
+    "error-message": "There was an error while loading.",
   }
 }
 </i18n>
