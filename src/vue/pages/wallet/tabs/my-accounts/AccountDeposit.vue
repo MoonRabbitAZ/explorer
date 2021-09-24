@@ -36,7 +36,7 @@ import Loader from '@/vue/common/Loader'
 import { ClipboardField } from '@/vue/fields'
 
 import { reactive, toRefs } from 'vue'
-import { restApi } from '@api'
+import { bridgeApi } from '@api'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 
 export default {
@@ -61,7 +61,7 @@ export default {
     })
 
     async function getDepositId () {
-      const response = await restApi.post('bridge/addresses', {
+      const response = await bridgeApi.post('bridge/addresses', {
         data: {
           attributes: {
             moonrabbit_address: props.accountAddress,

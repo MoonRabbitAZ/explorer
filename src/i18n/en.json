@@ -157,6 +157,16 @@
     "mnemonic": "Mnemonic",
     "raw": "Raw seed"
   },
+  "staking-options": {
+    "types": {
+      "type-1": "Awakening Temple",
+      "type-2": "Exploration Temple",
+      "type-3": "Perception Temple",
+      "type-4": "Enlightenment Temple",
+      "type-5": "Transcendence Temple",
+      "type-6": "Immortality Temple"
+    }
+  },
   "forms": {
     "create-account-form": {
       "create-account-message": "Created account { name }"
@@ -164,6 +174,10 @@
     "transfer-form-authorize-step": {
       "transaction-success": "Transaction completed successfully",
       "transaction-processing": "Sending funds from { account }"
+    },
+    "staking-form-authorize-step": {
+      "transaction-success": "Staking completed successfully",
+      "transaction-processing": "Staking from { account }"
     }
   }
 }

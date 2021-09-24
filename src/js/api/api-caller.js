@@ -242,8 +242,7 @@ export class ApiCaller {
         ? undefined
         : opts.data || {},
       method: opts.method,
-      url: opts.endpoint, // TODO: smartly build url
-      withCredentials: true,
+      url: opts.endpoint,
     }
 
     config = middlewares.flattenToAxiosJsonApiQuery(config)
