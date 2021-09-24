@@ -5,9 +5,9 @@ import router from '@/vue-router'
 
 import AppButton from '@/vue/common/AppButton'
 
+import CONFIG from '@/config'
 import { store } from '@/vuex'
 import { vueRoutes } from '@/vue-router/routes'
-import { CONFIG } from '@/config'
 import { i18n } from '@/i18n'
 import { ripple, clickOutside } from '@/vue/directives'
 import { createApp, h, getCurrentInstance } from 'vue'

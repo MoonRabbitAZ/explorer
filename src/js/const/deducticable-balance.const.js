@@ -1,4 +1,4 @@
-import { CONFIG } from '@/config'
+import CONFIG from '@/config'
 import { BN } from '@polkadot/util'
 
 export const DEDUCTIBLE_BALANCE = new BN('80954000000000000000000')

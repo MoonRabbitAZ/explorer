@@ -1,4 +1,4 @@
-import { CONFIG } from '@/config'
+import CONFIG from '@/config'
 
 export const sessionStoragePlugin = (store) => {
   store.subscribe((mutation, state) => {

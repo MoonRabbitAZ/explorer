@@ -111,7 +111,7 @@ import { ErrorHandler } from '@/js/helpers/error-handler'
 
 import { TRANSFER_FORM_STEPS } from '@/js/const/steps.const'
 import { TransferFormer } from '@/js/formers/TransferFormer'
-import { CONFIG } from '@/config'
+import CONFIG from '@/config'
 import ErrorMessage from '@/vue/common/ErrorMessage'
 import BN from 'bn.js'
 

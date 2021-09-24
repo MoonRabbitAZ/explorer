@@ -22,7 +22,7 @@ import { api } from '@api'
 import { ref, computed } from 'vue'
 import { useStore } from 'vuex'
 import { vuexTypes } from '@/vuex'
-import { CONFIG } from '@/config'
+import CONFIG from '@/config'
 
 export default {
   name: 'app-footer',

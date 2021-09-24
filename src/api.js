@@ -1,7 +1,7 @@
 import { ApiPromise, WsProvider } from '@polkadot/api'
 import { TypeRegistry } from '@polkadot/types/create'
-import { CONFIG } from '@/config'
 import { ApiCaller } from '@/js/api/api-caller'
+import CONFIG from '@/config'
 
 export const provider = new WsProvider(CONFIG.WSS_NODE)
 export const registry = new TypeRegistry()
