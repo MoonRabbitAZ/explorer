@@ -37,6 +37,7 @@ import { vuexTypes } from '@/vuex'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { useRoute } from 'vue-router'
 import { vueRoutes } from '@/vue-router'
+import CONFIG from '@/config'
 
 export default {
   name: 'app',
@@ -44,10 +45,12 @@ export default {
   components: { StatusMessage, Loader },
 
   setup () {
+    document.title = CONFIG.APP_NAME
     const store = useStore()
     const route = useRoute()
     const isAppInitialised = ref(false)
     const isApiConnected = ref(false)
+
     const blockAuthorHandler = async (header) =>
       await store.dispatch(vuexTypes.BLOCK_AUTHORS_HANDLER, header)
     api.on('connected', () => { isApiConnected.value = true })
