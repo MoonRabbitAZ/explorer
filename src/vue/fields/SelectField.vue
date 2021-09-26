@@ -37,7 +37,15 @@
       @change="onChange"
       @close="onClose"
       @clear="onChange"
-    />
+    >
+      <template v-slot:singlelabel="{ value }">
+        <slot name="singlelabel" :value="value"/>
+      </template>
+
+      <template v-slot:option="{ option }">
+        <slot name="option" :option="option"/>
+      </template>
+    </multiselect>
     <transition name="select-field__err-transition">
       <p v-if="isError" class="select-field__err-mes">
         {{ errorMessage }}
