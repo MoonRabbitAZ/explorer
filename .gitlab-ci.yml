@@ -25,11 +25,3 @@ lint:
     - tokend
   script:
     - sh ./.ci/lint.sh
-
-unit_test:
-  image: node:14
-  stage: build
-  tags:
-    - tokend
-  script:
-    - sh ./.ci/test.sh
