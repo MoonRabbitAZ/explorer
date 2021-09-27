@@ -12,9 +12,7 @@
         {{ value }}
       </p>
 
-      <tooltip
-        :message="isCopiedMsgTranslation ? $t(`${isCopiedMsgTranslation}`) : ''"
-      >
+      <tooltip :message="copiedMsg">
         <button
           ref="clipboardBtn"
           class="clipboard-field__button"
@@ -34,8 +32,9 @@
 <script>
 import Clipboard from 'clipboard'
 import Tooltip from '@/vue/common/Tooltip'
-
 import Icon from '@/vue/common/Icon'
+
+import { useI18n } from 'vue-i18n'
 import { ref, getCurrentInstance, onMounted } from 'vue'
 
 const HIDE_TOOLTIP_TIMEOUT = 2000 // ms
@@ -51,7 +50,8 @@ export default {
   },
 
   setup () {
-    const isCopiedMsgTranslation = ref('')
+    const { t } = useI18n({ useScope: 'global' })
+    const copiedMsg = ref('')
     const clipboardBtn = ref(null)
     const clipboard = ref({})
     const uid = getCurrentInstance().uid
@@ -60,9 +60,9 @@ export default {
       if (!clipboardBtn.value) return
       clipboard.value = new Clipboard(clipboardBtn.value)
       clipboard.value.on('success', event => {
-        isCopiedMsgTranslation.value = 'copied'
+        copiedMsg.value = t('fields.clipboard-field.copied-msg')
         setTimeout(() => {
-          isCopiedMsgTranslation.value = ''
+          copiedMsg.value = ''
           event.clearSelection()
         }, HIDE_TOOLTIP_TIMEOUT)
       })
@@ -71,7 +71,7 @@ export default {
     return {
       clipboardBtn,
       getCurrentInstance,
-      isCopiedMsgTranslation,
+      copiedMsg,
       uid,
     }
   },
@@ -115,11 +115,3 @@ export default {
   }
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "copied": "Copied!",
-  }
-}
-</i18n>

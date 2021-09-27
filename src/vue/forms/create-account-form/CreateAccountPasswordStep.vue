@@ -3,15 +3,17 @@
     <div class="create-account-password-step__body">
       <div class="app__form-row">
         <div class="app__form-field">
+          <!-- eslint-disable max-len -->
           <input-field
             v-model="form.name.value"
             @blur="form.name.blur"
             autocomplete="username"
             name="create-account-name"
             :error-message="form.name.errorMessage"
-            :label="$t('name-input-lbl')"
-            :placeholder="$t('name-input-palceholder')"
+            :label="$t('forms.create-account-password-step.name-input-lbl')"
+            :placeholder="$t('forms.create-account-password-step.name-input-placeholder')"
           />
+          <!-- eslint-enable max-len -->
         </div>
       </div>
 
@@ -24,12 +26,13 @@
             name="create-account-password"
             type="password"
             :error-message="form.password.errorMessage"
-            :label="$t('password-input-lbl')"
+            :label="$t('forms.create-account-password-step.password-input-lbl')"
           />
         </div>
       </div>
       <div class="app__form-row">
         <div class="app__form-field">
+          <!-- eslint-disable max-len -->
           <input-field
             v-model="form.confirmPassword.value"
             @blur="form.confirmPassword.blur"
@@ -37,16 +40,17 @@
             name="create-account-confirm-password"
             type="password"
             :error-message="form.confirmPassword.errorMessage"
-            :label="$t('confirm-password-input-lbl')"
+            :label="$t('forms.create-account-password-step.confirm-password-input-lbl')"
           />
+          <!-- eslint-enable max-len -->
         </div>
       </div>
 
       <p class="create-account-password-step__info-message">
-        {{ $t('info-message-part-1') }}
+        {{ $t('forms.create-account-password-step.info-message-part-1') }}
       </p>
       <p class="create-account-password-step__info-message">
-        {{ $t('info-message-part-2') }}
+        {{ $t('forms.create-account-password-step.info-message-part-2') }}
       </p>
     </div>
 
@@ -55,7 +59,7 @@
         class="create-account-password-step__next-btn"
         size="big"
         scheme="primary"
-        :text="$t('next-btn')"
+        :text="$t('forms.create-account-password-step.next-btn')"
         :disabled="isNextButtonDisabled"
         @click="nextStep"
       />
@@ -170,17 +174,3 @@ export default {
   margin-top: auto;
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "name-input-lbl": "Account name",
-    "name-input-palceholder": "Enter account name",
-    "password-input-lbl": "Password",
-    "confirm-password-input-lbl": "Password confirmation",
-    "info-message-part-1": "The password and password confirmation for this account. This is required to authenticate any transactions made and to encrypt the keypair.",
-    "info-message-part-2": "Ensure you are using a strong password for proper account protection.",
-    "next-btn": "Next"
-  }
-}
-</i18n>

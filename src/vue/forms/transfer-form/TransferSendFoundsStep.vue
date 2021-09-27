@@ -5,13 +5,13 @@
       @submit.prevent="isFormValid() && nextStep()"
     >
       <h3 class="transfer-form-founds-step__title">
-        {{ $t('balance-title') }}
+        {{ $t('forms.transfer-form-founds-step.balance-title') }}
       </h3>
       <p class="transfer-form-founds-step__balance-value">
         {{ $fbalance(senderBalances.availableBalance) }}
       </p>
       <h3 class="transfer-form-founds-step__title">
-        {{ $t('deposit-title') }}
+        {{ $t('forms.transfer-form-founds-step.deposit-title') }}
       </h3>
       <p class="transfer-form-founds-step__deposit-value">
         {{ $fbalance(existentialDeposit) }}
@@ -24,8 +24,10 @@
             @blur="form.recipientAddress.blur"
             name="transfer-form-founds-step-recipient-address"
             :error-message="form.recipientAddress.errorMessage"
-            :label="$t('send-to-input-lbl')"
-            :placeholder="$t('send-to-input-placeholder')"
+            :label="$t('forms.transfer-form-founds-step.send-to-input-lbl')"
+            :placeholder="
+              $t('forms.transfer-form-founds-step.send-to-input-placeholder')
+            "
             :disabled="isFormDisabled"
           />
         </div>
@@ -37,7 +39,7 @@
             @blur="form.amount.blur"
             name="transfer-form-founds-step-amount"
             :error-message="form.amount.errorMessage"
-            :label="$t('amount-input-lbl')"
+            :label="$t('forms.transfer-form-founds-step.amount-input-lbl')"
             :disabled="isFormDisabled"
           />
         </div>
@@ -48,7 +50,7 @@
           <switch-field
             v-model="form.isKeepAlive.value"
             name="transfer-form-founds-step-keep-alive"
-            :label="$t('keep-alive-switch-lbl')"
+            :label="$t('forms.transfer-form-founds-step.keep-alive-switch-lbl')"
             :disabled="isFormDisabled"
           />
         </div>
@@ -58,10 +60,12 @@
         <error-message
           v-if="isInsufficientAmount"
           class="transfer-form-founds__error-amount"
-          :header="$t('error-message-header')"
+          :header="$t('forms.transfer-form-founds-step.error-message-header')"
           :message="partialFee.isZero()
-            ? $t('error-message-amount', { amount: $fbalance(partialFee)})
-            : $t('error-message-commission', { amount: $fbalance(partialFee)})
+            ? $t('forms.transfer-form-founds-step.error-message-amount',
+                 { amount: $fbalance(partialFee)})
+            : $t('forms.transfer-form-founds-step.error-message-commission',
+                 { amount: $fbalance(partialFee)})
           "
         />
       </transition>
@@ -71,23 +75,23 @@
           size="big"
           scheme="primary"
           type="submit"
-          :text="$t('next-btn')"
+          :text="$t('forms.transfer-form-founds-step.next-btn')"
           :disabled="buttonDisabled"
         />
       </div>
 
       <div class="transfer-form-founds-step__info">
         <p class="transfer-form-founds-step__info-message">
-          {{ $t('info-message-part-1') }}
+          {{ $t('forms.transfer-form-founds-step.info-message-part-1') }}
         </p>
         <p class="transfer-form-founds-step__info-message">
-          {{ $t('info-message-part-2') }}
+          {{ $t('forms.transfer-form-founds-step.info-message-part-2') }}
         </p>
         <p class="transfer-form-founds-step__info-message">
-          {{ $t('info-message-part-3') }}
+          {{ $t('forms.transfer-form-founds-step.info-message-part-3') }}
         </p>
         <p class="transfer-form-founds-step__info-message">
-          {{ $t('info-message-part-4') }}
+          {{ $t('forms.transfer-form-founds-step.info-message-part-4') }}
         </p>
       </div>
     </form>
@@ -268,25 +272,3 @@ export default {
   }
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "balance-title": "Balance",
-    "deposit-title": "Existential deposit",
-    "send-to-input-lbl": "Send to",
-    "send-to-input-placeholder": "Enter address",
-    "amount-input-lbl": "Amount",
-    "keep-alive-switch-lbl": "Keep-Alive Checks",
-    "full-amount-switch-lbl": "Transfer the full account balance, reap the sender",
-    "next-btn": "Next",
-    "info-message-part-1": "The transferred balance will be subtracted (along with fees) from the sender account.",
-    "info-message-part-2": "The beneficiary will have access to the transferred fees when the transaction is included in a block.",
-    "info-message-part-3": "If the recipient account is new, the balance needs to be more than the existential deposit. Likewise if the sending account balance drops below the same value, the account will be removed from the state.",
-    "info-message-part-4": "With the keep-alive option set, the account is protected against removal due to low balances.",
-    "error-message-header": "Insufficient funds",
-    "error-message-commission": "You do not have enough funds to pay the commission ({ amount }). Please change amount to continue the operation.",
-    "error-message-amount": "You do not have enough funds. Please change amount to continue the operation"
-  }
-}
-</i18n>

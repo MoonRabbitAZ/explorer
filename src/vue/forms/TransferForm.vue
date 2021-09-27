@@ -10,7 +10,7 @@
 
     <div class="transfer-form__address-send-wrap">
       <h3 class="transfer-form__send-title">
-        {{ $t('send-from-title') }}
+        {{ $t('forms.transfer-form.send-from-title') }}
       </h3>
       <div class="transfer-form__address-wrap">
         <account-address-row
@@ -25,7 +25,7 @@
       class="transfer-form__address-send-wrap"
     >
       <h3 class="transfer-form__send-title">
-        {{ $t('send-to-title') }}
+        {{ $t('forms.transfer-form.send-to-title') }}
       </h3>
       <div class="transfer-form__address-wrap">
         <account-address-row
@@ -170,12 +170,3 @@ export default {
 }
 
 </style>
-
-<i18n>
-{
-  "en": {
-    "send-from-title": "Sender From",
-    "send-to-title": "Send To"
-  }
-}
-</i18n>
