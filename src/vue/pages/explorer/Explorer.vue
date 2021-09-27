@@ -1,7 +1,7 @@
 <template>
   <div class="explorer">
     <page-topbar
-      :page-name="$tglobal('routers-groups.temples.routers.explorer')"
+      :page-name="$t('routers-groups.temples.routers.explorer')"
       :tabs="explorer"
     />
     <router-view />

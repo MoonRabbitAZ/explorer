@@ -3,7 +3,7 @@ import { reactive } from 'vue'
 import { BCH_EVENT_TYPES } from '@/js/const/blockchain-event.const'
 
 export function useEventTranslation (type, id) {
-  const { t } = useI18n({ useScope: 'global' })
+  const { t } = useI18n()
   const state = reactive({
     messageEventTranslation: '',
     linkEventTranslation: '',

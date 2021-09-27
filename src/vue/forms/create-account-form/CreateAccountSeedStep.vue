@@ -117,7 +117,7 @@ export default {
   emits: Object.values(EVENTS),
 
   setup (props, { emit }) {
-    const { t } = useI18n({ useScope: 'global' })
+    const { t } = useI18n()
 
     const state = reactive({
       seed: props.former.attrs.seed,

@@ -5,7 +5,7 @@
       :account-address="staking.address"
     />
     <p>
-      {{ $tglobal(`staking-options.types.type-${staking.stakeOptionId}`) }}
+      {{ $t(`staking-options.types.type-${staking.stakeOptionId}`) }}
     </p>
     <p>
       {{ $fddmy(staking.createdAt) }}

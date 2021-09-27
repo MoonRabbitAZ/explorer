@@ -11,11 +11,7 @@ import { vueRoutes } from '@/vue-router/routes'
 import { i18n } from '@/i18n'
 import { ripple, clickOutside } from '@/vue/directives'
 import { createApp, h, getCurrentInstance } from 'vue'
-import {
-  useFormatDate,
-  useGlobalTranslation,
-  useFormatBalance,
-} from '@/vue/composables'
+import { useFormatDate, useFormatBalance } from '@/vue/composables'
 import { formatNumber } from '@polkadot/util'
 import { initApi } from '@api'
 
@@ -34,8 +30,6 @@ const app = createApp({
       formatCalendarInline,
     } = useFormatDate()
 
-    const { globalize } = useGlobalTranslation()
-
     const { toBalance } = useFormatBalance()
 
     app.appContext.config.globalProperties.$fd = formatDate
@@ -47,8 +41,6 @@ const app = createApp({
     app.appContext.config.globalProperties.$fcalendi = formatCalendarInline
     app.appContext.config.globalProperties.$fbalance = toBalance
     app.appContext.config.globalProperties.$fnumber = formatNumber
-
-    app.appContext.config.globalProperties.$tglobal = globalize
   },
   render: () => h(App),
 })

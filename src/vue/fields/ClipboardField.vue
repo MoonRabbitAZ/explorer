@@ -50,7 +50,7 @@ export default {
   },
 
   setup () {
-    const { t } = useI18n({ useScope: 'global' })
+    const { t } = useI18n()
     const copiedMsg = ref('')
     const clipboardBtn = ref(null)
     const clipboard = ref({})

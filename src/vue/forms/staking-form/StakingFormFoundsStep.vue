@@ -107,8 +107,9 @@ import { AmountField, SelectField } from '@/vue/fields'
 import Loader from '@/vue/common/Loader'
 
 import { reactive, toRefs, computed, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { api } from '@api'
-import { useValidators, useForm, useGlobalTranslation } from '@/vue/composables'
+import { useValidators, useForm } from '@/vue/composables'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 
 import { TRANSFER_FORM_STEPS } from '@/js/const/steps.const'
@@ -140,7 +141,7 @@ export default {
   emits: Object.values(EVENTS),
 
   setup (props, { emit }) {
-    const { globalize } = useGlobalTranslation()
+    const { t } = useI18n()
 
     const state = reactive({
       existentialDeposit: api.consts.balances.existentialDeposit,
@@ -152,7 +153,7 @@ export default {
     const stakingTypes = computed(() => {
       return props.stakingOptions.map(item => ({
         id: item.id,
-        name: globalize(item.nameTranslationId),
+        name: t(item.nameTranslationId),
       }))
     })
     const isInsufficientAmount = computed(() => {
