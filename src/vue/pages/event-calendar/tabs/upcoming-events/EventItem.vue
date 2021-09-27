@@ -13,7 +13,7 @@
     </p>
     <i18n-t
       class="event-item__row"
-      keypath="message"
+      keypath="event-calendar-page.event-item.message"
       tag="p"
     >
       <template #message>
@@ -108,11 +108,3 @@ export default {
 }
 
 </style>
-
-<i18n>
-{
-  "en": {
-    "message": "{ message } { link }"
-  }
-}
-</i18n>

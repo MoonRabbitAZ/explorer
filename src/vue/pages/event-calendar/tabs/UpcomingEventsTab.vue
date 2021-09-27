@@ -12,7 +12,7 @@
 
         <div class="upcoming-events-tab__all-events">
           <div class="upcoming-events-tab__all-events-title app__big-title">
-            {{ $t('all-events') }}
+            {{ $t('event-calendar-page.upcoming-events-tab.all-events') }}
           </div>
           <div class="upcoming-events-tab__event-item-wrap">
             <event-item
@@ -172,11 +172,3 @@ export default {
   }
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "all-events": "All events"
-  }
-}
-</i18n>

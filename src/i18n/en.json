@@ -418,5 +418,13 @@
       "title": "System events",
       "no-data-message": "No events available"
     }
+  },
+  "event-calendar-page": {
+    "upcoming-events-tab": {
+      "all-events": "All events"
+    },
+    "event-item": {
+      "message": "{ message } { link }"
+    }
   }
 }

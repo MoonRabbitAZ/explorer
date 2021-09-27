@@ -144,13 +144,3 @@ export default {
   }
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "holders-header": "Holders",
-    "balances-header": "Balances",
-    "no-data-message": "No holders available"
-  }
-}
-</i18n>
