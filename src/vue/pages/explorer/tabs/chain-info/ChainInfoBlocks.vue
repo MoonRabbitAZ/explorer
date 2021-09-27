@@ -7,7 +7,7 @@
 
     <info-block
       class="chain-info-blocks__event-count"
-      :title="$t('last-events-title')"
+      :title="$t('explorer-page.chain-info-blocks.last-events-title')"
       :value="eventCount"
     />
 
@@ -130,11 +130,3 @@ export default {
   }
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "last-events-title": "Last events",
-  }
-}
-</i18n>

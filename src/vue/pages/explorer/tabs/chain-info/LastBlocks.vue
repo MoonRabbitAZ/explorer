@@ -1,7 +1,7 @@
 <template>
   <div class="last-blocks">
     <h2 class="last-blocks__title app__big-title">
-      {{ $t('title') }}
+      {{ $t('explorer-page.last-blocks.title') }}
     </h2>
     <template v-if="lastHeaders.length">
       <div class="last-blocks__body">
@@ -33,7 +33,7 @@
     </template>
     <template v-else>
       <div class="last-blocks__no-data-message app__content-block">
-        {{ $t('no-data-message') }}
+        {{ $t('explorer-page.last-blocks.no-data-message') }}
       </div>
     </template>
   </div>
@@ -132,12 +132,3 @@ export default {
 }
 
 </style>
-
-<i18n>
-{
-  "en": {
-    "title": "Last blocks",
-    "no-data-message": "No blocks available"
-  }
-}
-</i18n>

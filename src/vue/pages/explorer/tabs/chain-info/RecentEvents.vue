@@ -1,7 +1,7 @@
 <template>
   <div class="recent-events">
     <h2 class="recent-events__title app__big-title">
-      {{ $t('title') }}
+      {{ $t('explorer-page.recent-events.title') }}
     </h2>
     <template v-if="events.length">
       <div class="recent-events__events-wrap">
@@ -36,7 +36,7 @@
     </template>
     <template v-else>
       <div class="recent-events__no-data-message app__content-block">
-        {{ $t('no-data-message') }}
+        {{ $t('explorer-page.recent-events.no-data-message') }}
       </div>
     </template>
   </div>
@@ -135,12 +135,3 @@ export default {
   align-items: center;
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "title": "Recent events",
-    "no-data-message": "No events available",
-  }
-}
-</i18n>

@@ -51,13 +51,3 @@ export default {
 }
 
 </style>
-
-<i18n>
-{
-  "en": {
-    "welcome": "Welcome",
-    "events": "Events: ",
-    "last-block": "Last block"
-  }
-}
-</i18n>

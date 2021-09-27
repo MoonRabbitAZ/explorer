@@ -371,5 +371,52 @@
       "error-header": "Error",
       "error-message": "There was an error while loading."
     }
+  },
+  "explorer-page": {
+    "recent-events": {
+      "title": "Recent events",
+      "no-data-message": "No events available"
+    },
+    "last-blocks": {
+      "title": "Last blocks",
+      "no-data-message": "No blocks available"
+    },
+    "chain-info-blocks": {
+      "last-events-title": "Last events"
+    },
+    "block-info-tab": {
+      "search-field-placeholder": "Search by hash or block number",
+      "no-data-message": "Block not found"
+    },
+    "block-extrinsics": {
+      "extrinsics-title": "Extrinsics",
+      "events-title": "Events",
+      "weight-title": "Weight",
+      "signatory-title": "Signatory",
+      "no-data-message": "No extrinsics available"
+    },
+    "block-header": {
+      "header-number": "Number",
+      "header-hash": "Hash",
+      "header-validator": "Validator",
+      "header-parent": "Parent",
+      "header-extrinsic": "Extrinsic",
+      "header-condition": "Condition"
+    },
+    "block-info-summary": {
+      "header-deposits": "Deposits",
+      "header-transfers": "Transfers",
+      "header-block-weight": "Block weight",
+      "header-event-count": "Event count",
+      "header-extrinsic-count": "Extrinsic count"
+    },
+    "block-logs": {
+      "title": "Logs",
+      "no-data-message": "No logs available"
+    }, 
+    "system-events": {
+      "title": "System events",
+      "no-data-message": "No events available"
+    }
   }
 }
