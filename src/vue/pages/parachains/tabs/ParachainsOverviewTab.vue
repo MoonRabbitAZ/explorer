@@ -6,7 +6,7 @@
           {{ $t('parachains-header') }}
         </h1>
         <template v-if="parachainIds">
-          <template v-if="parachainIds">
+          <template v-if="parachainIds.length">
             <parachain-row
               v-for="paractainId in parachainIds"
               :key="paractainId"
