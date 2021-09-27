@@ -86,7 +86,6 @@ export default {
 
 .account-address__drawer-balance-header {
   margin-bottom: 1.5rem;
-  font-size: 1.6rem;
 }
 
 .account-address__drawer-balance-wrap {

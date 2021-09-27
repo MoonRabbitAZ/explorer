@@ -1,6 +1,6 @@
 <template>
   <div class="block-logs">
-    <h1 class="block-logs__title app__big-title">
+    <h1 class="block-logs__title">
       {{ $t('title') }}
     </h1>
     <template v-if="sortedLogs.length">

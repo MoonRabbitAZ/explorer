@@ -81,6 +81,42 @@ body {
   flex: 1;
 }
 
+h1 {
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 1.2;
+}
+
+h2 {
+  font-weight: 400;
+  font-size: 1.8rem;
+  line-height: 1.2;
+}
+
+h3 {
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 1.2;
+}
+
+h4 {
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 1.2;
+}
+
+h5 {
+  font-weight: 400;
+  font-size: 1.2rem;
+  line-height: 1.2;
+}
+
+h6 {
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
 a {
   font-size: 1.2rem;
   text-decoration: none;
@@ -108,9 +144,4 @@ a {
 .app__content-block {
   background: $col-app-content-block-bg;
   border-radius: 0.4rem;
-}
-
-.app__big-title {
-  font-size: 2rem;
-  line-height: 1.1;
 }

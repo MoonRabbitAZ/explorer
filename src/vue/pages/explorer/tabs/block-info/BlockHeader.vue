@@ -106,8 +106,6 @@ export default {
 @import '~@scss/mixins';
 @import '~@scss/variables';
 
-$header-font-size: 1.2rem;
-
 .block-header {
   padding: 2rem 1.6rem;
 
@@ -133,14 +131,11 @@ $header-font-size: 1.2rem;
   overflow: hidden;
   display: grid;
   grid-gap: 1rem 0;
-  grid-template-rows: $header-font-size 1fr;
+  grid-template-rows: max-content 1fr;
   align-items: center;
 }
 
 .block-header__item-header {
-  font-size: $header-font-size;
-  line-height: 1;
-  font-weight: 400;
   color: $col-app-secondary;
 }
 

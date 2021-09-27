@@ -1,8 +1,8 @@
 <template>
   <div class="recent-events">
-    <h2 class="recent-events__title app__big-title">
+    <h1 class="recent-events__title">
       {{ $t('title') }}
-    </h2>
+    </h1>
     <template v-if="events.length">
       <div class="recent-events__events-wrap">
         <div

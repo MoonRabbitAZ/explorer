@@ -218,7 +218,6 @@ export default {
 
 .staking-form-authorize-step__send-title {
   padding: 0 $drawer-padding;
-  font-size: 1.6rem;
   margin-bottom: 1rem;
 }
 
@@ -232,7 +231,6 @@ export default {
 .staking-form-authorize-step__title {
   margin-bottom: 1rem;
   color: $col-app-header-secondary;
-  font-size: 1.6rem;
 }
 
 .staking-form-authorize-step__amount-value {
@@ -250,7 +248,6 @@ export default {
 
 .staking-form-authorize-step__call-hash-title {
   padding: 0 $drawer-padding;
-  font-size: 1.6rem;
   margin-bottom: 1rem;
 }
 

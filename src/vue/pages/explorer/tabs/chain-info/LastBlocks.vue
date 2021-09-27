@@ -1,8 +1,8 @@
 <template>
   <div class="last-blocks">
-    <h2 class="last-blocks__title app__big-title">
+    <h1 class="last-blocks__title">
       {{ $t('title') }}
-    </h2>
+    </h1>
     <template v-if="lastHeaders.length">
       <div class="last-blocks__body">
         <div

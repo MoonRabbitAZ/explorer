@@ -267,7 +267,6 @@ export default {
 .staking-form-founds-step__title {
   margin-bottom: 1rem;
   color: $col-app-header-secondary;
-  font-size: 1.6rem;
 }
 
 .staking-form-founds-step__balance-value {

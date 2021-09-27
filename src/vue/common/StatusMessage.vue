@@ -271,9 +271,6 @@ $progress-bar-bg: rgba($col-app-accent, 0.2);
 .status-message__title {
   display: flex;
   align-items: center;
-  font-size: 1.8rem;
-  line-height: 1;
-  font-weight: 700;
   color: $col-app-text;
 }
 

@@ -2,18 +2,18 @@
   <div class="block-extrinsics">
     <div class="block-extrinsics__wrap">
       <div class="block-extrinsics__body-titles">
-        <h1 class="block-extrinsics__main-title">
+        <h1>
           {{ $t('extrinsics-title') }}
         </h1>
-        <h2 class="block-extrinsics__secondary-title">
+        <h4>
           {{ $t('events-title') }}
-        </h2>
-        <h2 class="block-extrinsics__secondary-title">
+        </h4>
+        <h4>
           {{ $t('weight-title') }}
-        </h2>
-        <h2 class="block-extrinsics__secondary-title">
+        </h4>
+        <h4>
           {{ $t('signatory-title') }}
-        </h2>
+        </h4>
       </div>
       <template v-if="extrinsics.length">
         <div class="block-extrinsics__body  app__content-block">
@@ -79,16 +79,6 @@ export default {
   & + & {
     border-top: 0.1rem solid $col-block-extrinsics-border;
   }
-}
-
-.block-extrinsics__main-title {
-  font-size: 2rem;
-  font-weight: 400;
-}
-
-.block-extrinsics__secondary-title {
-  font-size: 1.4rem;
-  font-weight: 400;
 }
 
 .block-extrinsics__body {

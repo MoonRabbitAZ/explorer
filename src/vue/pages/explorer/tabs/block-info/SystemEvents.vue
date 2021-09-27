@@ -1,6 +1,6 @@
 <template>
   <div class="system-events">
-    <h1 class="system-events__title app__big-title">
+    <h1 class="system-events__title">
       {{ $t('title') }}
     </h1>
     <template v-if="systemEvents.length">

@@ -161,7 +161,6 @@ export default {
 
 .transfer-form__send-title {
   padding: 0 $drawer-padding;
-  font-size: 1.6rem;
   margin-bottom: 1rem;
 }
 

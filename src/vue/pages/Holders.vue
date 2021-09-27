@@ -4,7 +4,7 @@
       <h1 class="holders__header-main">
         {{ $t('holders-header') }}
       </h1>
-      <h4 class="holders__header-secondary">
+      <h4>
         {{ $t('balances-header') }}
       </h4>
     </div>
@@ -130,10 +130,6 @@ export default {
 
 .holders__header-main {
   grid-column: 1/3;
-}
-
-.holders__header-secondary {
-  font-size: 1.4rem;
 }
 
 .holders__sceleton-loader {

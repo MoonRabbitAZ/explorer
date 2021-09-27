@@ -1,9 +1,9 @@
 <template>
   <div class="calendar-month">
     <div class="calendar-month__head">
-      <h3 class="calendar-month__title">
+      <h1 class="calendar-month__title">
         {{ $fdmy(dateState.dateMonth) }}
-      </h3>
+      </h1>
       <div class="calendar-month__actions">
         <button
           class="calendar-month__arrow-button"
@@ -123,8 +123,6 @@ export default {
 
 .calendar-month__title {
   text-transform: capitalize;
-  font-size: 2rem;
-  font-weight: 400;
 }
 
 .calendar-month__actions {

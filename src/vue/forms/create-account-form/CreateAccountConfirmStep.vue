@@ -75,7 +75,6 @@ export default {
 }
 
 .create-account-confirm-step__title {
-  font-size: 1.6rem;
   margin-bottom: 1rem;
   color: $col-app-header-secondary;
 }

@@ -11,9 +11,9 @@
         />
 
         <div class="upcoming-events-tab__all-events">
-          <div class="upcoming-events-tab__all-events-title app__big-title">
+          <h1 class="upcoming-events-tab__all-events-title">
             {{ $t('all-events') }}
-          </div>
+          </h1>
           <div class="upcoming-events-tab__event-item-wrap">
             <event-item
               v-for="(item, id) in sortedScheduled"

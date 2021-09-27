@@ -5,12 +5,12 @@
         <h1>
           {{ $t('accounts-header') }}
         </h1>
-        <h2>
+        <h4>
           {{ $t('type-header') }}
-        </h2>
-        <h2 class="accounts-list__balace-header">
+        </h4>
+        <h4 class="accounts-list__balace-header">
           {{ $t('balance-header') }}
-        </h2>
+        </h4>
       </div>
       <template v-if="accounts.length">
         <account-row
