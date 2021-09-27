@@ -3,13 +3,13 @@
     <div class="accounts-list__wrap">
       <div class="accounts-list__headers">
         <h1>
-          {{ $t('accounts-header') }}
+          {{ $t('wallet-page.accounts-list.accounts-header') }}
         </h1>
         <h2>
-          {{ $t('type-header') }}
+          {{ $t('wallet-page.accounts-list.type-header') }}
         </h2>
         <h2 class="accounts-list__balace-header">
-          {{ $t('balance-header') }}
+          {{ $t('wallet-page.accounts-list.balance-header') }}
         </h2>
       </div>
       <template v-if="accounts.length">
@@ -22,17 +22,21 @@
         />
         <div class="accounts-list__total">
           <p class="accounts-list__total-accounts">
-            {{ $t('total-accounts', { amount: amountAccounts}) }}
+            {{ $t('wallet-page.accounts-list.total-accounts',
+                  { amount: amountAccounts})
+            }}
           </p>
           <p class="accounts-list__total-balance">
-            {{ $t('total-balance', { balance: $fbalance(fullBalance)}) }}
+            {{ $t('wallet-page.accounts-list.total-balance',
+                  { balance: $fbalance(fullBalance)})
+            }}
           </p>
         </div>
       </template>
       <template v-else>
         <no-data-message
           class="block-info-tab__no-data"
-          :message="$t('no-data-message')"
+          :message="$t('wallet-page.accounts-list.no-data-message')"
           is-secondary
         />
       </template>
@@ -129,16 +133,3 @@ export default {
   grid-column: 3/-1;
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "accounts-header": "Accounts",
-    "type-header": "Type",
-    "balance-header": "Balance",
-    "no-data-message": "You don't have any accounts.",
-    "total-accounts": "Total: { amount } accounts",
-    "total-balance": "Total: { balance }"
-  }
-}
-</i18n>

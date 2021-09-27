@@ -13,7 +13,7 @@
     <div>
       <app-button
         scheme="secondary"
-        :text="$t('unstake-btn')"
+        :text="$t('wallet-page.staking-account-row.unstake-btn')"
         disabled
       />
     </div>
@@ -53,11 +53,3 @@ export default {
   padding: 1rem 1.6rem;
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "unstake-btn": "Unstake"
-  }
-}
-</i18n>

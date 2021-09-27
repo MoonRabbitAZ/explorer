@@ -2,10 +2,10 @@
   <div class="holders app__padding">
     <div class="holders__headers">
       <h1 class="holders__header-main">
-        {{ $t('holders-header') }}
+        {{ $t('holders-page.holders-header') }}
       </h1>
       <h4 class="holders__header-secondary">
-        {{ $t('balances-header') }}
+        {{ $t('holders-page.balances-header') }}
       </h4>
     </div>
 
@@ -32,7 +32,7 @@
         <no-data-message
           class="block-info-tab__no-data"
           is-secondary
-          :message="$t('no-data-message')"
+          :message="$t('holders-page.no-data-message')"
         />
       </template>
     </template>

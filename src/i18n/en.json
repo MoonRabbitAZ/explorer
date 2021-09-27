@@ -327,5 +327,49 @@
     "input-field": { 
       "caps-lock-warning": "(Warning: Caps-Lock is on)"
     }
+  },
+  "holders-page": {
+    "holders-header": "Holders",
+    "balances-header": "Balances",
+    "no-data-message": "No holders available"
+  },
+  "wallet-page": {
+    "staking-tab": {
+      "stake-title": "Stake",
+      "stake-btn": "Stake",
+      "error-header": "Error",
+      "error-message": "There was an error while loading."
+    },
+    "staking-account-row": {
+      "unstake-btn": "Unstake"
+    },
+    "staking-list": {
+      "staking-header": "Staking",
+      "no-data-message": "No stakes available"
+    },
+    "my-accounts-tab": {
+      "generate-btn": "Generate",
+      "import-btn": "Import",
+      "search-field-placeholder": "Filter by name or account address",
+      "generate-account-drawer-title": "Generate account",
+      "import-account-drawer-title": "Import account"
+    },
+    "accounts-list": {
+      "accounts-header": "Accounts",
+      "type-header": "Type",
+      "balance-header": "Balance",
+      "no-data-message": "You don't have any accounts.",
+      "total-accounts": "Total: { amount } accounts",
+      "total-balance": "Total: { balance }"
+    },
+    "account-row": {
+      "transfer-drawer-title": "Send Funds",
+      "deposit-drawer-title": "Deposit"
+    },
+    "account-deposit": {
+      "info-text": "To receive tokens inside Moon Rabbit network transfer ERC20 token to this address:",
+      "error-header": "Error",
+      "error-message": "There was an error while loading."
+    }
   }
 }

@@ -43,7 +43,7 @@
       :close-by-click-outside="false"
     >
       <template #heading>
-        {{ $t('transfer-dreawer-title') }}
+        {{ $t('wallet-page.account-row.transfer-drawer-title') }}
       </template>
       <transfer-form
         :from-account-address="account.address"
@@ -56,7 +56,7 @@
       is-default-body
     >
       <template #heading>
-        {{ $t('deposit-drawer-title') }}
+        {{ $t('wallet-page.account-row.deposit-drawer-title') }}
       </template>
       <account-deposit
         :account-address="account.address"
@@ -159,12 +159,3 @@ export default {
   }
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "transfer-dreawer-title": "Send Funds",
-    "deposit-drawer-title": "Deposit"
-  }
-}
-</i18n>

@@ -7,7 +7,9 @@
           class="my-accounts-tab__search-field"
           name="my-accounts-tab-search"
           :error-message="form.search.errorMessage"
-          :placeholder="$t('search-field-placeholder')"
+          :placeholder="
+            $t('wallet-page.my-accounts-tab.search-field-placeholder')
+          "
           @blur="form.search.blur"
         />
       </div>
@@ -15,13 +17,13 @@
         <app-button
           class="my-accounts-tab__actions-button"
           scheme="primary"
-          :text="$t('generate-btn')"
+          :text="$t('wallet-page.my-accounts-tab.generate-btn')"
           @click="isGenerateAccountOpen = true"
         />
         <app-button
           class="my-accounts-tab__actions-button"
           scheme="primary"
-          :text="$t('import-btn')"
+          :text="$t('wallet-page.my-accounts-tab.import-btn')"
           @click="isImportAccountOpen = true"
         />
       </div>
@@ -42,7 +44,7 @@
       :close-by-click-outside="false"
     >
       <template #heading>
-        {{ $t('generate-account-dreawer-title') }}
+        {{ $t('wallet-page.my-accounts-tab.generate-account-drawer-title') }}
       </template>
       <create-account-form
         @close-drawer="isGenerateAccountOpen = false"
@@ -55,7 +57,7 @@
       :close-by-click-outside="false"
     >
       <template #heading>
-        {{ $t('import-account-dreawer-title') }}
+        {{ $t('wallet-page.my-accounts-tab.import-account-drawer-title') }}
       </template>
       <create-account-form
         is-import-account
@@ -170,15 +172,3 @@ export default {
   }
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "generate-btn": "Generate",
-    "import-btn": "Import",
-    "search-field-placeholder": "Filter by name or account address",
-    "generate-account-dreawer-title": "Generate account",
-    "import-account-dreawer-title": "Import account"
-  }
-}
-</i18n>
