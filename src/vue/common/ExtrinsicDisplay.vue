@@ -16,7 +16,7 @@
         <clipboard-field
           class="extrinsic-display__secondary-item"
           v-if="extractExtrinsic.signature"
-          :label="$t('signature', {
+          :label="$t('common.extrinsic-display.signature', {
             type: extractExtrinsic.signatureType
               ? `(${extractExtrinsic.signatureType })`
               : ''
@@ -26,19 +26,19 @@
         <clipboard-field
           v-if="extractExtrinsic.hash"
           class="extrinsic-display__secondary-item"
-          :label="$t('hash')"
+          :label="$t('common.extrinsic-display.hash')"
           :value="extractExtrinsic.hash"
         />
         <param-viewer
           v-if="extractExtrinsic.isSigned"
           class="extrinsic-display__secondary-item"
-          :label="$t('lifetime')"
+          :label="$t('common.extrinsic-display.lifetime')"
           :string-value="era.length
-            ? $t('mortal', {
+            ? $t('common.extrinsic-display.mortal', {
               startAt: era[0],
               endsAt: era[1],
             })
-            : $t('immortal')
+            : $t('common.extrinsic-display.immortal')
           "
         />
       </template>
@@ -107,15 +107,3 @@ export default {
   margin-top: 1.6rem;
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "signature": "Signature { type }",
-    "hash": "Hash",
-    "lifetime": "Lifetime",
-    "mortal": "Mortal, valid from #{ startAt } to #{ endsAt }",
-    "immortal": "Immortal"
-  }
-}
-</i18n>

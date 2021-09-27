@@ -179,5 +179,56 @@
       "transaction-success": "Staking completed successfully",
       "transaction-processing": "Staking from { account }"
     }
+  },
+  "common": {
+    "account-address": {
+      "information-title": "Information",
+      "balance-header": "Balance"
+    },
+    "account-balances": {
+      "transferrable-lbl": "Transferrable",
+      "staked-lbl": "Staked"
+    },
+    "extrinsic-display": {
+      "signature": "Signature { type }",
+      "hash": "Hash",
+      "lifetime": "Lifetime",
+      "mortal": "Mortal, valid from #{ startAt } to #{ endsAt }",
+      "immortal": "Immortal"
+    },
+    "identity-icon": {
+      "identity-img": "Identity image"
+    },
+    "logo": {
+      "logo": "Logo"
+    },
+    "status-message": {
+      "title_success": "Success",
+      "title_error": "Error",
+      "title_info": "Notification",
+      "title_processing": "Processing",
+      "default-message_success": "Action successful",
+      "default-message_error": "Something went wrong",
+      "default-message_info": "Something is happening."
+    },
+    "steps": {
+      "step-title": "Step { number }"
+    },
+    "best-number": {
+      "best-title": "Best",
+      "finalized-title": "Finalized"
+    },
+    "block-to-time": {
+      "purpose-title": "Purpose"
+    },
+    "epoch-time": {
+      "epoch-title": "Epoch"
+    },
+    "last-block-timer": {
+      "last-block-title": "Last block"
+    },
+    "total-issuance": {
+      "total-issued-title": "Total issued"
+    }
   }
 }

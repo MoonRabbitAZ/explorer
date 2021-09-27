@@ -4,7 +4,10 @@
       v-if="bestNumber"
       class="best-number__info"
       :value="bestNumber.toNumber()"
-      :title="isFinalized ? $t('finalized-title') : $t('best-title')"
+      :title="isFinalized
+        ? $t('common.best-number.finalized-title')
+        : $t('common.best-number.best-title')
+      "
     />
     <skeleton-loader
       v-else
@@ -60,12 +63,3 @@ export default {
 }
 
 </style>
-
-<i18n>
-{
-  "en": {
-    "best-title": "Best",
-    "finalized-title": "Finalized",
-  }
-}
-</i18n>
