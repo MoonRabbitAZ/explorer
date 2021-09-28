@@ -58,7 +58,7 @@ export default {
 }
 
 .staking-list__row {
-  min-width: 65rem;
+  min-width: 75rem;
 
   & + & {
     margin-top: 0.4rem;

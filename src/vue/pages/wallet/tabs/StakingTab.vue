@@ -85,6 +85,7 @@ export default {
           addresses.map(async (address) =>
             stakingApi.get(`api/staking/${address}`, {
               page: {
+                order: 'desc',
                 limit: 100,
               },
             }),
