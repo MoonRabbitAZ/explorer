@@ -15,7 +15,7 @@
     <template v-else>
       <no-data-message
         :message="$t('no-data-message')"
-        is-secondary
+        is-row-block
       />
     </template>
   </div>

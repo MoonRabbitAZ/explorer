@@ -1,12 +1,9 @@
 <template>
   <div
     class="no-data-message"
-    :class="{'no-data-message--secondary': isSecondary}"
+    :class="{'no-data-message--row': isRowBlock}"
   >
-    <p
-      class="no-data-message__message"
-      :class="{'no-data-message__message--secondary': isSecondary}"
-    >
+    <p class="no-data-message__message">
       {{ message }}
     </p>
   </div>
@@ -17,7 +14,7 @@ export default {
   name: 'no-data-message',
   props: {
     message: { type: String, default: '' },
-    isSecondary: { type: Boolean, default: false },
+    isRowBlock: { type: Boolean, default: false },
   },
 }
 </script>
@@ -31,17 +28,17 @@ export default {
   flex-direction: column;
   padding: 1.6rem;
 
-  &--secondary {
+  &--row {
     @include content-block;
+
+    .no-data-message__message {
+      font-size: 1.2rem;
+      color: $col-app-no-data;
+    }
   }
 }
 
 .no-data-message__message {
   font-size: 1.6rem;
-
-  &--secondary {
-    font-size: 1.2rem;
-    color: $col-app-no-data;
-  }
 }
 </style>

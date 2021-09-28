@@ -31,9 +31,8 @@
       </template>
       <template v-else>
         <no-data-message
-          class="block-info-tab__no-data"
           :message="$t('no-data-message')"
-          is-secondary
+          is-row-block
         />
       </template>
     </div>

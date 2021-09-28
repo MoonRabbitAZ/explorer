@@ -30,8 +30,7 @@
 
       <template v-else>
         <no-data-message
-          class="block-info-tab__no-data"
-          is-secondary
+          is-row-block
           :message="$t('no-data-message')"
         />
       </template>

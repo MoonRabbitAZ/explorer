@@ -27,7 +27,7 @@
     </template>
     <template v-else>
       <no-data-message
-        is-secondary
+        is-row-block
         :message="$t('no-data-message')"
       />
     </template>
