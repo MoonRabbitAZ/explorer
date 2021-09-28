@@ -16,7 +16,6 @@
             </span>
             <div class="recent-events__event-block-number">
               <router-link
-                class="recent-events__event-block-number-link"
                 :to="{
                   ...$routes.blockInfoTab,
                   query: {
@@ -121,10 +120,6 @@ export default {
   color: $col-app-accent;
   text-overflow: ellipsis;
   overflow: hidden;
-}
-
-.recent-events__event-block-number-link {
-  color: $col-app-accent;
 }
 
 .recent-events__no-data-message {

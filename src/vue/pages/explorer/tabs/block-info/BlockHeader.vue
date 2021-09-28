@@ -35,7 +35,7 @@
           {{ $t('header-parent') }}
         </h5>
         <router-link
-          class="block-header__item-value block-header__link"
+          class="block-header__item-value"
           :to="{
             ...$routes.blockInfoTab,
             query: {
@@ -147,10 +147,6 @@ export default {
 .block-header__item-value {
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.block-header__link {
-  color: $col-app-accent;
 }
 </style>
 

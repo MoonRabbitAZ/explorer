@@ -94,6 +94,7 @@ export default {
 .group-menu-links__link {
   font-size: 1.6rem;
   line-height: 2rem;
+  color: $col-navigation-link;
 
   &:hover {
     color: $col-app-accent;
@@ -129,6 +130,7 @@ export default {
   padding: 0.8rem 1.2rem;
   font-size: 1.6rem;
   white-space: nowrap;
+  color: $col-navigation-link;
 
   &:hover {
     background: $col-app-accent;

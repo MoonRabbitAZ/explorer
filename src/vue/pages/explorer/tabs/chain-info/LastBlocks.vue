@@ -100,7 +100,6 @@ export default {
 
 .last-blocks__row-number-link {
   font-size: 1.6rem;
-  color: $col-app-accent;
 
   @include respond-to($small) {
     grid-column: 1/2;

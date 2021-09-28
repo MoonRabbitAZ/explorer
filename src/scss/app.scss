@@ -34,7 +34,13 @@ select,
 input,
 body,
 span,
-p { font-size: 1.2rem; }
+p,
+a { 
+  font-size: 1.2rem; 
+  line-height: 1.2;
+}
+
+a { @include link-primary; }
 
 button {
   border: none;
@@ -115,12 +121,6 @@ h6 {
   font-weight: 400;
   font-size: 1rem;
   line-height: 1.2;
-}
-
-a {
-  font-size: 1.2rem;
-  text-decoration: none;
-  color: $col-app-link;
 }
 
 #app {

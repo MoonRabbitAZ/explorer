@@ -156,3 +156,12 @@
     }
   }
 }
+
+@mixin link-primary () {
+  color: $col-app-link;
+  text-decoration: none;
+
+  &:hover {
+    color: $col-app-link-hover;
+  }
+}

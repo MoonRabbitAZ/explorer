@@ -76,6 +76,7 @@ export default {
 .page-topbar__tab-link {
   font-size: 1.4rem;
   white-space: nowrap;
+  color: $col-page-topbar-link;
 
   & + & {
     margin-left: 3.2rem;
