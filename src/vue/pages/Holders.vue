@@ -1,5 +1,5 @@
 <template>
-  <div class="holders app__padding">
+  <div class="holders">
     <div class="holders__headers">
       <h1 class="holders__header-main">
         {{ $t('holders-header') }}
@@ -14,7 +14,7 @@
         <div
           v-for="holder in sortedHolders"
           :key="holder.address"
-          class="holders__holder-row app__content-block"
+          class="holders__holder-row"
         >
           <p>
             {{ holder.currentNumber }}
@@ -105,6 +105,8 @@ export default {
 
 .holders {
   margin-top: 4rem;
+
+  @include app-padding;
 }
 
 .holders__headers,
@@ -122,6 +124,8 @@ export default {
 .holders__holder-row {
   align-items: center;
   height: 5.2rem;
+
+  @include content-block;
 
   & + & {
     margin-top: 0.4rem;

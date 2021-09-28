@@ -1,5 +1,5 @@
 <template>
-  <div class="staking-account-row app__content-block">
+  <div class="staking-account-row">
     <account-address
       is-name-display
       :account-address="staking.address"
@@ -33,11 +33,6 @@ export default {
   props: {
     staking: { type: StakingRecord, required: true },
   },
-
-  setup () {
-    return {
-    }
-  },
 }
 </script>
 
@@ -51,6 +46,8 @@ export default {
   grid-template-columns: 1fr 15rem 11rem max-content;
   align-items: center;
   padding: 1rem 1.6rem;
+
+  @include content-block;
 }
 </style>
 

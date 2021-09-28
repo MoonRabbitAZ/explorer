@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="block-header app__content-block"
-  >
+  <div class="block-header">
     <div class="block-header__content">
       <div class="block-header__info-item">
         <h5 class="block-header__item-header">
@@ -109,6 +107,7 @@ export default {
 .block-header {
   padding: 2rem 1.6rem;
 
+  @include content-block;
   @include respond-to($sidebar-hide-bp) {
     padding: 1.6rem;
   }

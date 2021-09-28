@@ -1,5 +1,5 @@
 <template>
-  <div class="my-accounts-tab app__padding">
+  <div class="my-accounts-tab">
     <div class="my-accounts-tab__top-bar">
       <div class="my-accounts-tab__search-wrap">
         <input-field
@@ -132,6 +132,8 @@ export default {
 <style lang="scss" scoped>
 @import '~@scss/mixins';
 @import '~@scss/variables';
+
+.my-accounts-tab { @include app-padding; }
 
 .my-accounts-tab__top-bar {
   display: flex;

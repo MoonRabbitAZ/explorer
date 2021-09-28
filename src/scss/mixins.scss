@@ -165,3 +165,16 @@
     color: $col-app-link-hover;
   }
 }
+
+@mixin content-block {
+  background: $col-app-content-block-bg;
+  border-radius: 0.4rem;
+}
+
+@mixin app-padding {
+  padding: 0 $app-padding;
+
+  @include respond-to($sidebar-hide-bp) {
+    padding: 0 $app-padding-mobile;
+  }
+}

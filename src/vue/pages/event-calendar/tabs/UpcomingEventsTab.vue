@@ -1,5 +1,5 @@
 <template>
-  <div class="upcoming-events-tab app__padding">
+  <div class="upcoming-events-tab">
     <div class="upcoming-events-tab__body">
       <div class="upcoming-events-tab__calendar-wrap">
         <calendar-month
@@ -127,6 +127,8 @@ export default {
 <style lang="scss" scoped>
 @import '~@scss/mixins';
 @import '~@scss/variables';
+
+.upcoming-events-tab { @include app-padding; }
 
 .upcoming-events-tab__body {
   width: 100%;

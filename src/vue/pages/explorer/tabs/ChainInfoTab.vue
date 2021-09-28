@@ -1,5 +1,5 @@
 <template>
-  <div class="chain-info-tab app__padding">
+  <div class="chain-info-tab">
     <chain-info-blocks />
     <div class="chain-info-tab__body">
       <last-blocks />
@@ -37,6 +37,8 @@ export default {
 <style lang="scss" scoped>
 @import '~@scss/mixins';
 @import '~@scss/variables';
+
+.chain-info-tab { @include app-padding; }
 
 .chain-info-tab__body {
   display: grid;

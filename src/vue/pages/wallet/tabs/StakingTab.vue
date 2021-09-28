@@ -1,5 +1,5 @@
 <template>
-  <div class="staking-tab app__padding">
+  <div class="staking-tab">
     <template v-if="isLoaded">
       <template v-if="isLoadFailed">
         <error-message
@@ -115,6 +115,8 @@ export default {
 <style lang="scss" scoped>
 @import '~@scss/mixins';
 @import '~@scss/variables';
+
+.staking-tab { @include app-padding; }
 
 .staking-tab__top-bar {
   display: flex;

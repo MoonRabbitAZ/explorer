@@ -21,7 +21,7 @@
     </div>
 
     <div
-      class="calendar-month__body app__content-block"
+      class="calendar-month__body"
       :class="[`calendar-month__start-day-${startDay}`]"
     >
       <div class="calendar-month__days-of-week">
@@ -161,6 +161,8 @@ export default {
 
 .calendar-month__body {
   padding: 3rem;
+
+  @include content-block;
 
   &.calendar-month__start-day-sun .calendar-month__month-day:first-child {
     grid-column: 1;

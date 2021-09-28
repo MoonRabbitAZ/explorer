@@ -34,7 +34,7 @@
       class="create-account-seed-step__seed"
     >
       <p
-        class="create-account-seed-step__seed-word app__content-block"
+        class="create-account-seed-step__seed-word"
         v-for="(word, id) in arraySeed"
         :key="word + id"
       >
@@ -240,6 +240,8 @@ export default {
   background: $col-app-block-bg;
   border-radius: 0.4rem;
   word-break: break-all;
+
+  @include content-block;
 }
 
 .create-account-seed-step__seed-word-number {

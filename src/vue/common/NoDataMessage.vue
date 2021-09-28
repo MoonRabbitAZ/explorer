@@ -1,7 +1,7 @@
 <template>
   <div
     class="no-data-message"
-    :class="{'app__content-block': isSecondary}"
+    :class="{'no-data-message--secondary': isSecondary}"
   >
     <p
       class="no-data-message__message"
@@ -24,11 +24,16 @@ export default {
 
 <style lang="scss">
 @import '~@scss/variables';
+@import '~@scss/mixins';
 
 .no-data-message {
   display: flex;
   flex-direction: column;
   padding: 1.6rem;
+
+  &--secondary {
+    @include content-block;
+  }
 }
 
 .no-data-message__message {

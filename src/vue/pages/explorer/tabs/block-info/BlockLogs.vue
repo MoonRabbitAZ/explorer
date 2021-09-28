@@ -5,7 +5,7 @@
     </h1>
     <template v-if="sortedLogs.length">
       <div
-        class="block-logs__log-wrap app__content-block"
+        class="block-logs__log-wrap"
         v-for="(log, id) in sortedLogs"
         :key="id"
       >
@@ -166,6 +166,8 @@ export default {
 
 .block-logs__log-wrap {
   padding: 1.8rem 1.6rem;
+
+  @include content-block;
 
   & + & {
     margin-top: 0.4rem;

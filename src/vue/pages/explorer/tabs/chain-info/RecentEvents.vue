@@ -7,7 +7,7 @@
       <div class="recent-events__events-wrap">
         <div
           v-for="(item, id) in events"
-          class="recent-events__event app__content-block"
+          class="recent-events__event"
           :key="id"
         >
           <div class="recent-events__event-header">
@@ -34,14 +34,17 @@
       </div>
     </template>
     <template v-else>
-      <div class="recent-events__no-data-message app__content-block">
-        {{ $t('no-data-message') }}
-      </div>
+      <no-data-message
+        is-secondary
+        :message="$t('no-data-message')"
+      />
     </template>
   </div>
 </template>
 
 <script>
+import NoDataMessage from '@/vue/common/NoDataMessage'
+
 import { computed } from 'vue'
 import { useStore } from 'vuex'
 import { vuexTypes } from '@/vuex'
@@ -49,6 +52,8 @@ import { formatNumber } from '@polkadot/util'
 
 export default {
   name: 'recent-events',
+
+  components: { NoDataMessage },
 
   setup () {
     const store = useStore()
@@ -102,6 +107,8 @@ export default {
 .recent-events__event {
   padding: 1.6rem;
 
+  @include content-block;
+
   & + & {
     margin-top: 0.4rem;
   }
@@ -120,14 +127,6 @@ export default {
   color: $col-app-accent;
   text-overflow: ellipsis;
   overflow: hidden;
-}
-
-.recent-events__no-data-message {
-  height: 5.2rem;
-  padding: 0 1.6rem;
-  color: $col-app-no-data;
-  display: flex;
-  align-items: center;
 }
 </style>
 

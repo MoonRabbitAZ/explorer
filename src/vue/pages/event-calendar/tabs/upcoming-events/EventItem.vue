@@ -1,5 +1,5 @@
 <template>
-  <div class="event-item app__content-block">
+  <div class="event-item">
     <p class="event-item__row event-item__date-wrap">
       <span
         v-if="isFullDate"
@@ -86,6 +86,8 @@ export default {
 .event-item {
   width: 100%;
   padding: 1.6rem;
+
+  @include content-block;
 }
 
 .event-item__row {

@@ -16,7 +16,7 @@
         </h4>
       </div>
       <template v-if="extrinsics.length">
-        <div class="block-extrinsics__body  app__content-block">
+        <div class="block-extrinsics__body">
           <extrinsic-row
             v-for="(extr, index) in extrinsics"
             :key="index"
@@ -83,6 +83,8 @@ export default {
 
 .block-extrinsics__body {
   padding: 1.6rem 2.4rem;
+
+  @include content-block;
 }
 
 .block-extrinsics__body-titles {

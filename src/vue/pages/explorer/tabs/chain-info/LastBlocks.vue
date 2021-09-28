@@ -7,7 +7,7 @@
       <div class="last-blocks__body">
         <div
           v-for="item in lastHeaders"
-          class="last-blocks__row app__content-block"
+          class="last-blocks__row"
           :key="item.number"
         >
           <router-link
@@ -32,15 +32,17 @@
       </div>
     </template>
     <template v-else>
-      <div class="last-blocks__no-data-message app__content-block">
-        {{ $t('no-data-message') }}
-      </div>
+      <no-data-message
+        is-secondary
+        :message="$t('no-data-message')"
+      />
     </template>
   </div>
 </template>
 
 <script>
 import AccountAddress from '@/vue/common/AccountAddress'
+import NoDataMessage from '@/vue/common/NoDataMessage'
 
 import { getAddress } from '@/js/helpers/account-helper'
 import { computed } from 'vue'
@@ -50,7 +52,7 @@ import { vuexTypes } from '@/vuex'
 export default {
   name: 'last-blocks',
 
-  components: { AccountAddress },
+  components: { AccountAddress, NoDataMessage },
 
   setup () {
     const store = useStore()
@@ -89,6 +91,8 @@ export default {
   height: 5.2rem;
   padding: 0 1.6rem;
 
+  @include content-block;
+
   & + & {
     margin-top: 0.4rem;
   }
@@ -120,14 +124,6 @@ export default {
     grid-row: 1/3;
     grid-column: 2/3;
   }
-}
-
-.last-blocks__no-data-message {
-  height: 5.2rem;
-  padding: 0 1.6rem;
-  color: $col-app-no-data;
-  display: flex;
-  align-items: center;
 }
 
 </style>

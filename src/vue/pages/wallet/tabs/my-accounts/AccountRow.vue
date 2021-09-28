@@ -1,5 +1,5 @@
 <template>
-  <div class="account-row app__content-block">
+  <div class="account-row">
     <div class="account-row__body">
       <div class="account-row__address">
         <account-address
@@ -138,6 +138,8 @@ export default {
   grid-template-columns: repeat(2, 1fr) 15rem 11rem;
   align-items: center;
   padding: 1rem 1.6rem;
+
+  @include content-block;
 }
 
 .account-row__address {

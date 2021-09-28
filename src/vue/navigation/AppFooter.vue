@@ -1,5 +1,5 @@
 <template>
-  <footer class="app-footer app__padding">
+  <footer class="app-footer">
     <p class="app-footer__all-rights">
       {{ $t("all-rights") }}
     </p>
@@ -57,6 +57,7 @@ export default {
   align-items: center;
   justify-content: space-between;
 
+  @include app-padding;
   @include respond-to($tablet) {
     flex-direction: column;
     align-items: flex-start;

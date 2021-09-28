@@ -1,5 +1,5 @@
 <template>
-  <div class="info-block app__content-block">
+  <div class="info-block">
     <div class="info-block__main">
       <h3 class="info-block__name">
         {{ title }}
@@ -67,6 +67,8 @@ export default {
   align-items: center;
   padding: 0 2rem;
   min-height: $min-height-info-block;
+
+  @include content-block;
 }
 
 .info-block__name {

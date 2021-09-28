@@ -1,5 +1,5 @@
 <template>
-  <div class="block-info-tab app__padding">
+  <div class="block-info-tab">
     <div class="block-info-tab__search-wrap">
       <input-field
         v-model="form.search.value"
@@ -178,6 +178,8 @@ export default {
 <style lang="scss" scoped>
 @import '~@scss/mixins';
 @import '~@scss/variables';
+
+.block-info-tab { @include app-padding; }
 
 .block-info-tab__block-header,
 .block-info-tab__extrinsics,
