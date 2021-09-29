@@ -117,7 +117,6 @@ export default {
   display: flex;
   flex-wrap: wrap;
   gap: 3rem;
-
   margin-bottom: 2.2rem;
 }
 
