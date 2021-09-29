@@ -4,8 +4,8 @@
     :class="[
       {
         'input-field--error': errorMessage,
-        'input-field--readonly': $attrs.readonly || $attrs.readonly === '',
-        'input-field--disabled': $attrs.disabled,
+        'input-field--readonly': $attrs.readonly === '' || $attrs.readonly,
+        'input-field--disabled': $attrs.disabled === '' || $attrs.disabled,
         'input-field--pwd-toggle-present': isPasswordType,
       }
     ]"
@@ -180,9 +180,8 @@ $pwd-toggle-btn-width: 3.2rem;
   &:read-only,
   &:disabled {
     cursor: not-allowed;
-    filter: grayscale(100%);
-    -webkit-text-fill-color: $field-color-unfocused;
-    color: $field-color-unfocused;
+    -webkit-text-fill-color: $field-color-disabled;
+    color: $field-color-disabled;
   }
 
   &::-webkit-input-placeholder { @include placeholder; }
@@ -236,7 +235,7 @@ $pwd-toggle-btn-width: 3.2rem;
 
   .input-field--readonly &,
   .input-field--disabled & {
-    @include readonly-field-border($field-color-unfocused);
+    @include readonly-field-border($field-color-disabled);
   }
 
   .input-field--pwd-toggle-present & {

@@ -9,10 +9,7 @@
 
     <multiselect
       class="select-field__input"
-      :class="{
-        'select-field__input--error': isError,
-        'select-field__input--disabled': disabled,
-      }"
+      :class="{ 'select-field__input--error': isError }"
       v-model="value"
       :mode="mode"
       :options="options"
@@ -123,6 +120,10 @@ export default {
 @import '~@/scss/variables';
 @import '~@/scss/mixins';
 
+$multiselect-caret-size: 2rem;
+$label-indentation:
+  2 * $field-input-padding-horizontal + $multiselect-caret-size;
+
 .select-field {
   position: relative;
   width: 100%;
@@ -135,8 +136,27 @@ export default {
   padding: $field-input-padding-vertical $field-input-padding-horizontal;
   height: 4.2rem;
 
+  & .multiselect-placeholder,
+  & .multiselect-single-label,
+  & .multiselect-multiple-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-left: $field-input-padding-horizontal;
+    white-space: nowrap;
+    max-width: calc(100% - #{$label-indentation});
+  }
+
+  & > .multiselect-placeholder { @include placeholder; }
+
+  .multiselect-caret {
+    mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='currentColor' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z'%3E%3C/path%3E%3C/svg%3E");
+    height: 2rem;
+    width: 2rem;
+    margin: 0;
+  }
+
   @include text-field-font-sizes;
-  @include field-border($field-color-focused, $field-color-unfocused);
+  @include field-border($field-color-unfocused, $field-color-unfocused);
 
   &--error {
     @include field-border($field-color-error, $field-color-error);
@@ -144,15 +164,13 @@ export default {
     & > .multiselect-placeholder,
     & > .multiselect-single-label,
     & > .multiselect-multiple-label {
+      -webkit-text-fill-color: $field-color-error;
       color: $field-color-error;
     }
-  }
 
-  &--disabled {
-    pointer-events: none;
-    filter: grayscale(100%);
-
-    @include readonly-field-border($field-color-unfocused);
+    & > .multiselect-caret {
+      background: $field-color-error;
+    }
   }
 
   & > .multiselect-dropdown {
@@ -191,12 +209,29 @@ export default {
   }
 
   &.is-active { box-shadow: none; }
-  &.is-open { border-radius: 0; }
 
-  & > .multiselect-placeholder,
-  & > .multiselect-single-label,
-  & > .multiselect-multiple-label {
-    @include placeholder;
+  &.is-open {
+    border-radius: 0.4rem;
+
+    @include field-border($field-color-focused, $field-color-focused);
+  }
+
+  &.is-disabled {
+    background: transparent;
+    pointer-events: none;
+
+    @include readonly-field-border($field-color-disabled);
+
+    & > .multiselect-placeholder,
+    & > .multiselect-single-label,
+    & > .multiselect-multiple-label {
+      -webkit-text-fill-color: $field-color-disabled;
+      color: $field-color-disabled;
+    }
+
+    & > .multiselect-caret {
+      background: $field-color-disabled;
+    }
   }
 
   & > .multiselect-input {
@@ -271,23 +306,6 @@ export default {
     }
   }
   /* stylelint-enable no-descending-specificity */
-
-  &--error > .multiselect-input {
-    @include field-border($field-color-error, $field-color-error);
-
-    & > .multiselect-placeholder,
-    & > .multiselect-single-label,
-    & > .multiselect-multiple-label {
-      color: $field-color-error;
-    }
-  }
-
-  &--disabled > .multiselect-input {
-    pointer-events: none;
-    filter: grayscale(100%);
-
-    @include readonly-field-border($field-color-unfocused);
-  }
 }
 
 .select-field__label {
