@@ -37,6 +37,18 @@ export default Object.assign(
     STAKING_API_URL: 'https://staking.polkadot.tokend.io/',
 
     STAKING_SYSTEM_ADDRESS: 'GsvVmjr1CBHwQHw84pPHMDxgNY3iBLz6Qn7qS3CH8qPhrHz',
+
+    /**
+     * Social links
+     */
+    SOCIAL_DISCORD_LINK: 'https://discord.com/invite/2deuZrmfBm',
+    SOCIAL_FACEBOOK_LINK: 'https://www.facebook.com/moonrabbitAZ/',
+    SOCIAL_GITHUB_LINK: 'https://github.com/MoonRabbitAZ',
+    SOCIAL_INSTAGRAM_LINK: 'https://instagram.com/moonrabbitaz?utm_medium=copy_link',
+    SOCIAL_LINKEDIN_LINK: 'https://www.linkedin.com/company/moonrabbitaz',
+    SOCIAL_REDDIT_LINK: 'https://www.reddit.com/r/MoonRabbitAI/',
+    SOCIAL_TELEGRAM_LINK: 'https://t.me/moonrabbitcom',
+    SOCIAL_TWITTER_LINK: 'https://twitter.com/moonrabbitAZ',
   },
 
   // process.env
