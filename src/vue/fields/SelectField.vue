@@ -155,6 +155,12 @@ $label-indentation:
     margin: 0;
   }
 
+  &:not([disabled]):hover {
+    .multiselect-caret {
+      background: $field-color-focused;
+    }
+  }
+
   @include text-field-font-sizes;
   @include field-border($field-color-unfocused, $field-color-unfocused);
 
