@@ -104,7 +104,7 @@
 }
 
 @mixin field-border($color-focused, $color-unfocused, $focused-selector:'') {
-  border: 0.1rem solid $color-unfocused;
+  border: 0.2rem solid $color-unfocused;
   border-radius: $field-border-radius;
   background: radial-gradient($color-focused, $color-focused) bottom -0.1rem center no-repeat;
   background-size: 0 0.2rem;
