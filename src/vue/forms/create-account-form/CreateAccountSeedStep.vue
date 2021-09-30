@@ -242,8 +242,6 @@ export default {
   background: $col-app-block-bg;
   border-radius: 0.4rem;
   word-break: break-all;
-
-  @include content-block;
 }
 
 .create-account-seed-step__seed-word-number {

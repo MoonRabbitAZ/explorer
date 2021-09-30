@@ -172,9 +172,11 @@
 }
 
 @mixin app-padding {
-  padding: 0 $app-padding;
+  padding-right: $app-padding;
+  padding-left: $app-padding;
 
   @include respond-to($sidebar-hide-bp) {
-    padding: 0 $app-padding-mobile;
+    padding-right: $app-padding-mobile;
+    padding-left: $app-padding-mobile;
   }
 }
