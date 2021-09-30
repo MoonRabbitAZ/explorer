@@ -43,6 +43,7 @@ $_brightTurquoise: #00ffd1;
 $_endeavour: #0857ac;
 $_dustyGray: #979797;
 $_darkGreen: #00735e;
+$_yellow: #e6ee0d;
 
 // root
 $app-font: 'Consolas', "BlinkMacSystemFont", "Segoe UI", "Roboto", 
@@ -153,3 +154,10 @@ $col-clipboard-success-message-bg: $col-app-bg;
 // validator locator
 $col-validator-locator-border: $_clearDay;
 $col-validator-locator-ping-border: $_clearDay;
+
+// progress bar
+$progress-bar-size: 5.4rem;
+$progress-bar-status-size: 3.4rem;
+$col-progress-bar-bg: $_yellow;
+$col-progress-bar-slice-bg: $col-app-accent;
+$col-progress-bar-status-bg: $col-app-bg;

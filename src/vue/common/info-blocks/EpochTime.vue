@@ -1,12 +1,20 @@
 <template>
   <div class="epoch-time">
-    <info-block
-      v-if="epochTime.total && epochTime.progress"
-      class="epoch-time__info"
-      :title="$t('epoch-title')"
-      :value="epochTime.total"
-      :secondary-value="epochTime.progress"
-    />
+    <template v-if="sessionInfo">
+      <info-block
+        class="epoch-time__info"
+        :title="$t('epoch-title')"
+        :value="epochTime.total"
+        :secondary-value="epochTime.progress"
+      >
+        <template #additional>
+          <progress-bar
+            :current="sessionInfo.sessionProgress"
+            :total="sessionInfo.sessionLength"
+          />
+        </template>
+      </info-block>
+    </template>
     <skeleton-loader
       v-else
       class="epoch-time__sceleton-loader"
@@ -16,6 +24,7 @@
 
 <script>
 import InfoBlock from '@/vue/common/InfoBlock'
+import ProgressBar from '@/vue/common/ProgressBar'
 import SkeletonLoader from '@/vue/common/SkeletonLoader'
 
 import { api } from '@api'
@@ -28,6 +37,7 @@ export default {
   components: {
     InfoBlock,
     SkeletonLoader,
+    ProgressBar,
   },
 
   setup () {
@@ -55,6 +65,7 @@ export default {
 
     return {
       epochTime,
+      sessionInfo,
     }
   },
 }
