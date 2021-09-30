@@ -56,38 +56,87 @@ export default {
     const appVersion = ref(`apps v${CONFIG.BUILD_VERSION}`)
     const socialLinks = ref([
       {
-        link: CONFIG.SOCIAL_TELEGRAM_LINK,
-        iconName: 'telegram',
+        link: CONFIG.SOCIAL_LINK_COIN_MARKET_CAP,
+        iconName: 'coin-market-cap',
       },
       {
-        link: CONFIG.SOCIAL_DISCORD_LINK,
+        link: CONFIG.SOCIAL_LINK_COIN_GECKO,
+        iconName: 'coin-gecko',
+      },
+      {
+        link: CONFIG.SOCIAL_LINK_DISCORD,
         iconName: 'discord',
       },
       {
-        link: CONFIG.SOCIAL_FACEBOOK_LINK,
+        link: CONFIG.SOCIAL_LINK_FACEBOOK,
         iconName: 'facebook',
       },
       {
-        link: CONFIG.SOCIAL_GITHUB_LINK,
+        link: CONFIG.SOCIAL_LINK_GITHUB,
         iconName: 'github',
       },
       {
-        link: CONFIG.SOCIAL_INSTAGRAM_LINK,
+        link: CONFIG.SOCIAL_LINK_INSTAGRAM,
         iconName: 'instagram',
       },
       {
-        link: CONFIG.SOCIAL_LINKEDIN_LINK,
+        link: CONFIG.SOCIAL_LINK_LINKEDIN,
         iconName: 'linkedin',
       },
       {
-        link: CONFIG.SOCIAL_REDDIT_LINK,
+        link: CONFIG.SOCIAL_LINK_REDDIT,
         iconName: 'reddit',
       },
       {
-        link: CONFIG.SOCIAL_TWITTER_LINK,
+        link: CONFIG.SOCIAL_LINK_TWITTER,
         iconName: 'twitter',
       },
+      {
+        link: CONFIG.SOCIAL_LINK_TELEGRAM_CN,
+        iconName: 'telegram-cn',
+      },
+      {
+        link: CONFIG.SOCIAL_LINK_TELEGRAM_MC,
+        iconName: 'telegram-mc',
+      },
+      {
+        link: CONFIG.SOCIAL_LINK_TELEGRAM_KR,
+        iconName: 'telegram-kr',
+      },
+      {
+        link: CONFIG.SOCIAL_LINK_TELEGRAM_JP,
+        iconName: 'telegram-jp',
+      },
+      {
+        link: CONFIG.SOCIAL_LINK_TELEGRAM_RU,
+        iconName: 'telegram-ru',
+      },
+      {
+        link: CONFIG.SOCIAL_LINK_TELEGRAM_TR,
+        iconName: 'telegram-tr',
+      },
+      {
+        link: CONFIG.SOCIAL_LINK_TELEGRAM_ENG,
+        iconName: 'telegram-eng',
+      },
+      {
+        link: CONFIG.SOCIAL_LINK_TELEGRAM_NEWS,
+        iconName: 'telegram-news',
+      },
+      {
+        link: CONFIG.SOCIAL_LINK_COMMUNITY,
+        iconName: 'community',
+      },
+      {
+        link: CONFIG.SOCIAL_LINK_BITCOIN_TALK,
+        iconName: 'bitcoin',
+      },
+      {
+        link: CONFIG.SOCIAL_LINK_WEIBO,
+        iconName: 'weibo',
+      },
     ])
+
     const systemInfo = computed(() =>
       store.getters[vuexTypes.systemChain] + ' ' +
         store.getters[vuexTypes.systemVersion].split('-')[0],

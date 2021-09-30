@@ -17,8 +17,22 @@
     <linkedin-icon v-if="ICON_NAMES.linkedin === name" />
     <reddit-icon v-if="ICON_NAMES.reddit === name" />
     <snapchat-icon v-if="ICON_NAMES.snapchat === name" />
-    <telegram-icon v-if="ICON_NAMES.telegram === name" />
     <twitter-icon v-if="ICON_NAMES.twitter === name" />
+    <coin-gecko-icon v-if="ICON_NAMES.coinGecko === name" />
+    <coin-market-cap-icon v-if="ICON_NAMES.coinMarketCap === name" />
+    <community-icon v-if="ICON_NAMES.community === name" />
+    <telegram-icon v-if="ICON_NAMES.telegram === name" />
+    <telegram-cn-icon v-if="ICON_NAMES.telegramCN === name" />
+    <telegram-eng-icon v-if="ICON_NAMES.telegramENG === name" />
+    <telegram-jp-icon v-if="ICON_NAMES.telegramJP === name" />
+    <telegram-kr-icon v-if="ICON_NAMES.telegramKR === name" />
+    <telegram-mc-icon v-if="ICON_NAMES.telegramMC === name" />
+    <telegram-news-icon v-if="ICON_NAMES.telegramNews === name" />
+    <telegram-ru-icon v-if="ICON_NAMES.telegramRU === name" />
+    <telegram-tr-icon v-if="ICON_NAMES.telegramTR === name" />
+    <weibo-icon v-if="ICON_NAMES.weibo === name" />
+    <bitcoin-icon v-if="ICON_NAMES.bitcoin === name" />
+
     <!-- eslint-enable max-len -->
   </div>
 </template>
@@ -40,8 +54,21 @@ import InstagramIcon from '@/vue/common/icons/social/Instagram-icon'
 import LinkedinIcon from '@/vue/common/icons/social/Linkedin-icon'
 import RedditIcon from '@/vue/common/icons/social/Reddit-icon'
 import SnapchatIcon from '@/vue/common/icons/social/Snapchat-icon'
-import TelegramIcon from '@/vue/common/icons/social/Telegram-icon'
 import TwitterIcon from '@/vue/common/icons/social/Twitter-icon'
+import TelegramIcon from '@/vue/common/icons/social/Telegram-icon'
+import BitcoinIcon from '@/vue/common/icons/social/Bitcoin-icon'
+import CoinGeckoIcon from '@/vue/common/icons/social/Coin-gecko-icon'
+import CoinMarketCapIcon from '@/vue/common/icons/social/Coin-market-cap-icon'
+import CommunityIcon from '@/vue/common/icons/social/Community-icon'
+import TelegramCnIcon from '@/vue/common/icons/social/Telegram-cn-icon'
+import TelegramEngIcon from '@/vue/common/icons/social/Telegram-eng-icon'
+import TelegramJpIcon from '@/vue/common/icons/social/Telegram-jp-icon'
+import TelegramKrIcon from '@/vue/common/icons/social/Telegram-kr-icon'
+import TelegramMcIcon from '@/vue/common/icons/social/Telegram-mc-icon'
+import TelegramNewsIcon from '@/vue/common/icons/social/Telegram-news-icon'
+import TelegramRuIcon from '@/vue/common/icons/social/Telegram-ru-icon'
+import TelegramTrIcon from '@/vue/common/icons/social/Telegram-tr-icon'
+import WeiboIcon from '@/vue/common/icons/social/Weibo-icon'
 
 const ICON_NAMES = {
   copy: 'copy',
@@ -62,6 +89,19 @@ const ICON_NAMES = {
   snapchat: 'snapchat',
   telegram: 'telegram',
   twitter: 'twitter',
+  bitcoin: 'bitcoin',
+  coinGecko: 'coin-gecko',
+  coinMarketCap: 'coin-market-cap',
+  community: 'community',
+  telegramCN: 'telegram-cn',
+  telegramENG: 'telegram-eng',
+  telegramJP: 'telegram-jp',
+  telegramKR: 'telegram-kr',
+  telegramMC: 'telegram-mc',
+  telegramNews: 'telegram-news',
+  telegramRU: 'telegram-ru',
+  telegramTR: 'telegram-tr',
+  weibo: 'weibo',
 }
 
 export default {
@@ -83,6 +123,19 @@ export default {
     SnapchatIcon,
     TelegramIcon,
     TwitterIcon,
+    BitcoinIcon,
+    CoinGeckoIcon,
+    CoinMarketCapIcon,
+    CommunityIcon,
+    TelegramCnIcon,
+    TelegramEngIcon,
+    TelegramJpIcon,
+    TelegramKrIcon,
+    TelegramMcIcon,
+    TelegramNewsIcon,
+    TelegramRuIcon,
+    TelegramTrIcon,
+    WeiboIcon,
   },
   props: {
     name: {

@@ -41,14 +41,28 @@ export default Object.assign(
     /**
      * Social links
      */
-    SOCIAL_DISCORD_LINK: 'https://discord.com/invite/2deuZrmfBm',
-    SOCIAL_FACEBOOK_LINK: 'https://www.facebook.com/moonrabbitAZ/',
-    SOCIAL_GITHUB_LINK: 'https://github.com/MoonRabbitAZ',
-    SOCIAL_INSTAGRAM_LINK: 'https://instagram.com/moonrabbitaz?utm_medium=copy_link',
-    SOCIAL_LINKEDIN_LINK: 'https://www.linkedin.com/company/moonrabbitaz',
-    SOCIAL_REDDIT_LINK: 'https://www.reddit.com/r/MoonRabbitAI/',
-    SOCIAL_TELEGRAM_LINK: 'https://t.me/moonrabbitcom',
-    SOCIAL_TWITTER_LINK: 'https://twitter.com/moonrabbitAZ',
+    SOCIAL_LINK_DISCORD: 'https://discord.com/invite/2deuZrmfBm',
+    SOCIAL_LINK_FACEBOOK: 'https://www.facebook.com/moonrabbitAZ/',
+    SOCIAL_LINK_GITHUB: 'https://github.com/MoonRabbitAZ',
+    SOCIAL_LINK_INSTAGRAM: 'https://instagram.com/moonrabbitaz?utm_medium=copy_link',
+    SOCIAL_LINK_LINKEDIN: 'https://www.linkedin.com/company/moonrabbitaz',
+    SOCIAL_LINK_REDDIT: 'https://www.reddit.com/r/MoonRabbitAI/',
+    SOCIAL_LINK_TWITTER: 'https://twitter.com/moonrabbitAZ',
+    SOCIAL_LINK_COIN_MARKET_CAP: 'https://coinmarketcap.com/currencies/moon-rabbit/',
+    SOCIAL_LINK_COIN_GECKO: 'https://www.coingecko.com/en/coins/moon-rabbit',
+    SOCIAL_LINK_TELEGRAM_CN: 'https://t.me/moonrabbitzh',
+    SOCIAL_LINK_TELEGRAM_MC: 'https://t.me/moonrabbitID',
+    SOCIAL_LINK_TELEGRAM_KR: '',
+    SOCIAL_LINK_TELEGRAM_JP: 'https://t.me/moonrabbitjp',
+    SOCIAL_LINK_TELEGRAM_RU: 'https://t.me/moonrabbitru',
+    SOCIAL_LINK_TELEGRAM_TR: 'https://t.me/MoonRabbitTR',
+    SOCIAL_LINK_TELEGRAM_ENG: 'https://t.me/moonrabbitcom',
+    SOCIAL_LINK_TELEGRAM_NEWS: 'https://t.me/moonrabbitchannel',
+
+    SOCIAL_LINK_COMMUNITY: '',
+    SOCIAL_LINK_BITCOIN_TALK: 'https://bitcointalk.org',
+    SOCIAL_LINK_WEIBO: 'https://weibo.com/u/7616523840?refer_flag=1001030103_&is_all=1',
+
   },
 
   // process.env
