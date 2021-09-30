@@ -12,7 +12,6 @@ const i18n = createI18n({
   fallbackLocale: locale,
   silentFallbackWarn: true,
   globalInjection: true,
-  legacy: false,
   messages: {
     ...require('./resources.js').default,
   },
