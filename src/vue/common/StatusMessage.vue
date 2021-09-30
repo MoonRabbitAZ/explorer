@@ -18,7 +18,7 @@
               :class="[`status-message__icon--${messageType}`]"
               :name="messageIconName"
             />
-            {{ $t(`title_${messageType}`) }}
+            {{ $t(`common.status-message.title_${messageType}`) }}
           </h2>
           <button
             type="button"
@@ -27,7 +27,7 @@
           />
         </div>
         <p class="status-message__text">
-          {{ $tglobal(messageId, { context: messageType, ...messageArgs}) }}
+          {{ $t(`${messageId}`, { context: messageType, ...messageArgs}) }}
         </p>
       </div>
       <div
@@ -48,7 +48,7 @@
 import Icon from '@/vue/common/Icon'
 import { Bus } from '@/js/helpers/event-bus'
 
-const DEFAULT_MESSAGE_TRANSLATION_ID = 'default-message'
+const DEFAULT_MESSAGE_TRANSLATION_ID = 'common.status-message.default-message'
 const CLOSE_TIMEOUT_MS = 7500
 const SHOWN_AGAIN_PRESENCE_TIMEOUT_MS = 1000
 const ONE_HUNDRED_PERCENTS = 100
@@ -368,18 +368,3 @@ $progress-bar-bg: rgba($col-app-accent, 0.2);
   }
 }
 </style>
-
-<i18n locale="en" src="@locales/en.json"></i18n>
-<i18n>
-{
-  "en": {
-    "title_success": "Success",
-    "title_error": "Error",
-    "title_info": "Notification",
-    "title_processing": "Processing",
-    "default-message_success": "Action successful",
-    "default-message_error": "Something went wrong",
-    "default-message_info": "Something is happening.",
-  }
-}
-</i18n>

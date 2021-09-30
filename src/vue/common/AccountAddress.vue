@@ -19,7 +19,7 @@
       is-default-body
     >
       <template #heading>
-        {{ $t('information-title') }}
+        {{ $t('common.account-address.information-title') }}
       </template>
       <div class="account-address__drawer-addr-wrap">
         <account-address-row
@@ -29,7 +29,7 @@
       </div>
       <div class="account-address__drawer-balance-wrap">
         <h3 class="account-address__drawer-balance-header">
-          {{ $t('balance-header') }}
+          {{ $t('common.account-address.balance-header') }}
         </h3>
         <account-balances :account-address="accountAddress"/>
       </div>
@@ -93,12 +93,3 @@ export default {
   padding: 0 $drawer-padding;
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "information-title": "Information",
-    "balance-header": "Balance"
-  }
-}
-</i18n>

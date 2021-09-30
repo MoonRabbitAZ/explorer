@@ -1,7 +1,7 @@
 <template>
   <div class="recent-events">
     <h1 class="recent-events__title">
-      {{ $t('title') }}
+      {{ $t('explorer-page.recent-events.title') }}
     </h1>
     <template v-if="events.length">
       <div class="recent-events__events-wrap">
@@ -36,7 +36,7 @@
     <template v-else>
       <no-data-message
         is-row-block
-        :message="$t('no-data-message')"
+        :message="$t('explorer-page.recent-events.no-data-message')"
       />
     </template>
   </div>
@@ -129,12 +129,3 @@ export default {
   overflow: hidden;
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "title": "Recent events",
-    "no-data-message": "No events available",
-  }
-}
-</i18n>

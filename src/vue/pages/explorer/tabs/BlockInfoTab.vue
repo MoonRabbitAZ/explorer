@@ -5,7 +5,9 @@
         v-model="form.search.value"
         class="block-info-tab__search-field"
         name="block-info-tab-search"
-        :placeholder="$t('search-field-placeholder')"
+        :placeholder="
+          $t('explorer-page.block-info-tab.search-field-placeholder')
+        "
         :error-message="form.search.errorMessage"
         @blur="form.search.blur"
       />
@@ -43,7 +45,7 @@
     <template v-else-if="isLoadFailed">
       <no-data-message
         class="block-info-tab__no-data"
-        :message="$t('no-data-message')"
+        :message="$t('explorer-page.block-info-tab.no-data-message')"
       />
     </template>
     <template v-else>
@@ -216,12 +218,3 @@ export default {
   margin-top: 8rem;
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "search-field-placeholder": "Search by hash or block number",
-    "no-data-message": "Block not found"
-  }
-}
-</i18n>

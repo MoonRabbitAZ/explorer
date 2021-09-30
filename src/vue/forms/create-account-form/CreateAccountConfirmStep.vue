@@ -3,7 +3,7 @@
     <div class="create-account-confirm-step__body">
       <div class="create-account-confirm-step__block">
         <h3 class="create-account-confirm-step__title">
-          {{ $t('seed-title') }}
+          {{ $t('forms.create-account-confirm-step.seed-title') }}
         </h3>
         <p class="create-account-confirm-step__value">
           {{ former.attrs.seed }}
@@ -11,7 +11,7 @@
       </div>
       <div class="create-account-confirm-step__block">
         <h3 class="create-account-confirm-step__title">
-          {{ $t('keypair-title') }}
+          {{ $t('forms.create-account-confirm-step.keypair-title') }}
         </h3>
         <p class="create-account-confirm-step__value">
           {{ former.attrs.pairType }}
@@ -19,10 +19,10 @@
       </div>
 
       <p class="create-account-confirm-step__info-message">
-        {{ $t('info-message-part-1') }}
+        {{ $t('forms.create-account-confirm-step.info-message-part-1') }}
       </p>
       <p class="create-account-confirm-step__info-message">
-        {{ $t('info-message-part-2') }}
+        {{ $t('forms.create-account-confirm-step.info-message-part-2') }}
       </p>
     </div>
 
@@ -32,7 +32,7 @@
         size="big"
         scheme="primary"
         type="submit"
-        :text="$t('save-btn')"
+        :text="$t('forms.create-account-confirm-step.save-btn')"
         :disabled="isDisabled"
       />
     </div>
@@ -98,15 +98,3 @@ export default {
   margin-top: auto;
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "seed-title": "Partial seed",
-    "keypair-title": "Keypair type",
-    "info-message-part-1": "We will provide you with a generated backup file after your account is created. As long as you have access to your account you can always download this file later by clicking on \"Backup\" button from the Accounts section.",
-    "info-message-part-2": "Please make sure to save this file in a secure location as it is required, together with your password, to restore your account.",
-    "save-btn": "Save"
-  }
-}
-</i18n>

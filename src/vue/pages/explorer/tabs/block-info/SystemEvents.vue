@@ -1,7 +1,7 @@
 <template>
   <div class="system-events">
     <h1 class="system-events__title">
-      {{ $t('title') }}
+      {{ $t('explorer-page.system-events.title') }}
     </h1>
     <template v-if="systemEvents.length">
       <div
@@ -17,7 +17,7 @@
     <template v-else>
       <no-data-message
         is-row-block
-        :message="$t('no-data-message')"
+        :message="$t('explorer-page.system-events.no-data-message')"
       />
     </template>
   </div>
@@ -67,12 +67,3 @@ export default {
   margin-bottom: 2rem;
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "title": "System events",
-    "no-data-message": "No events available"
-  }
-}
-</i18n>

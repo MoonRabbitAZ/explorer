@@ -1,10 +1,10 @@
 <template>
-  <div class="staking-transfer-form">
+  <div class="staking-form">
     <template v-if="myAccounts.length">
-      <div class="staking-transfer-form__steps-wrap">
+      <div class="staking-form__steps-wrap">
         <steps
           v-model:current-step="currentStep"
-          class="staking-transfer-form__steps"
+          class="staking-form__steps"
           :steps-count="Object.values(STAKING_FORM_STEPS).length"
         />
       </div>
@@ -23,7 +23,9 @@
       />
     </template>
     <template v-else>
-      <no-data-message :message="$t('no-data-message')"/>
+      <no-data-message
+        :message="$t('forms.staking-form.no-data-message')"
+      />
     </template>
   </div>
 </template>
@@ -44,7 +46,7 @@ const EVENTS = {
 }
 
 export default {
-  name: 'staking-transfer-form',
+  name: 'staking-form',
 
   components: {
     Steps,
@@ -89,27 +91,19 @@ export default {
 @import '~@scss/mixins';
 @import '~@scss/variables';
 
-.staking-transfer-form {
+.staking-form {
   height: 100%;
   overflow-y: auto;
 
   @include scrollbar;
 }
 
-.staking-transfer-form__steps-wrap {
+.staking-form__steps-wrap {
   margin-bottom: 3rem;
   padding: 0 $drawer-padding;
 
-  .staking-transfer-form__steps {
+  .staking-form__steps {
     justify-content: start;
   }
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "no-data-message": "No accounts available"
-  }
-}
-</i18n>

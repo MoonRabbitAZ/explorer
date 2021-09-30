@@ -3,16 +3,16 @@
     <div class="block-extrinsics__wrap">
       <div class="block-extrinsics__body-titles">
         <h1>
-          {{ $t('extrinsics-title') }}
+          {{ $t('explorer-page.block-extrinsics.extrinsics-title') }}
         </h1>
         <h4>
-          {{ $t('events-title') }}
+          {{ $t('explorer-page.block-extrinsics.events-title') }}
         </h4>
         <h4>
-          {{ $t('weight-title') }}
+          {{ $t('explorer-page.block-extrinsics.weight-title') }}
         </h4>
         <h4>
-          {{ $t('signatory-title') }}
+          {{ $t('explorer-page.block-extrinsics.signatory-title') }}
         </h4>
       </div>
       <template v-if="extrinsics.length">
@@ -31,7 +31,7 @@
       <template v-else>
         <no-data-message
           is-row-block
-          :message="$t('no-data-message')"
+          :message="$t('explorer-page.block-extrinsics.no-data-message')"
         />
       </template>
     </div>
@@ -97,15 +97,3 @@ export default {
   align-items: flex-end;
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "extrinsics-title": "Extrinsics",
-    "events-title": "Events",
-    "weight-title": "Weight",
-    "signatory-title": "Signatory",
-    "no-data-message": "No extrinsics available"
-  }
-}
-</i18n>

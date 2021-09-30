@@ -9,7 +9,7 @@
       @click="changeStep(step)"
     >
       <h4>
-        {{ $t('step-title', { number: step}) }}
+        {{ $t('common.steps.step-title', { number: step}) }}
       </h4>
     </button>
   </div>
@@ -88,11 +88,3 @@ export default {
   }
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "step-title": "Step { number }",
-  }
-}
-</i18n>

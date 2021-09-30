@@ -6,7 +6,7 @@
     >
       <div class="staking-form-authorize-step__address-send-wrap">
         <h3 class="staking-form-authorize-step__send-title">
-          {{ $t('stake-from-title') }}
+          {{ $t('forms.staking-form-authorize-step.stake-from-title') }}
         </h3>
         <div class="staking-form-authorize-step__address-wrap">
           <account-address-row
@@ -18,13 +18,13 @@
 
       <div class="staking-form-authorize-step__body">
         <h3 class="staking-form-authorize-step__title">
-          {{ $t('amount-title') }}
+          {{ $t('forms.staking-form-authorize-step.amount-title') }}
         </h3>
         <p class="staking-form-authorize-step__amount-value">
           {{ $fbalance(former.attrs.amount) }}
         </p>
         <h3 class="staking-form-authorize-step__title">
-          {{ $t('submission-fee-title') }}
+          {{ $t('forms.staking-form-authorize-step.submission-fee-title') }}
         </h3>
         <p class="staking-form-authorize-step__fee-value">
           {{ $fbalance(partialFee) }}
@@ -41,7 +41,9 @@
               type="password"
               name="staking-form-authorize-step-password"
               :error-message="form.password.errorMessage"
-              :label="$t('password-input-lbl')"
+              :label="
+                $t('forms.staking-form-authorize-step.password-input-lbl')
+              "
               :disabled="isFormDisabled"
             />
           </div>
@@ -50,7 +52,7 @@
 
       <div class="staking-form-authorize-step__call-hash">
         <h3 class="staking-form-authorize-step__call-hash-title">
-          {{ $t('call-hash-title') }}
+          {{ $t('forms.staking-form-authorize-step.call-hash-title') }}
         </h3>
         <div class="staking-form-authorize-step__call-hash-field-wrap">
           <clipboard-field
@@ -64,7 +66,7 @@
           size="big"
           scheme="primary"
           type="submit"
-          :text="$t('submit-btn')"
+          :text="$t('forms.staking-form-authorize-step.submit-btn')"
           :disabled="isFormDisabled"
         />
       </div>
@@ -265,17 +267,3 @@ export default {
 }
 
 </style>
-
-<i18n>
-{
-  "en": {
-    "stake-from-title": "Stake From",
-    "amount-title": "Amount",
-    "submission-fee-title": "Submission fee",
-    "password-input-lbl": "Password",
-    "tip-input-lbl": "Tip for faster processing",
-    "call-hash-title": "Call Hash",
-    "submit-btn": "Submit"
-  }
-}
-</i18n>

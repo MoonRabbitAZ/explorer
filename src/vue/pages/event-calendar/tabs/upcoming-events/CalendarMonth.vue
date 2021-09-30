@@ -73,7 +73,7 @@ export default {
   },
 
   setup (props) {
-    const { t } = useI18n({ useScope: 'global' })
+    const { t } = useI18n()
     const { dateState } = toRefs(props)
 
     const dayOfWeekRef = ref(

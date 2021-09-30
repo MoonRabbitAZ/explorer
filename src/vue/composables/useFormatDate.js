@@ -3,7 +3,7 @@ import { useI18n } from 'vue-i18n'
 import { reactive } from 'vue'
 
 export function useFormatDate () {
-  const { t } = useI18n({ useScope: 'global' })
+  const { t } = useI18n()
 
   const calendar = reactive({
     sameDay: t('formats.dates.calendar.sameDay'),

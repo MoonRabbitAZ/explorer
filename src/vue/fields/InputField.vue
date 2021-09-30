@@ -18,7 +18,7 @@
       {{ label }}
 
       <template v-if="isCapsLockOn">
-        {{ $t('caps-lock-warning') }}
+        {{ $t('fields.input-field.caps-lock-warning') }}
       </template>
     </label>
 
@@ -323,11 +323,3 @@ $pwd-toggle-btn-width: 3.2rem;
   }
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "caps-lock-warning": "(Warning: Caps-Lock is on)"
-  }
-}
-</i18n>

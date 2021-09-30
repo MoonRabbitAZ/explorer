@@ -1,13 +1,13 @@
 import BN from 'bn.js'
 import { api } from '@api'
 import { extractTime, BN_ONE } from '@polkadot/util'
-import { useGlobalTranslation } from '@/vue/composables'
+import { useI18n } from 'vue-i18n'
 import { reactive, toRefs } from 'vue'
 
 const DEFAULT_TIME = new BN(6000)
 
 export function useBlockTime (blocks = BN_ONE) {
-  const { globalize: t } = useGlobalTranslation()
+  const { t } = useI18n()
   const state = reactive({
     blockTime: 0,
     time: 0,

@@ -19,7 +19,7 @@ function extractValue (val) {
 }
 
 export function useValidators () {
-  const { t } = useI18n({ useScope: 'global' })
+  const { t } = useI18n()
   const { toBalance } = useFormatBalance()
 
   const required = value => {

@@ -1,7 +1,7 @@
 <template>
   <div class="staking-list">
     <h1 class="staking-list__header">
-      {{ $t('staking-header') }}
+      {{ $t('wallet-page.staking-list.staking-header') }}
     </h1>
 
     <template v-if="stakingList.length">
@@ -14,8 +14,8 @@
     </template>
     <template v-else>
       <no-data-message
-        :message="$t('no-data-message')"
         is-row-block
+        :message="$t('wallet-page.staking-list.no-data-message')"
       />
     </template>
   </div>
@@ -65,12 +65,3 @@ export default {
   }
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "staking-header": "Staking",
-    "no-data-message": "No stakes available"
-  }
-}
-</i18n>

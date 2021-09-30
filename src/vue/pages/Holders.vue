@@ -2,10 +2,10 @@
   <div class="holders">
     <div class="holders__headers">
       <h1 class="holders__header-main">
-        {{ $t('holders-header') }}
+        {{ $t('holders-page.holders-header') }}
       </h1>
       <h4>
-        {{ $t('balances-header') }}
+        {{ $t('holders-page.balances-header') }}
       </h4>
     </div>
 
@@ -31,7 +31,7 @@
       <template v-else>
         <no-data-message
           is-row-block
-          :message="$t('no-data-message')"
+          :message="$t('holders-page.no-data-message')"
         />
       </template>
     </template>
@@ -143,13 +143,3 @@ export default {
   }
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "holders-header": "Holders",
-    "balances-header": "Balances",
-    "no-data-message": "No holders available"
-  }
-}
-</i18n>
