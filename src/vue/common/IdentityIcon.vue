@@ -6,7 +6,7 @@
     <img
       class="identity-icon__img"
       :src="imgPath"
-      :alt="$t('identity-img')"
+      :alt="$t('common.identity-icon.identity-img')"
     >
   </div>
 </template>
@@ -95,11 +95,3 @@ export default {
 }
 
 </style>
-
-<i18n>
-{
-  "en": {
-    "identity-img": "Identity image"
-  }
-}
-</i18n>

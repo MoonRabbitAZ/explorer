@@ -1,7 +1,7 @@
 <template>
   <div class="event-calendar">
     <page-topbar
-      :page-name="$tglobal('routers-groups.temples.routers.event-calendar')"
+      :page-name="$t('routers-groups.temples.routers.event-calendar')"
       :tabs="calendarEvents"
     />
     <router-view />

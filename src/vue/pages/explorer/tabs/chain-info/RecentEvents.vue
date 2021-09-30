@@ -1,13 +1,13 @@
 <template>
   <div class="recent-events">
-    <h2 class="recent-events__title app__big-title">
-      {{ $t('title') }}
-    </h2>
+    <h1 class="recent-events__title">
+      {{ $t('explorer-page.recent-events.title') }}
+    </h1>
     <template v-if="events.length">
       <div class="recent-events__events-wrap">
         <div
           v-for="(item, id) in events"
-          class="recent-events__event app__content-block"
+          class="recent-events__event"
           :key="id"
         >
           <div class="recent-events__event-header">
@@ -16,7 +16,6 @@
             </span>
             <div class="recent-events__event-block-number">
               <router-link
-                class="recent-events__event-block-number-link"
                 :to="{
                   ...$routes.blockInfoTab,
                   query: {
@@ -35,14 +34,17 @@
       </div>
     </template>
     <template v-else>
-      <div class="recent-events__no-data-message app__content-block">
-        {{ $t('no-data-message') }}
-      </div>
+      <no-data-message
+        is-row-block
+        :message="$t('explorer-page.recent-events.no-data-message')"
+      />
     </template>
   </div>
 </template>
 
 <script>
+import NoDataMessage from '@/vue/common/NoDataMessage'
+
 import { computed } from 'vue'
 import { useStore } from 'vuex'
 import { vuexTypes } from '@/vuex'
@@ -50,6 +52,8 @@ import { formatNumber } from '@polkadot/util'
 
 export default {
   name: 'recent-events',
+
+  components: { NoDataMessage },
 
   setup () {
     const store = useStore()
@@ -103,6 +107,8 @@ export default {
 .recent-events__event {
   padding: 1.6rem;
 
+  @include content-block;
+
   & + & {
     margin-top: 0.4rem;
   }
@@ -122,25 +128,4 @@ export default {
   text-overflow: ellipsis;
   overflow: hidden;
 }
-
-.recent-events__event-block-number-link {
-  color: $col-app-accent;
-}
-
-.recent-events__no-data-message {
-  height: 5.2rem;
-  padding: 0 1.6rem;
-  color: $col-app-no-data;
-  display: flex;
-  align-items: center;
-}
 </style>
-
-<i18n>
-{
-  "en": {
-    "title": "Recent events",
-    "no-data-message": "No events available",
-  }
-}
-</i18n>

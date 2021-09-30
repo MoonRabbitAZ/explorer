@@ -1,7 +1,7 @@
 <template>
   <div class="wallet">
     <page-topbar
-      :page-name="$tglobal('routers-groups.accounts.routers.wallet')"
+      :page-name="$t('routers-groups.accounts.routers.wallet')"
       :tabs="wallet"
     />
     <router-view />

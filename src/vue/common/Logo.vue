@@ -6,7 +6,7 @@
     <img
       lass="logo__img"
       src="@static/branding/logo.png"
-      :alt="$t('logo')"
+      :alt="$t('common.logo.logo')"
     >
   </router-link>
 </template>
@@ -32,11 +32,3 @@ export default {
 }
 
 </style>
-
-<i18n>
-{
-  "en": {
-    "logo": "Logo",
-  }
-}
-</i18n>

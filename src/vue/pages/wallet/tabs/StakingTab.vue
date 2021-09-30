@@ -1,10 +1,10 @@
 <template>
-  <div class="staking-tab app__padding">
+  <div class="staking-tab">
     <template v-if="isLoaded">
       <template v-if="isLoadFailed">
         <error-message
-          :header="$t('error-header')"
-          :message="$t('error-message')"
+          :header="$t('wallet-page.staking-tab.error-header')"
+          :message="$t('wallet-page.staking-tab.error-message')"
         />
       </template>
       <template v-else>
@@ -12,7 +12,7 @@
           <app-button
             class="my-accounts-tab__actions-button"
             scheme="primary"
-            :text="$t('stake-btn')"
+            :text="$t('wallet-page.staking-tab.stake-btn')"
             @click="isStakeFormOpen = true"
           />
         </div>
@@ -25,7 +25,7 @@
           :close-by-click-outside="false"
         >
           <template #heading>
-            {{ $t('stake-title') }}
+            {{ $t('wallet-page.staking-tab.stake-title') }}
           </template>
           <staking-form
             :my-accounts="myAccounts"
@@ -116,6 +116,8 @@ export default {
 @import '~@scss/mixins';
 @import '~@scss/variables';
 
+.staking-tab { @include app-padding; }
+
 .staking-tab__top-bar {
   display: flex;
   justify-content: flex-end;
@@ -132,14 +134,3 @@ export default {
   }
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "stake-title": "Stake",
-    "stake-btn": "Stake",
-    "error-header": "Error",
-    "error-message": "There was an error while loading.",
-  }
-}
-</i18n>

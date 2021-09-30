@@ -17,7 +17,7 @@
       <img
         class="app__loader-init-logo"
         src="@static/branding/init-logo.png"
-        :alt="$t('init-logo')"
+        :alt="CONFIG.APP_NAME"
       >
       <loader class="app__main-loader"/>
     </div>
@@ -83,6 +83,7 @@ export default {
       isApiConnected,
       isBlurredBg,
       isLoaded,
+      CONFIG,
     }
   },
 }
@@ -133,11 +134,3 @@ export default {
   height: 31.4rem;
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "init-logo": "Moon rabbit",
-  }
-}
-</i18n>

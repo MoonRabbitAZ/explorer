@@ -1,11 +1,9 @@
 <template>
-  <div
-    class="block-header app__content-block"
-  >
+  <div class="block-header">
     <div class="block-header__content">
       <div class="block-header__info-item">
         <h5 class="block-header__item-header">
-          {{ $t('header-number') }}
+          {{ $t('explorer-page.block-header.header-number') }}
         </h5>
         <p class="block-header__block-number">
           {{ blockNumber }}
@@ -14,7 +12,7 @@
 
       <div class="block-header__info-item">
         <h5 class="block-header__item-header">
-          {{ $t('header-hash') }}
+          {{ $t('explorer-page.block-header.header-hash') }}
         </h5>
         <p class="block-header__item-value">
           {{ blockHash }}
@@ -23,7 +21,7 @@
 
       <div class="block-header__info-item">
         <h5 class="block-header__item-header">
-          {{ $t('header-validator') }}
+          {{ $t('explorer-page.block-header.header-validator') }}
         </h5>
         <template v-if="header?.author">
           <account-address :account-address="header.author.toString()" />
@@ -32,10 +30,10 @@
 
       <div class="block-header__info-item">
         <h5 class="block-header__item-header">
-          {{ $t('header-parent') }}
+          {{ $t('explorer-page.block-header.header-parent') }}
         </h5>
         <router-link
-          class="block-header__item-value block-header__link"
+          class="block-header__item-value"
           :to="{
             ...$routes.blockInfoTab,
             query: {
@@ -49,7 +47,7 @@
 
       <div class="block-header__info-item">
         <h5 class="block-header__item-header">
-          {{ $t('header-extrinsic') }}
+          {{ $t('explorer-page.block-header.header-extrinsic') }}
         </h5>
         <p class="block-header__item-value">
           {{ extrinsicHash }}
@@ -58,7 +56,7 @@
 
       <div class="block-header__info-item">
         <h5 class="block-header__item-header">
-          {{ $t('header-condition') }}
+          {{ $t('explorer-page.block-header.header-condition') }}
         </h5>
         <p class="block-header__item-value">
           {{ conditionHash }}
@@ -106,11 +104,10 @@ export default {
 @import '~@scss/mixins';
 @import '~@scss/variables';
 
-$header-font-size: 1.2rem;
-
 .block-header {
   padding: 2rem 1.6rem;
 
+  @include content-block;
   @include respond-to($sidebar-hide-bp) {
     padding: 1.6rem;
   }
@@ -133,14 +130,11 @@ $header-font-size: 1.2rem;
   overflow: hidden;
   display: grid;
   grid-gap: 1rem 0;
-  grid-template-rows: $header-font-size 1fr;
+  grid-template-rows: max-content 1fr;
   align-items: center;
 }
 
 .block-header__item-header {
-  font-size: $header-font-size;
-  line-height: 1;
-  font-weight: 400;
   color: $col-app-secondary;
 }
 
@@ -153,21 +147,4 @@ $header-font-size: 1.2rem;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
-.block-header__link {
-  color: $col-app-accent;
-}
 </style>
-
-<i18n>
-{
-  "en": {
-    "header-number": "Number",
-    "header-hash": "Hash",
-    "header-validator": "Validator",
-    "header-parent": "Parent",
-    "header-extrinsic": "Extrinsic",
-    "header-condition": "Condition",
-  }
-}
-</i18n>

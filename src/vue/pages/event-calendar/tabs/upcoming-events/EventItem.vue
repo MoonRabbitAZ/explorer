@@ -1,5 +1,5 @@
 <template>
-  <div class="event-item app__content-block">
+  <div class="event-item">
     <p class="event-item__row event-item__date-wrap">
       <span
         v-if="isFullDate"
@@ -13,7 +13,7 @@
     </p>
     <i18n-t
       class="event-item__row"
-      keypath="message"
+      keypath="event-calendar-page.event-item.message"
       tag="p"
     >
       <template #message>
@@ -86,6 +86,8 @@ export default {
 .event-item {
   width: 100%;
   padding: 1.6rem;
+
+  @include content-block;
 }
 
 .event-item__row {
@@ -108,11 +110,3 @@ export default {
 }
 
 </style>
-
-<i18n>
-{
-  "en": {
-    "message": "{ message } { link }"
-  }
-}
-</i18n>

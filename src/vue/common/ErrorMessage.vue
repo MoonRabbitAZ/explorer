@@ -43,7 +43,6 @@ export default {
 .error-message__header {
   display: flex;
   align-items: center;
-  font-size: 1.8rem;
   color: $col-app-error;
   margin-bottom: 2rem;
 }

@@ -3,13 +3,13 @@
     <template v-if="isLoaded">
       <template v-if="isLoadFailed">
         <error-message
-          :header="$t('error-header')"
-          :message="$t('error-message')"
+          :header="$t('wallet-page.account-deposit.error-header')"
+          :message="$t('wallet-page.account-deposit.error-message')"
         />
       </template>
       <template v-else>
         <p class="account-deposit__info">
-          {{ $t('info-text') }}
+          {{ $t('wallet-page.account-deposit.info-text') }}
         </p>
         <clipboard-field
           class="account-deposit__clipboard"
@@ -115,13 +115,3 @@ export default {
   }
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "info-text": "To receive tokens inside Moon Rabbit network transfer ERC20 token to this address:",
-    "error-header": "Error",
-    "error-message": "There was an error while loading.",
-  }
-}
-</i18n>

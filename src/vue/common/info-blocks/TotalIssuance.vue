@@ -3,7 +3,7 @@
     <info-block
       v-if="currentBalance"
       class="total-issuance__info"
-      :title="$t('total-issued-title')"
+      :title="$t('common.total-issuance.total-issued-title')"
       :value="$fbalance(currentBalance)"
     />
     <skeleton-loader
@@ -23,7 +23,7 @@ import { useCall } from '@/vue/composables'
 import { IS_MAIN_NODE, DEDUCTIBLE_BALANCE } from '@/js/const/deducticable-balance.const'
 
 export default {
-  name: 'chain-info-blocks',
+  name: 'total-issuance',
 
   components: {
     InfoBlock,
@@ -59,11 +59,3 @@ export default {
 }
 
 </style>
-
-<i18n>
-{
-  "en": {
-    "total-issued-title": "Total issued",
-  }
-}
-</i18n>
