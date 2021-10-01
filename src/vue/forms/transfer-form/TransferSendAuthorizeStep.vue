@@ -6,13 +6,13 @@
     >
       <div class="transfer-form-authorize-step__body">
         <h3 class="transfer-form-authorize-step__title">
-          {{ $t('amount-title') }}
+          {{ $t('forms.transfer-form-authorize-step.amount-title') }}
         </h3>
         <p class="transfer-form-authorize-step__amount-value">
           {{ $fbalance(former.attrs.amount) }}
         </p>
         <h3 class="transfer-form-authorize-step__title">
-          {{ $t('submission-fee-title') }}
+          {{ $t('forms.transfer-form-authorize-step.submission-fee-title') }}
         </h3>
         <p class="transfer-form-authorize-step__fee-value">
           {{ $fbalance(partialFee) }}
@@ -29,7 +29,9 @@
               type="password"
               name="transfer-form-authorize-step-password"
               :error-message="form.password.errorMessage"
-              :label="$t('password-input-lbl')"
+              :label="
+                $t('forms.transfer-form-authorize-step.password-input-lbl')
+              "
               :disabled="isFormDisabled"
             />
           </div>
@@ -41,7 +43,7 @@
               @blur="form.tipAmount.blur"
               name="transfer-form-authorize-step-tip-amount"
               :error-message="form.tipAmount.errorMessage"
-              :label="$t('tip-input-lbl')"
+              :label="$t('forms.transfer-form-authorize-step.tip-input-lbl')"
               :disabled="isFormDisabled"
             />
           </div>
@@ -50,7 +52,7 @@
 
       <div class="transfer-form-authorize-step__call-hash">
         <h3 class="transfer-form-authorize-step__call-hash-title">
-          {{ $t('call-hash-title') }}
+          {{ $t('forms.transfer-form-authorize-step.call-hash-title') }}
         </h3>
         <div class="transfer-form-authorize-step__call-hash-field-wrap">
           <clipboard-field
@@ -64,23 +66,23 @@
           size="big"
           scheme="primary"
           type="submit"
-          :text="$t('submit-btn')"
+          :text="$t('forms.transfer-form-authorize-step.submit-btn')"
           :disabled="isFormDisabled"
         />
       </div>
 
       <div class="transfer-form-authorize-step__info">
         <p class="transfer-form-authorize-step__info-message">
-          {{ $t('info-message-part-1') }}
+          {{ $t('forms.transfer-form-authorize-step.info-message-part-1') }}
         </p>
         <p class="transfer-form-authorize-step__info-message">
-          {{ $t('info-message-part-2') }}
+          {{ $t('forms.transfer-form-authorize-step.info-message-part-2') }}
         </p>
         <p class="transfer-form-authorize-step__info-message">
-          {{ $t('info-message-part-3') }}
+          {{ $t('forms.transfer-form-authorize-step.info-message-part-3') }}
         </p>
         <p class="transfer-form-authorize-step__info-message">
-          {{ $t('info-message-part-4') }}
+          {{ $t('forms.transfer-form-authorize-step.info-message-part-4') }}
         </p>
       </div>
     </form>
@@ -241,7 +243,6 @@ export default {
 .transfer-form-authorize-step__title {
   margin-bottom: 1rem;
   color: $col-app-header-secondary;
-  font-size: 1.6rem;
 }
 
 .transfer-form-authorize-step__amount-value {
@@ -260,7 +261,6 @@ export default {
 
 .transfer-form-authorize-step__call-hash-title {
   padding: 0 $drawer-padding;
-  font-size: 1.6rem;
   margin-bottom: 1rem;
 }
 
@@ -294,20 +294,3 @@ export default {
   }
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "amount-title": "Amount",
-    "submission-fee-title": "Submission fee",
-    "password-input-lbl": "Password",
-    "tip-input-lbl": "Tip for faster processing",
-    "call-hash-title": "Call Hash",
-    "submit-btn": "Submit",
-    "info-message-part-1": "The details of the transaction including the type, the description (as available from the chain metadata) as well as any parameters and fee estimations (as available) for the specific type of call.",
-    "info-message-part-2": "The sending account that will be used to send this transaction. Any applicable fees will be paid by this account.",
-    "info-message-part-3": "Adding an optional tip to the transaction could allow for higher priority, especially when the chain is busy.",
-    "info-message-part-4": "The call hash as calculated for this transaction"
-  }
-}
-</i18n>

@@ -3,7 +3,7 @@ import { vueRoutes } from '@/vue-router'
 import { useI18n } from 'vue-i18n'
 
 export function useMenuLinksGroups () {
-  const { t } = useI18n({ useScope: 'global' })
+  const { t } = useI18n()
 
   return reactive([
     {

@@ -1,35 +1,33 @@
 <template>
-  <div
-    class="block-info-summary"
-  >
+  <div class="block-info-summary">
     <div class="block-info-summary__content">
       <info-block
         class="block-info-summary__info"
-        :title="$t('header-deposits')"
+        :title="$t('explorer-page.block-info-summary.header-deposits')"
         :value="$fbalance(deposits)"
       />
 
       <info-block
         class="block-info-summary__info"
-        :title="$t('header-transfers')"
+        :title="$t('explorer-page.block-info-summary.header-transfers')"
         :value="$fbalance(transfers)"
       />
 
       <info-block
         class="block-info-summary__info"
-        :title="$t('header-block-weight')"
+        :title="$t('explorer-page.block-info-summary.header-block-weight')"
         :value="$fnumber(weight)"
       />
 
       <info-block
         class="block-info-summary__info"
-        :title="$t('header-event-count')"
+        :title="$t('explorer-page.block-info-summary.header-event-count')"
         :value="$fnumber(events.length)"
       />
 
       <info-block
         class="block-info-summary__info"
-        :title="$t('header-extrinsic-count')"
+        :title="$t('explorer-page.block-info-summary.header-extrinsic-count')"
         :value="$fnumber(block.block.extrinsics.length)"
       />
     </div>
@@ -145,15 +143,3 @@ export default {
   }
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "header-deposits": "Deposits",
-    "header-transfers": "Transfers",
-    "header-block-weight": "Block weight",
-    "header-event-count": "Event count",
-    "header-extrinsic-count": "Extrinsic count",
-  }
-}
-</i18n>

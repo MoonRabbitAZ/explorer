@@ -1,9 +1,9 @@
 <template>
   <div class="calendar-month">
     <div class="calendar-month__head">
-      <h3 class="calendar-month__title">
+      <h1 class="calendar-month__title">
         {{ $fdmy(dateState.dateMonth) }}
-      </h3>
+      </h1>
       <div class="calendar-month__actions">
         <button
           class="calendar-month__arrow-button"
@@ -21,7 +21,7 @@
     </div>
 
     <div
-      class="calendar-month__body app__content-block"
+      class="calendar-month__body"
       :class="[`calendar-month__start-day-${startDay}`]"
     >
       <div class="calendar-month__days-of-week">
@@ -73,7 +73,7 @@ export default {
   },
 
   setup (props) {
-    const { t } = useI18n({ useScope: 'global' })
+    const { t } = useI18n()
     const { dateState } = toRefs(props)
 
     const dayOfWeekRef = ref(
@@ -123,8 +123,6 @@ export default {
 
 .calendar-month__title {
   text-transform: capitalize;
-  font-size: 2rem;
-  font-weight: 400;
 }
 
 .calendar-month__actions {
@@ -163,6 +161,8 @@ export default {
 
 .calendar-month__body {
   padding: 3rem;
+
+  @include content-block;
 
   &.calendar-month__start-day-sun .calendar-month__month-day:first-child {
     grid-column: 1;

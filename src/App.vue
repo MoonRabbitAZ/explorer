@@ -17,7 +17,7 @@
       <img
         class="app__loader-init-logo"
         src="@static/branding/init-logo.png"
-        :alt="$t('init-logo')"
+        :alt="CONFIG.APP_NAME"
       >
       <loader class="app__main-loader"/>
     </div>
@@ -37,6 +37,7 @@ import { vuexTypes } from '@/vuex'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { useRoute } from 'vue-router'
 import { vueRoutes } from '@/vue-router'
+import CONFIG from '@/config'
 
 export default {
   name: 'app',
@@ -44,10 +45,12 @@ export default {
   components: { StatusMessage, Loader },
 
   setup () {
+    document.title = CONFIG.APP_NAME
     const store = useStore()
     const route = useRoute()
     const isAppInitialised = ref(false)
     const isApiConnected = ref(false)
+
     const blockAuthorHandler = async (header) =>
       await store.dispatch(vuexTypes.BLOCK_AUTHORS_HANDLER, header)
     api.on('connected', () => { isApiConnected.value = true })
@@ -80,6 +83,7 @@ export default {
       isApiConnected,
       isBlurredBg,
       isLoaded,
+      CONFIG,
     }
   },
 }
@@ -130,11 +134,3 @@ export default {
   height: 31.4rem;
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "init-logo": "Moon rabbit",
-  }
-}
-</i18n>

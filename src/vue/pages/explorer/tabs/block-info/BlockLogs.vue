@@ -1,11 +1,11 @@
 <template>
   <div class="block-logs">
-    <h1 class="block-logs__title app__big-title">
-      {{ $t('title') }}
+    <h1 class="block-logs__title">
+      {{ $t('explorer-page.block-logs.title') }}
     </h1>
     <template v-if="sortedLogs.length">
       <div
-        class="block-logs__log-wrap app__content-block"
+        class="block-logs__log-wrap"
         v-for="(log, id) in sortedLogs"
         :key="id"
       >
@@ -27,8 +27,8 @@
     </template>
     <template v-else>
       <no-data-message
-        is-secondary
-        :message="$t('no-data-message')"
+        is-row-block
+        :message="$t('explorer-page.block-logs.no-data-message')"
       />
     </template>
   </div>
@@ -167,17 +167,10 @@ export default {
 .block-logs__log-wrap {
   padding: 1.8rem 1.6rem;
 
+  @include content-block;
+
   & + & {
     margin-top: 0.4rem;
   }
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "title": "Logs",
-    "no-data-message": "No logs available"
-  }
-}
-</i18n>

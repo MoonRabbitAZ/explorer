@@ -7,15 +7,15 @@
 
       <readonly-row
         class="account-balances__row"
-        v-if="!balancesAll.availableBalance.isZero()"
-        :label="$t('transferrable-lbl')"
-        :value="$fbalance(balancesAll.availableBalance)"
+        v-if="!availableBalance.isZero()"
+        :label="$t('common.account-balances.transferrable-lbl')"
+        :value="$fbalance(availableBalance)"
       />
 
       <readonly-row
         class="account-balances__row"
         v-if="!balancesAll.lockedBalance.isZero()"
-        :label="$t('staked-lbl')"
+        :label="$t('common.account-balances.staked-lbl')"
         :value="$fbalance(balancesAll.lockedBalance)"
       />
     </template>
@@ -36,6 +36,7 @@ import SkeletonLoader from '@/vue/common/SkeletonLoader'
 import { computed } from 'vue'
 import { api } from '@api'
 import { useCall } from '@/vue/composables'
+import { ADMIN_ADDRESS, DEDUCTIBLE_BALANCE } from '@/js/const/deducticable-balance.const'
 
 export default {
   name: 'account-balances',
@@ -49,13 +50,24 @@ export default {
   setup (props) {
     const balancesAll = useCall(api.derive.balances.all, [props.accountAddress])
 
-    const totalBalance = computed(() =>
-      balancesAll.value && balancesAll.value.freeBalance,
-    )
+    const totalBalance = computed(() => {
+      if (!balancesAll.value) return
+      return props.accountAddress === ADMIN_ADDRESS
+        ? balancesAll.value.freeBalance.sub(DEDUCTIBLE_BALANCE)
+        : balancesAll.value.freeBalance
+    })
+
+    const availableBalance = computed(() => {
+      if (!balancesAll.value) return
+      return props.accountAddress === ADMIN_ADDRESS
+        ? balancesAll.value.availableBalance.sub(DEDUCTIBLE_BALANCE)
+        : balancesAll.value.availableBalance
+    })
 
     return {
       balancesAll,
       totalBalance,
+      availableBalance,
     }
   },
 }
@@ -82,12 +94,3 @@ export default {
   }
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "transferrable-lbl": "Transferrable",
-    "staked-lbl": "Staked"
-  }
-}
-</i18n>

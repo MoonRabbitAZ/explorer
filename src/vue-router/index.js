@@ -9,6 +9,7 @@ import UpcomingEventsTab from '@event-calendar-page/tabs/UpcomingEventsTab'
 
 import Wallet from '@wallet-page/Wallet'
 import MyAccountsTab from '@wallet-page/tabs/MyAccountsTab'
+import StakingTab from '@wallet-page/tabs/StakingTab'
 
 import Holders from '@/vue/pages/Holders'
 
@@ -74,6 +75,11 @@ const routes = [
             path: '/wallet/my-accounts',
             name: vueRoutes.myAccountsTab.name,
             component: MyAccountsTab,
+          },
+          {
+            path: '/wallet/staking',
+            name: vueRoutes.stakingTab.name,
+            component: StakingTab,
           },
         ],
       },

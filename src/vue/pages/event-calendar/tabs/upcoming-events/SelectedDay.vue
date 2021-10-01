@@ -1,9 +1,9 @@
 <template>
   <div class="selected-day">
     <div class="selected-day__head">
-      <h3 class="selected-day__title">
+      <h1 class="selected-day__title">
         {{ $fd(dateSelected) }}
-      </h3>
+      </h1>
       <div class="selected-day__actions">
         <button
           class="selected-day__arrow-button"
@@ -76,8 +76,6 @@ export default {
 
 .selected-day__title {
   text-transform: capitalize;
-  font-size: 2rem;
-  font-weight: 400;
 }
 
 .selected-day__actions {

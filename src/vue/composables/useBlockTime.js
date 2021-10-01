@@ -1,12 +1,12 @@
 import BN from 'bn.js'
 import { api } from '@api'
 import { extractTime, BN_ONE } from '@polkadot/util'
-import { useGlobalTranslation } from '@/vue/composables'
+import { useI18n } from 'vue-i18n'
 
 const DEFAULT_TIME = new BN(6000)
 
 export function useBlockTime () {
-  const { globalize: t } = useGlobalTranslation()
+  const { t } = useI18n()
 
   const blockTime = (api.consts.babe?.expectedBlockTime ||
       api.consts.difficulty?.targetBlockTime ||

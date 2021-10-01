@@ -20,7 +20,7 @@
         v-else
         class="create-account-form__no-address"
       >
-        {{ $t('no-address') }}
+        {{ $t('forms.create-account-form.no-address') }}
       </span>
     </div>
 
@@ -64,7 +64,6 @@ import Steps from '@/vue/common/Steps'
 
 import { api } from '@api'
 import { ref, reactive, toRefs, watch, nextTick } from 'vue'
-import { useI18n } from 'vue-i18n'
 import { Bus } from '@/js/helpers/event-bus'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 
@@ -93,7 +92,6 @@ export default {
 
   setup (_, { emit }) {
     const createAccountForm = ref(null)
-    const { t } = useI18n({ useScope: 'global' })
     const accountFormer = new AccountFormer({
       genesisHash: api.genesisHash.toString(),
     })
@@ -118,7 +116,10 @@ export default {
             await accountFormer.createAccount()
 
             emit(EVENTS.closeDrawer)
-            Bus.success(t('forms.create-account-form.create-account-message', { name }))
+            Bus.success({
+              messageId: 'forms.create-account-form.create-account-message',
+              messageArgs: { name },
+            })
           } catch (e) {
             ErrorHandler.process(e)
           }
@@ -224,14 +225,3 @@ export default {
   width: 100%;
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "step-title": "Step { number }",
-    "next-btn": "Next",
-    "save-btn": "Save",
-    "no-address": "The account address will appear here"
-  }
-}
-</i18n>

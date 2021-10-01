@@ -1,11 +1,11 @@
 <template>
-  <div class="holders app__padding">
+  <div class="holders">
     <div class="holders__headers">
       <h1 class="holders__header-main">
-        {{ $t('holders-header') }}
+        {{ $t('holders-page.holders-header') }}
       </h1>
-      <h4 class="holders__header-secondary">
-        {{ $t('balances-header') }}
+      <h4>
+        {{ $t('holders-page.balances-header') }}
       </h4>
     </div>
 
@@ -14,7 +14,7 @@
         <div
           v-for="holder in sortedHolders"
           :key="holder.address"
-          class="holders__holder-row app__content-block"
+          class="holders__holder-row"
         >
           <p>
             {{ holder.currentNumber }}
@@ -30,9 +30,8 @@
 
       <template v-else>
         <no-data-message
-          class="block-info-tab__no-data"
-          is-secondary
-          :message="$t('no-data-message')"
+          is-row-block
+          :message="$t('holders-page.no-data-message')"
         />
       </template>
     </template>
@@ -56,6 +55,7 @@ import { computed } from 'vue'
 import { api } from '@api'
 import { useCall } from '@/vue/composables'
 import { keyring } from '@polkadot/ui-keyring'
+import { ADMIN_ADDRESS, DEDUCTIBLE_BALANCE } from '@/js/const/deducticable-balance.const'
 
 const AMOUNT_LIST_ITEMS = 100
 
@@ -77,10 +77,15 @@ export default {
       const sort = [...holders.value].sort((a, b) =>
         b[1].data.free.cmp(a[1].data.free)).slice(0, AMOUNT_LIST_ITEMS)
       return sort.map((item, index) => {
+        const address = keyring.encodeAddress(item[0].slice(-32))
+        const balance = address === ADMIN_ADDRESS
+          ? item[1].data.free.sub(DEDUCTIBLE_BALANCE).toString()
+          : item[1].data.free.toString()
+
         return {
           currentNumber: (index + 1 < 10 ? '0' : '') + (index + 1),
-          address: keyring.encodeAddress(item[0].slice(-32)),
-          balance: item[1].data.free.toString(),
+          address,
+          balance,
         }
       })
     })
@@ -99,6 +104,8 @@ export default {
 
 .holders {
   margin-top: 4rem;
+
+  @include app-padding;
 }
 
 .holders__headers,
@@ -117,6 +124,8 @@ export default {
   align-items: center;
   height: 5.2rem;
 
+  @include content-block;
+
   & + & {
     margin-top: 0.4rem;
   }
@@ -124,10 +133,6 @@ export default {
 
 .holders__header-main {
   grid-column: 1/3;
-}
-
-.holders__header-secondary {
-  font-size: 1.4rem;
 }
 
 .holders__sceleton-loader {
@@ -138,13 +143,3 @@ export default {
   }
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "holders-header": "Holders",
-    "balances-header": "Balances",
-    "no-data-message": "No holders available"
-  }
-}
-</i18n>

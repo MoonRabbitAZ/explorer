@@ -1,7 +1,7 @@
 <template>
-  <footer class="app-footer app__padding">
+  <footer class="app-footer">
     <p class="app-footer__all-rights">
-      {{ $t("all-rights") }}
+      {{ $t("navigation.app-footer.all-rights") }}
     </p>
     <div class="app-footer__versions-wrap">
       <p class="app-footer__version">
@@ -22,7 +22,7 @@ import { api } from '@api'
 import { ref, computed } from 'vue'
 import { useStore } from 'vuex'
 import { vuexTypes } from '@/vuex'
-import { CONFIG } from '@/config'
+import CONFIG from '@/config'
 
 export default {
   name: 'app-footer',
@@ -57,6 +57,7 @@ export default {
   align-items: center;
   justify-content: space-between;
 
+  @include app-padding;
   @include respond-to($tablet) {
     flex-direction: column;
     align-items: flex-start;
@@ -80,11 +81,3 @@ export default {
   line-height: 1.2rem;
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "all-rights": "Moon Rabbit AngoZaibatsu LLC © 2021. All Rights Reserved. This is not an investment solicitation or offering. USofA citizens, residents and legal entities are fully excluded. Versetti&Co Family Organisation",
-  }
-}
-</i18n>

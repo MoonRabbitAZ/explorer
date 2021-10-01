@@ -11,9 +11,9 @@ export class TransferFormer extends Former {
       recipientAddress: '',
       amount: '',
       isKeepAlive: '',
-      isFullAmount: '',
       paymentInfo: {},
       tx: null,
+      stakingTypeId: '',
     }
   }
 
@@ -25,6 +25,24 @@ export class TransferFormer extends Former {
   async setPaymentInfo () {
     this.attrs.paymentInfo =
       await this.attrs.tx.paymentInfo(this.attrs.senderAddress)
+  }
+
+  getStakeQuery () {
+    return {
+      data: {
+        attributes: {
+          address: this.attrs.senderAddress,
+        },
+        relationships: {
+          stake_option: {
+            data: {
+              id: this.attrs.stakingTypeId,
+              type: 'stake-options',
+            },
+          },
+        },
+      },
+    }
   }
 
   setTransferTx () {

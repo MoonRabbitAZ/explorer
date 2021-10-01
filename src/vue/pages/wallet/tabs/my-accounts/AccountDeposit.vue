@@ -3,13 +3,13 @@
     <template v-if="isLoaded">
       <template v-if="isLoadFailed">
         <error-message
-          :header="'Error'"
-          :message="'There was an error while loading.'"
+          :header="$t('wallet-page.account-deposit.error-header')"
+          :message="$t('wallet-page.account-deposit.error-message')"
         />
       </template>
       <template v-else>
         <p class="account-deposit__info">
-          {{ $t('info-text') }}
+          {{ $t('wallet-page.account-deposit.info-text') }}
         </p>
         <clipboard-field
           class="account-deposit__clipboard"
@@ -36,7 +36,7 @@ import Loader from '@/vue/common/Loader'
 import { ClipboardField } from '@/vue/fields'
 
 import { reactive, toRefs } from 'vue'
-import { restApi } from '@api'
+import { bridgeApi } from '@api'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 
 export default {
@@ -61,14 +61,14 @@ export default {
     })
 
     async function getDepositId () {
-      const response = await restApi.post('bridge/addresses', {
+      const response = await bridgeApi.post('bridge/addresses', {
         data: {
           attributes: {
             moonrabbit_address: props.accountAddress,
           },
         },
       })
-      return response?.data?.id ?? ''
+      return response?._rawResponse?.data?.id ?? ''
     }
 
     async function init () {
@@ -115,11 +115,3 @@ export default {
   }
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "info-text": "To receive tokens inside Moon Rabbit network transfer ERC20 token to this address:",
-  }
-}
-</i18n>
