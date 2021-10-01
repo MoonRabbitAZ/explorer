@@ -30,7 +30,7 @@ export default Object.assign(
 
     BUILD_VERSION: packageJson.version,
 
-    WSS_NODE: 'wss://node.polkadot.tokend.io',
+    WSS_NODE: 'wss://kusama.api.onfinality.io/public-ws',
 
     BRIDGE_API_URL: 'https://bridge.hole.moonrabbit.com/',
 

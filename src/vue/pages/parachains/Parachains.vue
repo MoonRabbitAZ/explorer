@@ -1,7 +1,7 @@
 <template>
   <div class="parachains">
     <page-topbar
-      :page-name="$tglobal('routers-groups.temples.routers.parachains')"
+      :page-name="$t('routers-groups.temples.routers.parachains')"
       :tabs="parachains"
     />
     <router-view />

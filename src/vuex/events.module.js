@@ -11,6 +11,7 @@ export const state = {
   eventCount: 0,
   pervBlockHash: '',
   pervEventHash: '',
+  lastBlockEvents: [],
 }
 
 export const mutations = {
@@ -26,11 +27,16 @@ export const mutations = {
   [vuexTypes.SET_PREV_EVENT_HASH] (state, pervEventHash) {
     state.pervEventHash = pervEventHash
   },
+  [vuexTypes.SET_LAST_BLOCK_EVENTS] (state, lastBlockEvents) {
+    state.lastBlockEvents = lastBlockEvents
+  },
 }
 
 export const actions = {
   [vuexTypes.SUBSCRIBE_EVENTS] ({ commit, state }) {
     api.query.system.events(async (records) => {
+      commit(vuexTypes.SET_LAST_BLOCK_EVENTS, records)
+
       const newEvents = records
         .map((record, index) => ({ indexes: [index], record }))
         .filter(({ record: { event: { method, section } } }) =>
@@ -82,6 +88,7 @@ export const getters = {
   [vuexTypes.eventCount]: state => state.eventCount,
   [vuexTypes.pervBlockHash]: state => state.pervBlockHash,
   [vuexTypes.pervEventHash]: state => state.pervEventHash,
+  [vuexTypes.lastBlockEvents]: state => state.lastBlockEvents,
 }
 
 export default {

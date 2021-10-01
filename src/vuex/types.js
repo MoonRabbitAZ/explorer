@@ -27,6 +27,7 @@ const mutations = {
   SET_EVENT_COUNT: 'SET_EVENT_COUNT',
   SET_PREV_BLOCK_HASH: 'SET_PREV_BLOCK_HASH',
   SET_PREV_EVENT_HASH: 'SET_PREV_EVENT_HASH',
+  SET_LAST_BLOCK_EVENTS: 'SET_LAST_BLOCK_EVENTS',
 }
 
 const actions = {
@@ -66,6 +67,7 @@ const getters = {
   eventCount: 'eventCount',
   pervBlockHash: 'pervBlockHash',
   pervEventHash: 'pervEventHash',
+  lastBlockEvents: 'lastBlockEvents',
 }
 
 export const vuexTypes = {
