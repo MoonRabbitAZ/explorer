@@ -430,5 +430,17 @@
     "event-item": {
       "message": "{ message } { link }"
     }
+  },
+  "parachains-page": {
+    "parachains-overview-tab": {
+      "parachains-header": "Parachains",
+      "no-data-message": "No parachains available"
+    },
+    "parachains-summary": {
+      "parachains-header": "Parachains",
+      "parathreads-header": "Parathreads",
+      "current-lease-header": "Current lease",
+      "lease-period-header": "Lease period"
+    }
   }
 }

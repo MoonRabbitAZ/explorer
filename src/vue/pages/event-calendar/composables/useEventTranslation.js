@@ -8,7 +8,6 @@ export function useEventTranslation (type, id) {
     messageEventTranslation: '',
     linkEventTranslation: '',
   })
-
   switch (type) {
     case BCH_EVENT_TYPES.councilElection:
       state.messageEventTranslation = t('blockchain-events.messages.council-election')
@@ -31,7 +30,7 @@ export function useEventTranslation (type, id) {
       break
 
     case BCH_EVENT_TYPES.parachainAuction:
-      state.messageEventTranslation = toolbar('blockchain-events.messages.parachain-auction', { id })
+      state.messageEventTranslation = t('blockchain-events.messages.parachain-auction', { id })
       state.linkEventTranslation = t('blockchain-events.links.parachain-auction')
       break
 
@@ -54,7 +53,7 @@ export function useEventTranslation (type, id) {
       state.messageEventTranslation = id
         ? t('blockchain-events.messages.scheduler', { id })
         : t('blockchain-events.messages.scheduler-anonymous')
-      state.linkEventTranslation = t('blockchain-events.links.rscheduler')
+      state.linkEventTranslation = t('blockchain-events.links.scheduler')
       break
 
     case BCH_EVENT_TYPES.stakingEpoch:

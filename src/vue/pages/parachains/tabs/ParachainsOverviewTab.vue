@@ -1,9 +1,15 @@
 <template>
-  <div class="parachains-overview-tab app__padding">
+  <div class="parachains-overview-tab">
+    <parachains-summary
+      class="parachains-overview-tab__summary"
+      :parachains-amount="parachainIds?.length"
+      :parathread-amount="threadIds?.length"
+      :lease-period="leasePeriod"
+    />
     <div class="parachains-overview-tab__list">
       <div class="parachains-overview-tab__list-body">
         <h1 class="parachains-overview-tab__header">
-          {{ $t('parachains-header') }}
+          {{ $t('parachains-page.parachains-overview-tab.parachains-header') }}
         </h1>
         <template v-if="parachainIds">
           <template v-if="parachainIds.length">
@@ -19,7 +25,9 @@
           <template v-else>
             <no-data-message
               class="parachains-overview-tab__no-data"
-              :message="$t('no-data-message')"
+              :message="
+                $t('parachains-page.parachains-overview-tab.no-data-message')
+              "
               is-secondary
             />
           </template>
@@ -34,6 +42,7 @@
 
 <script>
 import ParachainRow from '@parachains-page/tabs/parachains-overview/ParachainRow'
+import ParachainsSummary from '@parachains-page/tabs/parachains-overview/ParachainsSummary'
 import SkeletonLoader from '@/vue/common/SkeletonLoader'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 
@@ -41,12 +50,14 @@ import { computed, reactive, watch } from 'vue'
 import { api } from '@api'
 import { useCall } from '@/vue/composables'
 import { useLeasePeriod } from '@parachains-page/composables/useLeasePeriod'
+import { useThreadIds } from '@parachains-page/composables/useThreadIds'
 
 export default {
   name: 'parachains-overview-tab',
 
   components: {
     ParachainRow,
+    ParachainsSummary,
     SkeletonLoader,
     NoDataMessage,
   },
@@ -56,7 +67,7 @@ export default {
 
     const parachains = useCall(api.query.paras.parachains)
     const lastBlock = useCall(api.derive.chain.subscribeNewBlocks)
-
+    const threadIds = useThreadIds()
     const { leasePeriod } = useLeasePeriod()
 
     const parachainIds = computed(() =>
@@ -101,6 +112,7 @@ export default {
       parachainIds,
       leasePeriod,
       lastEventsBlocks,
+      threadIds,
     }
   },
 }
@@ -109,6 +121,12 @@ export default {
 <style lang="scss" scoped>
 @import '~@scss/mixins';
 @import '~@scss/variables';
+
+.parachains-overview-tab { @include app-padding; }
+
+.parachains-overview-tab__summary {
+  margin-bottom: 3rem;
+}
 
 .parachains-overview-tab__list {
   overflow-x: auto;
@@ -132,12 +150,3 @@ export default {
 }
 
 </style>
-
-<i18n>
-{
-  "en": {
-    "parachains-header": "Parachains",
-    "no-data-message": "No parachains available"
-  }
-}
-</i18n>

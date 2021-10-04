@@ -206,37 +206,33 @@ export default function useScheduled () {
     if (bestNumber.value) {
       if (dispatches.value) {
         state.value = addFiltered(
-          createDispatches(bestNumber.value, blockTime.value, dispatches.value))
+          createDispatches(bestNumber.value, blockTime, dispatches.value))
       }
 
       if (councilMotions.value) {
         state.value = addFiltered(
           createCouncilMotions(
             bestNumber.value,
-            blockTime.value,
+            blockTime,
             councilMotions.value,
           ))
       }
 
       if (referendums.value) {
         state.value = addFiltered(
-          createReferendums(
-            bestNumber.value,
-            blockTime.value,
-            referendums.value,
-          ))
+          createReferendums(bestNumber.value, blockTime, referendums.value))
       }
 
       if (scheduled.value) {
         state.value = addFiltered(
-          createScheduled(bestNumber.value, blockTime.value, scheduled.value))
+          createScheduled(bestNumber.value, blockTime, scheduled.value))
       }
 
       if (sessionInfo.value?.sessionLength.gt(BN_ONE)) {
         state.value = addFiltered(
           createStakingInfo(
             bestNumber.value,
-            blockTime.value,
+            blockTime,
             sessionInfo.value,
             slashes.value || [],
             api.consts.staking?.slashDeferDuration,
@@ -247,14 +243,14 @@ export default function useScheduled () {
         state.value = addFiltered(
           createAuctionInfo(
             bestNumber.value,
-            blockTime.value,
+            blockTime,
             auctionInfo.value.unwrap(),
           ))
       }
 
       if (bestNumber.value) {
         state.value = addFiltered(
-          createConstDurations(bestNumber.value, blockTime.value, [
+          createConstDurations(bestNumber.value, blockTime, [
             [
               BCH_EVENT_TYPES.councilElection,
               (api.consts.elections || api.consts.phragmenElection ||

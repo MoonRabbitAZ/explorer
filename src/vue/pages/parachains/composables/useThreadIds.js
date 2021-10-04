@@ -18,7 +18,7 @@ function extractIds (entries) {
     .sort((a, b) => a.cmp(b))
 }
 
-export function useParaLifecycles () {
+export function useThreadIds () {
   return useMapEntries(
     [api.events.session.NewSession, api.events.registrar.Registered],
     api.query.paras.paraLifecycles,
