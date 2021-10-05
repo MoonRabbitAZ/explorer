@@ -10,6 +10,7 @@
           class="app-footer__social-link"
           target="_blank"
           :href="link"
+          rel="noopener"
         >
           <icon
             class="app-footer__social-icon"

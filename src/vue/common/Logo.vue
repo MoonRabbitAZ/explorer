@@ -11,6 +11,7 @@
     <img
       class="logo__img-name"
       src="@static/branding/logo-name.svg"
+      :alt="$t('logo')"
     >
   </router-link>
 </template>
