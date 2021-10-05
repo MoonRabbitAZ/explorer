@@ -3,7 +3,7 @@
     <info-block
       v-if="blockTime.type"
       class="last-block-timer__info"
-      :title="$t('last-block-title')"
+      :title="$t('common.last-block-timer.last-block-title')"
       :value="`${blockTime.before}.${blockTime.post} ${blockTime.type}`"
     />
     <skeleton-loader
@@ -20,7 +20,7 @@ import SkeletonLoader from '@/vue/common/SkeletonLoader'
 import { useBlockTimer } from '@explorer-page/composables/useBlockTimer'
 
 export default {
-  name: 'chain-info-blocks',
+  name: 'last-block-timer',
 
   components: {
     InfoBlock,
@@ -49,13 +49,4 @@ export default {
   width: 100%;
   height: $min-height-info-block;
 }
-
 </style>
-
-<i18n>
-{
-  "en": {
-    "last-block-title": "Last block",
-  }
-}
-</i18n>

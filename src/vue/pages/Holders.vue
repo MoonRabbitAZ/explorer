@@ -1,11 +1,11 @@
 <template>
-  <div class="holders app__padding">
+  <div class="holders">
     <div class="holders__headers">
       <h1 class="holders__header-main">
-        {{ $t('holders-header') }}
+        {{ $t('holders-page.holders-header') }}
       </h1>
-      <h4 class="holders__header-secondary">
-        {{ $t('balances-header') }}
+      <h4>
+        {{ $t('holders-page.balances-header') }}
       </h4>
     </div>
 
@@ -14,7 +14,7 @@
         <div
           v-for="holder in sortedHolders"
           :key="holder.address"
-          class="holders__holder-row app__content-block"
+          class="holders__holder-row"
         >
           <p>
             {{ holder.currentNumber }}
@@ -30,9 +30,8 @@
 
       <template v-else>
         <no-data-message
-          class="block-info-tab__no-data"
-          is-secondary
-          :message="$t('no-data-message')"
+          is-row-block
+          :message="$t('holders-page.no-data-message')"
         />
       </template>
     </template>
@@ -105,6 +104,8 @@ export default {
 
 .holders {
   margin-top: 4rem;
+
+  @include app-padding;
 }
 
 .holders__headers,
@@ -123,6 +124,8 @@ export default {
   align-items: center;
   height: 5.2rem;
 
+  @include content-block;
+
   & + & {
     margin-top: 0.4rem;
   }
@@ -130,10 +133,6 @@ export default {
 
 .holders__header-main {
   grid-column: 1/3;
-}
-
-.holders__header-secondary {
-  font-size: 1.4rem;
 }
 
 .holders__sceleton-loader {
@@ -144,13 +143,3 @@ export default {
   }
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "holders-header": "Holders",
-    "balances-header": "Balances",
-    "no-data-message": "No holders available"
-  }
-}
-</i18n>

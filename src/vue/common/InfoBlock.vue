@@ -1,5 +1,5 @@
 <template>
-  <div class="info-block app__content-block">
+  <div class="info-block">
     <div class="info-block__main">
       <h3 class="info-block__name">
         {{ title }}
@@ -65,19 +65,22 @@ export default {
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 0 2rem;
   min-height: $min-height-info-block;
   gap: 2rem;
+
+  @include content-block;
 }
 
 .info-block__name {
   margin-bottom: 0.3rem;
   white-space: nowrap;
+  color: $col-app-header-secondary;
 }
 
 .info-block__value {
   font-size: 1.6rem;
-  color: $col-app-accent;
   white-space: nowrap;
   margin-bottom: 0.3rem;
 }
@@ -85,7 +88,6 @@ export default {
 .info-block__secondary-value {
   font-size: 1.2rem;
   white-space: nowrap;
-  color: $col-app-accent;
 }
 
 </style>

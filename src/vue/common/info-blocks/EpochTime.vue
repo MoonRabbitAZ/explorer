@@ -3,7 +3,7 @@
     <template v-if="sessionInfo">
       <info-block
         class="epoch-time__info"
-        :title="$t('epoch-title')"
+        :title="$t('common.epoch-time.epoch-title')"
         :value="epochTime.total"
         :secondary-value="epochTime.progress"
       >
@@ -84,13 +84,4 @@ export default {
   width: 100%;
   height: $min-height-info-block;
 }
-
 </style>
-
-<i18n>
-{
-  "en": {
-    "epoch-title": "Epoch",
-  }
-}
-</i18n>

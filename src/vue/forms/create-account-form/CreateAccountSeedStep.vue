@@ -5,7 +5,7 @@
         <select-field
           v-model="form.type.value"
           :options="seedTypesOptions"
-          :label="$t('select-field-type-lbl')"
+          :label="$t('forms.create-account-seed-step.select-field-type-lbl')"
           :can-deselect="false"
           :error-message="form.type.errorMessage"
           @blur="form.type.blur"
@@ -23,8 +23,10 @@
           @blur="form.seed.blur"
           name="creaete-account-seed"
           :error-message="form.seed.errorMessage"
-          :label="$t('seed-input-lbl')"
-          :placeholder="$t('seed-input-placeholder')"
+          :label="$t('forms.create-account-seed-step.seed-input-lbl')"
+          :placeholder="
+            $t('forms.create-account-seed-step.seed-input-placeholder')
+          "
         />
       </div>
     </div>
@@ -34,7 +36,7 @@
       class="create-account-seed-step__seed"
     >
       <p
-        class="create-account-seed-step__seed-word app__content-block"
+        class="create-account-seed-step__seed-word"
         v-for="(word, id) in arraySeed"
         :key="word + id"
       >
@@ -50,12 +52,12 @@
       <app-button
         class="create-account-seed-step__copy-btn"
         scheme="secondary"
-        :text="$t('copy-btn')"
+        :text="$t('forms.create-account-seed-step.copy-btn')"
         @click="copySeed"
       />
 
       <p class="create-account-seed-step__seed-info">
-        {{ $t('seed-info') }}
+        {{ $t('forms.create-account-seed-step.seed-info') }}
       </p>
 
       <tick-field
@@ -63,7 +65,7 @@
         v-model="form.isHaveSeed.value"
         cb-value=""
         name="processing-personal-data-form-confirm-date"
-        :label="$t('have-seed-field-lbl')"
+        :label="$t('forms.create-account-seed-step.have-seed-field-lbl')"
       />
     </div>
 
@@ -72,7 +74,7 @@
         class="create-account-seed-step__next-btn"
         size="big"
         scheme="primary"
-        :text="$t('next-btn')"
+        :text="$t('forms.create-account-seed-step.next-btn')"
         :disabled="isImportAccount ? false : !form.isHaveSeed.value"
         @click="nextStep"
       />
@@ -115,7 +117,7 @@ export default {
   emits: Object.values(EVENTS),
 
   setup (props, { emit }) {
-    const { t } = useI18n({ useScope: 'global' })
+    const { t } = useI18n()
 
     const state = reactive({
       seed: props.former.attrs.seed,
@@ -263,17 +265,3 @@ export default {
   margin-top: auto;
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "select-field-type-lbl": "Generate seed",
-    "copy-btn": "Copy",
-    "seed-info": "The secret seed value for this account. Ensure that you keep this in a safe place, with access to the seed you can re-create the account.",
-    "have-seed-field-lbl": "I have saved my mnemonic seed",
-    "next-btn": "Next",
-    "seed-input-lbl": "Seed",
-    "seed-input-placeholder": "Enter seed"
-  }
-}
-</i18n>

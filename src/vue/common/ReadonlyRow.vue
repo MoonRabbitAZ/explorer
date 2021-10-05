@@ -34,7 +34,6 @@ export default {
 
 .readonly-row__label {
   color: $col-app-header-secondary;
-  font-size: 1.2rem;
 }
 
 .readonly-row__value {

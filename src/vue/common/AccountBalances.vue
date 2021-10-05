@@ -8,14 +8,14 @@
       <readonly-row
         class="account-balances__row"
         v-if="!availableBalance.isZero()"
-        :label="$t('transferrable-lbl')"
+        :label="$t('common.account-balances.transferrable-lbl')"
         :value="$fbalance(availableBalance)"
       />
 
       <readonly-row
         class="account-balances__row"
         v-if="!balancesAll.lockedBalance.isZero()"
-        :label="$t('staked-lbl')"
+        :label="$t('common.account-balances.staked-lbl')"
         :value="$fbalance(balancesAll.lockedBalance)"
       />
     </template>
@@ -94,12 +94,3 @@ export default {
   }
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "transferrable-lbl": "Transferrable",
-    "staked-lbl": "Staked"
-  }
-}
-</i18n>

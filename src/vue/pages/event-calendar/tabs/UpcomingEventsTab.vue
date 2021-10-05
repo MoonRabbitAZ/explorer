@@ -1,5 +1,5 @@
 <template>
-  <div class="upcoming-events-tab app__padding">
+  <div class="upcoming-events-tab">
     <div class="upcoming-events-tab__body">
       <div class="upcoming-events-tab__calendar-wrap">
         <calendar-month
@@ -11,9 +11,9 @@
         />
 
         <div class="upcoming-events-tab__all-events">
-          <div class="upcoming-events-tab__all-events-title app__big-title">
-            {{ $t('all-events') }}
-          </div>
+          <h1 class="upcoming-events-tab__all-events-title">
+            {{ $t('event-calendar-page.upcoming-events-tab.all-events') }}
+          </h1>
           <div class="upcoming-events-tab__event-item-wrap">
             <event-item
               v-for="(item, id) in sortedScheduled"
@@ -128,6 +128,8 @@ export default {
 @import '~@scss/mixins';
 @import '~@scss/variables';
 
+.upcoming-events-tab { @include app-padding; }
+
 .upcoming-events-tab__body {
   width: 100%;
   display: flex;
@@ -172,11 +174,3 @@ export default {
   }
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "all-events": "All events"
-  }
-}
-</i18n>

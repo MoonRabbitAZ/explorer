@@ -17,7 +17,7 @@
       </div>
     </template>
     <template v-else>
-      <div class="day-hour__empty app__content-block" />
+      <div class="day-hour__empty" />
     </template>
   </div>
 </template>
@@ -71,6 +71,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~@scss/mixins';
+
 .day-hour {
   display: flex;
 }
@@ -93,5 +95,7 @@ export default {
 .day-hour__empty {
   width: 100%;
   height: 2rem;
+
+  @include content-block;
 }
 </style>
