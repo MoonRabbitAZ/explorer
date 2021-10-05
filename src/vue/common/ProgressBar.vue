@@ -68,9 +68,18 @@ export default {
 @import '~@scss/variables';
 
 $progress-bar-half-size: $progress-bar-size / 2;
-$progress-clip-rect-1:
-  rect(0, $progress-bar-size, $progress-bar-size, $progress-bar-half-size);
-$progress-clip-rect-2: rect(0, $progress-bar-half-size, $progress-bar-size, 0);
+$progress-clip-rect-1: rect(
+  0,
+  $progress-bar-size,
+  $progress-bar-size,
+  $progress-bar-half-size
+);
+$progress-clip-rect-2: rect(
+  0,
+  $progress-bar-half-size,
+  $progress-bar-size,
+  0
+);
 
 .progress-bar {
   background-color: $col-progress-bar-bg;

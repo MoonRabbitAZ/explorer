@@ -1,6 +1,6 @@
 <template>
   <div class="info-block app__content-block">
-    <div class="info-block__main" >
+    <div class="info-block__main">
       <h3 class="info-block__name">
         {{ title }}
       </h3>
