@@ -341,7 +341,9 @@
       "error-message": "There was an error while loading."
     },
     "staking-account-row": {
-      "unstake-btn": "Unstake"
+      "unstake-btn": "Unstake",
+      "status-pending": "Pending",
+      "success-unstake-msg": "Request successfully sent, you will receive tokens on your address in a few seconds!"
     },
     "staking-list": {
       "staking-header": "Staking",

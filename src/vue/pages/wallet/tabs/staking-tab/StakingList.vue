@@ -10,6 +10,7 @@
         :key="id"
         class="staking-list__row"
         :staking="staking"
+        @withdrawn="withdrawn"
       />
     </template>
     <template v-else>
@@ -25,6 +26,8 @@
 import StakingAccountRow from '@wallet-page/tabs/staking-tab/StakingAccountRow'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 
+const EVENTS = { withdrawn: 'withdrawn' }
+
 export default {
   name: 'staking-list',
 
@@ -38,6 +41,14 @@ export default {
       type: Array,
       required: true,
     },
+  },
+
+  emits: Object.values(EVENTS),
+
+  setup (_, { emit }) {
+    function withdrawn () { emit(EVENTS.withdrawn) }
+
+    return { withdrawn }
   },
 }
 </script>
