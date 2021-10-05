@@ -64,6 +64,7 @@ $col-app-header-secondary: $col-app-secondary;
 $col-app-disabled: $_darkGreen;
 $col-app-error: $_lightRed;
 
+$app-text-line-height: 1.2;
 $col-app-button-disabled: $col-app-disabled;
 $app-button-hover-shadow: 0 0.4rem 2.4rem rgba($col-app-accent, 0.48);
 
@@ -147,7 +148,7 @@ $col-burger-btn: $_clearDay;
 
 // drawer
 $col-drawer-backdrop-bg: rgba($col-app-bg, 0.7);
-$drawer-padding: 3rem;
+$drawer-padding: 2.4rem;
 
 // block extrinsics
 $col-block-extrinsics-border: $_clearDay;

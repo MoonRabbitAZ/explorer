@@ -1,3 +1,4 @@
+
 @import '~@/scss/variables';
 @import '~@/scss/mixins';
 @import '~@/scss/app-form';
@@ -37,7 +38,7 @@ span,
 p,
 a { 
   font-size: 1.2rem; 
-  line-height: 1.2;
+  line-height: $app-text-line-height;
 }
 
 a { @include link-primary; }

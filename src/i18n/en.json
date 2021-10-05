@@ -432,15 +432,26 @@
     }
   },
   "parachains-page": {
-    "parachains-overview-tab": {
-      "parachains-header": "Parachains",
-      "no-data-message": "No parachains available"
-    },
     "parachains-summary": {
       "parachains-header": "Parachains",
       "parathreads-header": "Parathreads",
       "current-lease-header": "Current lease",
       "lease-period-header": "Lease period"
+    },
+    "parachains-list": {
+      "parachains-header": "Parachains",
+      "drawer-title": "Parachain",
+      "no-data-message": "No parachains available"
+    },
+    "parachains-info": {
+      "parachain-id-header": "Parachain ID",
+      "head-header": "Head",
+      "lifecycle-header": "Lifecycle",
+      "included-header": "Included",
+      "backed-header": "Backed",
+      "timeout-header": "Timeout",
+      "chain-header": "Chain",
+      "leases-header": "Leases"
     }
   }
 }
