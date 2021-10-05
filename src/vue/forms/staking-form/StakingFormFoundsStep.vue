@@ -4,12 +4,13 @@
       novalidate
       @submit.prevent="isFormValid() && nextStep()"
     >
+      <!-- eslint-disable max-len-->
       <div class="app__form-row">
         <div class="app__form-field">
           <select-field
             v-model="form.senderAddress.value"
             :options="accounts"
-            :label="$t('select-field-current-account-lbl')"
+            :label="$t('forms.staking-form-founds-step.select-field-current-account-lbl')"
             :can-deselect="false"
             option-label="name"
             value-prop="address"
@@ -22,13 +23,13 @@
       <template v-if="senderBalances">
         <div class="staking-form-founds-step__body">
           <h3 class="staking-form-founds-step__title">
-            {{ $t('balance-title') }}
+            {{ $t('forms.staking-form-founds-step.balance-title') }}
           </h3>
           <p class="staking-form-founds-step__balance-value">
             {{ $fbalance(senderBalances.availableBalance) }}
           </p>
           <h3 class="staking-form-founds-step__title">
-            {{ $t('deposit-title') }}
+            {{ $t('forms.staking-form-founds-step.deposit-title') }}
           </h3>
           <p class="staking-form-founds-step__deposit-value">
             {{ $fbalance(existentialDeposit) }}
@@ -40,7 +41,7 @@
                 <select-field
                   v-model="form.stakingTypeId.value"
                   :options="stakingTypes"
-                  :label="$t('select-field-staking-type-lbl')"
+                  :label="$t('forms.staking-form-founds-step.select-field-staking-type-lbl')"
                   :can-deselect="false"
                   option-label="name"
                   value-prop="id"
@@ -69,7 +70,7 @@
             </div>
 
             <p class="staking-form-founds-step__info-type">
-              {{ $t(`info-staking-type-${form.stakingTypeId.value}`) }}
+              {{ $t(`forms.staking-form-founds-step.info-staking-type-${form.stakingTypeId.value}`) }}
             </p>
 
             <div class="app__form-row">
@@ -79,7 +80,7 @@
                   @blur="form.amount.blur"
                   name="staking-form-founds-step-amount"
                   :error-message="form.amount.errorMessage"
-                  :label="$t('amount-input-lbl')"
+                  :label="$t('forms.staking-form-founds-step.amount-input-lbl')"
                   :disabled="isFormDisabled"
                 />
               </div>
@@ -89,22 +90,23 @@
               <error-message
                 v-if="isInsufficientAmount"
                 class="staking-form-founds-step__error-amount"
-                :header="$t('error-message-header')"
+                :header="$t('forms.staking-form-founds-step.error-message-header')"
                 :message="partialFee.isZero()
-                  ? $t('error-message-amount', { amount: $fbalance(partialFee)})
-                  : $t('error-message-commission', {
-                    amount: $fbalance(partialFee)
-                  })
+                  ? $t('forms.staking-form-founds-step.error-message-amount',
+                       { amount: $fbalance(partialFee)})
+                  : $t('forms.staking-form-founds-step.error-message-commission',
+                       { amount: $fbalance(partialFee) })
                 "
               />
             </transition>
+            <!-- eslint-enable max-len-->
 
             <div class="staking-form-founds-step__actions-wrap">
               <app-button
                 size="big"
                 scheme="primary"
                 type="submit"
-                :text="$t('next-btn')"
+                :text="$t('forms.staking-form-founds-step.next-btn')"
                 :disabled="buttonDisabled"
               />
             </div>
@@ -124,8 +126,9 @@ import Loader from '@/vue/common/Loader'
 import TempleIcon from '@/vue/common/TempleIcon'
 
 import { reactive, toRefs, computed, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { api } from '@api'
-import { useValidators, useForm, useGlobalTranslation } from '@/vue/composables'
+import { useValidators, useForm } from '@/vue/composables'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 
 import { TRANSFER_FORM_STEPS } from '@/js/const/steps.const'
@@ -163,7 +166,7 @@ export default {
   emits: Object.values(EVENTS),
 
   setup (props, { emit }) {
-    const { globalize } = useGlobalTranslation()
+    const { t } = useI18n()
 
     const state = reactive({
       existentialDeposit: api.consts.balances.existentialDeposit,
@@ -175,7 +178,7 @@ export default {
     const stakingTypes = computed(() => {
       return props.stakingOptions.map(item => ({
         id: item.id,
-        name: globalize(item.nameTranslationId),
+        name: t(item.nameTranslationId),
       }))
     })
     const isInsufficientAmount = computed(() => {
@@ -292,7 +295,6 @@ export default {
 .staking-form-founds-step__title {
   margin-bottom: 1rem;
   color: $col-app-header-secondary;
-  font-size: 1.6rem;
 }
 
 .staking-form-founds-step__balance-value {
@@ -364,25 +366,3 @@ export default {
   }
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "select-field-current-account-lbl": "Account",
-    "balance-title": "Balance",
-    "deposit-title": "Existential deposit",
-    "amount-input-lbl": "Amount",
-    "next-btn": "Next",
-    "info-staking-type-1": "24% APY, no lock-up with 1-week notice to unstake, rewards accrue monthly",
-    "info-staking-type-2": "67% APY, lock-up for 3 moons (88 days), rewards unlocked at the end of staking",
-    "info-staking-type-3": "200% APY, lock-up for 6 moons (177 days), rewards unlocked at the end of staking",
-    "info-staking-type-4": "500% APY, lock-up for 12 moons (355 days), rewards unlocked at the end of staking",
-    "info-staking-type-5": "400% APY, lock-up for 24 moons (710 days), 1/4 of the Year 1 rewards are unlocked at the end of Year 1; the remainder is unlocked at  the end of staking",
-    "info-staking-type-6": "300% APY, lock-up for 48 moons (1420 days),  1/3 of Year 1 rewards is unlocked at the end of Year 1; 1/3 of Year 2 rewards is unlocked at the end of Year 2; 1/3 of Year 3 rewards is unlocked at the end of Year 3; the remainder is unlocked at  the end of staking.",
-    "error-message-header": "Insufficient funds",
-    "error-message-commission": "You do not have enough funds to pay the commission ({ amount }). Please change amount to continue the operation.",
-    "error-message-amount": "You do not have enough funds. Please change amount to continue the operation",
-    "select-field-staking-type-lbl": "Staking type"
-  }
-}
-</i18n>

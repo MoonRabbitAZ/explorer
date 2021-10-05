@@ -34,7 +34,13 @@ select,
 input,
 body,
 span,
-p { font-size: 1.2rem; }
+p,
+a { 
+  font-size: 1.2rem; 
+  line-height: 1.2;
+}
+
+a { @include link-primary; }
 
 button {
   border: none;
@@ -81,10 +87,40 @@ body {
   flex: 1;
 }
 
-a {
+h1 {
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 1.2;
+}
+
+h2 {
+  font-weight: 400;
+  font-size: 1.8rem;
+  line-height: 1.2;
+}
+
+h3 {
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 1.2;
+}
+
+h4 {
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 1.2;
+}
+
+h5 {
+  font-weight: 400;
   font-size: 1.2rem;
-  text-decoration: none;
-  color: $col-app-link;
+  line-height: 1.2;
+}
+
+h6 {
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.2;
 }
 
 #app {
@@ -95,22 +131,4 @@ a {
 
   & ul,
   li { list-style-type: none; }
-}
-
-.app__padding {
-  padding: 0 $app-padding;
-
-  @include respond-to($sidebar-hide-bp) {
-    padding: 0 $app-padding-mobile;
-  }
-}
-
-.app__content-block {
-  background: $col-app-content-block-bg;
-  border-radius: 0.4rem;
-}
-
-.app__big-title {
-  font-size: 2rem;
-  line-height: 1.1;
 }

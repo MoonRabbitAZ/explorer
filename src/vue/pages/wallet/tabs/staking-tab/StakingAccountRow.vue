@@ -1,5 +1,5 @@
 <template>
-  <div class="staking-account-row app__content-block">
+  <div class="staking-account-row">
     <account-address
       is-name-display
       :account-address="staking.address"
@@ -8,7 +8,7 @@
       {{ $fbalance(staking.amount) }}
     </p>
     <p class="staking-account-row__column">
-      {{ $tglobal(`staking-options.types.type-${staking.stakeOptionId}`) }}
+      {{ $t(`staking-options.types.type-${staking.stakeOptionId}`) }}
     </p>
     <p class="staking-account-row__column">
       {{ $fddmy(staking.createdAt) }}
@@ -16,7 +16,7 @@
     <div>
       <app-button
         scheme="secondary"
-        :text="$t('unstake-btn')"
+        :text="$t('wallet-page.staking-account-row.unstake-btn')"
         disabled
       />
     </div>
@@ -36,11 +36,6 @@ export default {
   props: {
     staking: { type: StakingRecord, required: true },
   },
-
-  setup () {
-    return {
-    }
-  },
 }
 </script>
 
@@ -54,6 +49,8 @@ export default {
   grid-template-columns: 1fr 10rem 15rem 11rem max-content;
   align-items: center;
   padding: 1rem 1.6rem;
+
+  @include content-block;
 }
 
 .staking-account-row__column {
@@ -61,11 +58,3 @@ export default {
   text-overflow: ellipsis;
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "unstake-btn": "Unstake"
-  }
-}
-</i18n>

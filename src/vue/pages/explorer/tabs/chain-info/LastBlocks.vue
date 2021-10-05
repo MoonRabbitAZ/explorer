@@ -1,13 +1,13 @@
 <template>
   <div class="last-blocks">
-    <h2 class="last-blocks__title app__big-title">
-      {{ $t('title') }}
-    </h2>
+    <h1 class="last-blocks__title">
+      {{ $t('explorer-page.last-blocks.title') }}
+    </h1>
     <template v-if="lastHeaders.length">
       <div class="last-blocks__body">
         <div
           v-for="item in lastHeaders"
-          class="last-blocks__row app__content-block"
+          class="last-blocks__row"
           :key="item.number"
         >
           <router-link
@@ -32,15 +32,17 @@
       </div>
     </template>
     <template v-else>
-      <div class="last-blocks__no-data-message app__content-block">
-        {{ $t('no-data-message') }}
-      </div>
+      <no-data-message
+        is-row-block
+        :message="$t('explorer-page.last-blocks.no-data-message')"
+      />
     </template>
   </div>
 </template>
 
 <script>
 import AccountAddress from '@/vue/common/AccountAddress'
+import NoDataMessage from '@/vue/common/NoDataMessage'
 
 import { getAddress } from '@/js/helpers/account-helper'
 import { computed } from 'vue'
@@ -50,7 +52,7 @@ import { vuexTypes } from '@/vuex'
 export default {
   name: 'last-blocks',
 
-  components: { AccountAddress },
+  components: { AccountAddress, NoDataMessage },
 
   setup () {
     const store = useStore()
@@ -89,6 +91,8 @@ export default {
   height: 5.2rem;
   padding: 0 1.6rem;
 
+  @include content-block;
+
   & + & {
     margin-top: 0.4rem;
   }
@@ -100,7 +104,6 @@ export default {
 
 .last-blocks__row-number-link {
   font-size: 1.6rem;
-  color: $col-app-accent;
 
   @include respond-to($small) {
     grid-column: 1/2;
@@ -123,21 +126,4 @@ export default {
   }
 }
 
-.last-blocks__no-data-message {
-  height: 5.2rem;
-  padding: 0 1.6rem;
-  color: $col-app-no-data;
-  display: flex;
-  align-items: center;
-}
-
 </style>
-
-<i18n>
-{
-  "en": {
-    "title": "Last blocks",
-    "no-data-message": "No blocks available"
-  }
-}
-</i18n>

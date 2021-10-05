@@ -121,6 +121,7 @@ export default {
 .group-menu-links-mobile__link {
   font-size: 1.6rem;
   line-height: 2rem;
+  color: $col-navigation-link;
 
   &:hover {
     color: $col-app-accent;
@@ -159,6 +160,7 @@ export default {
   font-size: 1.6rem;
   padding: 0 1.6rem;
   white-space: nowrap;
+  color: $col-navigation-link;
 
   & + & {
     margin-top: 2.4rem;

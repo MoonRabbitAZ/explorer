@@ -1,5 +1,5 @@
 <template>
-  <div class="chain-info-tab app__padding">
+  <div class="chain-info-tab">
     <chain-info-blocks />
     <div class="chain-info-tab__body">
       <last-blocks />
@@ -38,6 +38,8 @@ export default {
 @import '~@scss/mixins';
 @import '~@scss/variables';
 
+.chain-info-tab { @include app-padding; }
+
 .chain-info-tab__body {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -51,13 +53,3 @@ export default {
 }
 
 </style>
-
-<i18n>
-{
-  "en": {
-    "welcome": "Welcome",
-    "events": "Events: ",
-    "last-block": "Last block"
-  }
-}
-</i18n>

@@ -1,5 +1,5 @@
 <template>
-  <div class="account-row app__content-block">
+  <div class="account-row">
     <div class="account-row__body">
       <div class="account-row__address">
         <account-address
@@ -43,7 +43,7 @@
       :close-by-click-outside="false"
     >
       <template #heading>
-        {{ $t('transfer-dreawer-title') }}
+        {{ $t('wallet-page.account-row.transfer-drawer-title') }}
       </template>
       <transfer-form
         :from-account-address="account.address"
@@ -56,7 +56,7 @@
       is-default-body
     >
       <template #heading>
-        {{ $t('deposit-drawer-title') }}
+        {{ $t('wallet-page.account-row.deposit-drawer-title') }}
       </template>
       <account-deposit
         :account-address="account.address"
@@ -138,6 +138,8 @@ export default {
   grid-template-columns: repeat(2, 1fr) 15rem 11rem;
   align-items: center;
   padding: 1rem 1.6rem;
+
+  @include content-block;
 }
 
 .account-row__address {
@@ -159,12 +161,3 @@ export default {
   }
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "transfer-dreawer-title": "Send Funds",
-    "deposit-drawer-title": "Deposit"
-  }
-}
-</i18n>

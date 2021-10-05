@@ -3,7 +3,7 @@
     <info-block
       v-if="timeStr"
       class="block-to-time__info"
-      :title="$t('purpose-title')"
+      :title="$t('common.block-to-time.purpose-title')"
       :value="timeStr"
     />
     <skeleton-loader
@@ -51,11 +51,3 @@ export default {
 }
 
 </style>
-
-<i18n>
-{
-  "en": {
-    "purpose-title": "Purpose",
-  }
-}
-</i18n>
