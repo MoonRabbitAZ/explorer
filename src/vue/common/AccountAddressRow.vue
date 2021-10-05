@@ -69,9 +69,11 @@ export default {
   overflow: hidden;
 
   &--accent {
+    @include link-primary;
+
     .account-address-row__name,
     .account-address-row__address {
-      color: $col-app-accent;
+      color: inherit;
     }
   }
 

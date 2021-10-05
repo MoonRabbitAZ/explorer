@@ -43,6 +43,7 @@ $_brightTurquoise: #00ffd1;
 $_endeavour: #0857ac;
 $_dustyGray: #979797;
 $_darkGreen: #00735e;
+$_yellow: #e6ee0d;
 
 // root
 $app-font: 'Consolas', "BlinkMacSystemFont", "Segoe UI", "Roboto", 
@@ -52,8 +53,9 @@ $col-app-block-bg: $_mirage;
 $col-app-content-block-bg: rgba($col-app-bg, 0.5);
 $col-app-text: $_clearDay;
 $col-app-text-dark: $_mirage;
-$col-app-link: $_clearDay;
 $col-app-accent: $_brightTurquoise;
+$col-app-link: $col-app-accent;
+$col-app-link-hover: $_yellow;
 $col-app-secondary: $_dustyGray;
 $col-app-no-data: $_dustyGray;
 $col-app-selection: $col-app-text-dark;
@@ -74,10 +76,13 @@ $logo-name-width: 12.5;
 $logo-name-height: 2.4rem;
 $min-height-info-block: 7.4rem;
 
+// navigation
+$col-navigation-link: $col-app-text;
+
 // field
 $field-color-focused: $col-app-accent;
 $field-color-text: $col-app-text;
-$field-color-unfocused: $_clearDay;
+$field-color-unfocused: $col-app-secondary;
 $field-color-hover: $col-app-accent;
 $field-placeholder-color: $col-app-secondary;
 $field-color-error: $_lightRed;
@@ -155,3 +160,6 @@ $col-clipboard-success-message-bg: $col-app-bg;
 // validator locator
 $col-validator-locator-border: $_clearDay;
 $col-validator-locator-ping-border: $_clearDay;
+
+// page topbar
+$col-page-topbar-link: $col-navigation-link;

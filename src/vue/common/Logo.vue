@@ -6,12 +6,12 @@
     <img
       class="logo__img"
       src="@static/branding/logo.png"
-      :alt="$t('logo')"
+      :alt="$t('common.logo.logo')"
     >
     <img
       class="logo__img-name"
       src="@static/branding/logo-name.svg"
-      :alt="$t('logo')"
+      :alt="$t('common.logo.logo')"
     >
   </router-link>
 </template>
@@ -48,11 +48,3 @@ export default { name: 'logo' }
 }
 
 </style>
-
-<i18n>
-{
-  "en": {
-    "logo": "Logo",
-  }
-}
-</i18n>

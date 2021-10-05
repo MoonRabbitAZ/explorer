@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { keyring } from '@polkadot/ui-keyring'
 
 export function useCryptoType (accountAddress) {
-  const { t } = useI18n({ useScope: 'global' })
+  const { t } = useI18n()
   const cryptoType = ref(t('crypto-types.unknown'))
 
   try {

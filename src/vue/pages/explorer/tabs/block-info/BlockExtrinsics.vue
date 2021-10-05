@@ -2,21 +2,21 @@
   <div class="block-extrinsics">
     <div class="block-extrinsics__wrap">
       <div class="block-extrinsics__body-titles">
-        <h1 class="block-extrinsics__main-title">
-          {{ $t('extrinsics-title') }}
+        <h1>
+          {{ $t('explorer-page.block-extrinsics.extrinsics-title') }}
         </h1>
-        <h2 class="block-extrinsics__secondary-title">
-          {{ $t('events-title') }}
-        </h2>
-        <h2 class="block-extrinsics__secondary-title">
-          {{ $t('weight-title') }}
-        </h2>
-        <h2 class="block-extrinsics__secondary-title">
-          {{ $t('signatory-title') }}
-        </h2>
+        <h4>
+          {{ $t('explorer-page.block-extrinsics.events-title') }}
+        </h4>
+        <h4>
+          {{ $t('explorer-page.block-extrinsics.weight-title') }}
+        </h4>
+        <h4>
+          {{ $t('explorer-page.block-extrinsics.signatory-title') }}
+        </h4>
       </div>
       <template v-if="extrinsics.length">
-        <div class="block-extrinsics__body  app__content-block">
+        <div class="block-extrinsics__body">
           <extrinsic-row
             v-for="(extr, index) in extrinsics"
             :key="index"
@@ -30,8 +30,8 @@
       </template>
       <template v-else>
         <no-data-message
-          is-secondary
-          :message="$t('no-data-message')"
+          is-row-block
+          :message="$t('explorer-page.block-extrinsics.no-data-message')"
         />
       </template>
     </div>
@@ -81,18 +81,10 @@ export default {
   }
 }
 
-.block-extrinsics__main-title {
-  font-size: 2rem;
-  font-weight: 400;
-}
-
-.block-extrinsics__secondary-title {
-  font-size: 1.4rem;
-  font-weight: 400;
-}
-
 .block-extrinsics__body {
   padding: 1.6rem 2.4rem;
+
+  @include content-block;
 }
 
 .block-extrinsics__body-titles {
@@ -105,15 +97,3 @@ export default {
   align-items: flex-end;
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "extrinsics-title": "Extrinsics",
-    "events-title": "Events",
-    "weight-title": "Weight",
-    "signatory-title": "Signatory",
-    "no-data-message": "No extrinsics available"
-  }
-}
-</i18n>

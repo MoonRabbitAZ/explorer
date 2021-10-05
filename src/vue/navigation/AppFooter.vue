@@ -1,5 +1,5 @@
 <template>
-  <footer class="app-footer app__padding">
+  <footer class="app-footer">
     <div class="app-footer__social-wrap">
       <template
         v-for="({link, iconName}, index) in socialLinks"
@@ -21,7 +21,7 @@
     </div>
     <div class="app-footer__info">
       <p class="app-footer__all-rights">
-        {{ $t("all-rights") }}
+        {{ $t("navigation.app-footer.all-rights") }}
       </p>
       <div class="app-footer__versions-wrap">
         <p class="app-footer__version">
@@ -161,6 +161,8 @@ export default {
   background: $col-app-block-bg;
   padding-bottom: 3rem;
   padding-top: 3rem;
+
+  @include app-padding;
 }
 
 .app-footer__social-wrap {
@@ -197,9 +199,10 @@ export default {
 }
 
 .app-footer__versions-wrap {
-  min-width: 10rem;
+  min-width: 40%;
   text-align: right;
   margin-left: 2rem;
+  white-space: nowrap;
 
   @include respond-to($tablet) {
     margin-left: 0;
@@ -213,11 +216,3 @@ export default {
   line-height: 1.2rem;
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "all-rights": "Moon Rabbit AngoZaibatsu LLC © 2021. All Rights Reserved. This is not an investment solicitation or offering. USofA citizens, residents and legal entities are fully excluded. Versetti&Co Family Organisation",
-  }
-}
-</i18n>

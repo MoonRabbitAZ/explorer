@@ -1,8 +1,8 @@
 <template>
   <div class="page-topbar">
-    <h2 class="page-topbar__page-name">
+    <h4 class="page-topbar__page-name">
       {{ pageName }}
-    </h2>
+    </h4>
 
     <div
       v-if="tabs.length"
@@ -61,8 +61,6 @@ export default {
   margin-right: 2rem;
   min-width: 22rem;
   background: $col-app-block-bg;
-  font-size: 1.4rem;
-  font-weight: 400;
   border-radius: 0 0.4rem 0.4rem 0;
 
   @include respond-to($sidebar-hide-bp) {
@@ -78,6 +76,7 @@ export default {
 .page-topbar__tab-link {
   font-size: 1.4rem;
   white-space: nowrap;
+  color: $col-page-topbar-link;
 
   & + & {
     margin-left: 3.2rem;

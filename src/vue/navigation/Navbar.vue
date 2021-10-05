@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar app__padding">
+  <nav class="navbar">
     <logo class="navbar__logo"/>
 
     <group-menu-links
@@ -99,6 +99,8 @@ export default {
   background: $col-app-block-bg;
   display: flex;
   align-items: center;
+
+  @include app-padding;
 }
 
 .navbar__logo {

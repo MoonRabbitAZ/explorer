@@ -1,5 +1,5 @@
 <template>
-  <div class="validators-map app__padding">
+  <div class="validators-map">
     <chain-info-blocks class="validators-map__chain-info-blocks"/>
 
     <div class="validators-map__body">
@@ -87,6 +87,8 @@ export default {
 
 .validators-map {
   margin-top: 3rem;
+
+  @include app-padding;
 }
 
 .validators-map__chain-info-blocks {

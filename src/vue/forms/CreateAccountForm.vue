@@ -20,7 +20,7 @@
         v-else
         class="create-account-form__no-address"
       >
-        {{ $t('no-address') }}
+        {{ $t('forms.create-account-form.no-address') }}
       </span>
     </div>
 
@@ -225,14 +225,3 @@ export default {
   width: 100%;
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "step-title": "Step { number }",
-    "next-btn": "Next",
-    "save-btn": "Save",
-    "no-address": "The account address will appear here"
-  }
-}
-</i18n>
