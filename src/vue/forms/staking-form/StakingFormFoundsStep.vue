@@ -59,7 +59,7 @@
 
                   <template v-slot:option="{ option }">
                     <temple-icon
-                      class="staking-transfer-form__select-iption-icon"
+                      class="staking-transfer-form__select-option-icon"
                       :staking-type-id="option.id"
                     />
                     {{ option.name }}
@@ -318,7 +318,7 @@ export default {
   margin-right: 1.2rem;
 }
 
-.staking-transfer-form__select-iption-icon {
+.staking-transfer-form__select-option-icon {
   display: flex;
   width: 2rem;
   height: 2rem;
