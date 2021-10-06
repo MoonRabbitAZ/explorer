@@ -138,9 +138,12 @@ export default {
 .parachains-list__body {
   display: grid;
   grid-gap: 0.4rem 2rem;
-  grid-template-columns: repeat(auto-fill, minmax(60rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(50rem, 1fr));
 
   @include scrollbar;
+  @include respond-to($small) {
+    grid-template-columns: 1fr;
+  }
 }
 
 </style>

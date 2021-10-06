@@ -1,11 +1,11 @@
 <template>
   <div class="parachain-row">
-    <p class=".parachain-row__main-col parachain-row__id">
+    <p class="parachain-row__main-column">
       {{ $fnumber(parachainId) }}
     </p>
-    <div>
-      <!--  -->
-    </div>
+    <p class="parachain-row__main-column">
+      {{ parachainName }}
+    </p>
     <div>
       <app-button
         mdi-icon-name="mdi-chevron-right"
@@ -17,6 +17,10 @@
 </template>
 
 <script>
+import { computed } from 'vue'
+import { ENDPOINTS } from '@/js/const/endpoints.const'
+import CONFIG from '@/config'
+
 const EVENTS = { clickButtonInfo: 'click-button-info' }
 
 export default {
@@ -33,7 +37,20 @@ export default {
       emit(EVENTS.clickButtonInfo, props.parachainId)
     }
 
-    return { clickButtonInfo }
+    const parachainName = computed(() => {
+      const currentRelay = Object.values(ENDPOINTS).find((relay) =>
+        Object.values(relay.providers).some((provider) =>
+          provider === CONFIG.WSS_NODE,
+        ),
+      )
+      const parachainInfo = currentRelay?.linked?.find(({ paraId }) => {
+        return props.parachainId === paraId
+      })
+
+      return parachainInfo?.name
+    })
+
+    return { clickButtonInfo, parachainName }
   },
 }
 </script>
@@ -54,13 +71,11 @@ export default {
   @include content-block;
 }
 
-.parachain-row__id {
-  font-size: 1.6rem;
-}
-
-.parachain-row__main-col {
+.parachain-row__main-column {
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-size: 1.6rem;
 }
 
 .parachain-row__dropdown {

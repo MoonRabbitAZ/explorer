@@ -46,13 +46,16 @@
       <value-displayer
         class="parachain-info__value-displayer"
         :header="$t('parachains-page.parachains-info.timeout-header')"
-        :value="lastBlocks?.timeout?.toString()"
-        :route="{
-              ...$routes.blockInfoTab,
-              query: {
-                blockIdent: lastBlocks?.timeout?.toString(),
-              }
-        }"
+        :value="lastBlocks?.timeout?.toString() || '-'"
+        :route="lastBlocks?.timeout
+          ? {
+            ...$routes.blockInfoTab,
+            query: {
+              blockIdent: lastBlocks?.timeout?.toString(),
+            }
+          }
+          : null
+        "
       />
 
       <value-displayer
