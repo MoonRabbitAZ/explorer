@@ -14,9 +14,9 @@
       <template v-else>
         <template v-if="stakingList.length">
           <staking-account-row
-            v-model:is-processing-unstake="isProcessingUnstake"
             v-for="staking in stakingList"
             :key="staking.id"
+            v-model:is-processing-unstake="isProcessingUnstake"
             class="staking-list__row"
             :staking="staking"
             @withdrawn="getStakings"
@@ -52,6 +52,12 @@ import { stakingApi } from '@api'
 import { Bus } from '@/js/helpers/event-bus'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { STAKING_STATUSES } from '@/js/const/staking.const'
+
+const STATUS_FILTER = [
+  STAKING_STATUSES.pending,
+  STAKING_STATUSES.active,
+  STAKING_STATUSES.withdrawable,
+].join(',')
 
 export default {
   name: 'staking-list',
@@ -90,14 +96,17 @@ export default {
                 limit: 100,
               },
               filter: {
-                status: `${STAKING_STATUSES.pending},${STAKING_STATUSES.active},${STAKING_STATUSES.withdrawable}`,
+                status: STATUS_FILTER,
               },
             }),
           ))
 
-        state.stakingList = stakings.map(({ data }) => data)
-          .flat()
-          .map(i => new StakingRecord(i))
+        state.stakingList = stakings.reduce((acc, { data }) => {
+          const result = data.map(i => new StakingRecord(i))
+          acc.push(...result)
+
+          return acc
+        }, [])
       } catch (e) {
         state.isLoadFailed = true
         ErrorHandler.processWithoutFeedback(e)
@@ -107,7 +116,7 @@ export default {
     }
 
     watch(() => props.addresses, getStakings, { immediate: true })
-    Bus.on('updateStakingList', getStakings)
+    Bus.on(Bus.eventList.updateStakingList, getStakings)
 
     return {
       ...toRefs(state),

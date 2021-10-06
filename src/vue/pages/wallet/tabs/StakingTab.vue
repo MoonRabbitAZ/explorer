@@ -80,8 +80,7 @@ export default {
     async function getStakingsOptions () {
       const options = await stakingApi.get('api/options')
 
-      state.stakingOptions =
-          options.data.map(i => new StakingOptionRecord(i))
+      state.stakingOptions = options.data.map(i => new StakingOptionRecord(i))
     }
 
     keyring.accounts.subject.subscribe(async (accounts) => {
