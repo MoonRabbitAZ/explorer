@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Social links on footer
 - Progress bar component
 - Progress bar on epoch time
+- Parachains page
 
 #### Changed
 - Component i18n to global
@@ -18,7 +19,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - App style structure 
 - Fields disabled color
 - Logo on mobile display
-- Parachains page
 
 ## [0.1.0-rc.1] - 2021-09-25
 #### Added
