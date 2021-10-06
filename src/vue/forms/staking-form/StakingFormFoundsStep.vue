@@ -36,7 +36,7 @@
           </p>
 
           <template v-if="!senderBalances.availableBalance.isZero()">
-            <div class="app__form-row staking-transfer-form__select-wrap">
+            <div class="app__form-row">
               <div class="app__form-field">
                 <select-field
                   v-model="form.stakingTypeId.value"
@@ -47,7 +47,25 @@
                   value-prop="id"
                   :error-message="form.stakingTypeId.errorMessage"
                   @blur="form.stakingTypeId.blur"
-                />
+                >
+                  <template v-slot:singlelabel="{ value }">
+                    <div class="staking-transfer-form__select-value">
+                      <temple-icon
+                        class="staking-transfer-form__select-value-icon"
+                        :staking-type-id="value.id"
+                      />
+                      {{ value.name }}
+                    </div>
+                  </template>
+
+                  <template v-slot:option="{ option }">
+                    <temple-icon
+                      class="staking-transfer-form__select-option-icon"
+                      :staking-type-id="option.id"
+                    />
+                    {{ option.name }}
+                  </template>
+                </select-field>
               </div>
             </div>
 
@@ -105,6 +123,7 @@
 <script>
 import { AmountField, SelectField } from '@/vue/fields'
 import Loader from '@/vue/common/Loader'
+import TempleIcon from '@/vue/common/TempleIcon'
 
 import { reactive, toRefs, computed, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -127,7 +146,13 @@ const MIN_TRANSFER_AMOUNT = 1 // pico unit
 export default {
   name: 'staking-form-founds-step',
 
-  components: { AmountField, ErrorMessage, SelectField, Loader },
+  components: {
+    AmountField,
+    ErrorMessage,
+    SelectField,
+    Loader,
+    TempleIcon,
+  },
 
   props: {
     myAccounts: { type: Array, required: true },
@@ -280,6 +305,26 @@ export default {
 .staking-form-founds-step__deposit-value {
   font-size: 1.6rem;
   margin-bottom: 4rem;
+}
+
+.staking-transfer-form__select-value {
+  display: flex;
+  width: 100%;
+  color: $col-app-secondary;
+}
+
+.staking-transfer-form__select-value-icon {
+  display: flex;
+  width: 2rem;
+  height: 2rem;
+  margin-right: 1.2rem;
+}
+
+.staking-transfer-form__select-option-icon {
+  display: flex;
+  width: 2rem;
+  height: 2rem;
+  margin-right: 1.2rem;
 }
 
 .staking-form-founds-step__actions-wrap {

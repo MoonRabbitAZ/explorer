@@ -4,10 +4,13 @@
       is-name-display
       :account-address="staking.address"
     />
-    <p>
+    <p class="staking-account-row__column">
+      {{ $fbalance(staking.amount) }}
+    </p>
+    <p class="staking-account-row__column">
       {{ $t(`staking-options.types.type-${staking.stakeOptionId}`) }}
     </p>
-    <p>
+    <p class="staking-account-row__column">
       {{ $fddmy(staking.createdAt) }}
     </p>
     <div>
@@ -43,10 +46,15 @@ export default {
 .staking-account-row {
   display: grid;
   grid-gap: 2rem;
-  grid-template-columns: 1fr 15rem 11rem max-content;
+  grid-template-columns: 1fr 10rem 15rem 11rem max-content;
   align-items: center;
   padding: 1rem 1.6rem;
 
   @include content-block;
+}
+
+.staking-account-row__column {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>

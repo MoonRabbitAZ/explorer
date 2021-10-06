@@ -73,6 +73,8 @@ $app-padding: 4rem;
 $app-padding-mobile: 2rem;
 
 $logo-size: 3.6rem;
+$logo-name-width: 12.5;
+$logo-name-height: 2.4rem;
 $min-height-info-block: 7.4rem;
 
 // navigation
@@ -159,6 +161,13 @@ $col-clipboard-success-message-bg: $col-app-bg;
 // validator locator
 $col-validator-locator-border: $_clearDay;
 $col-validator-locator-ping-border: $_clearDay;
+
+// progress bar
+$progress-bar-size: 5.4rem;
+$progress-bar-status-size: 3.4rem;
+$col-progress-bar-bg: $_yellow;
+$col-progress-bar-slice-bg: $col-app-accent;
+$col-progress-bar-status-bg: $col-app-bg;
 
 // page topbar
 $col-page-topbar-link: $col-navigation-link;

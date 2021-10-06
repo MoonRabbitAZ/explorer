@@ -65,8 +65,10 @@ export default {
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 0 2rem;
   min-height: $min-height-info-block;
+  gap: 2rem;
 
   @include content-block;
 }

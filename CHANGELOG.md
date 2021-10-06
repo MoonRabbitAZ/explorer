@@ -5,11 +5,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+#### Added
+- Temples icons
+- Amount on staking account row 
+- Social links on footer
+- Progress bar component
+- Progress bar on epoch time
+
 #### Changed
 - Component i18n to global
 - Link design
 - App style structure 
 - Fields disabled color
+- Logo on mobile display
 - Parachains page
 
 ## [0.1.0-rc.1] - 2021-09-25
