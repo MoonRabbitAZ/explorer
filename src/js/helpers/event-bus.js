@@ -51,6 +51,7 @@ class EventBus {
       processing: 'processing',
       error: 'error',
       info: 'info',
+      updateStakingList: 'updateStakingList',
     }
   }
 

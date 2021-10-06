@@ -343,11 +343,14 @@
     "staking-account-row": {
       "unstake-btn": "Unstake",
       "status-pending": "Pending",
-      "success-unstake-msg": "Request successfully sent, you will receive tokens on your address in a few seconds!"
+      "success-unstake-msg": "Request successfully sent, you will receive tokens on your address in a few seconds!",
+      "processing-unstake-msg": "Please, don't leave the page until the end of the process."
     },
     "staking-list": {
       "staking-header": "Staking",
-      "no-data-message": "No stakes available"
+      "no-data-message": "No stakes available",
+      "error-header": "Error",
+      "error-message": "There was an error while loading."
     },
     "my-accounts-tab": {
       "generate-btn": "Generate",

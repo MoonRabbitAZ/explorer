@@ -1,6 +1,6 @@
 <template>
   <div class="staking-tab">
-    <template v-if="isLoaded && isLoadedStaking">
+    <template v-if="isLoaded">
       <template v-if="isLoadFailed">
         <error-message
           :header="$t('wallet-page.staking-tab.error-header')"
@@ -13,14 +13,12 @@
             class="my-accounts-tab__actions-button"
             scheme="primary"
             :text="$t('wallet-page.staking-tab.stake-btn')"
+            :disabled="!stakingOptions.length"
             @click="isStakeFormOpen = true"
           />
         </div>
 
-        <staking-list
-          :staking-list="stakingList"
-          @withdrawn="getStakings"
-        />
+        <staking-list :addresses="addresses"/>
 
         <drawer
           v-model:is-shown="isStakeFormOpen"
@@ -53,11 +51,9 @@ import ErrorMessage from '@/vue/common/ErrorMessage'
 
 import { reactive, toRefs } from 'vue'
 import { keyring } from '@polkadot/ui-keyring'
-import { StakingRecord } from '@/js/records/staking.record'
 import { stakingApi } from '@api'
 import { StakingOptionRecord } from '@/js/records/staking-option.record'
 import { ErrorHandler } from '@/js/helpers/error-handler'
-import { STAKING_STATUSES } from '@/js/const/staking.const'
 
 export default {
   name: 'staking-tab',
@@ -79,36 +75,7 @@ export default {
       stakingOptions: [],
       isLoadFailed: false,
       isLoaded: false,
-      isLoadedStaking: false,
     })
-
-    async function getStakings () {
-      state.isLoadedStaking = false
-      state.isLoadFailed = false
-      try {
-        const stakings = await Promise.all(
-          state.addresses.map(async (address) =>
-            stakingApi.get(`api/staking/${address}`, {
-              page: {
-                order: 'desc',
-                limit: 100,
-              },
-              filter: {
-                status: `${STAKING_STATUSES.pending},${STAKING_STATUSES.active},${STAKING_STATUSES.withdrawable}`,
-              },
-            }),
-          ))
-
-        state.stakingList = stakings.map(({ data }) => data)
-          .flat()
-          .map(i => new StakingRecord(i))
-      } catch (e) {
-        state.isLoadFailed = true
-        ErrorHandler.processWithoutFeedback(e)
-      }
-
-      state.isLoadedStaking = true
-    }
 
     async function getStakingsOptions () {
       const options = await stakingApi.get('api/options')
@@ -123,10 +90,7 @@ export default {
         state.myAccounts =
           state.addresses.map(address => keyring.getAccount(address))
 
-        await Promise.all([
-          getStakings(),
-          getStakingsOptions(),
-        ])
+        await getStakingsOptions()
       } catch (e) {
         state.isLoadFailed = true
         ErrorHandler.processWithoutFeedback(e)
@@ -137,7 +101,6 @@ export default {
 
     return {
       ...toRefs(state),
-      getStakings,
     }
   },
 }

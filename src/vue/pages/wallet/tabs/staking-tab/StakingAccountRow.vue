@@ -32,13 +32,18 @@
 <script>
 import AccountAddress from '@/vue/common/AccountAddress'
 
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { stakingApi } from '@api'
 import { Bus } from '@/js/helpers/event-bus'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { StakingRecord } from '@/js/records/staking.record'
 
-const EVENTS = { withdrawn: 'withdrawn' }
+const EVENTS = {
+  withdrawn: 'withdrawn',
+
+  // For disable all button on the staking list until the end of the process
+  updateIsProcessingUnstake: 'update:is-processing-unstake',
+}
 
 export default {
   name: 'staking-account-row',
@@ -47,18 +52,20 @@ export default {
 
   props: {
     staking: { type: StakingRecord, required: true },
+    isProcessingUnstake: { type: Boolean, required: true },
   },
 
   emits: Object.values(EVENTS),
 
   setup (props, { emit }) {
-    const isProcessUnstake = ref(false)
     const isUnstakeButtonDisable = computed(() => {
-      return !props.staking.isStatusWithdrawable || isProcessUnstake.value
+      return !props.staking.isStatusWithdrawable || props.isProcessingUnstake
     })
+
     async function unstake () {
-      isProcessUnstake.value = true
+      emit(EVENTS.updateIsProcessingUnstake, true)
       try {
+        Bus.processing('wallet-page.staking-account-row.processing-unstake-msg')
         await stakingApi.patch(`api/staking/details/${props.staking.id}/withdraw`)
 
         Bus.success('wallet-page.staking-account-row.success-unstake-msg')
@@ -66,7 +73,7 @@ export default {
       } catch (e) {
         ErrorHandler.process(e)
       }
-      isProcessUnstake.value = false
+      emit(EVENTS.updateIsProcessingUnstake, false)
     }
 
     return { unstake, isUnstakeButtonDisable }
