@@ -13,11 +13,12 @@
             class="my-accounts-tab__actions-button"
             scheme="primary"
             :text="$t('wallet-page.staking-tab.stake-btn')"
+            :disabled="!stakingOptions.length"
             @click="isStakeFormOpen = true"
           />
         </div>
 
-        <staking-list :staking-list="stakingList"/>
+        <staking-list :addresses="addresses"/>
 
         <drawer
           v-model:is-shown="isStakeFormOpen"
@@ -50,7 +51,6 @@ import ErrorMessage from '@/vue/common/ErrorMessage'
 
 import { reactive, toRefs } from 'vue'
 import { keyring } from '@polkadot/ui-keyring'
-import { StakingRecord } from '@/js/records/staking.record'
 import { stakingApi } from '@api'
 import { StakingOptionRecord } from '@/js/records/staking-option.record'
 import { ErrorHandler } from '@/js/helpers/error-handler'
@@ -69,6 +69,7 @@ export default {
   setup () {
     const state = reactive({
       stakingList: [],
+      addresses: null,
       myAccounts: null,
       isStakeFormOpen: false,
       stakingOptions: [],
@@ -76,31 +77,22 @@ export default {
       isLoaded: false,
     })
 
+    async function getStakingsOptions () {
+      const options = await stakingApi.get('api/options')
+
+      state.stakingOptions = options.data.map(i => new StakingOptionRecord(i))
+    }
+
     keyring.accounts.subject.subscribe(async (accounts) => {
       try {
-        const addresses = accounts ? Object.keys(accounts) : []
-        state.myAccounts = addresses.map(address => keyring.getAccount(address))
+        state.addresses = accounts ? Object.keys(accounts) : []
+        state.myAccounts =
+          state.addresses.map(address => keyring.getAccount(address))
 
-        const stakings = await Promise.all(
-          addresses.map(async (address) =>
-            stakingApi.get(`api/staking/${address}`, {
-              page: {
-                order: 'desc',
-                limit: 100,
-              },
-            }),
-          ))
-        const options = await stakingApi.get('api/options')
-
-        state.stakingOptions =
-          options.data.map(i => new StakingOptionRecord(i))
-
-        state.stakingList = stakings.map(({ data }) => data)
-          .flat()
-          .map(i => new StakingRecord(i))
+        await getStakingsOptions()
       } catch (e) {
         state.isLoadFailed = true
-        ErrorHandler.process(e)
+        ErrorHandler.processWithoutFeedback(e)
       }
 
       state.isLoaded = true

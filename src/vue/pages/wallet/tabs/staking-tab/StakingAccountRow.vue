@@ -5,7 +5,12 @@
       :account-address="staking.address"
     />
     <p class="staking-account-row__column">
-      {{ $fbalance(staking.amount) }}
+      <template v-if="staking.isStatusPending">
+        {{ $t('wallet-page.staking-account-row.status-pending') }}
+      </template>
+      <template v-else>
+        {{ $fbalance(staking.amount) }}
+      </template>
     </p>
     <p class="staking-account-row__column">
       {{ $t(`staking-options.types.type-${staking.stakeOptionId}`) }}
@@ -17,7 +22,8 @@
       <app-button
         scheme="secondary"
         :text="$t('wallet-page.staking-account-row.unstake-btn')"
-        disabled
+        :disabled="isUnstakeButtonDisable"
+        @click="unstake"
       />
     </div>
   </div>
@@ -26,7 +32,18 @@
 <script>
 import AccountAddress from '@/vue/common/AccountAddress'
 
+import { computed } from 'vue'
+import { stakingApi } from '@api'
+import { Bus } from '@/js/helpers/event-bus'
+import { ErrorHandler } from '@/js/helpers/error-handler'
 import { StakingRecord } from '@/js/records/staking.record'
+
+const EVENTS = {
+  withdrawn: 'withdrawn',
+
+  // For disable all button on the staking list until the end of the process
+  updateIsProcessingUnstake: 'update:is-processing-unstake',
+}
 
 export default {
   name: 'staking-account-row',
@@ -35,6 +52,31 @@ export default {
 
   props: {
     staking: { type: StakingRecord, required: true },
+    isProcessingUnstake: { type: Boolean, required: true },
+  },
+
+  emits: Object.values(EVENTS),
+
+  setup (props, { emit }) {
+    const isUnstakeButtonDisable = computed(() => {
+      return !props.staking.isStatusWithdrawable || props.isProcessingUnstake
+    })
+
+    async function unstake () {
+      emit(EVENTS.updateIsProcessingUnstake, true)
+      try {
+        Bus.processing('wallet-page.staking-account-row.processing-unstake-msg')
+        await stakingApi.patch(`api/staking/details/${props.staking.id}/withdraw`)
+
+        Bus.success('wallet-page.staking-account-row.success-unstake-msg')
+        emit(EVENTS.withdrawn)
+      } catch (e) {
+        ErrorHandler.process(e)
+      }
+      emit(EVENTS.updateIsProcessingUnstake, false)
+    }
+
+    return { unstake, isUnstakeButtonDisable }
   },
 }
 </script>

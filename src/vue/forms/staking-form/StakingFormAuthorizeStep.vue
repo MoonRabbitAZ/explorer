@@ -153,6 +153,7 @@ export default {
                   throw new errors.TransactionError(message)
                 } else if (method === BCH_EVENT_METHODS.extrinsicSuccess) {
                   Bus.success('forms.staking-form-authorize-step.transaction-success')
+                  Bus.emit(Bus.eventList.updateStakingList)
                 }
               })
           }
