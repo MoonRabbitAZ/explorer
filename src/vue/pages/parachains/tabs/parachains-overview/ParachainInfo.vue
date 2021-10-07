@@ -97,9 +97,11 @@ export default {
       useCall(api.query.paras.paraLifecycles, [props.parachainId])
 
     const leasesPeriods = computed(() => {
-      if (!leases.value) return
-      return leases.value.map((opt, index) => opt.isSome ? index : -1)
-        .filter((period) => period !== -1)
+      return leases.value?.reduce((acc, opt, index) => {
+        if (opt.isSome) acc.push(index)
+
+        return acc
+      }, [])
     })
 
     const parachainPeriod = computed(() => {

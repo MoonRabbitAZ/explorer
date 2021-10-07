@@ -11,7 +11,7 @@ export function useMapEntries (checks, entry, transform) {
 
     try {
       if (entry) {
-        const entries = trigger.value?.blockHash && trigger.value.blockHash !== '0'
+        const entries = +trigger.value?.blockHash
           ? await entry.entriesAt(trigger.value.blockHash)
           : await entry.entries()
 

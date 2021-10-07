@@ -37,7 +37,7 @@ export default {
     const { leasePeriod } = useLeasePeriod()
 
     const parachainIds = computed(() =>
-      parachains.value && parachains.value.map(id => id.toString()),
+      parachains.value?.map(id => id.toString()),
     )
 
     return {

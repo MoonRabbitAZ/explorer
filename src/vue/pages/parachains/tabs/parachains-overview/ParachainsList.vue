@@ -66,7 +66,7 @@ export default {
   },
 
   props: {
-    parachainIds: { type: Array, default: () => ([]) },
+    parachainIds: { type: Array, default: null },
     leasePeriod: { type: Object, default: null },
   },
 

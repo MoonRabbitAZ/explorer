@@ -6,14 +6,15 @@ function extractIds (entries) {
     .reduce((acc, [{ args: [paraId] }, optValue]) => {
       const value = optValue.unwrap()
 
-      return value && (
-        value.isParathread ||
-        value.isUpgradingToParachain ||
-        value.isOutgoingParathread ||
-        value.isOnboarding
+      const isWoToTam = Boolean(
+        value?.isParathread ||
+        value?.isUpgradingToParachain ||
+        value?.isOutgoingParathread ||
+        value?.isOnboarding,
       )
-        ? [...acc, paraId]
-        : acc
+      if (isWoToTam) acc.push(paraId)
+
+      return acc
     }, [])
     .sort((a, b) => a.cmp(b))
 }
