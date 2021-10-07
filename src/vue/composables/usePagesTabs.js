@@ -40,6 +40,10 @@ export function usePagesTabs () {
         translationName: t('page-tabs.parachains.overview'),
         route: vueRoutes.parachainsOverviewTab,
       },
+      {
+        translationName: t('page-tabs.parachains.parathreads'),
+        route: vueRoutes.parathreadsTab,
+      },
     ],
   })
 

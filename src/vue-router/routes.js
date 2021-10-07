@@ -23,4 +23,5 @@ export const vueRoutes = Object.freeze({
   // parachains group
   parachainsPage: { name: 'parachains' },
   parachainsOverviewTab: { name: 'parachains.parachains-overview-tab' },
+  parathreadsTab: { name: 'parachains.parathreads-tab' },
 })

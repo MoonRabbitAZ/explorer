@@ -109,7 +109,8 @@
       "staking": "Staking"
     },
     "parachains": {
-      "overview": "Overview"
+      "overview": "Overview",
+      "parathreads": "Parathreads"
     }
   },
   "navigation": {
