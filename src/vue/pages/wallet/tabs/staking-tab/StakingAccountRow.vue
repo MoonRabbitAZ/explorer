@@ -13,10 +13,17 @@
       </template>
     </p>
     <p class="staking-account-row__column">
-      {{ $t(`staking-options.types.type-${staking.stakeOptionId}`) }}
+      <template v-if="staking.resultAmount">
+        {{ $fbalance(staking.resultAmount) }}
+      </template>
     </p>
     <p class="staking-account-row__column">
-      {{ $fddmy(staking.createdAt) }}
+      {{ $t(`staking-options.types.type-${staking.stakeOptionId}`, {
+        percent: staking.rewardPercent
+      }) }}
+    </p>
+    <p class="staking-account-row__column">
+      {{ `${$fddmy(staking.createdAt)}-${$fddmy(staking.lockedUntil)}` }}
     </p>
     <div>
       <app-button
@@ -88,9 +95,11 @@ export default {
 .staking-account-row {
   display: grid;
   grid-gap: 2rem;
-  grid-template-columns: 1fr 10rem 15rem 11rem max-content;
+  grid-template-columns: minmax(15rem, 1fr)
+    repeat(2, minmax(10rem, 0.5fr)) 20rem 15rem max-content;
   align-items: center;
   padding: 1rem 1.6rem;
+  min-width: min-content;
 
   @include content-block;
 }

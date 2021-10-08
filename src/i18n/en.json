@@ -164,12 +164,12 @@
   },
   "staking-options": {
     "types": {
-      "type-1": "Awakening Temple",
-      "type-2": "Exploration Temple",
-      "type-3": "Perception Temple",
-      "type-4": "Enlightenment Temple",
-      "type-5": "Transcendence Temple",
-      "type-6": "Immortality Temple"
+      "type-1": "Awakening Temple { percent }",
+      "type-2": "Exploration Temple { percent }",
+      "type-3": "Perception Temple { percent }",
+      "type-4": "Enlightenment Temple { percent }",
+      "type-5": "Transcendence Temple { percent }",
+      "type-6": "Immortality Temple { percent }"
     }
   },
   "forms": {
@@ -276,6 +276,7 @@
     },
     "account-balances": {
       "transferrable-lbl": "Transferrable",
+      "locked-lbl": "Locked",
       "staked-lbl": "Staked"
     },
     "extrinsic-display": {

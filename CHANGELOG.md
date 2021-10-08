@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Progress bar component
 - Progress bar on epoch time
 - Unstake logic for staking
+- Staking balance on account balances
 
 #### Changed
 - Component i18n to global
