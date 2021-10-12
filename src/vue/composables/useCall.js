@@ -1,5 +1,5 @@
 import { ErrorHandler } from '@/js/helpers/error-handler'
-import { reactive, ref, onBeforeUnmount } from 'vue'
+import { reactive, ref, onBeforeUnmount, watch, isRef, unref } from 'vue'
 import { isNull, isUndefined } from '@polkadot/util'
 
 const VALID_PARAMS = 2 // number of valid parameters, if isDoubleMap = true
@@ -59,13 +59,18 @@ export function useCall (fn, params, options) {
 
   const initSubscribe = async () => {
     // check if we have a function & that we are mounted
-    const mappedParams = extractParams(params)
+    const mappedParams = extractParams(unref(params))
 
-    if (mappedParams && !tracker.isActive) {
+    if (mappedParams) {
       await subscribe(tracker, callValue, fn, mappedParams, options)
     }
   }
-  initSubscribe()
+
+  if (isRef(params)) {
+    watch(params, initSubscribe, { immediate: true })
+  } else {
+    initSubscribe()
+  }
 
   return callValue
 }

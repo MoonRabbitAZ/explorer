@@ -9,7 +9,7 @@ export function useEventTrigger (checks) {
     events: [],
   })
 
-  const eventRecords = computed(() => store.getters[vuexTypes.lastHeaders])
+  const eventRecords = computed(() => store.getters[vuexTypes.lastBlockEvents])
 
   watch(eventRecords, () => {
     if (eventRecords.value?.length) {

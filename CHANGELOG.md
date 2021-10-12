@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Progress bar on epoch time
 - Unstake logic for staking
 - Parachains page
+- Parathreads tab
 
 #### Changed
 - Component i18n to global

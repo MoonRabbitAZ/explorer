@@ -97,7 +97,7 @@ export default {
   grid-template-columns: repeat(6, min-content);
   justify-content: center;
 
-  @include respond-to($medium) {
+  @include respond-to($media-desktop) {
     grid-template-columns: repeat(2, 1fr);
   }
 }

@@ -458,6 +458,15 @@
       "timeout-header": "Timeout",
       "chain-header": "Chain",
       "leases-header": "Leases"
+    },
+    "parathreads-list": {
+      "parathreads-header": "Parathreads",
+      "lifecycle-header": "Lifecycle",
+      "leases-header": "Leases",
+      "no-data-message": "No parathreads available"
+    },
+    "parathread-row": {
+      "leases-none": "None"
     }
   }
 }
