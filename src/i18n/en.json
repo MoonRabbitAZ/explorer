@@ -110,7 +110,9 @@
     },
     "parachains": {
       "overview": "Overview",
-      "parathreads": "Parathreads"
+      "parathreads": "Parathreads",
+      "auctions": "Auctions",
+      "crowdloan": "Crowdloan"
     }
   },
   "navigation": {
@@ -468,6 +470,33 @@
     },
     "parathread-row": {
       "leases-none": "None"
+    },
+    "bids-list": {
+      "bids-header": "Bids",
+      "no-data-message": "No ongoing auction"
+    },
+    "auctions-summary": {
+      "auctions-header": "Actions",
+      "active-header": "Active",
+      "auctions-active-value": "Yes",
+      "auctions-inactive-value": "No"
+    },
+    "auctions-tab": {
+      "bid-btn": "Bid"
+    },
+    "crowdloan-tab": {
+      "add-fund-btn": "Add founds"
+    },
+    "crowdloan-completed-list": {
+      "completed-header": "Completed",
+      "no-data-message": "No completed campaigns found"
+    },
+    "crowdloan-ongoing-list": {
+      "ongoing-header": "Ongoing",
+      "no-data-message": "No active campaigns found"
+    },
+    "crowdloan-summary": {
+      "founds-header": "Founds"
     }
   }
 }

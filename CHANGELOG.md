@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Staking balance on account balances
 - Parachains page
 - Parathreads tab
+- Auctions tab shell
+- Crowdloan tab shell
 
 #### Changed
 - Component i18n to global

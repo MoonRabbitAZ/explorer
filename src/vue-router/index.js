@@ -18,6 +18,8 @@ import ValidatorsMap from '@/vue/pages/validators-map/ValidatorsMap'
 import Parachains from '@parachains-page/Parachains'
 import ParachainsOverviewTab from '@parachains-page/tabs/ParachainsOverviewTab'
 import ParathreadsTab from '@parachains-page/tabs/ParathreadsTab'
+import AuctionsTab from '@parachains-page/tabs/AuctionsTab'
+import CrowdloanTab from '@parachains-page/tabs/CrowdloanTab'
 
 import { createRouter, createWebHistory } from 'vue-router'
 import { vueRoutes } from '@/vue-router/routes'
@@ -109,6 +111,16 @@ const routes = [
             path: '/parachains/parathreads',
             name: vueRoutes.parathreadsTab.name,
             component: ParathreadsTab,
+          },
+          {
+            path: '/parachains/auctions',
+            name: vueRoutes.auctionsTab.name,
+            component: AuctionsTab,
+          },
+          {
+            path: '/parachains/crowdloan',
+            name: vueRoutes.crowdloanTab.name,
+            component: CrowdloanTab,
           },
         ],
       },

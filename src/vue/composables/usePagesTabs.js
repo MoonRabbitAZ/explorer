@@ -44,6 +44,14 @@ export function usePagesTabs () {
         translationName: t('page-tabs.parachains.parathreads'),
         route: vueRoutes.parathreadsTab,
       },
+      {
+        translationName: t('page-tabs.parachains.auctions'),
+        route: vueRoutes.auctionsTab,
+      },
+      {
+        translationName: t('page-tabs.parachains.crowdloan'),
+        route: vueRoutes.crowdloanTab,
+      },
     ],
   })
 
