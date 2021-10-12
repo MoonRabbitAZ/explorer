@@ -76,11 +76,13 @@ export default {
     })
 
     const headHex = computed(() => {
-      return optHead.value?.isSome
-        ? cropString(optHead.value?.unwrap().toString(), 10)
-        : optGenesis.value?.isSome
-          ? cropString(optGenesis.value?.unwrap().genesisHead.toString(), 10)
-          : null
+      if (optHead.value?.isSome) {
+        return cropString(optHead.value?.unwrap().toString(), 10)
+      } else if (optGenesis.value?.isSome) {
+        return cropString(optGenesis.value?.unwrap().genesisHead.toString(), 10)
+      } else {
+        return null
+      }
     })
 
     const period = computed(() => {
