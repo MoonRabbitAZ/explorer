@@ -1,6 +1,6 @@
 <template>
   <div class="account-balances">
-    <template v-if="balancesAll">
+    <template v-if="balancesAll && isLoadedStaking">
       <p class="account-balances__total">
         {{ $fbalance(totalBalance) }}
       </p>
@@ -15,13 +15,20 @@
       <readonly-row
         class="account-balances__row"
         v-if="!balancesAll.lockedBalance.isZero()"
-        :label="$t('common.account-balances.staked-lbl')"
+        :label="$t('common.account-balances.locked-lbl')"
         :value="$fbalance(balancesAll.lockedBalance)"
+      />
+
+      <readonly-row
+        class="account-balances__row"
+        v-if="+stakingBalance.balance && !isLoadStakingFailed"
+        :label="$t('common.account-balances.staked-lbl')"
+        :value="$fbalance(stakingBalance.balance)"
       />
     </template>
     <template v-else>
       <skeleton-loader
-        v-for="(item, id) in 3"
+        v-for="(item, id) in 4"
         :key="id"
         class="account-balances__sceleton-loader"
       />
@@ -33,10 +40,12 @@
 import ReadonlyRow from '@/vue/common/ReadonlyRow'
 import SkeletonLoader from '@/vue/common/SkeletonLoader'
 
-import { computed } from 'vue'
-import { api } from '@api'
+import { computed, reactive, toRefs } from 'vue'
+import { api, stakingApi } from '@api'
 import { useCall } from '@/vue/composables'
 import { ADMIN_ADDRESS, DEDUCTIBLE_BALANCE } from '@/js/const/deducticable-balance.const'
+import { ErrorHandler } from '@/js/helpers/error-handler'
+import { StakingBalanceRecord } from '@/js/records/staking-balance.record'
 
 export default {
   name: 'account-balances',
@@ -48,6 +57,11 @@ export default {
   },
 
   setup (props) {
+    const state = reactive({
+      stakingBalance: {},
+      isLoadedStaking: false,
+      isLoadStakingFailed: false,
+    })
     const balancesAll = useCall(api.derive.balances.all, [props.accountAddress])
 
     const totalBalance = computed(() => {
@@ -64,7 +78,24 @@ export default {
         : balancesAll.value.availableBalance
     })
 
+    async function getStakeBalance () {
+      state.isLoadedStaking = false
+      state.isLoadStakingFailed = false
+      try {
+        const { data } = await stakingApi.get(`/api/staking/${props.accountAddress}/sum`)
+
+        state.stakingBalance = new StakingBalanceRecord(data)
+      } catch (e) {
+        state.isLoadStakingFailed = true
+        ErrorHandler.processWithoutFeedback(e)
+      }
+      state.isLoadedStaking = true
+    }
+
+    getStakeBalance()
+
     return {
+      ...toRefs(state),
       balancesAll,
       totalBalance,
       availableBalance,

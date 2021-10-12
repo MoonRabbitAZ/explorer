@@ -98,6 +98,7 @@ export default {
               filter: {
                 status: STATUS_FILTER,
               },
+              include: ['stake_options'],
             }),
           ))
 
@@ -142,8 +143,6 @@ export default {
 }
 
 .staking-list__row {
-  min-width: 75rem;
-
   & + & {
     margin-top: 0.4rem;
   }
