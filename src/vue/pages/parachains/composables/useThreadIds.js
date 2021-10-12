@@ -6,13 +6,13 @@ function extractIds (entries) {
     .reduce((acc, [{ args: [paraId] }, optValue]) => {
       const value = optValue.unwrap()
 
-      const isWoToTam = Boolean(
+      const isActiveParathread = Boolean(
         value?.isParathread ||
         value?.isUpgradingToParachain ||
         value?.isOutgoingParathread ||
         value?.isOnboarding,
       )
-      if (isWoToTam) acc.push(paraId)
+      if (isActiveParathread) acc.push(paraId)
 
       return acc
     }, [])
