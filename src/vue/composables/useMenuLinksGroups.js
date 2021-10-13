@@ -62,6 +62,10 @@ export function useMenuLinksGroups () {
           translationName: t('routers-groups.governance.routers.council'),
           route: vueRoutes.councilPage,
         },
+        {
+          translationName: t('routers-groups.governance.routers.treasury'),
+          route: vueRoutes.treasuryPage,
+        },
       ],
     },
   ])

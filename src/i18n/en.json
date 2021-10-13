@@ -101,7 +101,8 @@
       "name": "Governance",
       "routers": {
         "democracy": "Democracy",
-        "council": "Council"
+        "council": "Council",
+        "treasury": "Treasury"
       }
     }
   },
@@ -138,6 +139,10 @@
     "council": {
       "overview": "Overview",
       "motions": "Motions"
+    },
+    "treasury": {
+      "overview": "Overview",
+      "tips": "Tips"
     }
   },
   "navigation": {
@@ -637,5 +642,34 @@
       "motions-header": "Motions",
       "no-data-message": "No council motions"
     }
-  }
+  },
+  "treasury-page": {
+    "treasury-overview-tab": {
+      "submit-proposal-btn": "Submit proposal"
+    },
+    "treasury-summary": {
+      "proposals-header": "Proposals",
+      "total-header": "Total",
+      "approved-header": "Approved",
+      "available-header": "Available",
+      "next-burn-header": "Next burn",
+      "spend-period-header": "Spend period"
+    },
+    "proposals-list": {
+      "proposals-header": "Proposals",
+      "no-data-message": "No pending proposals"
+    },
+    "approved-list": {
+      "approved-header": "Approved",
+      "no-data-message": "No approved proposals"
+    },
+    "tips-tab": {
+      "propose-tip-btn": "Propose tip",
+      "median-tip-selected-btn": "Median tip selected"
+    },
+    "tips-list": {
+      "tips-header": "Tips",
+      "no-data-message": "No open tips"
+    }
+  } 
 }

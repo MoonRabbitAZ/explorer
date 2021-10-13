@@ -37,6 +37,10 @@ import Council from '@council-page/Council'
 import CouncilOverviewTab from '@council-page/tabs/CouncilOverviewTab'
 import MotionsTab from '@council-page/tabs/MotionsTab'
 
+import Treasury from '@treasury-page/Treasury'
+import TreasuryOverviewTab from '@treasury-page/tabs/TreasuryOverviewTab'
+import TipsTab from '@treasury-page/tabs/TipsTab'
+
 import { createRouter, createWebHistory } from 'vue-router'
 import { vueRoutes } from '@/vue-router/routes'
 
@@ -209,6 +213,24 @@ const routes = [
             path: '/council/motions',
             name: vueRoutes.motionsTab.name,
             component: MotionsTab,
+          },
+        ],
+      },
+      {
+        path: '/treasury',
+        name: vueRoutes.treasuryPage.name,
+        component: Treasury,
+        redirect: vueRoutes.treasuryOverviewTab,
+        children: [
+          {
+            path: '/treasury/overview',
+            name: vueRoutes.treasuryOverviewTab.name,
+            component: TreasuryOverviewTab,
+          },
+          {
+            path: '/treasury/tips',
+            name: vueRoutes.tipsTab.name,
+            component: TipsTab,
           },
         ],
       },

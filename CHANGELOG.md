@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Society page shell
 - Democracy page shell
 - Council page shell
+- Treasury page shell
 
 #### Changed
 - Component i18n to global

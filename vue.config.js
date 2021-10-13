@@ -79,6 +79,7 @@ module.exports = {
         '@society-page': `${root}/vue/pages/society`,
         '@democracy-page': `${root}/vue/pages/democracy`,
         '@council-page': `${root}/vue/pages/council`,
+        '@treasury-page': `${root}/vue/pages/treasury`,
       },
     },
   },

@@ -17,7 +17,7 @@
       />
 
       <info-block
-        class="council-summary__launch-period"
+        class="council-summary__term-progress"
         :title="$t('council-page.council-summary.term-progress-header')"
         value="1day"
         secondary-value="20hrs 30mins"
@@ -70,7 +70,7 @@ export default {
   }
 }
 
-.council-summary__launch-period {
+.council-summary__term-progress {
   @include respond-to($tablet) {
     grid-column: 1/-1;
   }

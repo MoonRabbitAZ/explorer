@@ -18,7 +18,8 @@
       "@gilt-page/*": ["src/vue/pages/gilt/*"],
       "@society-page/*": ["src/vue/pages/society/*"],
       "@democracy-page/*": ["src/vue/pages/democracy/*"],
-      "@council-page/*": ["src/vue/pages/council/*"]
+      "@council-page/*": ["src/vue/pages/council/*"],
+      "@treasury-page": ["src/vue/pages/treasury/*"]
     }
   },
   "exclude": ["node_modules", "dist"]

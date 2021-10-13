@@ -97,6 +97,17 @@ export function usePagesTabs () {
         route: vueRoutes.motionsTab,
       },
     ],
+
+    treasury: [
+      {
+        translationName: t('page-tabs.treasury.overview'),
+        route: vueRoutes.treasuryOverviewTab,
+      },
+      {
+        translationName: t('page-tabs.treasury.tips'),
+        route: vueRoutes.tipsTab,
+      },
+    ],
   })
 
   return {
