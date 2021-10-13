@@ -103,7 +103,8 @@
         "democracy": "Democracy",
         "council": "Council",
         "treasury": "Treasury",
-        "bounties": "Bounties"
+        "bounties": "Bounties",
+        "tech-comm": "Tech Comm"
       }
     }
   },
@@ -147,6 +148,10 @@
     },
     "bounties": {
       "overview": "Overview"
+    },
+    "tech-comm": {
+      "overview": "Overview",
+      "proposals": "Proposals"
     }
   },
   "navigation": {
@@ -689,6 +694,24 @@
     "bounties-list": {
       "bounties-header": "Bounties",
       "no-data-message": "No open bounties"
+    }
+  },
+  "tech-comm-page": {
+    "tech-comm-summary": {
+      "members-header": "Members",
+      "proposals-header": "Proposals",
+      "total-header": "Total"
+    },
+    "members-list": {
+      "members-header": "Members",
+      "no-data-message": "No members found"
+    },
+    "proposals-tab": {
+      "submit-proposal-btn": "Submit proposal"
+    },
+    "proposals-list": {
+      "proposals-header": "Proposals",
+      "no-data-message": "No committee proposals"
     }
   }
 }

@@ -44,6 +44,10 @@ import TipsTab from '@treasury-page/tabs/TipsTab'
 import Bounties from '@bounties-page/Bounties'
 import BountiesOverviewTab from '@bounties-page/tabs/BountiesOverviewTab'
 
+import TechComm from '@tech-comm-page/TechComm'
+import TechCommOverviewTab from '@tech-comm-page/tabs/TechCommOverviewTab'
+import ProposalsTab from '@tech-comm-page/tabs/ProposalsTab'
+
 import { createRouter, createWebHistory } from 'vue-router'
 import { vueRoutes } from '@/vue-router/routes'
 
@@ -247,6 +251,24 @@ const routes = [
             path: '/bounties/overview',
             name: vueRoutes.bountiesOverviewTab.name,
             component: BountiesOverviewTab,
+          },
+        ],
+      },
+      {
+        path: '/tech-comm',
+        name: vueRoutes.techCommPage.name,
+        component: TechComm,
+        redirect: vueRoutes.techCommOverviewTab,
+        children: [
+          {
+            path: '/tech-comm/overview',
+            name: vueRoutes.techCommOverviewTab.name,
+            component: TechCommOverviewTab,
+          },
+          {
+            path: '/tech-comm/proposals',
+            name: vueRoutes.proposalsTab.name,
+            component: ProposalsTab,
           },
         ],
       },

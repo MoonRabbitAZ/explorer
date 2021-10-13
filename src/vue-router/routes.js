@@ -55,4 +55,9 @@ export const vueRoutes = Object.freeze({
   // bounties page
   bountiesPage: { name: 'bounties' },
   bountiesOverviewTab: { name: 'bounties.bounties-overview-tab' },
+
+  // tech comm page
+  techCommPage: { name: 'tech-comm' },
+  techCommOverviewTab: { name: 'tech-comm.tech-comm-overview-tab' },
+  proposalsTab: { name: 'tech-comm.proposals-tab' },
 })

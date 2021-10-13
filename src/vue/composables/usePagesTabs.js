@@ -115,6 +115,17 @@ export function usePagesTabs () {
         route: vueRoutes.bountiesOverviewTab,
       },
     ],
+
+    techComm: [
+      {
+        translationName: t('page-tabs.tech-comm.overview'),
+        route: vueRoutes.techCommOverviewTab,
+      },
+      {
+        translationName: t('page-tabs.tech-comm.proposals'),
+        route: vueRoutes.proposalsTab,
+      },
+    ],
   })
 
   return {

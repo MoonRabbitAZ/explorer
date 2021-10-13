@@ -70,6 +70,10 @@ export function useMenuLinksGroups () {
           translationName: t('routers-groups.governance.routers.bounties'),
           route: vueRoutes.bountiesPage,
         },
+        {
+          translationName: t('routers-groups.governance.routers.tech-comm'),
+          route: vueRoutes.techCommPage,
+        },
       ],
     },
   ])
