@@ -33,6 +33,10 @@ import Democracy from '@democracy-page/Democracy'
 import DemocracyOverviewTab from '@democracy-page/tabs/DemocracyOverviewTab'
 import DispatchTab from '@democracy-page/tabs/DispatchTab'
 
+import Council from '@council-page/Council'
+import CouncilOverviewTab from '@council-page/tabs/CouncilOverviewTab'
+import MotionsTab from '@council-page/tabs/MotionsTab'
+
 import { createRouter, createWebHistory } from 'vue-router'
 import { vueRoutes } from '@/vue-router/routes'
 
@@ -187,6 +191,24 @@ const routes = [
             path: '/democracy/dispatch',
             name: vueRoutes.dispatchTab.name,
             component: DispatchTab,
+          },
+        ],
+      },
+      {
+        path: '/council',
+        name: vueRoutes.councilPage.name,
+        component: Council,
+        redirect: vueRoutes.councilOverviewTab,
+        children: [
+          {
+            path: '/council/overview',
+            name: vueRoutes.councilOverviewTab.name,
+            component: CouncilOverviewTab,
+          },
+          {
+            path: '/council/motions',
+            name: vueRoutes.motionsTab.name,
+            component: MotionsTab,
           },
         ],
       },

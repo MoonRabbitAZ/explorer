@@ -75,6 +75,7 @@ export function usePagesTabs () {
         route: vueRoutes.suspendedTab,
       },
     ],
+
     democracy: [
       {
         translationName: t('page-tabs.democracy.overview'),
@@ -83,6 +84,17 @@ export function usePagesTabs () {
       {
         translationName: t('page-tabs.democracy.dispatch'),
         route: vueRoutes.dispatchTab,
+      },
+    ],
+
+    council: [
+      {
+        translationName: t('page-tabs.council.overview'),
+        route: vueRoutes.councilOverviewTab,
+      },
+      {
+        translationName: t('page-tabs.council.motions'),
+        route: vueRoutes.motionsTab,
       },
     ],
   })

@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Gilt page shell
 - Society page shell
 - Democracy page shell
+- Council page shell
 
 #### Changed
 - Component i18n to global

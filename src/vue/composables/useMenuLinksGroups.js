@@ -58,6 +58,10 @@ export function useMenuLinksGroups () {
           translationName: t('routers-groups.governance.routers.democracy'),
           route: vueRoutes.democracyPage,
         },
+        {
+          translationName: t('routers-groups.governance.routers.council'),
+          route: vueRoutes.councilPage,
+        },
       ],
     },
   ])

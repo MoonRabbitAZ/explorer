@@ -100,7 +100,8 @@
     "governance": {
       "name": "Governance",
       "routers": {
-        "democracy": "Democracy"
+        "democracy": "Democracy",
+        "council": "Council"
       }
     }
   },
@@ -133,6 +134,10 @@
     "democracy": {
       "overview": "Overview",
       "dispatch": "Dispatch"
+    },
+    "council": {
+      "overview": "Overview",
+      "motions": "Motions"
     }
   },
   "navigation": {
@@ -598,6 +603,39 @@
     "scheduled-list": {
       "scheduled-header": "Scheduled",
       "no-data-message": "No active schedules"
+    }
+  },
+  "council-page": {
+    "council-overview-tab": {
+      "submit-candidacy-btn": "Submit candidacy",
+      "vote-btn": "Vote"
+    },
+    "council-summary": {
+      "seats-header": "Seats",
+      "runners-up-header": "Runners up",
+      "candidates-header": "Candidates",
+      "term-progress-header": "Term progress"
+    },
+    "members-list": {
+      "members-header": "Members",
+      "no-data-message": "No members found"
+    },
+    "runners-up-list": {
+      "runners-up-header": "Runners up",
+      "no-data-message": "No runners up found"
+    },
+    "candidates-list": {
+      "candidates-header": "Candidates",
+      "no-data-message": "No candidates"
+    },
+    "motions-tab": {
+      "propose-motion-btn": "Propose motion",
+      "propose-external-btn": "Propose external",
+      "cancel-slashes-btn": "Cancel slashes"
+    },
+    "motions-list": {
+      "motions-header": "Motions",
+      "no-data-message": "No council motions"
     }
   }
 }

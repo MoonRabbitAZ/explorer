@@ -96,7 +96,7 @@ export default {
 
   &[disabled] {
     color: $col-app-secondary;
-    cursor: default;
+    cursor: not-allowed;
   }
 
   // SCHEMES
