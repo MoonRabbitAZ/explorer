@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Parathreads tab
 - Auctions tab shell
 - Crowdloan tab shell
+- Gilt page shell
 
 #### Changed
 - Component i18n to global

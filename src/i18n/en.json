@@ -86,7 +86,8 @@
         "event-calendar": "Annals",
         "holders": "Holders",
         "map": "Map",
-        "parachains": "Jurisdictions"
+        "parachains": "Jurisdictions",
+        "gilt": "Gilt"
       }
     },
     "accounts": {
@@ -113,6 +114,9 @@
       "parathreads": "Parathreads",
       "auctions": "Auctions",
       "crowdloan": "Crowdloan"
+    },
+    "gilt": {
+      "overview": "Overview"
     }
   },
   "navigation": {
@@ -476,7 +480,7 @@
       "no-data-message": "No ongoing auction"
     },
     "auctions-summary": {
-      "auctions-header": "Actions",
+      "auctions-header": "Auctions",
       "active-header": "Active",
       "auctions-active-value": "Yes",
       "auctions-inactive-value": "No"
@@ -497,6 +501,24 @@
     },
     "crowdloan-summary": {
       "founds-header": "Founds"
+    }
+  },
+  "gilt-page": {
+    "gilt-overview-tab": {
+      "submit-bid-btn": "Submit bid"
+    },
+    "queues-list": {
+      "queues-header": "Queues",
+      "no-data-message": "No active gilt queues found."
+    },
+    "gilt-summary": {
+      "index-header": "Index",
+      "active-header": "Active",
+      "proportion-header": "Proportion",
+      "target-header": "Target",
+      "intake-header": "Intake",
+      "queues-active-value": "Yes",
+      "queues-inactive-value": "No"
     }
   }
 }

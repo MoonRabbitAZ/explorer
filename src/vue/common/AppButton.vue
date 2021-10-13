@@ -92,6 +92,7 @@ export default {
   border-radius: 0.4rem;
   border: none;
   line-height: 1;
+  white-space: nowrap;
 
   &[disabled] {
     color: $col-app-secondary;

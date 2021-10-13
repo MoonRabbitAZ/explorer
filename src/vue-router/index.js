@@ -21,6 +21,9 @@ import ParathreadsTab from '@parachains-page/tabs/ParathreadsTab'
 import AuctionsTab from '@parachains-page/tabs/AuctionsTab'
 import CrowdloanTab from '@parachains-page/tabs/CrowdloanTab'
 
+import Gilt from '@gilt-page/Gilt'
+import GiltOverviewTab from '@gilt-page/tabs/GiltOverviewTab'
+
 import { createRouter, createWebHistory } from 'vue-router'
 import { vueRoutes } from '@/vue-router/routes'
 
@@ -121,6 +124,19 @@ const routes = [
             path: '/parachains/crowdloan',
             name: vueRoutes.crowdloanTab.name,
             component: CrowdloanTab,
+          },
+        ],
+      },
+      {
+        path: '/gilt',
+        name: vueRoutes.giltPage.name,
+        component: Gilt,
+        redirect: vueRoutes.giltOverviewTab,
+        children: [
+          {
+            path: '/gilt/overview',
+            name: vueRoutes.giltOverviewTab.name,
+            component: GiltOverviewTab,
           },
         ],
       },

@@ -1,7 +1,7 @@
 export const vueRoutes = Object.freeze({
   app: { name: 'app' },
 
-  // network group
+  // network page
   explorerPage: { name: 'explorer' },
   chainInfoTab: { name: 'explorer.chain-info-tab' },
   blockInfoTab: { name: 'explorer.block-info-tab' },
@@ -9,22 +9,25 @@ export const vueRoutes = Object.freeze({
   eventCalendarPage: { name: 'event-calendar' },
   upcomingEventsTab: { name: 'event-calendar.upcoming-events' },
 
-  // accounts group
+  // accounts page
   walletPage: { name: 'wallet' },
   myAccountsTab: { name: 'wallet.my-accounts-tab' },
   stakingTab: { name: 'wallet.staking-tab' },
 
-  // holders group
+  // holders page
   holdersPage: { name: 'holders' },
 
-  // validators map group
+  // validators map page
   validatorsMapPage: { name: 'validators-map' },
 
-  // parachains group
+  // parachains page
   parachainsPage: { name: 'parachains' },
   parachainsOverviewTab: { name: 'parachains.parachains-overview-tab' },
   parathreadsTab: { name: 'parachains.parathreads-tab' },
   auctionsTab: { name: 'parachains.auctions-tab' },
   crowdloanTab: { name: 'parachains.crowdloan-tab' },
 
+  // gilt page
+  giltPage: { name: 'gilt' },
+  giltOverviewTab: { name: 'gilt.gilt-overview-tab' },
 })

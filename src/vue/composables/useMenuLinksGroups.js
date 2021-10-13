@@ -40,6 +40,10 @@ export function useMenuLinksGroups () {
           translationName: t('routers-groups.temples.routers.map'),
           route: vueRoutes.validatorsMapPage,
         },
+        {
+          translationName: t('routers-groups.temples.routers.gilt'),
+          route: vueRoutes.giltPage,
+        },
       ],
     },
   ])

@@ -53,6 +53,13 @@ export function usePagesTabs () {
         route: vueRoutes.crowdloanTab,
       },
     ],
+
+    gilt: [
+      {
+        translationName: t('page-tabs.gilt.overview'),
+        route: vueRoutes.giltOverviewTab,
+      },
+    ],
   })
 
   return {
