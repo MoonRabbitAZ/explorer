@@ -44,6 +44,10 @@ export function useMenuLinksGroups () {
           translationName: t('routers-groups.temples.routers.gilt'),
           route: vueRoutes.giltPage,
         },
+        {
+          translationName: t('routers-groups.temples.routers.society'),
+          route: vueRoutes.societyPage,
+        },
       ],
     },
   ])

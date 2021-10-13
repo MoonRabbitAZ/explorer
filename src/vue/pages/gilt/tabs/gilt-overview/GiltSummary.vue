@@ -41,7 +41,7 @@ export default {
 .gilt-summary__content {
   display: grid;
   grid-gap: 1.6rem 3rem;
-  grid-template-columns: repeat(5, min-content);
+  grid-template-columns: repeat(4, min-content);
 
   @include respond-to($tablet) {
     grid-template-columns: repeat(2, 1fr);

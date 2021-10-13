@@ -30,4 +30,10 @@ export const vueRoutes = Object.freeze({
   // gilt page
   giltPage: { name: 'gilt' },
   giltOverviewTab: { name: 'gilt.gilt-overview-tab' },
+
+  // society page
+  societyPage: { name: 'society' },
+  societyOverviewTab: { name: 'society.society-overview-tab' },
+  candidatesTab: { name: 'society.candidates-tab' },
+  suspendedTab: { name: 'society.suspended-tab' },
 })

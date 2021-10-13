@@ -87,7 +87,8 @@
         "holders": "Holders",
         "map": "Map",
         "parachains": "Jurisdictions",
-        "gilt": "Gilt"
+        "gilt": "Gilt",
+        "society": "Society"
       }
     },
     "accounts": {
@@ -117,6 +118,11 @@
     },
     "gilt": {
       "overview": "Overview"
+    },
+    "society": {
+      "overview": "Overview",
+      "candidates": "Candidates",
+      "suspended": "Suspended"
     }
   },
   "navigation": {
@@ -519,6 +525,37 @@
       "intake-header": "Intake",
       "queues-active-value": "Yes",
       "queues-inactive-value": "No"
+    }
+  },
+  "society-page": {
+    "members-list": {
+      "members-header": "Members",
+      "no-data-message": "No active members"
+    },
+    "society-summary": {
+      "members-header": "Members",
+      "rotation-header": "Rotation",
+      "challenge-header": "Challenge",
+      "payouts-header": "Payouts"
+    },
+    "candidates-tab": {
+      "submit-bid-btn":"Submit bid"
+    },
+    "candidates-list": {
+      "candidates-header": "Candidates",
+      "no-data-message": "No candidates"
+    },
+    "bids-list": {
+      "bids-header": "Bids",
+      "no-data-message": "No bids"
+    },
+    "suspended-members-list": {
+      "members-header": "Members",
+      "no-data-message": "No suspended members"
+    },
+    "suspended-candidates-list": {
+      "candidates-header": "Candidates",
+      "no-data-message": "No suspended candidates"
     }
   }
 }

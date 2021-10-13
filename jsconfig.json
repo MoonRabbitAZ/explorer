@@ -16,6 +16,7 @@
       "@wallet-page/*": ["src/vue/pages/wallet/*"],
       "@parachains-page/*": ["src/vue/pages/parachains/*"],
       "@gilt-page/*": ["src/vue/pages/gilt/*"],
+      "@society-page/*": ["src/vue/pages/society/*"],
     }
   },
   "exclude": ["node_modules", "dist"]

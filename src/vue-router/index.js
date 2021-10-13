@@ -24,6 +24,11 @@ import CrowdloanTab from '@parachains-page/tabs/CrowdloanTab'
 import Gilt from '@gilt-page/Gilt'
 import GiltOverviewTab from '@gilt-page/tabs/GiltOverviewTab'
 
+import Society from '@society-page/Society'
+import SocietyOverviewTab from '@society-page/tabs/SocietyOverviewTab'
+import CandidatesTab from '@society-page/tabs/CandidatesTab'
+import SuspendedTab from '@society-page/tabs/SuspendedTab'
+
 import { createRouter, createWebHistory } from 'vue-router'
 import { vueRoutes } from '@/vue-router/routes'
 
@@ -137,6 +142,29 @@ const routes = [
             path: '/gilt/overview',
             name: vueRoutes.giltOverviewTab.name,
             component: GiltOverviewTab,
+          },
+        ],
+      },
+      {
+        path: '/society',
+        name: vueRoutes.societyPage.name,
+        component: Society,
+        redirect: vueRoutes.societyOverviewTab,
+        children: [
+          {
+            path: '/society/overview',
+            name: vueRoutes.societyOverviewTab.name,
+            component: SocietyOverviewTab,
+          },
+          {
+            path: '/society/candidates',
+            name: vueRoutes.candidatesTab.name,
+            component: CandidatesTab,
+          },
+          {
+            path: '/society/suspended',
+            name: vueRoutes.suspendedTab.name,
+            component: SuspendedTab,
           },
         ],
       },

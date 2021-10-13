@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Auctions tab shell
 - Crowdloan tab shell
 - Gilt page shell
+- Society page shell
 
 #### Changed
 - Component i18n to global

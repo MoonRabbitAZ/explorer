@@ -76,6 +76,7 @@ module.exports = {
         '@wallet-page': `${root}/vue/pages/wallet`,
         '@parachains-page': `${root}/vue/pages/parachains`,
         '@gilt-page': `${root}/vue/pages/gilt`,
+        '@society-page': `${root}/vue/pages/society`,
       },
     },
   },

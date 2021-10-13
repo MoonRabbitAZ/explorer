@@ -60,6 +60,21 @@ export function usePagesTabs () {
         route: vueRoutes.giltOverviewTab,
       },
     ],
+
+    society: [
+      {
+        translationName: t('page-tabs.society.overview'),
+        route: vueRoutes.societyOverviewTab,
+      },
+      {
+        translationName: t('page-tabs.society.candidates'),
+        route: vueRoutes.candidatesTab,
+      },
+      {
+        translationName: t('page-tabs.society.suspended'),
+        route: vueRoutes.suspendedTab,
+      },
+    ],
   })
 
   return {
