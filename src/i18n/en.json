@@ -96,6 +96,12 @@
       "routers": {
         "wallet": "Wallet"
       }
+    },
+    "governance": {
+      "name": "Governance",
+      "routers": {
+        "democracy": "Democracy"
+      }
     }
   },
   "page-tabs": {
@@ -123,6 +129,10 @@
       "overview": "Overview",
       "candidates": "Candidates",
       "suspended": "Suspended"
+    },
+    "democracy": {
+      "overview": "Overview",
+      "dispatch": "Dispatch"
     }
   },
   "navigation": {
@@ -556,6 +566,38 @@
     "suspended-candidates-list": {
       "candidates-header": "Candidates",
       "no-data-message": "No suspended candidates"
+    }
+  },
+  "democracy-page": {
+    "democracy-overview-tab": {
+      "submit-preimage-btn": "Submit preimage",
+      "submit-proposal-btn": "Submit proposal"
+    },
+    "democracy-summary": {
+      "proposals-header": "Proposals",
+      "total-header": "Total",
+      "referenda-header": "Referenda",
+      "launch-period-header": "Launch period"
+    },
+    "external-list": {
+      "external-header": "External",
+      "no-data-message": "No external proposal"
+    },
+    "proposals-list": {
+      "proposals-header": "Proposals",
+      "no-data-message": "No active proposals"
+    },
+    "referendums-list": {
+      "referendums-header": "Referendums",
+      "no-data-message": "No active referendums"
+    },
+    "dispatch-queue-list": {
+      "dispatch-queue-header": "Dispatch queue",
+      "no-data-message": "Nothing queued for execution"
+    },
+    "scheduled-list": {
+      "scheduled-header": "Scheduled",
+      "no-data-message": "No active schedules"
     }
   }
 }

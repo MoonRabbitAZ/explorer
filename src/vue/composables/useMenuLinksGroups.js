@@ -50,5 +50,15 @@ export function useMenuLinksGroups () {
         },
       ],
     },
+    {
+      name: 'governance-group',
+      groupTranslationName: t('routers-groups.governance.name'),
+      links: [
+        {
+          translationName: t('routers-groups.governance.routers.democracy'),
+          route: vueRoutes.democracyPage,
+        },
+      ],
+    },
   ])
 }

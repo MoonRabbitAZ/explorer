@@ -29,6 +29,10 @@ import SocietyOverviewTab from '@society-page/tabs/SocietyOverviewTab'
 import CandidatesTab from '@society-page/tabs/CandidatesTab'
 import SuspendedTab from '@society-page/tabs/SuspendedTab'
 
+import Democracy from '@democracy-page/Democracy'
+import DemocracyOverviewTab from '@democracy-page/tabs/DemocracyOverviewTab'
+import DispatchTab from '@democracy-page/tabs/DispatchTab'
+
 import { createRouter, createWebHistory } from 'vue-router'
 import { vueRoutes } from '@/vue-router/routes'
 
@@ -165,6 +169,24 @@ const routes = [
             path: '/society/suspended',
             name: vueRoutes.suspendedTab.name,
             component: SuspendedTab,
+          },
+        ],
+      },
+      {
+        path: '/democracy',
+        name: vueRoutes.democracyPage.name,
+        component: Democracy,
+        redirect: vueRoutes.democracyOverviewTab,
+        children: [
+          {
+            path: '/democracy/overview',
+            name: vueRoutes.democracyOverviewTab.name,
+            component: DemocracyOverviewTab,
+          },
+          {
+            path: '/democracy/dispatch',
+            name: vueRoutes.dispatchTab.name,
+            component: DispatchTab,
           },
         ],
       },

@@ -17,6 +17,7 @@
       "@parachains-page/*": ["src/vue/pages/parachains/*"],
       "@gilt-page/*": ["src/vue/pages/gilt/*"],
       "@society-page/*": ["src/vue/pages/society/*"],
+      "@democracy-page/*": ["src/vue/pages/democracy/*"],
     }
   },
   "exclude": ["node_modules", "dist"]

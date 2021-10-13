@@ -77,6 +77,7 @@ module.exports = {
         '@parachains-page': `${root}/vue/pages/parachains`,
         '@gilt-page': `${root}/vue/pages/gilt`,
         '@society-page': `${root}/vue/pages/society`,
+        '@democracy-page': `${root}/vue/pages/democracy`,
       },
     },
   },

@@ -36,4 +36,9 @@ export const vueRoutes = Object.freeze({
   societyOverviewTab: { name: 'society.society-overview-tab' },
   candidatesTab: { name: 'society.candidates-tab' },
   suspendedTab: { name: 'society.suspended-tab' },
+
+  // democracy page
+  democracyPage: { name: 'democracy' },
+  democracyOverviewTab: { name: 'democracy.democracy-overview-tab' },
+  dispatchTab: { name: 'democracy.dispatch-tab' },
 })
