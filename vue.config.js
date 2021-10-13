@@ -80,6 +80,7 @@ module.exports = {
         '@democracy-page': `${root}/vue/pages/democracy`,
         '@council-page': `${root}/vue/pages/council`,
         '@treasury-page': `${root}/vue/pages/treasury`,
+        '@bounties-page': `${root}/vue/pages/bounties`,
       },
     },
   },

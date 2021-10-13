@@ -51,4 +51,8 @@ export const vueRoutes = Object.freeze({
   treasuryPage: { name: 'treasury' },
   treasuryOverviewTab: { name: 'treasury.treasury-overview-tab' },
   tipsTab: { name: 'treasury.tips-tab' },
+
+  // bounties page
+  bountiesPage: { name: 'bounties' },
+  bountiesOverviewTab: { name: 'bounties.bounties-overview-tab' },
 })

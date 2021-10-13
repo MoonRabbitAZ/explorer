@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Democracy page shell
 - Council page shell
 - Treasury page shell
+- Bounties page shell
 
 #### Changed
 - Component i18n to global

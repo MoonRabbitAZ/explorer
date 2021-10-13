@@ -108,6 +108,13 @@ export function usePagesTabs () {
         route: vueRoutes.tipsTab,
       },
     ],
+
+    bounties: [
+      {
+        translationName: t('page-tabs.bounties.overview'),
+        route: vueRoutes.bountiesOverviewTab,
+      },
+    ],
   })
 
   return {

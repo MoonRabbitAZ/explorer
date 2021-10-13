@@ -41,6 +41,9 @@ import Treasury from '@treasury-page/Treasury'
 import TreasuryOverviewTab from '@treasury-page/tabs/TreasuryOverviewTab'
 import TipsTab from '@treasury-page/tabs/TipsTab'
 
+import Bounties from '@bounties-page/Bounties'
+import BountiesOverviewTab from '@bounties-page/tabs/BountiesOverviewTab'
+
 import { createRouter, createWebHistory } from 'vue-router'
 import { vueRoutes } from '@/vue-router/routes'
 
@@ -231,6 +234,19 @@ const routes = [
             path: '/treasury/tips',
             name: vueRoutes.tipsTab.name,
             component: TipsTab,
+          },
+        ],
+      },
+      {
+        path: '/bounties',
+        name: vueRoutes.bountiesPage.name,
+        component: Bounties,
+        redirect: vueRoutes.bountiesOverviewTab,
+        children: [
+          {
+            path: '/bounties/overview',
+            name: vueRoutes.bountiesOverviewTab.name,
+            component: BountiesOverviewTab,
           },
         ],
       },

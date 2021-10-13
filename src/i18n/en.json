@@ -102,7 +102,8 @@
       "routers": {
         "democracy": "Democracy",
         "council": "Council",
-        "treasury": "Treasury"
+        "treasury": "Treasury",
+        "bounties": "Bounties"
       }
     }
   },
@@ -143,6 +144,9 @@
     "treasury": {
       "overview": "Overview",
       "tips": "Tips"
+    },
+    "bounties": {
+      "overview": "Overview"
     }
   },
   "navigation": {
@@ -671,5 +675,20 @@
       "tips-header": "Tips",
       "no-data-message": "No open tips"
     }
-  } 
+  },
+  "bounties-page": {
+    "bounties-overview-tab": {
+      "add-bounty-btn": "Add bounty"
+    },
+    "bounties-summary": {
+      "bounties-header": "Bounties",
+      "past-header": "Past",
+      "active-total-header": "Active total",
+      "funding-period-header": "Funding period"
+    },
+    "bounties-list": {
+      "bounties-header": "Bounties",
+      "no-data-message": "No open bounties"
+    }
+  }
 }
