@@ -5,8 +5,8 @@ import { useI18n } from 'vue-i18n'
 export function useMenuLinksGroups () {
   const { t } = useI18n()
 
-  return reactive([
-    {
+  return reactive({
+    accounts: {
       name: 'accounts-group',
       groupTranslationName: t('routers-groups.accounts.name'),
       links: [
@@ -16,7 +16,7 @@ export function useMenuLinksGroups () {
         },
       ],
     },
-    {
+    temples: {
       name: 'temples-group',
       groupTranslationName: t('routers-groups.temples.name'),
       links: [
@@ -42,5 +42,16 @@ export function useMenuLinksGroups () {
         },
       ],
     },
-  ])
+
+    settings: {
+      name: 'settings',
+      groupTranslationName: t('routers-groups.settings.name'),
+      links: [
+        {
+          translationName: t('routers-groups.settings.routers.settings'),
+          route: vueRoutes.settingsPage,
+        },
+      ],
+    },
+  })
 }

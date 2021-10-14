@@ -15,6 +15,7 @@
       "@event-calendar-page/*": ["src/vue/pages/event-calendar/*"],
       "@wallet-page/*": ["src/vue/pages/wallet/*"],
       "@parachains-page/*": ["src/vue/pages/parachains/*"],
+      "@settings-page": ["src/vue/pages/settings/*"]
     }
   },
   "exclude": ["node_modules", "dist"]

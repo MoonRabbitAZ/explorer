@@ -52,8 +52,6 @@ export default {
 @import '~@scss/variables';
 
 .chain-info {
-  text-align: right;
-
   &--mobile {
     text-align: left;
 

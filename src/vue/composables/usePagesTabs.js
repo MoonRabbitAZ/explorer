@@ -45,6 +45,13 @@ export function usePagesTabs () {
         route: vueRoutes.parathreadsTab,
       },
     ],
+
+    settings: [
+      {
+        translationName: t('page-tabs.settings.metadata'),
+        route: vueRoutes.settingsMetadataTab,
+      },
+    ],
   })
 
   return {

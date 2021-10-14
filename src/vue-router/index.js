@@ -19,6 +19,9 @@ import Parachains from '@parachains-page/Parachains'
 import ParachainsOverviewTab from '@parachains-page/tabs/ParachainsOverviewTab'
 import ParathreadsTab from '@parachains-page/tabs/ParathreadsTab'
 
+import Settings from '@settings-page/Settings'
+import SettingsMetadataTab from '@settings-page/tabs/SettingsMetadataTab'
+
 import { createRouter, createWebHistory } from 'vue-router'
 import { vueRoutes } from '@/vue-router/routes'
 
@@ -109,6 +112,19 @@ const routes = [
             path: '/parachains/parathreads',
             name: vueRoutes.parathreadsTab.name,
             component: ParathreadsTab,
+          },
+        ],
+      },
+      {
+        path: '/settings',
+        name: vueRoutes.settingsPage.name,
+        component: Settings,
+        redirect: vueRoutes.settingsMetadataTab,
+        children: [
+          {
+            path: '/settings/metadata',
+            name: vueRoutes.settingsMetadataTab.name,
+            component: SettingsMetadataTab,
           },
         ],
       },

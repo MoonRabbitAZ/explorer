@@ -3,7 +3,16 @@
     class="group-menu-links"
     :class="{'group-menu-links--active': isActiveRouter}"
   >
-    <template v-if="groupRouters.links.length === 1">
+    <template v-if="groupRouters.name === linksGroups.settings.name">
+      <router-link
+        class="group-menu-links__link group-menu-links__link-settings"
+        :to="groupRouters.links[0].route"
+      >
+        <i class="mdi mdi-cog-outline"/>
+      </router-link>
+    </template>
+
+    <template v-else-if="groupRouters.links.length === 1">
       <router-link
         class="group-menu-links__link"
         :to="groupRouters.links[0].route"
@@ -11,6 +20,7 @@
         {{ groupRouters.links[0].translationName }}
       </router-link>
     </template>
+
     <template v-else>
       <div class="group-menu-links__title">
         <span class="group-menu-links__name">
@@ -41,6 +51,7 @@ export default {
 
   props: {
     groupRouters: { type: Object, required: true },
+    linksGroups: { type: Object, required: true },
   },
 
   setup (props) {
@@ -99,6 +110,11 @@ export default {
   &:hover {
     color: $col-app-accent;
   }
+}
+
+.group-menu-links__link-settings {
+  font-size: 2rem;
+  line-height: 1;
 }
 
 .group-menu-links__name {

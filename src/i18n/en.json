@@ -94,6 +94,12 @@
       "routers": {
         "wallet": "Wallet"
       }
+    },
+    "settings": {
+      "name": "Settings",
+      "routers": {
+        "settings": "Settings"
+      }
     }
   },
   "page-tabs": {
@@ -111,6 +117,9 @@
     "parachains": {
       "overview": "Overview",
       "parathreads": "Parathreads"
+    },
+    "settings": {
+      "metadata": "Metadata"
     }
   },
   "navigation": {
