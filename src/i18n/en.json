@@ -100,11 +100,11 @@
     "governance": {
       "name": "Governance",
       "routers": {
-        "democracy": "Democracy",
-        "council": "Council",
+        "democracy": "The Forum",
+        "council": "Mount Olympus",
         "treasury": "Treasury",
-        "bounties": "Bounties",
-        "tech-comm": "Tech Comm"
+        "bounties": "Quests",
+        "tech-comm": "Tech. Comm."
       }
     }
   },
@@ -481,18 +481,18 @@
   },
   "parachains-page": {
     "parachains-summary": {
-      "parachains-header": "Parachains",
+      "parachains-header": "Jurisdictions",
       "parathreads-header": "Parathreads",
       "current-lease-header": "Current lease",
       "lease-period-header": "Lease period"
     },
     "parachains-list": {
-      "parachains-header": "Parachains",
-      "drawer-title": "Parachain",
-      "no-data-message": "No parachains available"
+      "parachains-header": "Jurisdictions",
+      "drawer-title": "Jurisdiction",
+      "no-data-message": "No jurisdictions available"
     },
     "parachains-info": {
-      "parachain-id-header": "Parachain ID",
+      "parachain-id-header": "Jurisdiction ID",
       "head-header": "Head",
       "lifecycle-header": "Lifecycle",
       "included-header": "Included",
@@ -593,7 +593,7 @@
       "submit-proposal-btn": "Submit proposal"
     },
     "democracy-summary": {
-      "proposals-header": "Proposals",
+      "proposals-header": "Civic initiatives",
       "total-header": "Total",
       "referenda-header": "Referenda",
       "launch-period-header": "Launch period"
@@ -603,8 +603,8 @@
       "no-data-message": "No external proposal"
     },
     "proposals-list": {
-      "proposals-header": "Proposals",
-      "no-data-message": "No active proposals"
+      "proposals-header": "Civic initiatives",
+      "no-data-message": "No active civic initiatives"
     },
     "referendums-list": {
       "referendums-header": "Referendums",
@@ -657,7 +657,7 @@
       "submit-proposal-btn": "Submit proposal"
     },
     "treasury-summary": {
-      "proposals-header": "Proposals",
+      "proposals-header": "Civic initiatives",
       "total-header": "Total",
       "approved-header": "Approved",
       "available-header": "Available",
@@ -665,12 +665,12 @@
       "spend-period-header": "Spend period"
     },
     "proposals-list": {
-      "proposals-header": "Proposals",
-      "no-data-message": "No pending proposals"
+      "proposals-header": "Civic initiatives",
+      "no-data-message": "No pending civic initiatives"
     },
     "approved-list": {
       "approved-header": "Approved",
-      "no-data-message": "No approved proposals"
+      "no-data-message": "No approved civic initiatives"
     },
     "tips-tab": {
       "propose-tip-btn": "Propose tip",
@@ -686,7 +686,7 @@
       "add-bounty-btn": "Add bounty"
     },
     "bounties-summary": {
-      "bounties-header": "Bounties",
+      "active-header": "Active",
       "past-header": "Past",
       "active-total-header": "Active total",
       "funding-period-header": "Funding period"

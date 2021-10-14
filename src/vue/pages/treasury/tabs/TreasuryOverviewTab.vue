@@ -10,8 +10,8 @@
       />
     </div>
 
-    <approved-list class="treasury-overview-tab__list"/>
     <proposals-list class="treasury-overview-tab__list"/>
+    <approved-list class="treasury-overview-tab__list"/>
   </div>
 </template>
 

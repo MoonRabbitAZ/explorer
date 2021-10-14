@@ -105,7 +105,7 @@ export default {
     })
 
     const parachainPeriod = computed(() => {
-      if (!props.leasePeriod || !leasesPeriods.value?.length) return ''
+      if (!props.leasePeriod || !leasesPeriods.value?.length) return
       const startBn = props.leasePeriod.currentPeriod
         .addn(leasesPeriods.value[0])
       const endBn = props.leasePeriod.currentPeriod

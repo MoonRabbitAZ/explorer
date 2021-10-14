@@ -35,13 +35,9 @@ export default {
 .gilt-overview-tab__topbar {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 3.2rem;
   margin: 3rem 0;
-
-  @include respond-to($tablet) {
-    flex-direction: column;
-    align-items: start;
-  }
 }
 
 .gilt-overview-tab__summary {

@@ -2,7 +2,7 @@
   <div class="bounties-summary">
     <div class="bounties-summary__content">
       <info-block
-        :title="$t('bounties-page.bounties-summary.bounties-header')"
+        :title="$t('bounties-page.bounties-summary.active-header')"
         value="0"
       />
 

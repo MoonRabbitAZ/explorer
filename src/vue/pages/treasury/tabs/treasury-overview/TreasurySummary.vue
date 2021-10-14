@@ -3,12 +3,12 @@
     <div class="treasury-summary__content">
       <info-block
         :title="$t('treasury-page.treasury-summary.proposals-header')"
-        value="4"
+        value="0"
       />
 
       <info-block
         :title="$t('treasury-page.treasury-summary.total-header')"
-        value="6"
+        value="0"
       />
 
       <info-block
@@ -17,13 +17,15 @@
       />
 
       <info-block
+        class="treasury-summary__available"
         :title="$t('treasury-page.treasury-summary.available-header')"
-        :value="$fbalance('0')"
+        :value="$fbalance(HURDCODE_AVAILABLE_UNIT)"
       />
 
       <info-block
+        class="treasury-summary__next-burn"
         :title="$t('treasury-page.treasury-summary.next-burn-header')"
-        :value="$fbalance('0')"
+        :value="$fbalance(HURDCODE_NEXT_BURN_UNIT)"
       />
 
       <info-block
@@ -50,6 +52,8 @@ import { BN } from '@polkadot/util'
 
 const HURDCODE_CURRENT_PROGRESS = new BN(3)
 const HURDCODE_TOTAL_PROGRESS = new BN(100)
+const HURDCODE_AVAILABLE_UNIT = '429413700000000000000'
+const HURDCODE_NEXT_BURN_UNIT = '858827000000000000'
 
 export default {
   name: 'treasury-summary',
@@ -60,6 +64,8 @@ export default {
     return {
       HURDCODE_CURRENT_PROGRESS,
       HURDCODE_TOTAL_PROGRESS,
+      HURDCODE_AVAILABLE_UNIT,
+      HURDCODE_NEXT_BURN_UNIT,
     }
   },
 }
@@ -75,11 +81,13 @@ export default {
   grid-template-columns: repeat(6, min-content);
   justify-content: center;
 
-  @include respond-to($medium) {
+  @include respond-to($x-medium) {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
+.treasury-summary__available,
+.treasury-summary__next-burn,
 .treasury-summary__launch-period {
   @include respond-to($x-small) {
     grid-column: 1/-1;

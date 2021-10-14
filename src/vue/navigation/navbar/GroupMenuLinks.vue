@@ -94,6 +94,7 @@ export default {
 .group-menu-links__link {
   font-size: 1.6rem;
   line-height: 2rem;
+  padding: 0 1.2rem;
   color: $col-navigation-link;
 
   &:hover {

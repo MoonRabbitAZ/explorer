@@ -29,24 +29,24 @@ export function useMenuLinksGroups () {
           route: vueRoutes.parachainsPage,
         },
         {
-          translationName: t('routers-groups.temples.routers.event-calendar'),
-          route: vueRoutes.eventCalendarPage,
-        },
-        {
-          translationName: t('routers-groups.temples.routers.holders'),
-          route: vueRoutes.holdersPage,
-        },
-        {
-          translationName: t('routers-groups.temples.routers.map'),
-          route: vueRoutes.validatorsMapPage,
-        },
-        {
           translationName: t('routers-groups.temples.routers.gilt'),
           route: vueRoutes.giltPage,
         },
         {
           translationName: t('routers-groups.temples.routers.society'),
           route: vueRoutes.societyPage,
+        },
+        {
+          translationName: t('routers-groups.temples.routers.event-calendar'),
+          route: vueRoutes.eventCalendarPage,
+        },
+        {
+          translationName: t('routers-groups.temples.routers.map'),
+          route: vueRoutes.validatorsMapPage,
+        },
+        {
+          translationName: t('routers-groups.temples.routers.holders'),
+          route: vueRoutes.holdersPage,
         },
       ],
     },

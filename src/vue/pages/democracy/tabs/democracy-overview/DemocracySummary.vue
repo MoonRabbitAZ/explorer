@@ -70,7 +70,7 @@ export default {
   grid-template-columns: repeat(5, min-content);
   justify-content: center;
 
-  @include respond-to($tablet) {
+  @include respond-to($media-small-desktop) {
     grid-template-columns: repeat(2, 1fr);
   }
 }
