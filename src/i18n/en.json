@@ -478,5 +478,16 @@
     "parathread-row": {
       "leases-none": "None"
     }
+  },
+  "settings-page": {
+    "settings-metadata-tab": {
+      "network-header": "Network Name",
+      "genesis-hash-header": "Genesis Hash",
+      "unit-header": "Unit",
+      "address-prefix-header": "Address Prefix",
+      "decimals-header": "Decimals",
+      "chain-type-header": "Chain Type",
+      "network-logo": "Network logo"
+    }
   }
 }

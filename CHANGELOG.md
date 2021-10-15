@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Staking balance on account balances
 - Parachains page
 - Parathreads tab
+- Settings page
 
 #### Changed
 - Component i18n to global

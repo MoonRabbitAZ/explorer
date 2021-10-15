@@ -5,10 +5,12 @@ import { keyring } from '@polkadot/ui-keyring'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 
 import { registry } from '@api'
+import {
+  DEFAULT_SS58,
+  DEFAULT_DECIMALS,
+  DEFAULT_AUX,
+} from '@/js/const/api-default-params.const'
 
-const DEFAULT_SS58 = registry.createType('u32', 42)
-const DEFAULT_AUX = ['Aux1', 'Aux2', 'Aux3', 'Aux4', 'Aux5', 'Aux6', 'Aux7', 'Aux8', 'Aux9']
-const DEFAULT_DECIMALS = registry.createType('u32', 12)
 const ethereumChains = [
   'moonbase',
   'moonbeam',
