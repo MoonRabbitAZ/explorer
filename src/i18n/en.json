@@ -481,6 +481,7 @@
   },
   "settings-page": {
     "settings-metadata-tab": {
+      "chain-specifications-header": "Chain Specifications",
       "network-header": "Network Name",
       "genesis-hash-header": "Genesis Hash",
       "unit-header": "Unit",

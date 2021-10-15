@@ -1,5 +1,9 @@
 <template>
   <div class="settings-metadata-tab">
+    <h1 class="settings-metadata-tab__header">
+      <!-- eslint-disable-next-line max-len -->
+      {{ $t('settings-page.settings-metadata-tab.chain-specifications-header') }}
+    </h1>
     <div class="settings-metadata-tab__content">
       <div class="settings-metadata-tab__info">
         <value-displayer
@@ -127,6 +131,10 @@ export default {
 @import '~@scss/variables';
 
 .settings-metadata-tab { @include app-padding; }
+
+.settings-metadata-tab__header {
+  margin-bottom: 2rem;
+}
 
 .settings-metadata-tab__content {
   display: grid;
