@@ -39,8 +39,6 @@
         <qr-code-wrapper
           :value="qrValue"
           :size="250"
-          background="#f6f8fb"
-          foreground="#262626"
         />
       </div>
     </div>
@@ -51,7 +49,7 @@
 import ValueDisplayer from '@/vue/common/ValueDisplayer'
 import QrCodeWrapper from '@/vue/common/QrCodeWrapper'
 
-import { computed, ref } from 'vue'
+import { computed, ref, unref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { api } from '@api'
 import { useStore } from 'vuex'
@@ -59,7 +57,7 @@ import { vuexTypes } from '@/vuex'
 import { formatBalance, isNumber } from '@polkadot/util'
 import { DEFAULT_SS58 } from '@/js/const/api-default-params.const'
 
-const CHAINT_TYPES = {
+const CHAIN_TYPES = {
   ethereum: 'ethereum',
   substrate: 'substrate',
 }
@@ -101,19 +99,21 @@ export default {
       chainType: {
         title: t('settings-page.settings-metadata-tab.chain-type-header'),
         value: api.isEthereum
-          ? CHAINT_TYPES.ethereum
-          : CHAINT_TYPES.substrate,
+          ? CHAIN_TYPES.ethereum
+          : CHAIN_TYPES.substrate,
       },
     })
 
     const qrValue = computed(() => {
+      const info = unref(systemInfo)
+
       return JSON.stringify({
         title: systemChain.value,
-        genesisHash: systemInfo.value.genesisHash.value,
-        prefix: systemInfo.value.ss58Format.value,
-        decimals: systemInfo.value.tokenDecimals.value,
-        unit: systemInfo.value.tokenSymbol.value,
-        chainType: systemInfo.value.chainType.value,
+        genesisHash: info.genesisHash.value,
+        prefix: info.ss58Format.value,
+        decimals: info.tokenDecimals.value,
+        unit: info.tokenSymbol.value,
+        chainType: info.chainType.value,
       })
     })
 

@@ -5,8 +5,8 @@
 
       <group-menu-links
         class="navbar__links-group"
-        v-for="(group, id) in linksGroups"
-        :key="group.name + id"
+        v-for="(group, index) in linksGroups"
+        :key="index"
         :group-routers="group"
         :links-groups="linksGroups"
       />
