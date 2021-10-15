@@ -75,6 +75,7 @@ module.exports = {
         '@event-calendar-page': `${root}/vue/pages/event-calendar`,
         '@wallet-page': `${root}/vue/pages/wallet`,
         '@parachains-page': `${root}/vue/pages/parachains`,
+        '@settings-page': `${root}/vue/pages/settings`,
         '@gilt-page': `${root}/vue/pages/gilt`,
         '@society-page': `${root}/vue/pages/society`,
         '@democracy-page': `${root}/vue/pages/democracy`,

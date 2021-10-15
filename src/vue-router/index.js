@@ -48,6 +48,9 @@ import TechComm from '@tech-comm-page/TechComm'
 import TechCommOverviewTab from '@tech-comm-page/tabs/TechCommOverviewTab'
 import ProposalsTab from '@tech-comm-page/tabs/ProposalsTab'
 
+import Settings from '@settings-page/Settings'
+import SettingsMetadataTab from '@settings-page/tabs/SettingsMetadataTab'
+
 import { createRouter, createWebHistory } from 'vue-router'
 import { vueRoutes } from '@/vue-router/routes'
 
@@ -269,6 +272,19 @@ const routes = [
             path: '/tech-comm/proposals',
             name: vueRoutes.proposalsTab.name,
             component: ProposalsTab,
+          },
+        ],
+      },
+      {
+        path: '/settings',
+        name: vueRoutes.settingsPage.name,
+        component: Settings,
+        redirect: vueRoutes.settingsMetadataTab,
+        children: [
+          {
+            path: '/settings/metadata',
+            name: vueRoutes.settingsMetadataTab.name,
+            component: SettingsMetadataTab,
           },
         ],
       },

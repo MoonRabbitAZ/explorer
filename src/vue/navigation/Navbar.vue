@@ -1,15 +1,20 @@
 <template>
   <nav class="navbar">
-    <logo class="navbar__logo"/>
+    <div class="navbar__groups-wrap">
+      <logo class="navbar__logo"/>
 
-    <group-menu-links
-      class="navbar__links-group"
-      v-for="(group, id) in linksGroups"
-      :key="group.name + id"
-      :group-routers="group"
-    />
+      <group-menu-links
+        class="navbar__links-group"
+        v-for="(group, index) in linksGroups"
+        :key="index"
+        :group-routers="group"
+        :links-groups="linksGroups"
+      />
+    </div>
 
-    <chain-info class="navbar__chain-info"/>
+    <div class="navbar__settings-wrap">
+      <chain-info class="navbar__chain-info"/>
+    </div>
 
     <burger-button
       v-model:is-open="isSidebarOpen"
@@ -89,7 +94,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '~@scss/mixins';
 @import '~@scss/variables';
 
@@ -99,8 +104,14 @@ export default {
   background: $col-app-block-bg;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
   @include app-padding;
+}
+
+.navbar__groups-wrap {
+  display: flex;
+  align-items: center;
 }
 
 .navbar__logo {
@@ -117,11 +128,22 @@ export default {
   }
 }
 
-.navbar__chain-info {
-  margin-left: auto;
+.navbar__settings-wrap {
+  display: flex;
+  align-items: center;
 
   @include respond-to($sidebar-hide-bp) {
     display: none;
+  }
+}
+
+.navbar__settings-link {
+  margin: 0 4.5rem 0 2.7rem;
+  font-size: 2rem;
+  color: $col-navigation-link;
+
+  &:hover {
+    color: $col-app-accent;
   }
 }
 

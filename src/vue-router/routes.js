@@ -27,6 +27,10 @@ export const vueRoutes = Object.freeze({
   auctionsTab: { name: 'parachains.auctions-tab' },
   crowdloanTab: { name: 'parachains.crowdloan-tab' },
 
+  // settings page
+  settingsPage: { name: 'settings' },
+  settingsMetadataTab: { name: 'settings.settings-metadata-tab' },
+
   // gilt page
   giltPage: { name: 'gilt' },
   giltOverviewTab: { name: 'gilt.gilt-overview-tab' },

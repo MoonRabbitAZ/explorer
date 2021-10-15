@@ -97,6 +97,12 @@
         "wallet": "Wallet"
       }
     },
+    "settings": {
+      "name": "Settings",
+      "routers": {
+        "settings": "Settings"
+      }
+    },
     "governance": {
       "name": "Governance",
       "routers": {
@@ -125,6 +131,9 @@
       "parathreads": "Parathreads",
       "auctions": "Auctions",
       "crowdloan": "Crowdloan"
+    },
+    "settings": {
+      "metadata": "Metadata"
     },
     "gilt": {
       "overview": "Overview"
@@ -712,6 +721,18 @@
     "proposals-list": {
       "proposals-header": "Proposals",
       "no-data-message": "No committee proposals"
+    }
+  },
+  "settings-page": {
+    "settings-metadata-tab": {
+      "chain-specifications-header": "Chain Specifications",
+      "network-header": "Network Name",
+      "genesis-hash-header": "Genesis Hash",
+      "unit-header": "Unit",
+      "address-prefix-header": "Address Prefix",
+      "decimals-header": "Decimals",
+      "chain-type-header": "Chain Type",
+      "network-logo": "Network logo"
     }
   }
 }

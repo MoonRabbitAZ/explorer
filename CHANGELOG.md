@@ -6,15 +6,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 #### Added
-- Temples icons
-- Amount on staking account row 
-- Social links on footer
-- Progress bar component
-- Progress bar on epoch time
-- Unstake logic for staking
-- Staking balance on account balances
-- Parachains page
-- Parathreads tab
 - Auctions tab shell
 - Crowdloan tab shell
 - Gilt page shell
@@ -24,6 +15,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Treasury page shell
 - Bounties page shell
 - Tech comm page shell
+
+## [0.1.0-rc.2] - 2021-10-15
+#### Added
+- Temples icons
+- Amount on staking account row 
+- Social links on footer
+- Progress bar component
+- Progress bar on epoch time
+- Unstake logic for staking
+- Staking balance on account balances
+- Parachains page
+- Parathreads tab
+- Settings page
 
 #### Changed
 - Component i18n to global
@@ -100,5 +104,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Initial project release
 - Initiated project with vue cli
 
-[Unreleased]: https://gitlab.com/tokend/polkadot/new-web-client/compare/0.1.0-rc.1...HEAD
+[Unreleased]: https://gitlab.com/tokend/polkadot/new-web-client/compare/0.1.0-rc.2...main
+[0.1.0-rc.2]: https://gitlab.com/tokend/polkadot/new-web-client/compare/0.1.0-rc.1...0.1.0-rc.2
 [0.1.0-rc.1]: https://gitlab.com/tokend/polkadot/new-web-client/tags/0.1.0-rc.1

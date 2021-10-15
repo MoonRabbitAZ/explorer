@@ -126,6 +126,13 @@ export function usePagesTabs () {
         route: vueRoutes.proposalsTab,
       },
     ],
+
+    settings: [
+      {
+        translationName: t('page-tabs.settings.metadata'),
+        route: vueRoutes.settingsMetadataTab,
+      },
+    ],
   })
 
   return {

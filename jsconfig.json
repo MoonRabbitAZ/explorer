@@ -15,13 +15,14 @@
       "@event-calendar-page/*": ["src/vue/pages/event-calendar/*"],
       "@wallet-page/*": ["src/vue/pages/wallet/*"],
       "@parachains-page/*": ["src/vue/pages/parachains/*"],
+      "@settings-page": ["src/vue/pages/settings/*"],
       "@gilt-page/*": ["src/vue/pages/gilt/*"],
       "@society-page/*": ["src/vue/pages/society/*"],
       "@democracy-page/*": ["src/vue/pages/democracy/*"],
       "@council-page/*": ["src/vue/pages/council/*"],
       "@treasury-page": ["src/vue/pages/treasury/*"],
       "@bounties-page/*": ["src/vue/pages/bounties/*"],
-      "@tech-comm-page/*": ["src/vue/pages/tech-comm/*"]
+      "@tech-comm-page/*": ["src/vue/pages/tech-comm/*"],
     }
   },
   "exclude": ["node_modules", "dist"]
