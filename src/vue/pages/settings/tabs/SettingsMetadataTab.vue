@@ -13,7 +13,7 @@
             <img
               class="settings-metadata-tab__network-logo"
               src="@static/branding/logo.png"
-              :alt="$t('settings-page.settings-metadata-tabnetwork-logo')"
+              :alt="$t('settings-page.settings-metadata-tab.network-logo')"
             >
             <p class="settings-metadata-tab__network">
               {{ systemChain }}
