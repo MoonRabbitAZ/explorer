@@ -1,6 +1,6 @@
 {
   "name": "moon_rabbit",
-  "version": "0.1.0-rc.1",
+  "version": "0.1.0-rc.2",
   "private": true,
   "scripts": {
     "start": "vue-cli-service serve",
