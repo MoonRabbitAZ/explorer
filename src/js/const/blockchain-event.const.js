@@ -23,9 +23,14 @@ export const BCH_EVENT_METHODS = Object.freeze({
   extrinsicFailed: 'ExtrinsicFailed',
   deposit: 'Deposit',
   transfer: 'Transfer',
+  candidateBacked: 'CandidateBacked',
+  candidateIncluded: 'CandidateIncluded',
 })
 
 export const BCH_EVENT_SECTION = Object.freeze({
   system: 'system',
   balances: 'balances',
+  treasury: 'treasury',
+  parasInclusion: 'parasInclusion',
+  inclusion: 'inclusion',
 })

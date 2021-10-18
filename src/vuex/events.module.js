@@ -2,7 +2,8 @@ import { vuexTypes } from '@/vuex/types'
 import { api } from '@api'
 import { stringToU8a, stringify } from '@polkadot/util'
 import { xxhashAsHex } from '@polkadot/util-crypto'
-import { filterEvent } from '@/js/helpers/event-helper'
+import { EventWrapperRecord } from '@/js/records/event-wrapper.record'
+import { BCH_EVENT_METHODS, BCH_EVENT_SECTION } from '@/js/const/blockchain-event.const'
 
 const MAX_EVENTS = 75
 
@@ -34,6 +35,17 @@ export const mutations = {
 
 export const actions = {
   [vuexTypes.SUBSCRIBE_EVENTS] ({ commit, state }) {
+    /* eslint-disable max-len */
+    function filterEvent (method, section) {
+      return section !== BCH_EVENT_SECTION.system &&
+      (![BCH_EVENT_SECTION.balances, BCH_EVENT_SECTION.treasury].includes(section) ||
+        method !== BCH_EVENT_METHODS.deposit
+      ) &&
+      (![BCH_EVENT_SECTION.parasInclusion, BCH_EVENT_SECTION.inclusion].includes(section) ||
+        ![BCH_EVENT_METHODS.candidateBacked, BCH_EVENT_METHODS.candidateIncluded].includes(method))
+    }
+    /* eslint-enable max-len */
+
     api.query.system.events(async (records) => {
       commit(vuexTypes.SET_LAST_BLOCK_EVENTS, records)
 
@@ -66,13 +78,15 @@ export const actions = {
         if (blockHash !== state.pervBlockHash) {
           commit(vuexTypes.SET_PREV_BLOCK_HASH, blockHash)
           commit(vuexTypes.SET_EVENTS, [
-            ...newEvents.map(({ indexes, record }) => ({
-              blockHash,
-              blockNumber,
-              indexes,
-              key: `${blockNumber.toNumber()}-${blockHash}-${indexes.join('.')}`,
-              record,
-            })),
+            ...newEvents.map(({ indexes, record }) => {
+              return new EventWrapperRecord({
+                blockHash,
+                blockNumber,
+                indexes,
+                key: `${blockNumber.toNumber()}-${blockHash}-${indexes.join('.')}`,
+                record,
+              })
+            }),
             ...state.events
               .filter((p) => !p.blockNumber?.eq(blockNumber)),
           // remove all events for the previous same-height blockNumber

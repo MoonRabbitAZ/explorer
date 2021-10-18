@@ -14,14 +14,20 @@
         v-if="isSubtitleDisplay"
         class="expander__subtitle"
       >
-        <template v-if="isMetaNotEmpty">
-          {{ summaryMeta }}
-        </template>
-        <template v-else-if="subtitle">
+        <template v-if="subtitle">
           {{ subtitle }}
+        </template>
+        <template v-else-if="isSlotDisplay(SLOTS.subtitle)">
+          <slot :name="SLOTS.subtitle"/>
         </template>
       </div>
       <i class="mdi mdi-chevron-down expander__icon-arrow"/>
+    </div>
+    <div
+      v-if="isSlotDisplay(SLOTS.description)"
+      class="expander__description"
+    >
+      <slot :name="SLOTS.description"/>
     </div>
     <div
       ref="dropdown"
@@ -45,12 +51,13 @@
 
 <script>
 import { ref, computed } from 'vue'
-import isEmpty from 'lodash/isEmpty'
 
 const SLOTS = {
   dropdownMain: 'dropdown-main',
   secondary: 'secondary',
   default: 'default',
+  subtitle: 'subtitle',
+  description: 'description',
 }
 
 export default {
@@ -59,41 +66,19 @@ export default {
   props: {
     title: { type: String, required: true },
     subtitle: { type: String, default: '' },
-    meta: { type: Object, default: () => ({}) },
   },
 
   setup (props, { slots }) {
     const dropdown = ref(null)
     const isOpenDropdown = ref(false)
-    function formatMeta (meta) {
-      if (!meta || !meta.documentation.length) {
-        return null
-      }
-
-      const strings = meta.documentation.map((doc) => doc.toString().trim())
-      const firstEmpty = strings.findIndex((doc) => !doc.length)
-      const combined = (
-        firstEmpty === -1
-          ? strings
-          : strings.slice(0, firstEmpty)
-      ).join(' ').replace(/#(<weight>| <weight>).*<\/weight>/, '')
-      const parts = combined.replace(/[\\`]/g, '')
-
-      return parts
-    }
-
-    const isMetaNotEmpty = computed(() => !isEmpty(props.meta))
-    const isSubtitleDisplay = computed(() =>
-      Boolean(isMetaNotEmpty.value || props.subtitle),
-    )
-
-    const summaryMeta = computed(() =>
-      isMetaNotEmpty.value ? formatMeta(props.meta) : '',
-    )
 
     function isSlotDisplay (slotName) {
       return Boolean(slots[slotName])
     }
+
+    const isSubtitleDisplay = computed(() =>
+      Boolean(props.subtitle || isSlotDisplay(SLOTS.subtitle)),
+    )
 
     function toggleOpenDropdown () {
       if (isOpenDropdown.value) {
@@ -108,9 +93,7 @@ export default {
     return {
       dropdown,
       isOpenDropdown,
-      isMetaNotEmpty,
       isSubtitleDisplay,
-      summaryMeta,
       toggleOpenDropdown,
       isSlotDisplay,
       SLOTS,
@@ -144,9 +127,15 @@ export default {
 
 .expander__title {
   color: $col-app-accent;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .expander__subtitle {
+  margin-top: 1rem;
+}
+
+.expander__description {
   margin-top: 1rem;
 }
 

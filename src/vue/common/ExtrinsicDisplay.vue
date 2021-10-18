@@ -4,7 +4,7 @@
   >
     <expander
       :title="`${extractExtrinsic.section}.${extractExtrinsic.method}`"
-      :meta="extractExtrinsic.meta"
+      :subtitle="metaString"
     >
       <template #dropdown-main>
         <params
@@ -53,6 +53,7 @@ import ParamViewer from '@/vue/common/ParamViewer'
 import ClipboardField from '@/vue/fields/ClipboardField'
 
 import { computed, toRefs } from 'vue'
+import { formatMetaPartsToString } from '@/js/helpers/blockchain-event-helper'
 
 export default {
   name: 'extrinsic-display',
@@ -91,9 +92,14 @@ export default {
       })
     })
 
+    const metaString = computed(() =>
+      formatMetaPartsToString(props.extractExtrinsic.meta),
+    )
+
     return {
       era,
       extrinsicParamsWithValues,
+      metaString,
     }
   },
 }

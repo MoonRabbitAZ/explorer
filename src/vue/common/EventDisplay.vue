@@ -1,7 +1,7 @@
 <template>
   <expander
     :title="`${event.section}.${event.method}`"
-    :meta="event.meta"
+    :subtitle="metaString"
   >
     <template #dropdown-main>
       <params
@@ -17,6 +17,7 @@ import Params from '@/vue/common/Params'
 
 import { computed } from 'vue'
 import { getTypeDef, GenericEvent } from '@polkadot/types'
+import { formatMetaPartsToString } from '@/js/helpers/blockchain-event-helper'
 
 export default {
   name: 'event-display',
@@ -42,8 +43,11 @@ export default {
       })
     })
 
+    const metaString = computed(() => formatMetaPartsToString(props.event.meta))
+
     return {
       paramsWithValues,
+      metaString,
     }
   },
 }
