@@ -1,3 +1,4 @@
+import 'v-tooltip/dist/v-tooltip.css'
 import '@/scss/app.scss'
 
 import App from '@/App.vue'
