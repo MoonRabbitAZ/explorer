@@ -6,12 +6,13 @@ const appDirectory = fs.realpathSync(process.cwd())
 const resolveApp = relativePath => path.resolve(appDirectory, relativePath)
 const root = path.resolve(__dirname, resolveApp('src'))
 const { ArgumentParser } = require('argparse')
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
 const parser = new ArgumentParser({
   addHelp: true,
 })
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production' && !process.env.VUE_APP_BUNDLE_ANALYZER) {
   parser.addArgument('build')
   parser.addArgument(['--set-build-version'], {
     metavar: 'VALUE',
@@ -36,6 +37,10 @@ if (process.env.NODE_ENV !== 'test') {
       exclude: ['*.spec.js', '*.e2e.js', '*.md', 'test/*'],
     }),
   )
+}
+
+if (process.env.VUE_APP_BUNDLE_ANALYZER === 'true') {
+  optionalPlugins.push(new BundleAnalyzerPlugin())
 }
 
 module.exports = {
