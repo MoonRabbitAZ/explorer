@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Treasury page shell
 - Bounties page shell
 - Tech comm page shell
+- Tooltip directive
+
+#### Removed
+- Tooltip component
 
 ## [0.1.0-rc.2] - 2021-10-15
 #### Added
