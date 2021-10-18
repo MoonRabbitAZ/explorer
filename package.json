@@ -40,6 +40,7 @@
     "resolve-url-loader": "^3.1.2",
     "urijs": "^1.19.5",
     "url-loader": "^4.1.1",
+    "v-tooltip": "^4.0.0-alpha.1",
     "vue": "^3.0.0",
     "vue-i18n": "^9.0.0",
     "vue-router": "^4.0.0-0",
@@ -75,8 +76,7 @@
     "stylelint-declaration-strict-value": "^1.7.12",
     "stylelint-scss": "^3.19.0",
     "stylelint-webpack-plugin": "^2.2.1",
-    "unused-webpack-plugin": "^2.4.0",
-    "webpack-bundle-analyzer": "^4.4.2"
+    "unused-webpack-plugin": "^2.4.0"
   },
   "engines": {
     "node": ">=14.0.0"

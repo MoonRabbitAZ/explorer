@@ -12,29 +12,33 @@
         {{ value }}
       </p>
 
-      <tooltip :message="copiedMsg">
-        <button
-          ref="clipboardBtn"
-          class="clipboard-field__button"
-          :data-clipboard-target="`#clipboard-target-${uid}`"
-          type="button"
-        >
-          <icon
-            class="clipboard-field__button-icon"
-            name="copy"
-          />
-        </button>
-      </tooltip>
+      <button
+        ref="clipboardBtn"
+        v-tooltip.top-end="{
+          content: $t('fields.clipboard-field.copied-msg'),
+          showTriggers: ['click'],
+          delay: {
+            show: 0,
+            hide: HIDE_TOOLTIP_TIMEOUT,
+          }
+        }"
+        class="clipboard-field__button"
+        :data-clipboard-target="`#clipboard-target-${uid}`"
+        type="button"
+      >
+        <icon
+          class="clipboard-field__button-icon"
+          name="copy"
+        />
+      </button>
     </div>
   </div>
 </template>
 
 <script>
 import Clipboard from 'clipboard'
-import Tooltip from '@/vue/common/Tooltip'
 import Icon from '@/vue/common/Icon'
 
-import { useI18n } from 'vue-i18n'
 import { ref, getCurrentInstance, onMounted } from 'vue'
 
 const HIDE_TOOLTIP_TIMEOUT = 2000 // ms
@@ -42,7 +46,7 @@ const HIDE_TOOLTIP_TIMEOUT = 2000 // ms
 export default {
   name: 'clipboard-field',
 
-  components: { Icon, Tooltip },
+  components: { Icon },
 
   props: {
     value: { type: String, default: '' },
@@ -50,8 +54,6 @@ export default {
   },
 
   setup () {
-    const { t } = useI18n()
-    const copiedMsg = ref('')
     const clipboardBtn = ref(null)
     const clipboard = ref({})
     const uid = getCurrentInstance().uid
@@ -60,9 +62,7 @@ export default {
       if (!clipboardBtn.value) return
       clipboard.value = new Clipboard(clipboardBtn.value)
       clipboard.value.on('success', event => {
-        copiedMsg.value = t('fields.clipboard-field.copied-msg')
         setTimeout(() => {
-          copiedMsg.value = ''
           event.clearSelection()
         }, HIDE_TOOLTIP_TIMEOUT)
       })
@@ -71,8 +71,8 @@ export default {
     return {
       clipboardBtn,
       getCurrentInstance,
-      copiedMsg,
       uid,
+      HIDE_TOOLTIP_TIMEOUT,
     }
   },
 }
@@ -101,14 +101,14 @@ export default {
 }
 
 .clipboard-field__button {
-  width: 2.4rem;
-  height: 2.4rem;
+  display: block;
+
   position: relative;
 }
 
 .clipboard-field__button-icon {
-  width: 100%;
-  height: 100%;
+  width: 2.4rem;
+  height: 2.4rem;
 
   &:hover {
     color: $col-app-accent;

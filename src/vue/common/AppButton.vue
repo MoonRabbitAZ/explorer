@@ -4,7 +4,6 @@
     v-ripple
     :type="$attrs.type || 'button'"
     :aria-label="text"
-    :title="text"
     class="app-button"
     :class="[
       {

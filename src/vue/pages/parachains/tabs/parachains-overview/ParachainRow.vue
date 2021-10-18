@@ -8,7 +8,7 @@
     </p>
     <div>
       <app-button
-        mdi-icon-name="mdi-chevron-right"
+        mdi-icon-name="mdi-information-outline"
         scheme="secondary"
         @click="clickButtonInfo"
       />

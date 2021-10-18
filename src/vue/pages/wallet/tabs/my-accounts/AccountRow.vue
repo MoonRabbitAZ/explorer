@@ -23,12 +23,18 @@
       </div>
       <div class="account-row__actions">
         <app-button
+          v-tooltip.bottom="
+            $t('wallet-page.account-row.deposit-button-tooltip')
+          "
           class="account-row__button"
           scheme="secondary"
           icon-name="money-stack"
           @click="isAccountDepositOpen = true"
         />
         <app-button
+          v-tooltip.bottom="
+            $t('wallet-page.account-row.transfer-button-tooltip')
+          "
           class="account-row__button"
           scheme="secondary"
           icon-name="paper-plane"

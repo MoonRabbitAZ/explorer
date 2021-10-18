@@ -6,6 +6,7 @@ import router from '@/vue-router'
 import AppButton from '@/vue/common/AppButton'
 
 import CONFIG from '@/config'
+import VTooltip from 'v-tooltip'
 import { store } from '@/vuex'
 import { vueRoutes } from '@/vue-router/routes'
 import { i18n } from '@/i18n'
@@ -49,6 +50,19 @@ app
   .use(store)
   .use(router)
   .use(i18n)
+  .use(VTooltip, {
+    offset: [0, 20],
+    disposeTimeout: 2000,
+    instantMove: true,
+    themes: {
+      tooltip: {
+        html: false,
+        delay: {
+          show: 100,
+        },
+      },
+    },
+  })
 
 app.config.globalProperties.$routes = vueRoutes
 app.config.globalProperties.$config = CONFIG
