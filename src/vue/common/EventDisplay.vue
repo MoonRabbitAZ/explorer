@@ -33,11 +33,9 @@ export default {
 
   setup (props) {
     const paramsWithValues = computed(() => {
-      const eventParams =
-        props.event.typeDef.map(({ type }) => ({ type: getTypeDef(type) }))
-      return eventParams.map((item, index) => {
+      return props.event.typeDef.map(({ type }, index) => {
         return {
-          param: item,
+          param: { type: getTypeDef(type) },
           value: props.event.data[index],
         }
       })

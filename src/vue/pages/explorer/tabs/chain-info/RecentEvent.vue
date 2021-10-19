@@ -57,11 +57,9 @@ export default {
     const router = useRouter()
 
     const paramsWithValues = computed(() => {
-      const eventParams = props.event.record.event.typeDef.map(({ type }) =>
-        ({ type: getTypeDef(type) }))
-      return eventParams.map((item, index) => {
+      return props.event.record.event.typeDef.map(({ type }, index) => {
         return {
-          param: item,
+          param: { type: getTypeDef(type) },
           value: props.event.record.event.data[index],
         }
       })

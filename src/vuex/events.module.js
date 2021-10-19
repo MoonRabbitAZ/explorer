@@ -7,6 +7,31 @@ import { BCH_EVENT_METHODS, BCH_EVENT_SECTION } from '@/js/const/blockchain-even
 
 const MAX_EVENTS = 75
 
+function filterEvent (method, section) {
+  const isSystemSection = section === BCH_EVENT_SECTION.system
+
+  const isBalancesOrTreasurySection = [
+    BCH_EVENT_SECTION.balances,
+    BCH_EVENT_SECTION.treasury,
+  ].includes(section)
+
+  const isDepositMethod = method === BCH_EVENT_METHODS.deposit
+
+  const isInclusionSection = [
+    BCH_EVENT_SECTION.parasInclusion,
+    BCH_EVENT_SECTION.inclusion,
+  ].includes(section)
+
+  const isCandidateMethod = [
+    BCH_EVENT_METHODS.candidateBacked,
+    BCH_EVENT_METHODS.candidateIncluded,
+  ].includes(method)
+
+  return !isSystemSection &&
+  (!isBalancesOrTreasurySection || !isDepositMethod) &&
+  (!isInclusionSection || !isCandidateMethod)
+}
+
 export const state = {
   events: [],
   eventCount: 0,
@@ -35,17 +60,6 @@ export const mutations = {
 
 export const actions = {
   [vuexTypes.SUBSCRIBE_EVENTS] ({ commit, state }) {
-    /* eslint-disable max-len */
-    function filterEvent (method, section) {
-      return section !== BCH_EVENT_SECTION.system &&
-      (![BCH_EVENT_SECTION.balances, BCH_EVENT_SECTION.treasury].includes(section) ||
-        method !== BCH_EVENT_METHODS.deposit
-      ) &&
-      (![BCH_EVENT_SECTION.parasInclusion, BCH_EVENT_SECTION.inclusion].includes(section) ||
-        ![BCH_EVENT_METHODS.candidateBacked, BCH_EVENT_METHODS.candidateIncluded].includes(method))
-    }
-    /* eslint-enable max-len */
-
     api.query.system.events(async (records) => {
       commit(vuexTypes.SET_LAST_BLOCK_EVENTS, records)
 
