@@ -424,6 +424,8 @@
       "total-balance": "Total: { balance }"
     },
     "account-row": {
+      "deposit-button-tooltip": "Deposit",
+      "transfer-button-tooltip": "Send",
       "transfer-drawer-title": "Send Funds",
       "deposit-drawer-title": "Deposit"
     },

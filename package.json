@@ -40,6 +40,7 @@
     "resolve-url-loader": "^3.1.2",
     "urijs": "^1.19.5",
     "url-loader": "^4.1.1",
+    "v-tooltip": "^4.0.0-alpha.1",
     "vue": "^3.0.0",
     "vue-i18n": "^9.0.0",
     "vue-router": "^4.0.0-0",
