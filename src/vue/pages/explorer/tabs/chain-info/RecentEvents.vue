@@ -6,9 +6,9 @@
     <template v-if="events.length">
       <div class="recent-events__events-wrap">
         <recent-event
-          v-for="(event, id) in events"
+          v-for="event in events"
           class="recent-events__event"
-          :key="id"
+          :key="event.key"
           :event="event"
         />
       </div>
@@ -49,6 +49,10 @@ export default {
 <style lang="scss" scoped>
 @import '~@scss/mixins';
 @import '~@scss/variables';
+
+.recent-events {
+  overflow: hidden;
+}
 
 .recent-events__title {
   margin-bottom: 2rem;

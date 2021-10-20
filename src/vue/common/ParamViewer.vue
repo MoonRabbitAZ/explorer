@@ -19,7 +19,7 @@
 <script>
 import { ref, computed } from 'vue'
 import { isUndefined } from '@polkadot/util'
-import { encodeTypeDef } from '@polkadot/types/create'
+import { encodeTypeDef, TypeRegistry } from '@polkadot/types/create'
 
 import isEmpty from 'lodash/isEmpty'
 export default {
@@ -33,6 +33,7 @@ export default {
       default: '',
     },
     stringValue: { type: String, default: '' },
+    registry: { type: TypeRegistry, default: undefined },
   },
 
   setup (props) {
@@ -43,8 +44,8 @@ export default {
       return isEmpty(props.parameter)
         ? props.label
         : isUndefined(props.parameter?.name)
-          ? encodeTypeDef(props.parameter.type)
-          : `${props.parameter.name}: ${encodeTypeDef(props.parameter.type)}`
+          ? encodeTypeDef(props.registry, props.parameter.type)
+          : `${props.parameter.name}: ${encodeTypeDef(props.registry, props.parameter.type)}`
     })
 
     return {

@@ -10,6 +10,7 @@
         :key="index"
         :parameter="item.param"
         :info-value="item.value"
+        :registry="registry"
       />
     </div>
   </div>
@@ -17,6 +18,7 @@
 
 <script>
 import ParamViewer from '@/vue/common/ParamViewer'
+import { TypeRegistry } from '@polkadot/types/create'
 
 export default {
   name: 'params',
@@ -36,6 +38,7 @@ export default {
      * ]
      */
     params: { type: Array, default: _ => ([]) },
+    registry: { type: TypeRegistry, default: undefined },
   },
 }
 </script>

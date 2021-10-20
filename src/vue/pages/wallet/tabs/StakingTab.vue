@@ -49,7 +49,7 @@ import Drawer from '@/vue/common/Drawer'
 import Loader from '@/vue/common/Loader'
 import ErrorMessage from '@/vue/common/ErrorMessage'
 
-import { reactive, toRefs } from 'vue'
+import { reactive, toRefs, onBeforeUnmount } from 'vue'
 import { keyring } from '@polkadot/ui-keyring'
 import { stakingApi } from '@api'
 import { StakingOptionRecord } from '@/js/records/staking-option.record'
@@ -73,6 +73,7 @@ export default {
       myAccounts: null,
       isStakeFormOpen: false,
       stakingOptions: [],
+      subscriber: null,
       isLoadFailed: false,
       isLoaded: false,
     })
@@ -83,19 +84,24 @@ export default {
       state.stakingOptions = options.data.map(i => new StakingOptionRecord(i))
     }
 
-    keyring.accounts.subject.subscribe(async (accounts) => {
-      try {
-        state.addresses = accounts ? Object.keys(accounts) : []
-        state.myAccounts =
-          state.addresses.map(address => keyring.getAccount(address))
+    state.subscriber =
+      keyring.accounts.subject.subscribe(async (accounts) => {
+        try {
+          state.addresses = accounts ? Object.keys(accounts) : []
+          state.myAccounts =
+      state.addresses.map(address => keyring.getAccount(address))
 
-        await getStakingsOptions()
-      } catch (e) {
-        state.isLoadFailed = true
-        ErrorHandler.processWithoutFeedback(e)
-      }
+          await getStakingsOptions()
+        } catch (e) {
+          state.isLoadFailed = true
+          ErrorHandler.processWithoutFeedback(e)
+        }
 
-      state.isLoaded = true
+        state.isLoaded = true
+      })
+
+    onBeforeUnmount(() => {
+      if (state.subscriber) state.subscriber.unsubscribe()
     })
 
     return {

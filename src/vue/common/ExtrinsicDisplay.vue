@@ -9,6 +9,7 @@
       <template #dropdown-main>
         <params
           :params="extrinsicParamsWithValues"
+          :registry="extractExtrinsic.registry"
         />
       </template>
 

@@ -74,7 +74,7 @@ import Loader from '@/vue/common/Loader'
 import Drawer from '@/vue/common/Drawer'
 import CreateAccountForm from '@/vue/forms/CreateAccountForm'
 
-import { reactive, toRefs, computed } from 'vue'
+import { reactive, toRefs, computed, onBeforeUnmount } from 'vue'
 import { keyring } from '@polkadot/ui-keyring'
 import { useForm, useValidators } from '@/vue/composables'
 
@@ -97,6 +97,7 @@ export default {
       isLoaded: false,
       isGenerateAccountOpen: false,
       isImportAccountOpen: false,
+      subscriber: null,
     })
 
     const { maxLength } = useValidators()
@@ -110,7 +111,7 @@ export default {
       },
     })
 
-    keyring.accounts.subject.subscribe(accounts => {
+    state.subscriber = keyring.accounts.subject.subscribe(accounts => {
       const addresses = accounts ? Object.keys(accounts) : []
       state.allAccounts = addresses.map(address => keyring.getAccount(address))
       state.isLoaded = true
@@ -121,6 +122,10 @@ export default {
         address.includes(formController.form.search.value) ||
           name.includes(formController.form.search.value)),
     )
+
+    onBeforeUnmount(() => {
+      if (state.subscriber) state.subscriber.unsubscribe()
+    })
 
     return {
       ...formController,

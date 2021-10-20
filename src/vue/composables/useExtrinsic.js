@@ -1,5 +1,5 @@
 import { reactive, unref } from 'vue'
-import { Enum, GenericCall, getTypeDef } from '@polkadot/types'
+import { Enum, getTypeDef } from '@polkadot/types'
 
 export function useExtrinsic () {
   function isExtrinsic (value) {
@@ -22,13 +22,13 @@ export function useExtrinsic () {
       tip: extr.tip?.toBn(),
       isSigned: extr.isSigned,
       era: extr.era,
+      registry: extr.registry,
     })
 
-    state.params =
-      GenericCall.filterOrigin(extr.meta).map(({ name, type }) => ({
-        name: name.toString(),
-        type: getTypeDef(type.toString()),
-      }))
+    state.params = extr.meta.args.map(({ name, type }) => ({
+      name: name.toString(),
+      type: getTypeDef(type.toString()),
+    }))
 
     if (withSignature && isExtrinsic(extr) && extr.isSigned) {
       const raw = extr._raw?.signature?.multiSignature

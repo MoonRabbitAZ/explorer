@@ -1,8 +1,8 @@
 export function formatMetaPartsToString (meta) {
   if (!meta) return null
-  if (!meta.documentation.length) return ''
+  if (!meta.docs?.length) return ''
 
-  const strings = meta.documentation.map((doc) => doc.toString().trim())
+  const strings = meta.docs.map((doc) => doc.toString().trim())
   const firstEmpty = strings.findIndex((doc) => !doc.length)
   const combined = (
     firstEmpty === -1
