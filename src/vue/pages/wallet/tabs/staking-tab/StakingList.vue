@@ -132,10 +132,10 @@ export default {
     }
 
     onMounted(() => {
-      // HACK: passing collectionLoader directly
-      // to function will lead to losing reactivity
-      const loader = collectionLoader.value
-      Bus.on(Bus.eventList.updateStakingList, loader.loadFirstPage)
+      Bus.on(
+        Bus.eventList.updateStakingList,
+        collectionLoader.value.loadFirstPage,
+      )
     })
 
     return {
