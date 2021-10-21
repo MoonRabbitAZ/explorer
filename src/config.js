@@ -39,6 +39,12 @@ export default Object.assign(
     STAKING_SYSTEM_ADDRESS: 'GsvVmjr1CBHwQHw84pPHMDxgNY3iBLz6Qn7qS3CH8qPhrHz',
 
     /**
+     * Default page limit for requests
+     */
+
+    DEFAULT_PAGE_LIMIT: 15,
+
+    /**
      * Social links
      */
     SOCIAL_LINK_DISCORD: 'https://discord.com/invite/2deuZrmfBm',

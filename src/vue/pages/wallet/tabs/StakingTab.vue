@@ -89,7 +89,7 @@ export default {
         try {
           state.addresses = accounts ? Object.keys(accounts) : []
           state.myAccounts =
-      state.addresses.map(address => keyring.getAccount(address))
+            state.addresses.map(address => keyring.getAccount(address))
 
           await getStakingsOptions()
         } catch (e) {

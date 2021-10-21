@@ -374,6 +374,9 @@
     },
     "total-issuance": {
       "total-issued-title": "Total issued"
+    },
+    "collection-loader": {
+      "more-btn": "More"
     }
   },
   "fields": {
