@@ -4,12 +4,17 @@ import { isNull, isUndefined } from '@polkadot/util'
 
 const VALID_PARAMS = 2 // number of valid parameters, if isDoubleMap = true
 
+export function transformIdentity (value) { return value }
+
 // extract the serialized and mapped params, all ready for use in our call
 function extractParams (params = []) {
-  return params.length ||
-      !params.some((param) => isNull(param) || isUndefined(param))
-    ? params
-    : null
+  if (params.length) {
+    return !params.some((param) => isNull(param) || isUndefined(param))
+      ? params
+      : null
+  } else {
+    return params
+  }
 }
 
 // unsubscribe and remove from  the tracker
@@ -23,7 +28,13 @@ export function unsubscribe (tracker) {
 }
 
 // subscribe, trying to play nice with the browser threads
-async function subscribe (tracker, callValue, fn, params, { withParams } = {}) {
+async function subscribe (
+  tracker,
+  callValue,
+  fn,
+  params,
+  { transform = transformIdentity, withParams, withParamsTransform } = {},
+) {
   try {
     const validParams = params.filter((p) => !isUndefined(p))
 
@@ -35,7 +46,11 @@ async function subscribe (tracker, callValue, fn, params, { withParams } = {}) {
 
       tracker.subscriber = await fn(...params, (ev) => {
         if (tracker.isActive) {
-          callValue.value = withParams ? { params, ev } : ev
+          callValue.value = withParams
+            ? { params, ev: transform(ev) }
+            : withParamsTransform
+              ? transform({ params, ev })
+              : transform(ev)
         }
       })
     } else {

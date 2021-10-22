@@ -10,7 +10,6 @@
         disabled="disabled"
       />
     </div>
-
     <crowdloan-completed-list class="crowdloan-tab__completed-list"/>
     <crowdloan-ongoing-list class="crowdloan-tab__ongoing-list"/>
   </div>
@@ -21,6 +20,9 @@ import CrowdloanSummary from '@parachains-page/tabs/crowdloan/CrowdloanSummary'
 import CrowdloanCompletedList from '@parachains-page/tabs/crowdloan/CrowdloanCompletedList'
 import CrowdloanOngoingList from '@parachains-page/tabs/crowdloan/CrowdloanOngoingList'
 
+import { useLeasePeriod } from '@parachains-page/composables/useLeasePeriod'
+import { useFunds } from '@parachains-page/composables/useFunds'
+
 export default {
   name: 'crowdloan-tab',
 
@@ -28,6 +30,17 @@ export default {
     CrowdloanSummary,
     CrowdloanOngoingList,
     CrowdloanCompletedList,
+  },
+
+  setup () {
+    const leasePeriod = useLeasePeriod()
+
+    const funds = useFunds()
+
+    return {
+      leasePeriod,
+      funds,
+    }
   },
 }
 </script>
