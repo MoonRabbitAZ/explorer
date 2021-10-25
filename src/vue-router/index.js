@@ -51,6 +51,9 @@ import ProposalsTab from '@tech-comm-page/tabs/ProposalsTab'
 import Settings from '@settings-page/Settings'
 import SettingsMetadataTab from '@settings-page/tabs/SettingsMetadataTab'
 
+import Bridge from '@bridge-page/Bridge'
+import EthereumTab from '@bridge-page/tabs/EthereumTab'
+
 import { createRouter, createWebHistory } from 'vue-router'
 import { vueRoutes } from '@/vue-router/routes'
 
@@ -285,6 +288,19 @@ const routes = [
             path: '/settings/metadata',
             name: vueRoutes.settingsMetadataTab.name,
             component: SettingsMetadataTab,
+          },
+        ],
+      },
+      {
+        path: '/bridge',
+        name: vueRoutes.bridgePage.name,
+        component: Bridge,
+        redirect: vueRoutes.ethereumTab,
+        children: [
+          {
+            path: '/settings/ethereum',
+            name: vueRoutes.ethereumTab.name,
+            component: EthereumTab,
           },
         ],
       },

@@ -94,7 +94,8 @@
     "accounts": {
       "name": "Accounts",
       "routers": {
-        "wallet": "Wallet"
+        "wallet": "Wallet",
+        "bridge": "Bridge"
       }
     },
     "settings": {
@@ -161,6 +162,9 @@
     "tech-comm": {
       "overview": "Overview",
       "proposals": "Proposals"
+    },
+    "bridge": {
+      "ethereum": "Ethereum"
     }
   },
   "navigation": {

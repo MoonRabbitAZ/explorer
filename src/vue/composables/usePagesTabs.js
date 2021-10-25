@@ -133,6 +133,13 @@ export function usePagesTabs () {
         route: vueRoutes.settingsMetadataTab,
       },
     ],
+
+    bridge: [
+      {
+        translationName: t('page-tabs.bridge.ethereum'),
+        route: vueRoutes.ethereumTab,
+      },
+    ],
   })
 
   return {
