@@ -43,6 +43,7 @@ const SCHEME = {
 const SIZE = {
   big: 'big',
   medium: 'medium',
+  small: 'small',
 }
 
 export default {
@@ -152,6 +153,19 @@ export default {
       font-size: 2rem;
       width: 2rem;
       height: 2rem;
+    }
+  }
+
+  &--small {
+    height: 3.6rem;
+    min-width: 3.6rem;
+    font-size: 1.6rem;
+    padding: 0 0.53rem;
+
+    .app-button__icon {
+      font-size: 1.33rem;
+      width: 1.33rem;
+      height: 1.33rem;
     }
   }
 

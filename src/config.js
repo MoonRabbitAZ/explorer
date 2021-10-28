@@ -36,6 +36,8 @@ export default Object.assign(
 
     STAKING_API_URL: 'https://staking.polkadot.tokend.io/',
 
+    BRIDGE_ETHEREUM_API_URL: '',
+
     STAKING_SYSTEM_ADDRESS: 'GsvVmjr1CBHwQHw84pPHMDxgNY3iBLz6Qn7qS3CH8qPhrHz',
 
     /**

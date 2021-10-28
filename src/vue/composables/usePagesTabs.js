@@ -136,8 +136,8 @@ export function usePagesTabs () {
 
     bridge: [
       {
-        translationName: t('page-tabs.bridge.ethereum'),
-        route: vueRoutes.ethereumTab,
+        translationName: t('page-tabs.bridge.tokens'),
+        route: vueRoutes.bridgeTokensTab,
       },
     ],
   })

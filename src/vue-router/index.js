@@ -52,7 +52,7 @@ import Settings from '@settings-page/Settings'
 import SettingsMetadataTab from '@settings-page/tabs/SettingsMetadataTab'
 
 import Bridge from '@bridge-page/Bridge'
-import EthereumTab from '@bridge-page/tabs/EthereumTab'
+import BridgeTokensTab from '@bridge-page/tabs/BridgeTokensTab'
 
 import { createRouter, createWebHistory } from 'vue-router'
 import { vueRoutes } from '@/vue-router/routes'
@@ -295,12 +295,12 @@ const routes = [
         path: '/bridge',
         name: vueRoutes.bridgePage.name,
         component: Bridge,
-        redirect: vueRoutes.ethereumTab,
+        redirect: vueRoutes.bridgeTokensTab,
         children: [
           {
-            path: '/settings/ethereum',
-            name: vueRoutes.ethereumTab.name,
-            component: EthereumTab,
+            path: '/bridge/tokens',
+            name: vueRoutes.bridgeTokensTab.name,
+            component: BridgeTokensTab,
           },
         ],
       },

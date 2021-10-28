@@ -4,6 +4,7 @@ import { sessionStoragePlugin } from '@/vuex/plugins/session-storage'
 import appModule from '@/vuex/app.module'
 import blockAuthorsModule from '@/vuex/block-authors.module'
 import eventsModule from '@/vuex/events.module'
+import web3ProvidersModule from '@/vuex/web3-provider.module'
 
 export const rootModule = {
   mutations: {
@@ -22,6 +23,7 @@ export const store = createStore({
     appModule,
     blockAuthorsModule,
     eventsModule,
+    web3ProvidersModule,
   },
   plugins: [sessionStoragePlugin],
 })

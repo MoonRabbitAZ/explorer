@@ -28,6 +28,9 @@
         {{ description }}
       </p>
     </div>
+    <template v-else>
+      <slot />
+    </template>
   </div>
 </template>
 

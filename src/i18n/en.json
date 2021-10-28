@@ -164,7 +164,7 @@
       "proposals": "Proposals"
     },
     "bridge": {
-      "ethereum": "Ethereum"
+      "tokens": "Tokens"
     }
   },
   "navigation": {
@@ -381,6 +381,12 @@
     },
     "collection-loader": {
       "more-btn": "More"
+    },
+    "metamask-form": {
+      "create-msg": "To continue working with the Bridge, please create the MetaMask wallet.",
+      "connect-msg": "To continue working with the Bridge, please connect the MetaMask wallet.",
+      "connect-btn": "Connect Wallet",
+      "download-btn": "Download Now"
     }
   },
   "fields": {
@@ -742,6 +748,30 @@
       "decimals-header": "Decimals",
       "chain-type-header": "Chain Type",
       "network-logo": "Network logo"
+    }
+  },
+  "bridge-page": {
+    "bridge-tokens-form": {
+      "asset-lbl": "Asset",
+      "destination-header": "Destination",
+      "from-header": "From",
+      "to-header": "To",
+      "amount-lbl": "Amount (Available: { balance })",
+      "destination-info": "This is the destination address of the To network",
+      "next-btn": "Next",
+      "drawer-confirmation-header": "Confirmation",
+      "mainet-transfer-msg": "Want to transfer funds to mainet? Use { link }.",
+      "mainet-transfer-link": "this link"
+    },
+    "bridge-confirmation": {
+      "asset-header": "Asset",
+      "destination-header": "Destination",
+      "from-header": "From",
+      "to-header": "To",
+      "confirmation-info-msg": "Please initiate a single transfer, we will only monitor the first transfer.",
+      "confirm-btn": "Confirm",
+      "terms-of-use-lbl": "I have read and agree to the { link }",
+      "terms-of-use-link": "Terms of Use"
     }
   }
 }

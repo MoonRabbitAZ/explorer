@@ -28,6 +28,11 @@ const mutations = {
   SET_PREV_BLOCK_HASH: 'SET_PREV_BLOCK_HASH',
   SET_PREV_EVENT_HASH: 'SET_PREV_EVENT_HASH',
   SET_LAST_BLOCK_EVENTS: 'SET_LAST_BLOCK_EVENTS',
+
+  // web3-provider
+  SET_WEB3_INSTANCE: 'SET_WEB3_INSTANCE',
+  SET_WEB3_ACCOUNT: 'SET_WEB3_ACCOUNT',
+  SET_WEB3_CHAIN_ID: 'SET_WEB3_CHAIN_ID',
 }
 
 const actions = {
@@ -40,6 +45,11 @@ const actions = {
 
   // events
   SUBSCRIBE_EVENTS: 'SUBSCRIBE_EVENTS',
+
+  // web3-provider
+  INIT_WEB3: 'INIT_WEB3',
+  LOAD_WEB3_ACCOUNT: 'LOAD_WEB3_ACCOUNT',
+  CONNECT_WEB3: 'CONNECT_WEB3',
 }
 
 const getters = {
@@ -68,6 +78,11 @@ const getters = {
   pervBlockHash: 'pervBlockHash',
   pervEventHash: 'pervEventHash',
   lastBlockEvents: 'lastBlockEvents',
+
+  // web3-provider
+  web3: 'web3',
+  web3Account: 'web3Account',
+  web3ChainId: 'web3ChainId',
 }
 
 export const vuexTypes = {

@@ -67,5 +67,5 @@ export const vueRoutes = Object.freeze({
 
   // bridge page
   bridgePage: { name: 'bridge' },
-  ethereumTab: { name: 'bridge.bridge-ethereum-tab' },
+  bridgeTokensTab: { name: 'bridge.bridge-tokens-tab' },
 })

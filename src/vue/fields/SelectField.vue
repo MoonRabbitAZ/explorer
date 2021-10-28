@@ -80,7 +80,7 @@ export default {
   props: {
     options: { type: [Array, Object, Function], default: () => ([]) },
     object: { type: Boolean, default: false },
-    modelValue: { type: [String, Number, Array], default: null },
+    modelValue: { type: [String, Number, Array, Object], default: null },
     searchable: { type: Boolean, default: false },
     placeholder: { type: String, default: '' },
     label: { type: String, default: '' },
@@ -100,6 +100,7 @@ export default {
     filterResults: { type: Boolean, default: true },
     delay: { type: Number, default: -1 },
     maxHeight: { type: Number, default: 160 },
+    clearOnSearch: { type: Boolean, default: false },
   },
 
   emits: ['update:modelValue', 'blur', 'select'],
@@ -248,6 +249,15 @@ $label-indentation:
     }
   }
 
+  & > .multiselect-search {
+    padding-left: $field-input-padding-horizontal;
+    background: $field-color-background;
+
+    &:focus ~ .multiselect-single-label {
+      display: none;
+    }
+  }
+
   & > .multiselect-input {
     border: none;
     border-radius: 0;
@@ -283,8 +293,6 @@ $label-indentation:
       &:before,
       &:after { background: $col-select-field-label; }
     }
-
-    & > .multiselect-search input { padding: 0.8rem 3.5rem 0.8rem 0; }
 
     & > .multiselect-spinner {
       background: transparent;
