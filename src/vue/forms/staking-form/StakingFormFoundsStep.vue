@@ -124,6 +124,7 @@
 import { AmountField, SelectField } from '@/vue/fields'
 import Loader from '@/vue/common/Loader'
 import TempleIcon from '@/vue/common/TempleIcon'
+import ErrorMessage from '@/vue/common/ErrorMessage'
 
 import { reactive, toRefs, computed, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -134,7 +135,6 @@ import { ErrorHandler } from '@/js/helpers/error-handler'
 import { TRANSFER_FORM_STEPS } from '@/js/const/steps.const'
 import { TransferFormer } from '@/js/formers/TransferFormer'
 import CONFIG from '@/config'
-import ErrorMessage from '@/vue/common/ErrorMessage'
 import BN from 'bn.js'
 
 const EVENTS = {

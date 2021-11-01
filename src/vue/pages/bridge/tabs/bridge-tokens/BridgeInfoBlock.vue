@@ -54,6 +54,10 @@ export default {
 @import '~@scss/mixins';
 @import '~@scss/variables';
 
+.bridge-info-block {
+  overflow: hidden;
+}
+
 .bridge-info-block__header {
   margin-bottom: 1rem;
 
@@ -91,6 +95,7 @@ export default {
 
 .bridge-info-block__value,
 .bridge-info-block__value-secondary {
+  max-width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

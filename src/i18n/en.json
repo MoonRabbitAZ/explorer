@@ -751,6 +751,10 @@
     }
   },
   "bridge-page": {
+    "bridge-tokens-tab": {
+      "error-header": "Error",
+      "error-message": "There was an error while loading."
+    },
     "bridge-tokens-form": {
       "asset-lbl": "Asset",
       "destination-header": "Destination",
@@ -761,9 +765,10 @@
       "next-btn": "Next",
       "drawer-confirmation-header": "Confirmation",
       "mainet-transfer-msg": "Want to transfer funds to mainet? Use { link }.",
-      "mainet-transfer-link": "this link"
+      "mainet-transfer-link": "this link",
+      "error-chain-message": "Please switch to the network \"{ network }\" in the MetaMask wallet in order to continue."
     },
-    "bridge-confirmation": {
+    "bridge-confirmation-transfer-step": {
       "asset-header": "Asset",
       "destination-header": "Destination",
       "from-header": "From",
@@ -772,6 +777,12 @@
       "confirm-btn": "Confirm",
       "terms-of-use-lbl": "I have read and agree to the { link }",
       "terms-of-use-link": "Terms of Use"
+    },
+    "bridge-confirmation": {
+      "alert-chain-status-msg": "Please switch to the network \"{ network }\" in the MetaMask wallet in order to continue.",
+      "confirm-chain-status-msg": "The network \"{ network }\" in the MetaMask wallet was successfully switched.",
+      "deposit-btn": "Deposit",
+      "withdraw-btn": "Withdraw"
     }
   }
 }
