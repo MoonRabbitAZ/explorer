@@ -1,92 +1,96 @@
 <template>
   <div class="bridge-confirmation-transfer-step">
     <div class="bridge-confirmation-transfer-step__confirmation-body">
-      <h1
-        class="
+      <template v-if="isFromChainActive">
+        <h1
+          class="
           bridge-confirmation-transfer-step__amount
           bridge-confirmation-transfer-step__item
         "
-      >
-        {{ currentFormatedAmount }}
-      </h1>
-      <bridge-info-block
-        class="
+        >
+          {{ currentFormatedAmount }}
+        </h1>
+        <bridge-info-block
+          class="
           bridge-confirmation-transfer-step__chain-block
           bridge-confirmation-transfer-step__item
         "
-        :header="
-          $t('bridge-page.bridge-confirmation-transfer-step.from-header')
-        "
-        img-url="../static/branding/logo.png"
-        :value="currentToken.tokenTicker"
-        :secondary-value="fromChain.name"
-      />
+          :header="
+            $t('bridge-page.bridge-confirmation-transfer-step.from-header')
+          "
+          :value="currentToken.ticker"
+          :secondary-value="fromChain.name"
+        />
 
-      <bridge-info-block
-        class="
+        <!-- eslint-disable max-len -->
+        <bridge-info-block
+          class="
           bridge-confirmation-transfer-step__chain-block
           bridge-confirmation-transfer-step__item
         "
-        :header="$t('bridge-page.bridge-confirmation-transfer-step.to-header')"
-        img-url="../static/branding/logo.png"
-        :value="currentToken.tokenTicker"
-        :secondary-value="toChain.name"
-      />
+          :header="$t('bridge-page.bridge-confirmation-transfer-step.to-header')"
+          :value="currentToken.ticker"
+          :secondary-value="toChain.name"
+        />
 
-      <bridge-info-block
-        class="
+        <bridge-info-block
+          class="
           bridge-confirmation-transfer-step__chain-block
           bridge-confirmation-transfer-step__item
         "
-        :header="
-          $t('bridge-page.bridge-confirmation-transfer-step.asset-header')
-        "
-        img-url="../static/branding/logo.png"
-        :value="currentToken.tokenTicker"
-        :secondary-value="currentToken.chainId.toString()"
-      />
+          :header="
+            $t('bridge-page.bridge-confirmation-transfer-step.asset-header')
+          "
+          :value="currentToken.ticker"
+          :secondary-value="currentToken.originalChainName"
+        />
 
-      <bridge-info-block
-        class="
+        <bridge-info-block
+          class="
           bridge-confirmation-transfer-step__chain-block
           bridge-confirmation-transfer-step__item
         "
-        :header="
-          $t('bridge-page.bridge-confirmation-transfer-step.destination-header')
-        "
-        img-url="../static/branding/logo.png"
-        :value="web3Account"
-      />
+          :header="$t('bridge-page.bridge-confirmation-transfer-step.destination-header')"
+          :value="web3Account"
+        />
 
-      <!-- eslint-disable max-len -->
-      <p
-        class="
+        <p
+          class="
           bridge-confirmation-transfer-step__info-msg
           bridge-confirmation-transfer-step__item
         "
-      >
-        {{ $t('bridge-page.bridge-confirmation-transfer-step.confirmation-info-msg') }}
-      </p>
-
-      <tick-field
-        v-model="isAgreeTerms"
-        class="bridge-confirmation-transfer-step__item"
-        cb-value=""
-        name="processing-personal-data-form-confirm-date"
-        :disabled="isProcessing"
-      >
-        <i18n-t
-          class="bridge-confirmation-transfer-step__terms-of-use-lbl"
-          keypath="bridge-page.bridge-confirmation-transfer-step.terms-of-use-lbl"
-          tag="p"
         >
-          <template #link>
-            <a href="#">
-              {{ $t('bridge-page.bridge-confirmation-transfer-step.terms-of-use-link') }}
-            </a>
-          </template>
-        </i18n-t>
-      </tick-field>
+          {{ $t('bridge-page.bridge-confirmation-transfer-step.confirmation-info-msg') }}
+        </p>
+
+        <tick-field
+          v-model="isAgreeTerms"
+          class="bridge-confirmation-transfer-step__item"
+          cb-value=""
+          name="processing-personal-data-form-confirm-date"
+          :disabled="isProcessing"
+        >
+          <i18n-t
+            class="bridge-confirmation-transfer-step__terms-of-use-lbl"
+            keypath="bridge-page.bridge-confirmation-transfer-step.terms-of-use-lbl"
+            tag="p"
+          >
+            <template #link>
+              <a href="#">
+                {{ $t('bridge-page.bridge-confirmation-transfer-step.terms-of-use-link') }}
+              </a>
+            </template>
+          </i18n-t>
+        </tick-field>
+      </template>
+      <template v-else>
+        <error-message
+          class="bridge-tokens-form__chain-error"
+          :message="$t('bridge-page.bridge-tokens-form.error-chain-message', {
+            network: fromChain.name
+          })"
+        />
+      </template>
       <!-- eslint-enable max-len -->
     </div>
 
@@ -104,6 +108,7 @@
 <script>
 import { TickField } from '@/vue/fields'
 import BridgeInfoBlock from '@bridge-page/tabs/bridge-tokens/BridgeInfoBlock'
+import ErrorMessage from '@/vue/common/ErrorMessage'
 
 import { ref, computed } from 'vue'
 import { useFormatBalance } from '@/vue/composables'
@@ -120,6 +125,7 @@ export default {
   components: {
     BridgeInfoBlock,
     TickField,
+    ErrorMessage,
   },
 
   props: {
@@ -131,6 +137,7 @@ export default {
     isProcessing: { type: Boolean, required: true },
     currentTokenDecimals: { type: Number, required: true },
     isWithdraw: { type: Boolean, required: true },
+    isFromChainActive: { type: Boolean, required: true },
   },
 
   emits: Object.values(EVENTS),
@@ -140,14 +147,14 @@ export default {
     const isAgreeTerms = ref(false)
 
     const isDepositBtnDisabled = computed(() =>
-      props.isProcessing || !isAgreeTerms.value,
+      props.isProcessing || !isAgreeTerms.value || !props.isFromChainActive,
     )
 
     const currentFormatedAmount = computed(() => {
       const options = {
         withSi: true,
         withSiFull: false,
-        withUnit: props.currentToken.tokenTicker,
+        withUnit: props.currentToken.ticker,
       }
       return toBalance(
         props.amount,

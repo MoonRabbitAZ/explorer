@@ -251,7 +251,7 @@ $label-indentation:
 
   & > .multiselect-search {
     padding-left: $field-input-padding-horizontal;
-    background: $field-color-background;
+    background: none;
 
     &:focus ~ .multiselect-single-label {
       display: none;

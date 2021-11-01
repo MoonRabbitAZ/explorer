@@ -3,19 +3,39 @@
     <div class="bridge-tokens-form__body">
       <div class="bridge-tokens-form__current-token-wrap">
         <select-field
-          v-model="form.currentTokenKey.value"
+          v-model="form.currentToken.value"
+          class="bridge-tokens-form__select-token"
           :label="$t('bridge-page.bridge-tokens-form.asset-lbl')"
           :options="tokens"
           :can-deselect="false"
-          option-label="tokenTicker"
-          value-prop="tokenKey"
-          track-by="tokenTicker"
-          @blur="form.currentTokenKey.blur"
+          value-prop="ticker"
+          option-label="ticker"
+          track-by="ticker"
+          @blur="form.currentToken.blur"
+          object
           searchable
           clear-on-search
         >
+          <template v-slot:singlelabel="{ value }">
+            <div class="bridge-tokens-form__token-value">
+              <h2>
+                {{ value.ticker }}
+              </h2>
+              <p class="bridge-tokens-form__token-chain">
+                {{ value.originalChainName }}
+              </p>
+            </div>
+          </template>
+
           <template v-slot:option="{ option }">
-            {{ option.tokenTicker }}
+            <div>
+              <h2>
+                {{ option.ticker }}
+              </h2>
+              <p>
+                {{ option.originalChainName }}
+              </p>
+            </div>
           </template>
         </select-field>
       </div>
@@ -23,8 +43,7 @@
         <bridge-info-block
           class="bridge-tokens-form__chain-block"
           :header="$t('bridge-page.bridge-tokens-form.from-header')"
-          img-url="../static/branding/logo.png"
-          :value="currentToken.tokenTicker"
+          :value="currentToken.ticker"
           :secondary-value="fromChain.name"
         />
 
@@ -39,14 +58,13 @@
         <bridge-info-block
           class="bridge-tokens-form__chain-block"
           :header="$t('bridge-page.bridge-tokens-form.to-header')"
-          img-url="../static/branding/logo.png"
-          :value="currentToken.tokenTicker"
+          :value="currentToken.ticker"
           :secondary-value="toChain.name"
         />
       </div>
 
       <template v-if="isLoaded">
-        <template v-if="isNecessaryChain">
+        <template v-if="isFromChainActive">
           <div class="app__form-row">
             <div class="app__form-field">
               <amount-field
@@ -66,7 +84,6 @@
           <bridge-info-block
             class="bridge-tokens-form__destination-block"
             :header="$t('bridge-page.bridge-tokens-form.destination-header')"
-            img-url="../static/branding/logo.png"
             :value="web3Account"
           />
           <p class="bridge-tokens-form__destination-info">
@@ -77,7 +94,7 @@
             class="bridge-tokens-form__next-btn"
             scheme="primary"
             :text="$t('bridge-page.bridge-tokens-form.next-btn')"
-            @click="goConfirm"
+            @click="toConfirm"
           />
         </template>
         <template v-else>
@@ -125,6 +142,7 @@
         :web3-account="web3Account"
         :current-token-decimals="currentTokenDecimals"
         :is-withdraw="isWithdraw"
+        :is-from-chain-active="isFromChainActive"
       />
     </drawer>
   </div>
@@ -180,8 +198,8 @@ export default {
 
     const { required, amountRange } = useValidators()
     const formController = useForm({
-      currentTokenKey: {
-        value: props.tokens[0].tokenKey,
+      currentToken: {
+        value: props.tokens[0],
       },
       amount: {
         value: '0',
@@ -204,20 +222,20 @@ export default {
       state.isWithdraw
         ? state.baseChain
         : props.chains.find(i =>
-          i.id === formController.form.currentTokenKey.value.chainId),
+          i.id === formController.form.currentToken.value.chainId),
     )
 
     const toChain = computed(() =>
       state.isWithdraw
         ? props.chains.find(i =>
-          i.id === formController.form.currentTokenKey.value.chainId)
+          i.id === formController.form.currentToken.value.chainId)
         : state.baseChain,
     )
 
     const currentToken = computed(() =>
       props.tokens.find(i =>
-        i.tokenTicker === formController.form.currentTokenKey.value.ticker &&
-          i.chainId === formController.form.currentTokenKey.value.chainId,
+        i.ticker === formController.form.currentToken.value.ticker &&
+          i.chainId === formController.form.currentToken.value.chainId,
       ),
     )
 
@@ -225,7 +243,7 @@ export default {
       const options = {
         withSi: true,
         withSiFull: false,
-        withUnit: currentToken.value.tokenTicker,
+        withUnit: currentToken.value.ticker,
       }
       return toBalance(
         state.currentBalance,
@@ -234,11 +252,11 @@ export default {
       )
     })
 
-    const isNecessaryChain = computed(() =>
+    const isFromChainActive = computed(() =>
       +web3ChainId.value === fromChain.value.id,
     )
 
-    function goConfirm () {
+    function toConfirm () {
       if (formController.isFormValid()) {
         state.isFormConfirmationOpen = true
       }
@@ -247,7 +265,7 @@ export default {
     async function init () {
       state.isLoaded = false
       try {
-        if (isNecessaryChain.value) {
+        if (isFromChainActive.value) {
           const contractAddress = state.isWithdraw
             ? currentToken.value.internalContract
             : currentToken.value.originalContract
@@ -281,8 +299,8 @@ export default {
       web3Account,
       currentToken,
       currentFormatedBalance,
-      isNecessaryChain,
-      goConfirm,
+      isFromChainActive,
+      toConfirm,
     }
   },
 }
@@ -305,6 +323,14 @@ export default {
     grid-gap: 2rem;
     align-items: center;
   }
+}
+
+.bridge-tokens-form__token-value {
+  width: 100%;
+}
+
+.bridge-tokens-form__token-chain {
+  color: $col-app-secondary;
 }
 
 .bridge-tokens-form__chain-block {

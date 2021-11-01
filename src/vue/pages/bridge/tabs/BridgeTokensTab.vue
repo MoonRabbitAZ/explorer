@@ -66,10 +66,11 @@ export default {
       try {
         const [chains, tokens] = await Promise.all([
           bridgeEthereumApi.get('/bridge/chains'),
-          bridgeEthereumApi.get('/bridge/tokens'),
+          bridgeEthereumApi.get('/bridge/tokens', {
+            include: ['chain'],
+          }),
           initWeb3(),
         ])
-
         state.chains = chains.data.map(i => (new ChainRecord(i)))
         state.tokens = tokens.data.map(i => (new TokenRecord(i)))
       } catch (e) {

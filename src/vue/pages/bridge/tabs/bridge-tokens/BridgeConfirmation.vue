@@ -10,6 +10,7 @@
       :is-processing="processing"
       :current-token-decimals="currentTokenDecimals"
       :is-withdraw="isWithdraw"
+      :is-from-chain-active="isFromChainActive"
       @confirm="depositOrWithdraw"
     />
 
@@ -21,7 +22,7 @@
         <icon
           class="bridge-confirmation__chain-status-icon"
           :class="{
-            'bridge-confirmation__chain-status-icon--success': isFromChainActive
+            'bridge-confirmation__chain-status-icon--success': isToChainActive
           }"
           :name="chainStatusIconName"
         />
@@ -77,6 +78,7 @@ export default {
     web3Account: { type: String, required: true },
     currentTokenDecimals: { type: Number, required: true },
     isWithdraw: { type: Boolean, required: true },
+    isFromChainActive: { type: Boolean, required: true },
   },
 
   setup (props) {
@@ -88,16 +90,16 @@ export default {
       processing: false,
     })
 
-    const isFromChainActive = computed(() =>
+    const isToChainActive = computed(() =>
       +web3ChainId.value === props.toChain.id,
     )
 
     const chainStatusIconName = computed(() =>
-      isFromChainActive.value ? 'success' : 'alert',
+      isToChainActive.value ? 'success' : 'alert',
     )
 
     const chainStatusMsg = computed(() =>
-      isFromChainActive.value
+      isToChainActive.value
         ? t('bridge-page.bridge-confirmation.confirm-chain-status-msg', {
           network: props.toChain.name,
         })
@@ -107,7 +109,7 @@ export default {
     )
 
     const isButtonDisabled = computed(() =>
-      state.processing || !isFromChainActive.value,
+      state.processing || !isToChainActive.value,
     )
 
     const buttonTranslation = computed(() =>
@@ -130,7 +132,7 @@ export default {
         const query = {
           tx_hash: transactionHash,
           token_key: {
-            ticker: props.currentToken.tokenTicker,
+            ticker: props.currentToken.ticker,
             chain_id: props.currentToken.chainId,
           },
         }
@@ -157,7 +159,7 @@ export default {
       const query = {
         tx_hash: test.transactionHash,
         token_key: {
-          ticker: props.currentToken.tokenTicker,
+          ticker: props.currentToken.ticker,
           chain_id: props.currentToken.chainId,
         },
       }
@@ -228,7 +230,7 @@ export default {
       ...toRefs(state),
       chainStatusMsg,
       chainStatusIconName,
-      isFromChainActive,
+      isToChainActive,
       STEPS,
       depositOrWithdraw,
       mintOrwithdrawErc20,
