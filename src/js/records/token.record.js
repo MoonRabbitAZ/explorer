@@ -1,3 +1,4 @@
+const NATIVE_TOKEN_TYPE = 'native'
 
 export class TokenRecord {
   constructor (record) {
@@ -5,9 +6,15 @@ export class TokenRecord {
 
     this.ticker = record.ticker
     this.chainId = record.originalChainId
-    this.type = record?.type || ''
+    this.originalType = record?.originalType || ''
+    this.internalType = record?.internalType || ''
     this.originalContract = record.originalContract
     this.internalContract = record.internalContract
     this.originalChainName = record?.chain?.name || ''
+    this.nativeChainDecimals = record?.chain?.nativeDecimals
+  }
+
+  get isInternalTypeNative () {
+    return this.internalType === NATIVE_TOKEN_TYPE
   }
 }

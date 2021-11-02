@@ -7,5 +7,6 @@ export class ChainRecord {
     this.name = record.name
     this.bridgeContract = record.bridgeContract
     this.isBase = record.isBase
+    this.nativeDecimals = record?.nativeDecimals
   }
 }

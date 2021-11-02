@@ -52,14 +52,20 @@ import { useI18n } from 'vue-i18n'
 import { bridgeEthereumApi } from '@api'
 import { useWeb3 } from '@/vue/composables'
 import { ErrorHandler } from '@/js/helpers/error-handler'
+import { Bus } from '@/js/helpers/event-bus'
 import { erc20ABI } from '@/js/const/erc20-abi.const'
 import { ethereumBridgeABI } from '@/js/const/ethereum-bridge-abi.const'
+import { nativeABI } from '@/js/const/native-abi.const'
 import { ChainRecord } from '@/js/records/chain.record'
 import { TokenRecord } from '@/js/records/token.record'
 
 const STEPS = {
   transfer: 1,
   mintOrwithdrawErc20: 2,
+}
+
+const EVENTS = {
+  closeDrawer: 'close-drawer',
 }
 
 export default {
@@ -81,7 +87,9 @@ export default {
     isFromChainActive: { type: Boolean, required: true },
   },
 
-  setup (props) {
+  emits: Object.values(EVENTS),
+
+  setup (props, { emit }) {
     const { t } = useI18n()
     const { web3, web3ChainId } = useWeb3()
     const state = reactive({
@@ -93,7 +101,7 @@ export default {
     const isToChainActive = computed(() =>
       +web3ChainId.value === props.toChain.id,
     )
-
+/* eslint-disable */
     const chainStatusIconName = computed(() =>
       isToChainActive.value ? 'success' : 'alert',
     )
@@ -118,6 +126,25 @@ export default {
         : t('bridge-page.bridge-confirmation.deposit-btn'),
     )
 
+    async function transfer () {
+      const { transactionHash } = await web3.value.eth.sendTransaction({
+        from: props.web3Account,
+        to: props.currentToken.internalContract,
+        value: props.amount,
+      })
+
+      const query = {
+        tx_hash: transactionHash,
+        token_key: {
+          ticker: props.currentToken.ticker,
+          chain_id: props.currentToken.chainId,
+        },
+      }
+
+      const { data } = await bridgeEthereumApi.post('/bridge/withdraw', query)
+      state.parameters = data
+    }
+
     async function withdraw () {
       try {
         const contract = new web3.value.eth.Contract(
@@ -139,7 +166,6 @@ export default {
 
         const { data } = await bridgeEthereumApi.post('/bridge/withdraw', query)
         state.parameters = data
-        state.currentStep = STEPS.mintOrwithdrawErc20
       } catch (e) {
         ErrorHandler.process(e)
       }
@@ -165,7 +191,6 @@ export default {
       }
       const { data } = await bridgeEthereumApi.post('/bridge/deposit', query)
       state.parameters = data
-      state.currentStep = STEPS.mintOrwithdrawErc20
     }
 
     async function mint () {
@@ -198,14 +223,35 @@ export default {
       ).send({ from: props.web3Account })
     }
 
+    async function withdrawNativeToken () {
+      const contract = new web3.value.eth.Contract(
+        nativeABI,
+        props.currentToken.internalContract,
+      )
+
+      await contract.methods.withdraw(
+        state.parameters.details.txHash,
+        state.parameters.details.amount,
+        [state.parameters.signature.r],
+        [state.parameters.signature.s],
+        [state.parameters.signature.v],
+      ).send({ from: props.web3Account })
+    }
+
     async function depositOrWithdraw () {
       state.processing = true
       try {
         if (props.isWithdraw) {
-          await withdraw()
+          if (props.currentToken.isInternalTypeNative) {
+            await transfer()
+          } else {
+            await withdraw()
+          }
         } else {
           await deposit()
         }
+
+        state.currentStep = STEPS.mintOrwithdrawErc20
       } catch (e) {
         ErrorHandler.process(e)
       }
@@ -217,9 +263,14 @@ export default {
       try {
         if (props.isWithdraw) {
           await withdrawErc20()
+        } else if (props.currentToken.isInternalTypeNative) {
+          await withdrawNativeToken()
         } else {
           await mint()
         }
+
+        Bus.success()
+        emit(EVENTS.closeDrawer)
       } catch (e) {
         ErrorHandler.process(e)
       }

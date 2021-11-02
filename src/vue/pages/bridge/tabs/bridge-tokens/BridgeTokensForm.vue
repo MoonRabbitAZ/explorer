@@ -64,7 +64,7 @@
       </div>
 
       <template v-if="isLoaded">
-        <template v-if="isFromChainActive">
+        <template v-if="isDisplayForm">
           <div class="app__form-row">
             <div class="app__form-field">
               <amount-field
@@ -101,7 +101,7 @@
           <error-message
             class="bridge-tokens-form__chain-error"
             :message="$t('bridge-page.bridge-tokens-form.error-chain-message', {
-              network: toChain.name
+              network: fromChain.name
             })"
           />
         </template>
@@ -129,6 +129,7 @@
 
     <drawer
       v-model:is-shown="isFormConfirmationOpen"
+      :close-by-click-outside="false"
       is-default-body
     >
       <template #heading>
@@ -143,6 +144,7 @@
         :current-token-decimals="currentTokenDecimals"
         :is-withdraw="isWithdraw"
         :is-from-chain-active="isFromChainActive"
+        @close-drawer="isFormConfirmationOpen = false"
       />
     </drawer>
   </div>
@@ -256,6 +258,12 @@ export default {
       +web3ChainId.value === fromChain.value.id,
     )
 
+    const isDisplayForm = computed(() =>
+      state.isFormConfirmationOpen
+        ? true
+        : isFromChainActive.value,
+    )
+
     function toConfirm () {
       if (formController.isFormValid()) {
         state.isFormConfirmationOpen = true
@@ -265,18 +273,25 @@ export default {
     async function init () {
       state.isLoaded = false
       try {
-        if (isFromChainActive.value) {
+        if (isFromChainActive.value && !state.isFormConfirmationOpen) {
           const contractAddress = state.isWithdraw
             ? currentToken.value.internalContract
             : currentToken.value.originalContract
-          const contract =
-            new web3.value.eth.Contract(erc20ABI, contractAddress)
-          const [balance, decimals] = await Promise.all([
-            contract.methods.balanceOf(web3Account.value).call(),
-            contract.methods.decimals().call(),
-          ])
-          state.currentBalance = balance
-          state.currentTokenDecimals = +decimals
+
+          if (state.isWithdraw && currentToken.value.isInternalTypeNative) {
+            const balance = await web3.value.eth.getBalance(web3Account.value)
+            state.currentBalance = balance
+            state.currentTokenDecimals = +currentToken.value.nativeChainDecimals
+          } else {
+            const contract =
+              new web3.value.eth.Contract(erc20ABI, contractAddress)
+            const [balance, decimals] = await Promise.all([
+              contract.methods.balanceOf(web3Account.value).call(),
+              contract.methods.decimals().call(),
+            ])
+            state.currentBalance = balance
+            state.currentTokenDecimals = +decimals
+          }
         }
       } catch (e) {
         ErrorHandler.process(e)
@@ -290,6 +305,8 @@ export default {
       { immediate: true },
     )
 
+    watch(() => state.isFormConfirmationOpen, init)
+
     return {
       ...toRefs(state),
       ...formController,
@@ -301,6 +318,7 @@ export default {
       currentFormatedBalance,
       isFromChainActive,
       toConfirm,
+      isDisplayForm,
     }
   },
 }
