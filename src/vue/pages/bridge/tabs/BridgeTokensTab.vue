@@ -14,13 +14,21 @@
           />
         </div>
       </template>
-      <template v-else-if="tokens.length && chains.length">
-        <div class="bridge-tokens-tab__form-wrap">
-          <bridge-tokens-form
-            :tokens="tokens"
-            :chains="chains"
+      <template v-else>
+        <template v-if="tokens.length && chains.length">
+          <div class="bridge-tokens-tab__form-wrap">
+            <bridge-tokens-form
+              :tokens="tokens"
+              :chains="chains"
+            />
+          </div>
+        </template>
+        <template v-else>
+          <no-data-message
+            class="bridge-tokens-tab__no-data-message"
+            :message="$t('bridge-page.bridge-tokens-tab.no-data-message')"
           />
-        </div>
+        </template>
       </template>
     </template>
     <template v-else>
@@ -34,6 +42,7 @@ import BridgeTokensForm from '@bridge-page/tabs/bridge-tokens/BridgeTokensForm'
 import MetamaskForm from '@/vue/common/MetamaskForm'
 import Loader from '@/vue/common/Loader'
 import ErrorMessage from '@/vue/common/ErrorMessage'
+import NoDataMessage from '@/vue/common/NoDataMessage'
 
 import { reactive, toRefs } from 'vue'
 import { useWeb3 } from '@/vue/composables'
@@ -45,7 +54,13 @@ import { bridgeEthereumApi } from '@api'
 export default {
   name: 'bridge-tokens-tab',
 
-  components: { BridgeTokensForm, MetamaskForm, Loader, ErrorMessage },
+  components: {
+    BridgeTokensForm,
+    MetamaskForm,
+    Loader,
+    ErrorMessage,
+    NoDataMessage,
+  },
 
   setup () {
     const state = reactive({
@@ -116,5 +131,11 @@ export default {
 .bridge-tokens-tab__metamask-form {
   max-width: 27rem;
   margin: 0 auto;
+}
+
+.bridge-tokens-tab__no-data-message {
+  background: $col-app-content-block-bg;
+  margin: 0 auto;
+  max-width: max-content;
 }
 </style>

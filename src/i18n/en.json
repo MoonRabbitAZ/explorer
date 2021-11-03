@@ -753,7 +753,8 @@
   "bridge-page": {
     "bridge-tokens-tab": {
       "error-header": "Error",
-      "error-message": "There was an error while loading."
+      "error-message": "There was an error while loading.",
+      "no-data-message": "No tokens or chains available"
     },
     "bridge-tokens-form": {
       "asset-lbl": "Asset",
