@@ -164,7 +164,8 @@
       "proposals": "Proposals"
     },
     "bridge": {
-      "tokens": "Tokens"
+      "tokens": "Tokens",
+      "nft": "NFT"
     }
   },
   "navigation": {
@@ -761,13 +762,19 @@
       "destination-header": "Destination",
       "from-header": "From",
       "to-header": "To",
+      "token-name-header": "Token Name",
       "amount-lbl": "Amount (Available: { balance })",
+      "token-id-lbl": "Token ID",
+      "token-id-placeholder": "Enter token ID",
       "destination-info": "This is the destination address of the To network",
       "next-btn": "Next",
       "drawer-confirmation-header": "Confirmation",
       "mainet-transfer-msg": "Want to transfer funds to mainet? Use { link }.",
       "mainet-transfer-link": "this link",
-      "error-chain-message": "Please switch to the network \"{ network }\" in the MetaMask wallet in order to continue."
+      "balance-error-message": "Balance not found or equality 0",
+      "nft-error-message": "Token not found",
+      "chain-error-message": "Please switch to the network \"{ network }\" in the MetaMask wallet in order to continue.",
+      "default-error-message": "There was an error while loading."
     },
     "bridge-confirmation-transfer-step": {
       "asset-header": "Asset",

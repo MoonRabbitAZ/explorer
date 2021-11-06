@@ -1,4 +1,4 @@
-export const nativeABI = [
+export const NATIVE_TOKEN_ABI = [
   {
     inputs: [
       {

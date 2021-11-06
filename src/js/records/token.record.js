@@ -1,4 +1,4 @@
-const NATIVE_TOKEN_TYPE = 'native'
+import { TOKEN_TYPES } from '@/js/const/token.const'
 
 export class TokenRecord {
   constructor (record) {
@@ -15,6 +15,6 @@ export class TokenRecord {
   }
 
   get isInternalTypeNative () {
-    return this.internalType === NATIVE_TOKEN_TYPE
+    return this.internalType === TOKEN_TYPES.native
   }
 }

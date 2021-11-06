@@ -47,6 +47,16 @@ export default Object.assign(
     DEFAULT_PAGE_LIMIT: 15,
 
     /**
+     *  IPFS host to get Token URI from.
+     */
+    TOKEN_URI_HOST: 'gateway.ipfs.io/ipfs/',
+
+    /**
+     *  IPFS protocol to get Token URI.
+     */
+    TOKEN_URI_PROTOCOL: 'https',
+
+    /**
      * Social links
      */
     SOCIAL_LINK_DISCORD: 'https://discord.com/invite/2deuZrmfBm',

@@ -20,6 +20,7 @@
             <bridge-tokens-form
               :tokens="tokens"
               :chains="chains"
+              :is-erc721="isErc721"
             />
           </div>
         </template>
@@ -44,12 +45,13 @@ import Loader from '@/vue/common/Loader'
 import ErrorMessage from '@/vue/common/ErrorMessage'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 
-import { reactive, toRefs } from 'vue'
+import { reactive, toRefs, watch } from 'vue'
 import { useWeb3 } from '@/vue/composables'
 import { TokenRecord } from '@/js/records/token.record'
 import { ChainRecord } from '@/js/records/chain.record'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { bridgeEthereumApi } from '@api'
+import { TOKEN_TYPES } from '@/js/const/token.const'
 
 export default {
   name: 'bridge-tokens-tab',
@@ -62,7 +64,11 @@ export default {
     NoDataMessage,
   },
 
-  setup () {
+  props: {
+    isErc721: { type: Boolean, default: false },
+  },
+
+  setup (props) {
     const state = reactive({
       isLoaded: true,
       isLoadFailed: false,
@@ -82,7 +88,11 @@ export default {
         const [chains, tokens] = await Promise.all([
           bridgeEthereumApi.get('/bridge/chains'),
           bridgeEthereumApi.get('/bridge/tokens', {
-            include: ['chain'],
+            filter: {
+              token_type: props.isErc721
+                ? TOKEN_TYPES.erc721
+                : `${TOKEN_TYPES.native},${TOKEN_TYPES.erc20}`,
+            },
           }),
           initWeb3(),
         ])
@@ -95,7 +105,7 @@ export default {
       state.isLoaded = true
     }
 
-    init()
+    watch(() => props.isErc721, init, { immediate: true })
 
     return {
       ...toRefs(state),

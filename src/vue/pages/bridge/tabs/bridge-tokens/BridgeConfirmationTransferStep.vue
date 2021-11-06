@@ -1,6 +1,7 @@
 <template>
   <div class="bridge-confirmation-transfer-step">
     <div class="bridge-confirmation-transfer-step__confirmation-body">
+      <!-- {{ isFromChainActive }} -->
       <template v-if="isFromChainActive">
         <h1
           class="
@@ -8,8 +9,25 @@
           bridge-confirmation-transfer-step__item
         "
         >
-          {{ currentFormatedAmount }}
+          <template v-if="isErc721">
+            {{ erc721Token?.name }}
+          </template>
+          <template v-else>
+            {{ currentFormatedAmount }}
+          </template>
         </h1>
+
+        <!-- eslint-disable -->
+        <template v-if="isErc721 && erc721Token?.imageUrl">
+          <div class="bridge-confirmation-transfer-step__token-img-wrap">
+            <img
+              class="bridge-confirmation-transfer-step__token-img"
+              :src="erc721Token.imageUrl"
+              alt="token image"
+            >
+          </div>
+        </template>
+
         <bridge-info-block
           class="
           bridge-confirmation-transfer-step__chain-block
@@ -114,6 +132,7 @@ import { ref, computed } from 'vue'
 import { useFormatBalance } from '@/vue/composables'
 import { ChainRecord } from '@/js/records/chain.record'
 import { TokenRecord } from '@/js/records/token.record'
+import { Erc721TokenRecord } from '@/js/records/erc721-token.record'
 
 const EVENTS = {
   confirm: 'confirm',
@@ -132,12 +151,17 @@ export default {
     fromChain: { type: ChainRecord, required: true },
     toChain: { type: ChainRecord, required: true },
     currentToken: { type: TokenRecord, required: true },
-    amount: { type: String, required: true },
     web3Account: { type: String, required: true },
     isProcessing: { type: Boolean, required: true },
-    currentTokenDecimals: { type: Number, required: true },
+    currentTokenDecimals: { type: Number, default: 0 },
     isWithdraw: { type: Boolean, required: true },
     isFromChainActive: { type: Boolean, required: true },
+    isErc721: { type: Boolean, required: true },
+    amount: { type: String, default: '' },
+    erc721Token: {
+      type: Erc721TokenRecord,
+      default: () => (new Erc721TokenRecord()),
+    },
   },
 
   emits: Object.values(EVENTS),
@@ -187,6 +211,19 @@ export default {
 
 .bridge-confirmation-transfer-step__amount {
   text-align: center;
+}
+
+.bridge-confirmation-transfer-step__token-img-wrap {
+  max-width: max-content;
+  margin: 2rem auto;
+}
+
+.bridge-confirmation-transfer-step__token-img {
+  object-fit: contain;
+  max-width: 100%;
+  max-height: 15.4rem;
+  border-radius: 1.2rem;
+  overflow: hidden;
 }
 
 .bridge-confirmation-transfer-step__item {

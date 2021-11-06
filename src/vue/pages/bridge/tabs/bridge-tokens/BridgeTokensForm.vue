@@ -63,24 +63,65 @@
         />
       </div>
 
+      <template v-if="isErc721">
+        <div class="app__form-row">
+          <div class="app__form-field">
+            <input-field
+              v-model="form.tokenId.value"
+              @blur="form.tokenId.blur"
+              name="bridge-tokens-tokenId"
+              :error-message="form.tokenId.errorMessage"
+              :label="$t('bridge-page.bridge-tokens-form.token-id-lbl')"
+              :placeholder="
+                $t('bridge-page.bridge-tokens-form.token-id-placeholder')
+              "
+            />
+          </div>
+        </div>
+      </template>
+
       <template v-if="isLoaded">
         <template v-if="isDisplayForm">
-          <div class="app__form-row">
-            <div class="app__form-field">
-              <amount-field
-                v-model="form.amount.value"
-                @blur="form.amount.blur"
-                name="staking-form-founds-step-amount"
-                :error-message="form.amount.errorMessage"
-                :label="$t('bridge-page.bridge-tokens-form.amount-lbl', {
-                  balance: currentFormatedBalance,
-                })"
-                :decimals="currentTokenDecimals"
-                :disabled="isFormDisabled"
-              />
+          <template v-if="!isErc721">
+            <div class="app__form-row">
+              <div class="app__form-field">
+                <amount-field
+                  v-model="form.amount.value"
+                  @blur="form.amount.blur"
+                  name="bridge-tokens-amount"
+                  :error-message="form.amount.errorMessage"
+                  :label="$t('bridge-page.bridge-tokens-form.amount-lbl', {
+                    balance: currentFormatedBalance,
+                  })"
+                  :decimals="currentTokenDecimals"
+                  :disabled="isFormDisabled || !+currentBalance"
+                />
+              </div>
             </div>
-          </div>
-          <!-- eslint-disable max-len -->
+          </template>
+
+          <template
+            v-if="isErc721 && (erc721Token?.name || erc721Token?.imageUrl)"
+          >
+            <bridge-info-block
+              class="bridge-tokens-form__token-name-block"
+              :header="
+                $t('bridge-page.bridge-tokens-form.token-name-header')
+              "
+              :value="erc721Token.name"
+            />
+            <div
+              v-if="erc721Token.imageUrl"
+              class="bridge-tokens-form__token-img-wrap"
+            >
+              <img
+                class="bridge-tokens-form__token-img"
+                :src="erc721Token.imageUrl"
+                alt="token image"
+              >
+            </div>
+          </template>
+
           <bridge-info-block
             class="bridge-tokens-form__destination-block"
             :header="$t('bridge-page.bridge-tokens-form.destination-header')"
@@ -100,9 +141,7 @@
         <template v-else>
           <error-message
             class="bridge-tokens-form__chain-error"
-            :message="$t('bridge-page.bridge-tokens-form.error-chain-message', {
-              network: fromChain.name
-            })"
+            :message="errorMessage"
           />
         </template>
       </template>
@@ -139,11 +178,13 @@
         :current-token="currentToken"
         :to-chain="toChain"
         :from-chain="fromChain"
-        :amount="form.amount.value"
+        :amount="form?.amount?.value"
         :web3-account="web3Account"
         :current-token-decimals="currentTokenDecimals"
         :is-withdraw="isWithdraw"
         :is-from-chain-active="isFromChainActive"
+        :erc721-token="erc721Token"
+        :is-erc721="isErc721"
         @close-drawer="isFormConfirmationOpen = false"
       />
     </drawer>
@@ -151,7 +192,7 @@
 </template>
 
 <script>
-import { SelectField, AmountField } from '@/vue/fields'
+import { SelectField, AmountField, InputField } from '@/vue/fields'
 import Drawer from '@/vue/common/Drawer'
 import BridgeInfoBlock from '@bridge-page/tabs/bridge-tokens/BridgeInfoBlock'
 import BridgeConfirmation from '@bridge-page/tabs/bridge-tokens/BridgeConfirmation'
@@ -159,13 +200,19 @@ import ErrorMessage from '@/vue/common/ErrorMessage'
 import Loader from '@/vue/common/Loader'
 
 import { reactive, toRefs, computed, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useForm, useValidators, useWeb3, useFormatBalance } from '@/vue/composables'
 import { ErrorHandler } from '@/js/helpers/error-handler'
-import { erc20ABI } from '@/js/const/erc20-abi.const'
+import { ERC721_ABI } from '@/js/const/erc721-abi.const'
+import { ERC20_ABI } from '@/js/const/erc20-abi.const'
+import { Erc721TokenRecord } from '@/js/records/erc721-token.record'
+import axios from 'axios'
+import debounce from 'lodash/debounce'
 
 const MAINET_TRANSFER_INFO_LINK = 'https://lib.moonrabbit.com/'
 
 const MIN_TRANSFER_AMOUNT = 1
+const DEBOUNCE_DELAY = 500 // ms
 
 export default {
   name: 'bridge-tokens-form',
@@ -175,6 +222,7 @@ export default {
     Drawer,
     BridgeInfoBlock,
     AmountField,
+    InputField,
     BridgeConfirmation,
     ErrorMessage,
     Loader,
@@ -183,9 +231,11 @@ export default {
   props: {
     chains: { type: Array, required: true },
     tokens: { type: Array, required: true },
+    isErc721: { type: Boolean, required: false },
   },
 
   setup (props) {
+    const { t } = useI18n()
     const { web3Account, web3, web3ChainId } = useWeb3()
     const { toBalance } = useFormatBalance()
 
@@ -194,8 +244,10 @@ export default {
       isWithdraw: false,
       isFormConfirmationOpen: false,
       currentBalance: '',
-      currentTokenDecimals: '',
+      currentTokenDecimals: 0,
       isLoaded: false,
+      isLoadFailed: false,
+      erc721Token: null,
     })
 
     const { required, amountRange } = useValidators()
@@ -203,21 +255,30 @@ export default {
       currentToken: {
         value: props.tokens[0],
       },
-      amount: {
-        value: '0',
-        validators: computed(() => ({
-          required,
-          ...(+state.currentBalance
-            ? {
-                amountRange: amountRange(
-                  MIN_TRANSFER_AMOUNT,
-                  state.currentBalance,
+      ...(props.isErc721
+        ? {
+            tokenId: {
+              value: '',
+            },
+          }
+        : {
+            amount: {
+              value: '0',
+              validators: computed(() => ({
+                required,
+                ...(+state.currentBalance
+                  ? {
+                      amountRange: amountRange(
+                        MIN_TRANSFER_AMOUNT,
+                        state.currentBalance,
+                      ),
+                    }
+                  : {}
                 ),
-              }
-            : {}
-          ),
-        })),
-      },
+              })),
+            },
+          }
+      ),
     })
 
     const fromChain = computed(() =>
@@ -258,11 +319,29 @@ export default {
       +web3ChainId.value === fromChain.value.id,
     )
 
-    const isDisplayForm = computed(() =>
-      state.isFormConfirmationOpen
-        ? true
-        : isFromChainActive.value,
-    )
+    const isDisplayForm = computed(() => {
+      if (state.isFormConfirmationOpen) {
+        return true
+      } else {
+        return !state.isLoadFailed && isFromChainActive.value && props.isErc721
+          ? state.erc721Token
+          : +state.currentBalance
+      }
+    })
+
+    const errorMessage = computed(() => {
+      if (!isFromChainActive.value) {
+        return t('bridge-page.bridge-tokens-form.chain-error-message', {
+          network: fromChain.value.name,
+        })
+      } if (props.isErc721 && !state.erc721Token) {
+        return t('bridge-page.bridge-tokens-form.nft-error-message')
+      } else if (!props.isErc721 && !+state.currentBalance) {
+        return t('bridge-page.bridge-tokens-form.balance-error-message')
+      } else {
+        return t('bridge-page.bridge-tokens-form.default-error-message')
+      }
+    })
 
     function toConfirm () {
       if (formController.isFormValid()) {
@@ -272,31 +351,69 @@ export default {
 
     async function init () {
       state.isLoaded = false
+      state.isLoadFailed = false
       try {
         if (isFromChainActive.value && !state.isFormConfirmationOpen) {
-          const contractAddress = state.isWithdraw
-            ? currentToken.value.internalContract
-            : currentToken.value.originalContract
-
-          if (state.isWithdraw && currentToken.value.isInternalTypeNative) {
-            const balance = await web3.value.eth.getBalance(web3Account.value)
-            state.currentBalance = balance
-            state.currentTokenDecimals = +currentToken.value.nativeChainDecimals
+          if (props.isErc721) {
+            await initErc721()
           } else {
-            const contract =
-              new web3.value.eth.Contract(erc20ABI, contractAddress)
-            const [balance, decimals] = await Promise.all([
-              contract.methods.balanceOf(web3Account.value).call(),
-              contract.methods.decimals().call(),
-            ])
-            state.currentBalance = balance
-            state.currentTokenDecimals = +decimals
+            await initErc20()
           }
         }
       } catch (e) {
-        ErrorHandler.process(e)
+        state.isLoadFailed = true
+        ErrorHandler.processWithoutFeedback(e)
       }
       state.isLoaded = true
+    }
+
+    async function initErc20 () {
+      const contractAddress = state.isWithdraw
+        ? currentToken.value.internalContract
+        : currentToken.value.originalContract
+
+      if (state.isWithdraw && currentToken.value.isInternalTypeNative) {
+        const balance = await web3.value.eth.getBalance(web3Account.value)
+        state.currentBalance = balance
+        state.currentTokenDecimals = +currentToken.value.nativeChainDecimals
+      } else {
+        const contract =
+              new web3.value.eth.Contract(ERC20_ABI, contractAddress)
+        const [balance, decimals] = await Promise.all([
+          contract.methods.balanceOf(web3Account.value).call(),
+          contract.methods.decimals().call(),
+        ])
+        state.currentBalance = balance
+        state.currentTokenDecimals = +decimals
+      }
+    }
+
+    async function initErc721 () {
+      state.erc721Token = null
+      if (!formController.form.tokenId.value) return
+      const contractAddress = state.isWithdraw
+        ? currentToken.value.internalContract
+        : currentToken.value.originalContract
+
+      const contract = new web3.value.eth.Contract(
+        ERC721_ABI,
+        contractAddress,
+      )
+
+      const tokentUri = await contract.methods
+        .tokenURI(formController.form.tokenId.value)
+        .call()
+      const tokenDetails = await getTokenDetailsByURI(tokentUri)
+      state.erc721Token = new Erc721TokenRecord({
+        ...tokenDetails,
+        tokentUri,
+        id: formController.form.tokenId.value,
+      })
+    }
+
+    async function getTokenDetailsByURI (tokentUri) {
+      const { data } = await axios({ baseURL: tokentUri, method: 'GET' })
+      return data
     }
 
     watch(
@@ -304,8 +421,11 @@ export default {
       init,
       { immediate: true },
     )
-
     watch(() => state.isFormConfirmationOpen, init)
+    if (props.isErc721) {
+      const initWithDebounce = debounce(init, DEBOUNCE_DELAY)
+      watch(() => formController.form.tokenId.value, initWithDebounce)
+    }
 
     return {
       ...toRefs(state),
@@ -319,6 +439,7 @@ export default {
       isFromChainActive,
       toConfirm,
       isDisplayForm,
+      errorMessage,
     }
   },
 }
@@ -364,6 +485,7 @@ export default {
   }
 }
 
+.bridge-tokens-form__token-name-block,
 .bridge-tokens-form__destination-block {
   margin-top: 2rem;
 }
@@ -380,6 +502,19 @@ export default {
   @include respond-to($x-small) {
     width: 100%;
   }
+}
+
+.bridge-tokens-form__token-img-wrap {
+  max-width: max-content;
+  margin: 2rem auto 0;
+}
+
+.bridge-tokens-form__token-img {
+  object-fit: contain;
+  max-width: 100%;
+  max-height: 15.4rem;
+  border-radius: 1.2rem;
+  overflow: hidden;
 }
 
 .bridge-tokens-form__chain-error {

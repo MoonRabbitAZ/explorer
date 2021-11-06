@@ -139,6 +139,10 @@ export function usePagesTabs () {
         translationName: t('page-tabs.bridge.tokens'),
         route: vueRoutes.bridgeTokensTab,
       },
+      {
+        translationName: t('page-tabs.bridge.nft'),
+        route: vueRoutes.bridgeNFTTab,
+      },
     ],
   })
 

@@ -302,6 +302,12 @@ const routes = [
             name: vueRoutes.bridgeTokensTab.name,
             component: BridgeTokensTab,
           },
+          {
+            path: '/bridge/nft',
+            name: vueRoutes.bridgeNFTTab.name,
+            component: BridgeTokensTab,
+            props: { isErc721: true },
+          },
         ],
       },
     ],

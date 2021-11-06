@@ -1,4 +1,4 @@
-export const ethereumBridgeABI = [
+export const ETHEREUM_BRIDGE_ABI = [
   {
     inputs: [
       {
