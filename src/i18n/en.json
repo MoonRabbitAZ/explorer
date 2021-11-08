@@ -165,7 +165,8 @@
     },
     "bridge": {
       "tokens": "Tokens",
-      "nft": "NFT"
+      "nft": "NFT",
+      "unfinished-flows": "Unfinished flows"
     }
   },
   "navigation": {
@@ -787,6 +788,25 @@
       "terms-of-use-link": "Terms of Use"
     },
     "bridge-confirmation": {
+      "alert-chain-status-msg": "Please switch to the network \"{ network }\" in the MetaMask wallet in order to continue.",
+      "confirm-chain-status-msg": "The network \"{ network }\" in the MetaMask wallet was successfully switched.",
+      "deposit-btn": "Deposit",
+      "withdraw-btn": "Withdraw"
+    },
+    "unfinished-flows-tab": {
+      "error-header": "Error",
+      "error-message": "There was an error while loading."
+    },
+    "unfinished-flows-list": {
+      "type-header": "Type(original/internal)",
+      "amount-or-token-id-header": "Amount/Tokens ID",
+      "from-header": "From",
+      "to-header": "To",
+      "destination-header": "Destination",
+      "no-data-message": "No unfinished flows available",
+      "repeat-btn": "Repeat"
+    },
+    "unfinished-flows-from": {
       "alert-chain-status-msg": "Please switch to the network \"{ network }\" in the MetaMask wallet in order to continue.",
       "confirm-chain-status-msg": "The network \"{ network }\" in the MetaMask wallet was successfully switched.",
       "deposit-btn": "Deposit",

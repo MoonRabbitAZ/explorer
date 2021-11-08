@@ -143,6 +143,10 @@ export function usePagesTabs () {
         translationName: t('page-tabs.bridge.nft'),
         route: vueRoutes.bridgeNFTTab,
       },
+      {
+        translationName: t('page-tabs.bridge.unfinished-flows'),
+        route: vueRoutes.unfinishedFlowsTab,
+      },
     ],
   })
 

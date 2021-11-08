@@ -53,6 +53,7 @@ import SettingsMetadataTab from '@settings-page/tabs/SettingsMetadataTab'
 
 import Bridge from '@bridge-page/Bridge'
 import BridgeTokensTab from '@bridge-page/tabs/BridgeTokensTab'
+import UnfinishedFlowsTab from '@bridge-page/tabs/UnfinishedFlowsTab'
 
 import { createRouter, createWebHistory } from 'vue-router'
 import { vueRoutes } from '@/vue-router/routes'
@@ -307,6 +308,11 @@ const routes = [
             name: vueRoutes.bridgeNFTTab.name,
             component: BridgeTokensTab,
             props: { isErc721: true },
+          },
+          {
+            path: '/bridge/unfinished-flows',
+            name: vueRoutes.unfinishedFlowsTab.name,
+            component: UnfinishedFlowsTab,
           },
         ],
       },

@@ -86,7 +86,11 @@ export default {
       state.isLoadFailed = false
       try {
         const [chains, tokens] = await Promise.all([
-          bridgeEthereumApi.get('/bridge/chains'),
+          bridgeEthereumApi.get('/bridge/chains', {
+            page: {
+              limit: 100,
+            },
+          }),
           bridgeEthereumApi.get('/bridge/tokens', {
             filter: {
               token_type: props.isErc721

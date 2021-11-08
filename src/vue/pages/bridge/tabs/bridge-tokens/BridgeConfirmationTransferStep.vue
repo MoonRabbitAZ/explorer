@@ -1,7 +1,6 @@
 <template>
   <div class="bridge-confirmation-transfer-step">
     <div class="bridge-confirmation-transfer-step__confirmation-body">
-      <!-- {{ isFromChainActive }} -->
       <template v-if="isFromChainActive">
         <h1
           class="
