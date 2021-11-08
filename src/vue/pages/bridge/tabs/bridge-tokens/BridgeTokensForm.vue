@@ -320,12 +320,14 @@ export default {
     )
 
     const isDisplayForm = computed(() => {
+      const isHaveToken = Boolean(props.isErc721
+        ? state.erc721Token
+        : +state.currentBalance,
+      )
       if (state.isFormConfirmationOpen) {
         return true
       } else {
-        return !state.isLoadFailed && isFromChainActive.value && props.isErc721
-          ? state.erc721Token
-          : +state.currentBalance
+        return !state.isLoadFailed && isFromChainActive.value && isHaveToken
       }
     })
 
