@@ -102,8 +102,7 @@
       </template>
       <template v-else>
         <error-message
-          class="bridge-tokens-form__chain-error"
-          :message="$t('bridge-page.bridge-tokens-form.error-chain-message', {
+          :message="$t('bridge-page.bridge-confirmation-transfer-step.chain-error-message', {
             network: fromChain.name
           })"
         />

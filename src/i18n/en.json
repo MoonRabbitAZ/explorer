@@ -785,7 +785,8 @@
       "confirmation-info-msg": "Please initiate a single transfer, we will only monitor the first transfer.",
       "confirm-btn": "Confirm",
       "terms-of-use-lbl": "I have read and agree to the { link }",
-      "terms-of-use-link": "Terms of Use"
+      "terms-of-use-link": "Terms of Use",
+      "chain-error-message": "Please switch to the network \"{ network }\" in the MetaMask wallet in order to continue."
     },
     "bridge-confirmation": {
       "alert-chain-status-msg": "Please switch to the network \"{ network }\" in the MetaMask wallet in order to continue.",
@@ -804,7 +805,9 @@
       "to-header": "To",
       "destination-header": "Destination",
       "no-data-message": "No unfinished flows available",
-      "repeat-btn": "Repeat"
+      "repeat-btn": "Repeat",
+      "withdraw-drawer-header": "Withdraw Retry",
+      "deposit-drawer-header": "Deposit Retry"
     },
     "unfinished-flows-from": {
       "alert-chain-status-msg": "Please switch to the network \"{ network }\" in the MetaMask wallet in order to continue.",

@@ -84,7 +84,7 @@
       is-default-body
     >
       <template #heading>
-        {{ $t('bridge-page.unfinished-flows-list.') }}
+        {{ drawerHeader }}
       </template>
       <unfinished-flows-from
         :unfinished-flow="selectedFlow"
@@ -99,7 +99,8 @@ import Drawer from '@/vue/common/Drawer'
 import UnfinishedFlowsFrom from '@bridge-page/tabs/unfinished-flows/UnfinishedFlowsFrom'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 
-import { reactive, toRefs } from 'vue'
+import { reactive, toRefs, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 export default {
   name: 'unfinished-flows-list',
@@ -119,10 +120,17 @@ export default {
   },
 
   setup (props) {
+    const { t } = useI18n()
     const state = reactive({
       isRepeatOpen: false,
       selectedFlow: null,
     })
+
+    const drawerHeader = computed(() =>
+      state.selectedFlow.flow.isTypeWithdraw
+        ? t('bridge-page.unfinished-flows-list.withdraw-drawer-header')
+        : t('bridge-page.unfinished-flows-list.deposit-drawer-header'),
+    )
 
     function openForm (index) {
       state.selectedFlow = props.unfinishedFlows[index]
@@ -132,6 +140,7 @@ export default {
     return {
       ...toRefs(state),
       openForm,
+      drawerHeader,
     }
   },
 }
