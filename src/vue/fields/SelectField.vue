@@ -34,6 +34,7 @@
       @change="onChange"
       @close="onClose"
       @clear="onChange"
+      @open="onOpen"
     >
       <template v-slot:singlelabel="{ value }">
         <slot name="singlelabel" :value="value"/>
@@ -103,7 +104,7 @@ export default {
     clearOnSearch: { type: Boolean, default: false },
   },
 
-  emits: ['update:modelValue', 'blur', 'select'],
+  emits: ['update:modelValue', 'blur', 'select', 'open'],
 
   data: _ => ({ value: '' }),
 
@@ -120,6 +121,7 @@ export default {
     },
 
     onClose () { this.$emit('blur') },
+    onOpen () { this.$emit('open') },
   },
 }
 </script>

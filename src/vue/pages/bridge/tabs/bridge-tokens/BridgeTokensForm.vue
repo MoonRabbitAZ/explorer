@@ -11,12 +11,17 @@
           value-prop="ticker"
           option-label="ticker"
           track-by="ticker"
-          @blur="form.currentToken.blur"
           object
           searchable
           clear-on-search
+          @blur="form.currentToken.blur"
+          @open="displaySelectValue = false"
+          @close="displaySelectValue = true"
         >
-          <template v-slot:singlelabel="{ value }">
+          <template
+            v-if="displaySelectValue"
+            v-slot:singlelabel="{ value }"
+          >
             <div class="bridge-tokens-form__token-value">
               <h2>
                 {{ value.ticker }}
@@ -248,6 +253,7 @@ export default {
       isLoaded: false,
       isLoadFailed: false,
       erc721Token: null,
+      displaySelectValue: true,
     })
 
     const { required, amountRange } = useValidators()

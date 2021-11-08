@@ -129,10 +129,11 @@ export default {
 
   &--bridge {
     background-image: url('~@static/images/bridge-page/bridge-bg.png');
-    filter: none;
 
     @include respond-to($sidebar-hide-bp) {
-      background-image: url('~@static/images/bridge-page/bridge-mobile-bg.png');
+      background-image:
+        linear-gradient(rgba($col-app-bg, 0.4), rgba($col-app-bg, 0.4)),
+        url('~@static/images/bridge-page/bridge-mobile-bg.png');
     }
   }
 }
