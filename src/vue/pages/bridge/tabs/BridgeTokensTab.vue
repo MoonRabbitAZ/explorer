@@ -137,7 +137,7 @@ export default {
 .bridge-tokens-tab__metamask-wrap {
   background: $col-app-content-block-bg;
   border-radius: 2rem;
-  width: 37.3rem;
+  max-width: 37.3rem;
   padding: 4rem 0;
   margin: 0 auto;
 }

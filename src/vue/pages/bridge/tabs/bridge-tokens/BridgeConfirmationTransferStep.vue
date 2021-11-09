@@ -207,6 +207,10 @@ export default {
   min-height: 100%;
 }
 
+.bridge-confirmation-transfer-step__confirmation-body {
+  margin-bottom: 3rem;
+}
+
 .bridge-confirmation-transfer-step__amount {
   text-align: center;
 }
