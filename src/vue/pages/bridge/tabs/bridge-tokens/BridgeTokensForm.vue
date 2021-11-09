@@ -384,6 +384,10 @@ export default {
         const balance = await web3.value.eth.getBalance(web3Account.value)
         state.currentBalance = balance
         state.currentTokenDecimals = +currentToken.value.nativeChainDecimals
+      } else if (currentToken.value.isOriginalTypeNative) {
+        const balance = await web3.value.eth.getBalance(web3Account.value)
+        state.currentBalance = balance
+        state.currentTokenDecimals = +currentToken.value.nativeChainDecimals
       } else {
         const contract =
               new web3.value.eth.Contract(ERC20_ABI, contractAddress)
