@@ -89,6 +89,7 @@
       <unfinished-flows-from
         :unfinished-flow="selectedFlow"
         :base-chain="baseChain"
+        @closeDrawer="closeDrawer"
       />
     </drawer>
   </div>
@@ -101,6 +102,10 @@ import NoDataMessage from '@/vue/common/NoDataMessage'
 
 import { reactive, toRefs, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+
+const EVENTS = {
+  updateFlowList: 'update-flow-list',
+}
 
 export default {
   name: 'unfinished-flows-list',
@@ -119,7 +124,9 @@ export default {
     baseChain: { type: Object, required: true },
   },
 
-  setup (props) {
+  emits: Object.values(EVENTS),
+
+  setup (props, { emit }) {
     const { t } = useI18n()
     const state = reactive({
       isRepeatOpen: false,
@@ -137,10 +144,16 @@ export default {
       state.isRepeatOpen = true
     }
 
+    function closeDrawer () {
+      state.isRepeatOpen = false
+      emit(EVENTS.updateFlowList)
+    }
+
     return {
       ...toRefs(state),
       openForm,
       drawerHeader,
+      closeDrawer,
     }
   },
 }

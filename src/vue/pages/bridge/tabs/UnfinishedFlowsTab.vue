@@ -18,6 +18,7 @@
         <unfinished-flows-list
           :unfinished-flows="unfinishedFlows"
           :base-chain="baseChain"
+          @updateFlowList="init"
         />
       </template>
     </template>
@@ -120,6 +121,7 @@ export default {
       ...toRefs(state),
       isMetamaskEnabled,
       isMetamaskConnected,
+      init,
     }
   },
 }

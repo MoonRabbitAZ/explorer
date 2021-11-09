@@ -335,7 +335,7 @@ export default {
       state.processing = true
       try {
         if (props.isWithdraw) {
-          if (props.unfinishedFlow.token.isOriginalTypeErc721) {
+          if (props.currentToken.isOriginalTypeErc721) {
             await withdrawErc721()
           } else if (props.currentToken.isOriginalTypeNative) {
             await withdrawNative()
@@ -343,7 +343,7 @@ export default {
             await withdrawErc20()
           }
         } else {
-          if (props.unfinishedFlow.token.isInternalTypeErc721) {
+          if (props.currentToken.isInternalTypeErc721) {
             await mintErc721()
           } else if (props.currentToken.isInternalTypeNative) {
             await withdrawNativeToken()
