@@ -1,7 +1,7 @@
 <template>
   <div class="account-deposit">
     <template v-if="isLoaded">
-      <template v-if="true">
+      <template v-if="isLoadFailed">
         <error-message
           :header="$t('wallet-page.account-deposit.error-header')"
           :message="$t('wallet-page.account-deposit.error-message')"

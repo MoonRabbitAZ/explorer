@@ -234,8 +234,14 @@ export default {
   },
 
   props: {
-    chains: { type: Array, required: true },
-    tokens: { type: Array, required: true },
+    chains: {
+      type: Array, /** {@link ChainRecord} **/
+      required: true,
+    },
+    tokens: {
+      type: Array, /** {@link TokenRecord} **/
+      required: true,
+    },
     isErc721: { type: Boolean, required: false },
   },
 
