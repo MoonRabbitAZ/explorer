@@ -14,6 +14,6 @@ export class UnfinishedFlowRecord {
   }
 
   get isTypeWithdraw () {
-    return this.ticker === 'withdraw'
+    return this.type === 'withdraw'
   }
 }
