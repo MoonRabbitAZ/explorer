@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 #### Added
 - Collection loader
+- Ethereum bridge  tab
+- Metamask form
+- Web3 provider module 
 
 #### Changed
 - Version api packages
