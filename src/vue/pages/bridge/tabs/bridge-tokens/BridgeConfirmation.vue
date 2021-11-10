@@ -1,7 +1,7 @@
 <template>
   <div class="bridge-confirmation">
     <bridge-confirmation-transfer-step
-      v-if="currentStep === STEPS.transfer"
+      v-if="currentStep === STEPS.depositOrWithdrawFirstStep"
       :current-token="currentToken"
       :to-chain="toChain"
       :from-chain="fromChain"
@@ -17,7 +17,7 @@
     />
 
     <div
-      v-if="currentStep === STEPS.mintOrwithdrawErc20"
+      v-if="currentStep === STEPS.depositOrWithdrawSecondStep"
       class="bridge-confirmation__mint-body"
     >
       <div class="bridge-confirmation__chain-status">
@@ -39,7 +39,7 @@
         size="big"
         :text="buttonTranslation"
         :disabled="isButtonDisabled"
-        @click="mintOrwithdrawErc20"
+        @click="depositOrWithdrawSecondStep"
       />
     </div>
   </div>
@@ -55,17 +55,13 @@ import { bridgeEthereumApi } from '@api'
 import { useWeb3 } from '@/vue/composables'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { Bus } from '@/js/helpers/event-bus'
-import { ERC20_ABI } from '@/js/const/erc20-abi.const'
-import { ERC721_ABI } from '@/js/const/erc721-abi.const'
-import { ETHEREUM_BRIDGE_ABI } from '@/js/const/ethereum-bridge-abi.const'
-import { NATIVE_TOKEN_ABI } from '@/js/const/native-abi.const'
 import { ChainRecord } from '@/js/records/chain.record'
 import { TokenRecord } from '@/js/records/token.record'
 import { Erc721TokenRecord } from '@/js/records/erc721-token.record'
 
 const STEPS = {
-  transfer: 1,
-  mintOrwithdrawErc20: 2,
+  depositOrWithdrawFirstStep: 1,
+  depositOrWithdrawSecondStep: 2,
 }
 
 const EVENTS = {
@@ -100,11 +96,23 @@ export default {
 
   setup (props, { emit }) {
     const { t } = useI18n()
-    const { web3, web3ChainId } = useWeb3()
+    const {
+      web3ChainId,
+      transferErc721,
+      transferNative,
+      burnErc20,
+      transferErc20,
+      mintErc20,
+      mintErc721,
+      withdrawErc20,
+      withdrawWithNativeAbi,
+      withdrawNative,
+      withdrawErc721,
+    } = useWeb3()
     const state = reactive({
       parameters: null,
       txHash: '',
-      currentStep: STEPS.transfer,
+      currentStep: STEPS.depositOrWithdrawFirstStep,
       processing: false,
     })
 
@@ -135,221 +143,172 @@ export default {
         : t('bridge-page.bridge-confirmation.deposit-btn'),
     )
 
-    async function transferErc721 (
-      contractAddress,
-      fromAddress,
-      toAddress,
-      tokenId,
-    ) {
-      const contract = new web3.value.eth.Contract(
-        ERC721_ABI,
-        contractAddress,
-      )
+    async function depositFirstStep () {
+      if (props.currentToken.isOriginalTypeErc721) {
+        const { transactionHash } = await transferErc721({
+          contractAddress: props.currentToken.originalContract,
+          fromAddress: props.web3Account,
+          toAddress: props.fromChain.bridgeContract,
+          tokenId: props.erc721Token.id,
+        })
 
-      const { transactionHash } = await contract.methods.transferFrom(
-        fromAddress,
-        toAddress,
-        tokenId,
-      ).send({ from: props.web3Account })
-      state.txHash = transactionHash
+        state.txHash = transactionHash
+      } else if (props.currentToken.isOriginalTypeNative) {
+        const { transactionHash } = await transferNative({
+          fromAddress: props.web3Account,
+          toAddress: props.fromChain.bridgeContract,
+          value: props.amount,
+        })
+        state.txHash = transactionHash
+      } else {
+        const { transactionHash } = await transferErc20({
+          contractAddress: props.currentToken.originalContract,
+          recipientAddress: props.fromChain.bridgeContract,
+          amount: props.amount,
+        })
+        state.txHash = transactionHash
+      }
+
+      const query = {
+        tx_hash: state.txHash,
+        token_key: {
+          ticker: props.currentToken.ticker,
+          chain_id: props.currentToken.chainId,
+        },
+      }
+
+      const { data } = await bridgeEthereumApi.post('/bridge/deposit', query)
+      state.parameters = data
     }
 
-    async function transfer (toAddress) {
-      const { transactionHash } = await web3.value.eth.sendTransaction({
-        from: props.web3Account,
-        to: toAddress,
-        value: props.amount,
-      })
-      state.txHash = transactionHash
+    async function withdrawFirstStep () {
+      if (props.currentToken.isInternalTypeErc721) {
+        const { transactionHash } = await transferErc721({
+          contractAddress: props.currentToken.internalContract,
+          fromAddress: props.web3Account,
+          toAddress: props.currentToken.internalContract,
+          tokenId: props.erc721Token.id,
+        })
+
+        state.txHash = transactionHash
+      }
+      if (props.currentToken.isInternalTypeNative) {
+        const { transactionHash } = await transferNative({
+          fromAddress: props.web3Account,
+          toAddress: props.currentToken.internalContract,
+          value: props.amount,
+        })
+
+        state.txHash = transactionHash
+      } else {
+        const { transactionHash } = await burnErc20(
+          props.amount,
+          props.currentToken.internalContract,
+        )
+        state.txHash = transactionHash
+      }
+
+      const query = {
+        tx_hash: state.txHash,
+        token_key: {
+          ticker: props.currentToken.ticker,
+          chain_id: props.currentToken.chainId,
+        },
+      }
+
+      const { data } = await bridgeEthereumApi.post('/bridge/withdraw', query)
+      state.parameters = data
     }
 
-    async function burn () {
-      const contract = new web3.value.eth.Contract(
-        ERC20_ABI,
-        props.currentToken.internalContract,
-      )
-
-      const { transactionHash } =
-          await contract.methods.burn(props.amount)
-            .send({ from: props.web3Account })
-
-      state.txHash = transactionHash
+    async function withdrawSecondStep () {
+      if (props.currentToken.isOriginalTypeErc721) {
+        await withdrawErc721({
+          contractAddress: props.currentToken.internalContract,
+          address: props.currentToken.originalContract,
+          txHash: state.parameters.details.txHash,
+          tokenId: state.parameters.details.tokenId,
+          signatureR: [state.parameters.signature.r],
+          signatureS: [state.parameters.signature.s],
+          signatureV: [state.parameters.signature.v],
+        })
+      } else if (props.currentToken.isOriginalTypeNative) {
+        await withdrawNative({
+          contractAddress: props.toChain.bridgeContract,
+          txHash: state.parameters.details.txHash,
+          amount: state.parameters.details.amount,
+          signatureR: [state.parameters.signature.r],
+          signatureS: [state.parameters.signature.s],
+          signatureV: [state.parameters.signature.v],
+        })
+      } else {
+        await withdrawErc20({
+          contractAddress: props.toChain.bridgeContract,
+          address: props.currentToken.originalContract,
+          txHash: state.parameters.details.txHash,
+          amount: state.parameters.details.amount,
+          signatureR: [state.parameters.signature.r],
+          signatureS: [state.parameters.signature.s],
+          signatureV: [state.parameters.signature.v],
+        })
+      }
     }
 
-    async function deposit () {
-      const contract = new web3.value.eth.Contract(
-        ERC20_ABI,
-        props.currentToken.originalContract,
-      )
-
-      const { transactionHash } = await contract.methods.transfer(
-        props.fromChain.bridgeContract,
-        props.amount,
-      ).send({ from: props.web3Account })
-      state.txHash = transactionHash
-    }
-
-    async function mintErc20 () {
-      const contract = new web3.value.eth.Contract(
-        ERC20_ABI,
-        props.currentToken.internalContract,
-      )
-      await contract.methods.mint(
-        state.parameters.details.amount,
-        state.parameters.details.txHash,
-        props.web3Account,
-        [state.parameters.signature.r],
-        [state.parameters.signature.s],
-        [state.parameters.signature.v],
-      ).send({ from: props.web3Account })
-    }
-
-    async function mintErc721 () {
-      const contract = new web3.value.eth.Contract(
-        ERC721_ABI,
-        props.currentToken.internalContract,
-      )
-      await contract.methods.mint(
-        state.parameters.details.txHash,
-        state.parameters.details.tokenUrl,
-        state.parameters.details.tokenId,
-        [state.parameters.signature.r],
-        [state.parameters.signature.s],
-        [state.parameters.signature.v],
-      ).send({ from: props.web3Account })
-    }
-
-    async function withdrawErc20 () {
-      const contract = new web3.value.eth.Contract(
-        ETHEREUM_BRIDGE_ABI,
-        props.toChain.bridgeContract,
-      )
-      await contract.methods.withdrawERC20(
-        props.currentToken.originalContract,
-        state.parameters.details.txHash,
-        state.parameters.details.amount,
-        [state.parameters.signature.r],
-        [state.parameters.signature.s],
-        [state.parameters.signature.v],
-      ).send({ from: props.web3Account })
-    }
-
-    async function withdrawNativeToken () {
-      const contract = new web3.value.eth.Contract(
-        NATIVE_TOKEN_ABI,
-        props.currentToken.internalContract,
-      )
-
-      await contract.methods.withdraw(
-        state.parameters.details.txHash,
-        state.parameters.details.amount,
-        [state.parameters.signature.r],
-        [state.parameters.signature.s],
-        [state.parameters.signature.v],
-      ).send({ from: props.web3Account })
-    }
-
-    async function withdrawNative () {
-      const contract = new web3.value.eth.Contract(
-        ETHEREUM_BRIDGE_ABI,
-        props.toChain.bridgeContract,
-      )
-
-      await contract.methods.withdrawNative(
-        state.parameters.details.txHash,
-        state.parameters.details.amount,
-        [state.parameters.signature.r],
-        [state.parameters.signature.s],
-        [state.parameters.signature.v],
-      ).send({ from: props.web3Account })
-    }
-
-    async function withdrawErc721 () {
-      const contract = new web3.value.eth.Contract(
-        ERC721_ABI,
-        props.currentToken.internalContract,
-      )
-
-      await contract.methods.withdraw(
-        props.currentToken.originalContract,
-        state.parameters.details.txHash,
-        state.parameters.details.tokenId,
-        [state.parameters.signature.r],
-        [state.parameters.signature.s],
-        [state.parameters.signature.v],
-      ).send({ from: props.web3Account })
+    async function depositSecondStep () {
+      if (props.currentToken.isInternalTypeErc721) {
+        await mintErc721({
+          contractAddress: props.currentToken.internalContract,
+          txHash: state.parameters.details.txHash,
+          tokenUrl: state.parameters.details.tokenUrl,
+          tokenId: state.parameters.details.tokenId,
+          signatureR: [state.parameters.signature.r],
+          signatureS: [state.parameters.signature.s],
+          signatureV: [state.parameters.signature.v],
+        })
+      } else if (props.currentToken.isInternalTypeNative) {
+        await withdrawWithNativeAbi({
+          contractAddress: props.currentToken.internalContract,
+          txHash: state.parameters.details.txHash,
+          amount: state.parameters.details.amount,
+          signatureR: [state.parameters.signature.r],
+          signatureS: [state.parameters.signature.s],
+          signatureV: [state.parameters.signature.v],
+        })
+      } else {
+        await mintErc20({
+          contractAddress: props.currentToken.internalContract,
+          amount: state.parameters.details.amount,
+          txHash: state.parameters.details.txHash,
+          receiverAddress: props.web3Account,
+          signatureR: [state.parameters.signature.r],
+          signatureS: [state.parameters.signature.s],
+          signatureV: [state.parameters.signature.v],
+        })
+      }
     }
 
     async function depositOrWithdrawFirstStep () {
       state.processing = true
       try {
         if (props.isWithdraw) {
-          if (props.currentToken.isInternalTypeErc721) {
-            await transferErc721(
-              props.currentToken.internalContract,
-              props.web3Account,
-              props.currentToken.internalContract,
-              props.erc721Token.id,
-            )
-          }
-          if (props.currentToken.isInternalTypeNative) {
-            await transfer(props.currentToken.internalContract)
-          } else {
-            await burn()
-          }
+          await withdrawFirstStep()
         } else {
-          if (props.currentToken.isOriginalTypeErc721) {
-            await transferErc721(
-              props.currentToken.originalContract,
-              props.web3Account,
-              props.fromChain.bridgeContract,
-              props.erc721Token.id,
-            )
-          } else if (props.currentToken.isOriginalTypeNative) {
-            await transfer(props.fromChain.bridgeContrac)
-          } else {
-            await deposit()
-          }
+          await depositFirstStep()
         }
 
-        const query = {
-          tx_hash: state.txHash,
-          token_key: {
-            ticker: props.currentToken.ticker,
-            chain_id: props.currentToken.chainId,
-          },
-        }
-
-        const { data } = props.isWithdraw
-          ? await bridgeEthereumApi.post('/bridge/withdraw', query)
-          : await bridgeEthereumApi.post('/bridge/deposit', query)
-        state.parameters = data
-        state.currentStep = STEPS.mintOrwithdrawErc20
+        state.currentStep = STEPS.depositOrWithdrawSecondStep
       } catch (e) {
         ErrorHandler.process(e)
       }
       state.processing = false
     }
 
-    async function mintOrwithdrawErc20 () {
+    async function depositOrWithdrawSecondStep () {
       state.processing = true
       try {
         if (props.isWithdraw) {
-          if (props.currentToken.isOriginalTypeErc721) {
-            await withdrawErc721()
-          } else if (props.currentToken.isOriginalTypeNative) {
-            await withdrawNative()
-          } else {
-            await withdrawErc20()
-          }
+          await withdrawSecondStep()
         } else {
-          if (props.currentToken.isInternalTypeErc721) {
-            await mintErc721()
-          } else if (props.currentToken.isInternalTypeNative) {
-            await withdrawNativeToken()
-          } else {
-            await mintErc20()
-          }
+          await depositSecondStep()
         }
 
         Bus.success()
@@ -365,11 +324,11 @@ export default {
       chainStatusMsg,
       chainStatusIconName,
       isToChainActive,
-      STEPS,
       depositOrWithdrawFirstStep,
-      mintOrwithdrawErc20,
+      depositOrWithdrawSecondStep,
       isButtonDisabled,
       buttonTranslation,
+      STEPS,
     }
   },
 }
