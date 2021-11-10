@@ -64,6 +64,7 @@ export default {
         api.derive.chain.subscribeNewHeads(blockAuthorHandler)
         store.dispatch(vuexTypes.SUBSCRIBE_ERA_POINTS)
         store.dispatch(vuexTypes.SUBSCRIBE_EVENTS)
+        store.dispatch(vuexTypes.INIT_WEB3)
 
         isAppInitialised.value = true
       } catch (e) {

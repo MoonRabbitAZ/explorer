@@ -7,13 +7,6 @@
           :message="$t('bridge-page.unfinished-flows-tab.error-message')"
         />
       </template>
-      <template v-else-if="!isMetamaskConnected || !isMetamaskEnabled">
-        <div class="unfinished-flows-tab__metamask-wrap">
-          <metamask-form
-            class="unfinished-flows-tab__metamask-form"
-          />
-        </div>
-      </template>
       <template v-else>
         <unfinished-flows-list
           :unfinished-flows="unfinishedFlows"
@@ -30,11 +23,10 @@
 
 <script>
 import UnfinishedFlowsList from '@bridge-page/tabs/unfinished-flows/UnfinishedFlowsList'
-import MetamaskForm from '@/vue/common/MetamaskForm'
 import Loader from '@/vue/common/Loader'
 import ErrorMessage from '@/vue/common/ErrorMessage'
 
-import { reactive, toRefs } from 'vue'
+import { reactive, toRefs, watch } from 'vue'
 import { useWeb3 } from '@/vue/composables'
 import { bridgeEthereumApi } from '@api'
 import { ErrorHandler } from '@/js/helpers/error-handler'
@@ -47,7 +39,6 @@ export default {
 
   components: {
     UnfinishedFlowsList,
-    MetamaskForm,
     Loader,
     ErrorMessage,
   },
@@ -59,12 +50,7 @@ export default {
       unfinishedFlows: [],
       baseChain: {},
     })
-    const {
-      isMetamaskConnected,
-      isMetamaskEnabled,
-      initWeb3,
-      web3Account,
-    } = useWeb3()
+    const { web3Account } = useWeb3()
 
     async function init () {
       state.isLoaded = false
@@ -85,7 +71,6 @@ export default {
             },
           }),
           bridgeEthereumApi.get('/bridge/tokens'),
-          initWeb3(),
         ])
 
         const chainsRecords = chains.data.map(i => (new ChainRecord(i)))
@@ -115,12 +100,10 @@ export default {
       state.isLoaded = true
     }
 
-    init()
+    watch(web3Account, init, { immediate: true })
 
     return {
       ...toRefs(state),
-      isMetamaskEnabled,
-      isMetamaskConnected,
       init,
     }
   },
@@ -132,17 +115,4 @@ export default {
 @import '~@scss/variables';
 
 .unfinished-flows-tab { @include app-padding; }
-
-.unfinished-flows-tab__metamask-wrap {
-  background: $col-app-content-block-bg;
-  border-radius: 2rem;
-  width: 37.3rem;
-  padding: 4rem 0;
-  margin: 0 auto;
-}
-
-.unfinished-flows-tab__metamask-form {
-  max-width: 27rem;
-  margin: 0 auto;
-}
 </style>

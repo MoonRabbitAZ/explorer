@@ -7,13 +7,6 @@
           :message="$t('bridge-page.bridge-tokens-tab.error-message')"
         />
       </template>
-      <template v-else-if="!isMetamaskConnected || !isMetamaskEnabled">
-        <div class="bridge-tokens-tab__metamask-wrap">
-          <metamask-form
-            class="bridge-tokens-tab__metamask-form"
-          />
-        </div>
-      </template>
       <template v-else>
         <template v-if="tokens.length && chains.length">
           <div class="bridge-tokens-tab__form-wrap">
@@ -40,13 +33,11 @@
 
 <script>
 import BridgeTokensForm from '@bridge-page/tabs/bridge-tokens/BridgeTokensForm'
-import MetamaskForm from '@/vue/common/MetamaskForm'
 import Loader from '@/vue/common/Loader'
 import ErrorMessage from '@/vue/common/ErrorMessage'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 
 import { reactive, toRefs, watch } from 'vue'
-import { useWeb3 } from '@/vue/composables'
 import { TokenRecord } from '@/js/records/token.record'
 import { ChainRecord } from '@/js/records/chain.record'
 import { ErrorHandler } from '@/js/helpers/error-handler'
@@ -58,7 +49,6 @@ export default {
 
   components: {
     BridgeTokensForm,
-    MetamaskForm,
     Loader,
     ErrorMessage,
     NoDataMessage,
@@ -75,11 +65,6 @@ export default {
       tokens: [],
       chains: [],
     })
-    const {
-      isMetamaskConnected,
-      isMetamaskEnabled,
-      initWeb3,
-    } = useWeb3()
 
     async function init () {
       state.isLoaded = false
@@ -98,7 +83,6 @@ export default {
                 : `${TOKEN_TYPES.native},${TOKEN_TYPES.erc20}`,
             },
           }),
-          initWeb3(),
         ])
         state.chains = chains.data.map(i => (new ChainRecord(i)))
         state.tokens = tokens.data.map(i => (new TokenRecord(i)))
@@ -113,8 +97,6 @@ export default {
 
     return {
       ...toRefs(state),
-      isMetamaskEnabled,
-      isMetamaskConnected,
     }
   },
 }
@@ -132,19 +114,6 @@ export default {
   margin: 0 auto;
   padding: 2rem;
   max-width: 71rem;
-}
-
-.bridge-tokens-tab__metamask-wrap {
-  background: $col-app-content-block-bg;
-  border-radius: 2rem;
-  max-width: 37.3rem;
-  padding: 4rem 0;
-  margin: 0 auto;
-}
-
-.bridge-tokens-tab__metamask-form {
-  max-width: 27rem;
-  margin: 0 auto;
 }
 
 .bridge-tokens-tab__no-data-message {
