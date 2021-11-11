@@ -57,6 +57,12 @@ export default Object.assign(
     TOKEN_URI_PROTOCOL: 'https',
 
     /**
+     *  Link to open this site of the metamask mobile application
+     * @see {@link https://metamask.github.io/metamask-deeplinks}
+     */
+    OPEN_METAMASK_MOBILE_APP_LINK: 'https://metamask.app.link/dapp/stage.hole.moonrabbit.com/bridge',
+
+    /**
      * Social links
      */
     SOCIAL_LINK_DISCORD: 'https://discord.com/invite/2deuZrmfBm',
@@ -76,7 +82,6 @@ export default Object.assign(
     SOCIAL_LINK_TELEGRAM_TR: 'https://t.me/MoonRabbitTR',
     SOCIAL_LINK_TELEGRAM_ENG: 'https://t.me/moonrabbitcom',
     SOCIAL_LINK_TELEGRAM_NEWS: 'https://t.me/moonrabbitchannel',
-
     SOCIAL_LINK_COMMUNITY: '',
     SOCIAL_LINK_BITCOIN_TALK: 'https://bitcointalk.org',
     SOCIAL_LINK_WEIBO: 'https://weibo.com/u/7616523840?refer_flag=1001030103_&is_all=1',

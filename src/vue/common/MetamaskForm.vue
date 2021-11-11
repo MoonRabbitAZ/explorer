@@ -24,6 +24,7 @@ import { ref, computed } from 'vue'
 import { useWeb3 } from '@/vue/composables'
 import { useI18n } from 'vue-i18n'
 import { ErrorHandler } from '@/js/helpers/error-handler'
+import CONFIG from '@/config'
 
 const METAMASK_DOWNLOAD_URL = 'https://metamask.io/download.html'
 
@@ -42,23 +43,35 @@ export default {
       connectWeb3,
     } = useWeb3()
 
-    const messageTranslation = computed(() =>
-      isMetamaskEnabled.value
-        ? t('common.metamask-form.connect-msg')
-        : t('common.metamask-form.create-msg'),
-    )
+    const isMobile = computed(() => typeof window.orientation !== 'undefined')
 
-    const buttonTranslation = computed(() =>
-      isMetamaskEnabled.value
-        ? t('common.metamask-form.connect-btn')
-        : t('common.metamask-form.download-btn'),
-    )
+    const messageTranslation = computed(() => {
+      if (isMetamaskEnabled.value) {
+        return t('common.metamask-form.connect-msg')
+      } else if (isMobile.value) {
+        return t('common.metamask-form.mobile-open-msg')
+      } else {
+        return t('common.metamask-form.create-msg')
+      }
+    })
+
+    const buttonTranslation = computed(() => {
+      if (isMetamaskEnabled.value) {
+        return t('common.metamask-form.connect-btn')
+      } else if (isMobile.value) {
+        return t('common.metamask-form.open-metamask-btn')
+      } else {
+        return t('common.metamask-form.download-btn')
+      }
+    })
 
     async function onButtonClick () {
       isMetamaskProcessing.value = true
       try {
         if (isMetamaskEnabled.value) {
           await connectWeb3()
+        } else if (isMobile.value) {
+          window.open(CONFIG.OPEN_METAMASK_MOBILE_APP_LINK, '_blank', 'noopener')
         } else {
           window.open(METAMASK_DOWNLOAD_URL, '_blank', 'noopener')
         }
