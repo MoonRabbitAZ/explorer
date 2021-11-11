@@ -81,8 +81,7 @@ export default {
     )
 
     const isBridgePage = computed(() =>
-      route.matched.some(({ name }) => name === vueRoutes.bridgePage.name) &&
-        isLoaded.value,
+      route.matched.some(({ name }) => name === vueRoutes.bridgePage.name),
     )
 
     return {
