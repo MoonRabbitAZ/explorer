@@ -76,7 +76,7 @@ export default {
         const chainsRecords = chains.data.map(i => (new ChainRecord(i)))
         const tokensRecords = tokens.data.map(i => (new TokenRecord(i)))
         const flowRecords = flows.data.map(i => (new UnfinishedFlowRecord(i)))
-        state.unfinishedFlows = flowRecords.map(flow => {
+        const collectedFlows = flowRecords.map(async (flow) => {
           const chain = chainsRecords.find(curChain =>
             curChain.id === flow.chainId,
           )
@@ -89,9 +89,11 @@ export default {
             chain,
             token,
             flow,
+            decimals: +token.nativeChainDecimals,
           }
         })
 
+        state.unfinishedFlows = await Promise.all(collectedFlows)
         state.baseChain = chainsRecords.find(i => i.isBase)
       } catch (e) {
         state.isLoadFailed = true

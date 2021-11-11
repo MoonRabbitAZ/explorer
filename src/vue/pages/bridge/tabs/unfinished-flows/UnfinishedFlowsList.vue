@@ -35,7 +35,11 @@
         <p class="unfinished-flows-list__amount">
           {{
             unfinishedFlow.flow.tokenId ||
-              $fbalance(unfinishedFlow.flow.amount)
+              formatBalance(
+                unfinishedFlow.flow.amount,
+                unfinishedFlow.token.ticker,
+                unfinishedFlow.decimals,
+              )
           }}
         </p>
         <div class="unfinished-flows-list__chain">
@@ -102,6 +106,7 @@ import NoDataMessage from '@/vue/common/NoDataMessage'
 
 import { reactive, toRefs, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useFormatBalance } from '@/vue/composables'
 
 const EVENTS = {
   updateFlowList: 'update-flow-list',
@@ -128,6 +133,7 @@ export default {
 
   setup (props, { emit }) {
     const { t } = useI18n()
+    const { toBalance } = useFormatBalance()
     const state = reactive({
       isRepeatOpen: false,
       selectedFlow: null,
@@ -149,11 +155,21 @@ export default {
       emit(EVENTS.updateFlowList)
     }
 
+    function formatBalance (amount, ticker, decimals) {
+      const options = {
+        withSi: true,
+        withSiFull: false,
+        withUnit: ticker,
+      }
+      return toBalance(amount, decimals, options)
+    }
+
     return {
       ...toRefs(state),
       openForm,
       drawerHeader,
       closeDrawer,
+      formatBalance,
     }
   },
 }

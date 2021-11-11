@@ -11,7 +11,7 @@ export class TokenRecord {
     this.originalContract = record.originalContract
     this.internalContract = record.internalContract
     this.originalChainName = record?.chain?.name || ''
-    this.nativeChainDecimals = record?.chain?.nativeDecimals
+    this.nativeChainDecimals = record?.chain?.nativeDecimals || ''
   }
 
   get isInternalTypeNative () {
