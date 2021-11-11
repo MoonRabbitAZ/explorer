@@ -93,7 +93,11 @@
             tag="p"
           >
             <template #link>
-              <a href="#">
+              <a 
+                :href="CONFIG.TERMS_OF_USE_LINK"
+                target="_blank"
+                rel="noopener"
+              >
                 {{ $t('bridge-page.bridge-confirmation-transfer-step.terms-of-use-link') }}
               </a>
             </template>
@@ -131,6 +135,7 @@ import { useFormatBalance } from '@/vue/composables'
 import { ChainRecord } from '@/js/records/chain.record'
 import { TokenRecord } from '@/js/records/token.record'
 import { Erc721TokenRecord } from '@/js/records/erc721-token.record'
+import CONFIG from '@/config'
 
 const EVENTS = {
   confirm: 'confirm',
@@ -192,6 +197,7 @@ export default {
       onConfirm,
       isDepositBtnDisabled,
       currentFormatedAmount,
+      CONFIG,
     }
   },
 }

@@ -63,6 +63,12 @@ export default Object.assign(
     OPEN_METAMASK_MOBILE_APP_LINK: 'https://metamask.app.link/dapp/stage.hole.moonrabbit.com/bridge',
 
     /**
+     *  Link terms of use
+     */
+
+    TERMS_OF_USE_LINK: 'https://moonrabbit.com/legal/',
+
+    /**
      * Social links
      */
     SOCIAL_LINK_DISCORD: 'https://discord.com/invite/2deuZrmfBm',
