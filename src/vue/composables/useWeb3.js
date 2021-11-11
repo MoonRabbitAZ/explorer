@@ -42,7 +42,8 @@ export function useWeb3 () {
   }) {
     const contract = new web3.value.eth.Contract(ERC721_ABI, contractAddress)
 
-    return await contract.methods.transferFrom(fromAddress, toAddress, tokenId)
+    return await contract.methods
+      .transferFrom(fromAddress, toAddress, tokenId)
       .send({ from: web3Account.value })
   }
 
@@ -61,14 +62,16 @@ export function useWeb3 () {
   }) {
     const contract = new web3.value.eth.Contract(ERC20_ABI, contractAddress)
 
-    return await contract.methods.transfer(recipientAddress, amount)
+    return await contract.methods
+      .transfer(recipientAddress, amount)
       .send({ from: web3Account.value })
   }
 
   async function burnErc20 (amount, contractAddress) {
     const contract = new web3.value.eth.Contract(ERC20_ABI, contractAddress)
 
-    return await contract.methods.burn(amount)
+    return await contract.methods
+      .burn(amount)
       .send({ from: web3Account.value })
   }
 
@@ -83,7 +86,8 @@ export function useWeb3 () {
   }) {
     const contract = new web3.value.eth.Contract(ERC20_ABI, contractAddress)
 
-    return await contract.methods.mint(amount, txHash, receiverAddress, r, s, v)
+    return await contract.methods
+      .mint(amount, txHash, receiverAddress, r, s, v)
       .send({ from: web3Account.value })
   }
 
@@ -98,7 +102,8 @@ export function useWeb3 () {
   }) {
     const contract = new web3.value.eth.Contract(ERC721_ABI, contractAddress)
 
-    return await contract.methods.mint(txHash, tokenUrl, tokenId, r, s, v)
+    return await contract.methods
+      .mint(txHash, tokenUrl, tokenId, r, s, v)
       .send({ from: web3Account.value })
   }
 
@@ -153,7 +158,8 @@ export function useWeb3 () {
       contractAddress,
     )
 
-    return await contract.methods.withdraw(txHash, amount, r, s, v)
+    return await contract.methods
+      .withdraw(txHash, amount, r, s, v)
       .send({ from: web3Account.value })
   }
 
@@ -170,7 +176,8 @@ export function useWeb3 () {
       contractAddress,
     )
 
-    return await contract.methods.withdrawNative(txHash, amount, r, s, v)
+    return await contract.methods
+      .withdrawNative(txHash, amount, r, s, v)
       .send({ from: web3Account.value })
   }
 

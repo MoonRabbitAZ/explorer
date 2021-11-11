@@ -221,67 +221,61 @@ export default {
     }
 
     async function withdrawSecondStep () {
+      const withdrawParams = {
+        txHash: state.parameters.details.txHash,
+        signatureR: [state.parameters.signature.r],
+        signatureS: [state.parameters.signature.s],
+        signatureV: [state.parameters.signature.v],
+      }
+
       if (props.currentToken.isOriginalTypeErc721) {
         await withdrawErc721({
           contractAddress: props.currentToken.internalContract,
           address: props.currentToken.originalContract,
-          txHash: state.parameters.details.txHash,
           tokenId: state.parameters.details.tokenId,
-          signatureR: [state.parameters.signature.r],
-          signatureS: [state.parameters.signature.s],
-          signatureV: [state.parameters.signature.v],
+          ...withdrawParams,
         })
       } else if (props.currentToken.isOriginalTypeNative) {
         await withdrawNative({
           contractAddress: props.toChain.bridgeContract,
-          txHash: state.parameters.details.txHash,
           amount: state.parameters.details.amount,
-          signatureR: [state.parameters.signature.r],
-          signatureS: [state.parameters.signature.s],
-          signatureV: [state.parameters.signature.v],
+          ...withdrawParams,
         })
       } else {
         await withdrawErc20({
           contractAddress: props.toChain.bridgeContract,
           address: props.currentToken.originalContract,
-          txHash: state.parameters.details.txHash,
           amount: state.parameters.details.amount,
-          signatureR: [state.parameters.signature.r],
-          signatureS: [state.parameters.signature.s],
-          signatureV: [state.parameters.signature.v],
+          ...withdrawParams,
         })
       }
     }
 
     async function depositSecondStep () {
+      const depositParams = {
+        contractAddress: props.currentToken.internalContract,
+        txHash: state.parameters.details.txHash,
+        signatureR: [state.parameters.signature.r],
+        signatureS: [state.parameters.signature.s],
+        signatureV: [state.parameters.signature.v],
+      }
+
       if (props.currentToken.isInternalTypeErc721) {
         await mintErc721({
-          contractAddress: props.currentToken.internalContract,
-          txHash: state.parameters.details.txHash,
           tokenUrl: state.parameters.details.tokenUrl,
           tokenId: state.parameters.details.tokenId,
-          signatureR: [state.parameters.signature.r],
-          signatureS: [state.parameters.signature.s],
-          signatureV: [state.parameters.signature.v],
+          ...depositParams,
         })
       } else if (props.currentToken.isInternalTypeNative) {
         await withdrawWithNativeAbi({
-          contractAddress: props.currentToken.internalContract,
-          txHash: state.parameters.details.txHash,
           amount: state.parameters.details.amount,
-          signatureR: [state.parameters.signature.r],
-          signatureS: [state.parameters.signature.s],
-          signatureV: [state.parameters.signature.v],
+          ...depositParams,
         })
       } else {
         await mintErc20({
-          contractAddress: props.currentToken.internalContract,
           amount: state.parameters.details.amount,
-          txHash: state.parameters.details.txHash,
           receiverAddress: props.web3Account,
-          signatureR: [state.parameters.signature.r],
-          signatureS: [state.parameters.signature.s],
-          signatureV: [state.parameters.signature.v],
+          ...depositParams,
         })
       }
     }

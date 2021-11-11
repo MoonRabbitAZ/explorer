@@ -206,12 +206,12 @@ import Loader from '@/vue/common/Loader'
 
 import { reactive, toRefs, computed, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { apiCaller } from '@api'
 import { useForm, useValidators, useWeb3, useFormatBalance } from '@/vue/composables'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { ERC721_ABI } from '@/js/const/erc721-abi.const'
 import { ERC20_ABI } from '@/js/const/erc20-abi.const'
 import { Erc721TokenRecord } from '@/js/records/erc721-token.record'
-import axios from 'axios'
 import debounce from 'lodash/debounce'
 
 const MAINET_TRANSFER_INFO_LINK = 'https://lib.moonrabbit.com/'
@@ -430,7 +430,7 @@ export default {
     }
 
     async function getTokenDetailsByURI (tokentUri) {
-      const { data } = await axios({ baseURL: tokentUri, method: 'GET' })
+      const { data } = apiCaller.withBaseURL(tokentUri).getRaw('')
       return data
     }
 

@@ -7,6 +7,7 @@ export const provider = new WsProvider(CONFIG.WSS_NODE)
 export const registry = new TypeRegistry()
 export const api = new ApiPromise({ provider, registry })
 
+export const apiCaller = new ApiCaller()
 export const bridgeApi = new ApiCaller()
 export const stakingApi = new ApiCaller()
 export const bridgeEthereumApi = new ApiCaller()

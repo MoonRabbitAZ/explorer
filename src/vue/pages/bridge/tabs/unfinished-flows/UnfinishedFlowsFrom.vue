@@ -110,74 +110,70 @@ export default {
         },
       }
 
-      const { data } = props.unfinishedFlow.flow.isTypeWithdraw
-        ? await bridgeEthereumApi.post('/bridge/withdraw', query)
-        : await bridgeEthereumApi.post('/bridge/deposit', query)
+      const endpoint = props.unfinishedFlow.flow.isTypeWithdraw
+        ? '/bridge/withdraw'
+        : '/bridge/deposit'
+
+      const { data } = await bridgeEthereumApi.post(endpoint, query)
       state.parameters = data
     }
 
-    async function withdrawSecondStep () {
+    async function withdraw () {
+      const withdrawParams = {
+        txHash: state.parameters.details.txHash,
+        signatureR: [state.parameters.signature.r],
+        signatureS: [state.parameters.signature.s],
+        signatureV: [state.parameters.signature.v],
+      }
+
       if (props.unfinishedFlow.token.isOriginalTypeErc721) {
         await withdrawErc721({
           contractAddress: props.unfinishedFlow.token.internalContract,
           address: props.unfinishedFlow.token.originalContract,
-          txHash: state.parameters.details.txHash,
           tokenId: state.parameters.details.tokenId,
-          signatureR: [state.parameters.signature.r],
-          signatureS: [state.parameters.signature.s],
-          signatureV: [state.parameters.signature.v],
+          ...withdrawParams,
         })
       } else if (props.unfinishedFlow.token.isOriginalTypeNative) {
         await withdrawNative({
           contractAddress: toChain.value.bridgeContract,
-          txHash: state.parameters.details.txHash,
           amount: state.parameters.details.amount,
-          signatureR: [state.parameters.signature.r],
-          signatureS: [state.parameters.signature.s],
-          signatureV: [state.parameters.signature.v],
+          ...withdrawParams,
         })
       } else {
         await withdrawErc20({
           contractAddress: toChain.value.bridgeContract,
           address: props.unfinishedFlow.token.originalContract,
-          txHash: state.parameters.details.txHash,
           amount: state.parameters.details.amount,
-          signatureR: [state.parameters.signature.r],
-          signatureS: [state.parameters.signature.s],
-          signatureV: [state.parameters.signature.v],
+          ...withdrawParams,
         })
       }
     }
 
-    async function depositSecondStep () {
+    async function deposit () {
+      const depositParams = {
+        contractAddress: props.unfinishedFlow.token.internalContract,
+        txHash: state.parameters.details.txHash,
+        signatureR: [state.parameters.signature.r],
+        signatureS: [state.parameters.signature.s],
+        signatureV: [state.parameters.signature.v],
+      }
+
       if (props.unfinishedFlow.token.isInternalTypeErc721) {
         await mintErc721({
-          contractAddress: props.unfinishedFlow.token.internalContract,
-          txHash: state.parameters.details.txHash,
           tokenUrl: state.parameters.details.tokenUrl,
           tokenId: state.parameters.details.tokenId,
-          signatureR: [state.parameters.signature.r],
-          signatureS: [state.parameters.signature.s],
-          signatureV: [state.parameters.signature.v],
+          ...depositParams,
         })
       } else if (props.unfinishedFlow.token.isInternalTypeNative) {
         await withdrawWithNativeAbi({
-          contractAddress: props.unfinishedFlow.token.internalContract,
-          txHash: state.parameters.details.txHash,
           amount: state.parameters.details.amount,
-          signatureR: [state.parameters.signature.r],
-          signatureS: [state.parameters.signature.s],
-          signatureV: [state.parameters.signature.v],
+          ...depositParams,
         })
       } else {
         await mintErc20({
-          contractAddress: props.unfinishedFlow.token.internalContract,
           amount: state.parameters.details.amount,
-          txHash: state.parameters.details.txHash,
           receiverAddress: props.unfinishedFlow.flow.sender,
-          signatureR: [state.parameters.signature.r],
-          signatureS: [state.parameters.signature.s],
-          signatureV: [state.parameters.signature.v],
+          ...depositParams,
         })
       }
     }
@@ -187,9 +183,9 @@ export default {
       try {
         await depositOrWithdraw()
         if (props.isWithdraw) {
-          await withdrawSecondStep()
+          await withdraw()
         } else {
-          await depositSecondStep()
+          await deposit()
         }
 
         Bus.success()

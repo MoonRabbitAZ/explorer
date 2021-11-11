@@ -13,10 +13,12 @@ export class Erc721TokenRecord {
   }
 
   get imageUrl () {
-    return this.image.startsWith('http://') || this.image.startsWith('https://')
-      ? this.image
-      : this.image.startsWith('ipfs://')
-        ? IPFS_URL + this.image.replace('ipfs://', '')
-        : ''
+    const ipfsRegex = /^ipfs:\/{2}/
+    const isHttp = /^https?:\/{2}/.test(this.image)
+    const isIpfs = ipfsRegex.test(this.image)
+
+    return (isHttp && this.image) ||
+      (isIpfs && (IPFS_URL + this.image.replace(ipfsRegex, ''))) ||
+      ''
   }
 }

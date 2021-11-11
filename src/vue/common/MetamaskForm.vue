@@ -60,7 +60,7 @@ export default {
         if (isMetamaskEnabled.value) {
           await connectWeb3()
         } else {
-          window.open(METAMASK_DOWNLOAD_URL)
+          window.open(METAMASK_DOWNLOAD_URL, '_blank', 'noopener')
         }
       } catch (e) {
         ErrorHandler.processWithoutFeedback(e)
