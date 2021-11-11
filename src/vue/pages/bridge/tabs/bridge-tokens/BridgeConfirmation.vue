@@ -230,23 +230,23 @@ export default {
 
       if (props.currentToken.isOriginalTypeErc721) {
         await withdrawErc721({
+          ...withdrawParams,
           contractAddress: props.currentToken.internalContract,
           address: props.currentToken.originalContract,
           tokenId: state.parameters.details.tokenId,
-          ...withdrawParams,
         })
       } else if (props.currentToken.isOriginalTypeNative) {
         await withdrawNative({
+          ...withdrawParams,
           contractAddress: props.toChain.bridgeContract,
           amount: state.parameters.details.amount,
-          ...withdrawParams,
         })
       } else {
         await withdrawErc20({
+          ...withdrawParams,
           contractAddress: props.toChain.bridgeContract,
           address: props.currentToken.originalContract,
           amount: state.parameters.details.amount,
-          ...withdrawParams,
         })
       }
     }
@@ -262,20 +262,20 @@ export default {
 
       if (props.currentToken.isInternalTypeErc721) {
         await mintErc721({
+          ...depositParams,
           tokenUrl: state.parameters.details.tokenUrl,
           tokenId: state.parameters.details.tokenId,
-          ...depositParams,
         })
       } else if (props.currentToken.isInternalTypeNative) {
         await withdrawWithNativeAbi({
-          amount: state.parameters.details.amount,
           ...depositParams,
+          amount: state.parameters.details.amount,
         })
       } else {
         await mintErc20({
+          ...depositParams,
           amount: state.parameters.details.amount,
           receiverAddress: props.web3Account,
-          ...depositParams,
         })
       }
     }

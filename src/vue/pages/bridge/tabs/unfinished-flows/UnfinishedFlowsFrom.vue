@@ -128,23 +128,23 @@ export default {
 
       if (props.unfinishedFlow.token.isOriginalTypeErc721) {
         await withdrawErc721({
+          ...withdrawParams,
           contractAddress: props.unfinishedFlow.token.internalContract,
           address: props.unfinishedFlow.token.originalContract,
           tokenId: state.parameters.details.tokenId,
-          ...withdrawParams,
         })
       } else if (props.unfinishedFlow.token.isOriginalTypeNative) {
         await withdrawNative({
+          ...withdrawParams,
           contractAddress: toChain.value.bridgeContract,
           amount: state.parameters.details.amount,
-          ...withdrawParams,
         })
       } else {
         await withdrawErc20({
+          ...withdrawParams,
           contractAddress: toChain.value.bridgeContract,
           address: props.unfinishedFlow.token.originalContract,
           amount: state.parameters.details.amount,
-          ...withdrawParams,
         })
       }
     }
@@ -160,20 +160,20 @@ export default {
 
       if (props.unfinishedFlow.token.isInternalTypeErc721) {
         await mintErc721({
+          ...depositParams,
           tokenUrl: state.parameters.details.tokenUrl,
           tokenId: state.parameters.details.tokenId,
-          ...depositParams,
         })
       } else if (props.unfinishedFlow.token.isInternalTypeNative) {
         await withdrawWithNativeAbi({
-          amount: state.parameters.details.amount,
           ...depositParams,
+          amount: state.parameters.details.amount,
         })
       } else {
         await mintErc20({
+          ...depositParams,
           amount: state.parameters.details.amount,
           receiverAddress: props.unfinishedFlow.flow.sender,
-          ...depositParams,
         })
       }
     }
