@@ -43,7 +43,9 @@ export default {
       connectWeb3,
     } = useWeb3()
 
-    const isMobile = computed(() => typeof window.orientation !== 'undefined')
+    const isMobile = computed(() =>
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
+    )
 
     const messageTranslation = computed(() => {
       if (isMetamaskEnabled.value) {
