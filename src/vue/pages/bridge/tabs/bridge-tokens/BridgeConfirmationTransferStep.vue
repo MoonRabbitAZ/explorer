@@ -170,25 +170,20 @@ export default {
   emits: Object.values(EVENTS),
 
   setup (props, { emit }) {
-    const { toBalance } = useFormatBalance()
+    const { toExternalBalance } = useFormatBalance()
     const isAgreeTerms = ref(false)
 
     const isDepositBtnDisabled = computed(() =>
       props.isProcessing || !isAgreeTerms.value || !props.isFromChainActive,
     )
 
-    const currentFormatedAmount = computed(() => {
-      const options = {
-        withSi: true,
-        withSiFull: false,
-        withUnit: props.currentToken.ticker,
-      }
-      return toBalance(
+    const currentFormatedAmount = computed(() =>
+      toExternalBalance(
         props.amount,
         props.currentTokenDecimals,
-        options,
-      )
-    })
+        props.currentToken.ticker,
+      ),
+    )
 
     function onConfirm () { emit(EVENTS.confirm) }
 

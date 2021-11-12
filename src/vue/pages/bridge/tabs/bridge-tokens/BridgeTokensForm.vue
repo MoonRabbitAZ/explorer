@@ -248,7 +248,7 @@ export default {
   setup (props) {
     const { t } = useI18n()
     const { web3Account, web3, web3ChainId } = useWeb3()
-    const { toBalance } = useFormatBalance()
+    const { toExternalBalance } = useFormatBalance()
 
     const state = reactive({
       baseChain: props.chains.find(i => i.isBase),
@@ -283,6 +283,8 @@ export default {
                       amountRange: amountRange(
                         MIN_TRANSFER_AMOUNT,
                         state.currentBalance,
+                        state.currentTokenDecimals,
+                        currentToken.value.ticker,
                       ),
                     }
                   : {}
@@ -314,18 +316,13 @@ export default {
       ),
     )
 
-    const currentFormatedBalance = computed(() => {
-      const options = {
-        withSi: true,
-        withSiFull: false,
-        withUnit: currentToken.value.ticker,
-      }
-      return toBalance(
+    const currentFormatedBalance = computed(() =>
+      toExternalBalance(
         state.currentBalance,
         state.currentTokenDecimals,
-        options,
-      )
-    })
+        currentToken.value.ticker,
+      ),
+    )
 
     const isFromChainActive = computed(() =>
       +web3ChainId.value === fromChain.value.id,

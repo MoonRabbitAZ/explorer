@@ -14,7 +14,25 @@ export function useFormatBalance () {
       : formatBalance(bnValue, options, unrefDecimals)
   }
 
+  function toExternalBalance (value, decimals, unitTicker) {
+    const options = {
+      withSi: true,
+      withSiFull: false,
+      withUnit: unitTicker,
+    }
+
+    const unrefValue = unref(value)
+    const unrefDecimals = unref(decimals)
+    const bnValue = unrefValue instanceof BN
+      ? unrefValue
+      : new BN(unrefValue)
+    return bnValue.isZero()
+      ? `0 ${unitTicker}`
+      : formatBalance(bnValue, options, unrefDecimals)
+  }
+
   return {
     toBalance,
+    toExternalBalance,
   }
 }

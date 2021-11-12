@@ -35,10 +35,10 @@
         <p class="unfinished-flows-list__amount">
           {{
             unfinishedFlow.flow.tokenId ||
-              formatBalance(
+              toExternalBalance(
                 unfinishedFlow.flow.amount,
-                unfinishedFlow.token.ticker,
                 unfinishedFlow.decimals,
+                unfinishedFlow.token.ticker,
               )
           }}
         </p>
@@ -133,7 +133,7 @@ export default {
 
   setup (props, { emit }) {
     const { t } = useI18n()
-    const { toBalance } = useFormatBalance()
+    const { toExternalBalance } = useFormatBalance()
     const state = reactive({
       isRepeatOpen: false,
       selectedFlow: null,
@@ -155,21 +155,12 @@ export default {
       emit(EVENTS.updateFlowList)
     }
 
-    function formatBalance (amount, ticker, decimals) {
-      const options = {
-        withSi: true,
-        withSiFull: false,
-        withUnit: ticker,
-      }
-      return toBalance(amount, decimals, options)
-    }
-
     return {
       ...toRefs(state),
       openForm,
       drawerHeader,
       closeDrawer,
-      formatBalance,
+      toExternalBalance,
     }
   },
 }
