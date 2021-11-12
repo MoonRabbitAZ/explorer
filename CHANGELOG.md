@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Fixed
 - Display amount on unfinished flow list
+- Fix balance display on validators
 
 ## [0.1.0-rc.3] - 2021-10-19
 #### Added
