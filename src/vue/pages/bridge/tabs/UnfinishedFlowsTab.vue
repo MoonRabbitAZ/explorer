@@ -8,11 +8,20 @@
         />
       </template>
       <template v-else>
-        <unfinished-flows-list
-          :unfinished-flows="unfinishedFlows"
-          :base-chain="baseChain"
-          @updateFlowList="init"
-        />
+        <template v-if="chains.length && tokens.length">
+          <unfinished-flows-list
+            :key="web3Account"
+            :base-chain="baseChain"
+            :chains="chains"
+            :tokens="tokens"
+          />
+        </template>
+        <template v-else>
+          <no-data-message
+            class="unfinished-flows-tab__no-data-message"
+            :message="$t('bridge-page.unfinished-flows-tab.no-data-message')"
+          />
+        </template>
       </template>
     </template>
     <template v-else>
@@ -25,14 +34,14 @@
 import UnfinishedFlowsList from '@bridge-page/tabs/unfinished-flows/UnfinishedFlowsList'
 import Loader from '@/vue/common/Loader'
 import ErrorMessage from '@/vue/common/ErrorMessage'
+import NoDataMessage from '@/vue/common/NoDataMessage'
 
-import { reactive, toRefs, watch } from 'vue'
-import { useWeb3 } from '@/vue/composables'
+import { reactive, toRefs } from 'vue'
 import { bridgeEthereumApi } from '@api'
+import { useWeb3 } from '@/vue/composables'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { TokenRecord } from '@/js/records/token.record'
 import { ChainRecord } from '@/js/records/chain.record'
-import { UnfinishedFlowRecord } from '@/js/records/unfinished-flow.record'
 
 export default {
   name: 'unfinished-flows-tab',
@@ -41,14 +50,16 @@ export default {
     UnfinishedFlowsList,
     Loader,
     ErrorMessage,
+    NoDataMessage,
   },
 
   setup () {
     const state = reactive({
       isLoaded: true,
       isLoadFailed: false,
-      unfinishedFlows: [],
       baseChain: {},
+      chains: [],
+      tokens: [],
     })
     const { web3Account } = useWeb3()
 
@@ -56,15 +67,7 @@ export default {
       state.isLoaded = false
       state.isLoadFailed = false
       try {
-        const [flows, chains, tokens] = await Promise.all([
-          bridgeEthereumApi.get('/oracle/flows', {
-            page: {
-              limit: 100,
-            },
-            filter: {
-              sender: web3Account.value,
-            },
-          }),
+        const [chains, tokens] = await Promise.all([
           bridgeEthereumApi.get('/bridge/chains', {
             page: {
               limit: 100,
@@ -73,26 +76,9 @@ export default {
           bridgeEthereumApi.get('/bridge/tokens'),
         ])
 
-        const chainsRecords = chains.data.map(i => (new ChainRecord(i)))
-        const tokensRecords = tokens.data.map(i => (new TokenRecord(i)))
-        const flowRecords = flows.data.map(i => (new UnfinishedFlowRecord(i)))
-        state.unfinishedFlows = flowRecords.map(flow => {
-          const chain = chainsRecords.find(curChain =>
-            curChain.id === flow.chainId,
-          )
-          const token = tokensRecords.find(curToken =>
-            curToken.chainId === flow.chainId &&
-              curToken.ticker === flow.ticker,
-          )
-
-          return {
-            chain,
-            token,
-            flow,
-            decimals: +token.nativeChainDecimals,
-          }
-        })
-        state.baseChain = chainsRecords.find(i => i.isBase)
+        state.chains = chains.data.map(i => (new ChainRecord(i)))
+        state.tokens = tokens.data.map(i => (new TokenRecord(i)))
+        state.baseChain = state.chains.find(i => i.isBase)
       } catch (e) {
         state.isLoadFailed = true
         ErrorHandler.processWithoutFeedback(e)
@@ -100,11 +86,11 @@ export default {
       state.isLoaded = true
     }
 
-    watch(web3Account, init, { immediate: true })
+    init()
 
     return {
       ...toRefs(state),
-      init,
+      web3Account,
     }
   },
 }
@@ -115,4 +101,10 @@ export default {
 @import '~@scss/variables';
 
 .unfinished-flows-tab { @include app-padding; }
+
+.unfinished-flows-tab__no-data-message {
+  background: $col-app-content-block-bg;
+  margin: 0 auto;
+  max-width: max-content;
+}
 </style>

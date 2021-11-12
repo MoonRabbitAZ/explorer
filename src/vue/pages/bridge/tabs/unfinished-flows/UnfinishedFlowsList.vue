@@ -1,87 +1,115 @@
 <template>
   <div class="unfinished-flows-list">
-    <div class="unfinished-flows-list__headers">
-      <h1 class="unfinished-flows-list__header">
-        {{ $t('bridge-page.unfinished-flows-list.type-header') }}
-      </h1>
-      <h4 class="unfinished-flows-list__header">
-        {{ $t('bridge-page.unfinished-flows-list.amount-or-token-id-header') }}
-      </h4>
-      <h4 class="unfinished-flows-list__header">
-        {{ $t('bridge-page.unfinished-flows-list.from-header') }}
-      </h4>
-      <h4 class="unfinished-flows-list__header">
-        {{ $t('bridge-page.unfinished-flows-list.to-header') }}
-      </h4>
-      <h4
-        class="
-          unfinished-flows-list__header
-          unfinished-flows-list__destination-header
-        "
-      >
-        {{ $t('bridge-page.unfinished-flows-list.destination-header') }}
-      </h4>
+    <div class="unfinished-flows-list__body">
+      <template v-if="isLoaded">
+        <template v-if="isLoadFailed">
+          <error-message
+            :header="$t('bridge-page.unfinished-flows-list.error-header')"
+            :message="$t('bridge-page.unfinished-flows-list.error-message')"
+          />
+        </template>
+        <template v-else>
+          <div class="unfinished-flows-list__headers">
+            <h1 class="unfinished-flows-list__header">
+              <!-- eslint-disable-next-line max-len -->
+              {{ $t('bridge-page.unfinished-flows-list.unfinished-flows-header') }}
+            </h1>
+            <template v-if="unfinishedFlows.length">
+              <h4 class="unfinished-flows-list__header">
+                <!-- eslint-disable-next-line max-len -->
+                {{ $t('bridge-page.unfinished-flows-list.amount-or-token-id-header') }}
+              </h4>
+              <h4 class="unfinished-flows-list__header">
+                {{ $t('bridge-page.unfinished-flows-list.from-header') }}
+              </h4>
+              <h4 class="unfinished-flows-list__header">
+                {{ $t('bridge-page.unfinished-flows-list.to-header') }}
+              </h4>
+              <h4
+                class="
+                  unfinished-flows-list__header
+                  unfinished-flows-list__destination-header
+                "
+              >
+                {{ $t('bridge-page.unfinished-flows-list.destination-header') }}
+              </h4>
+            </template>
+          </div>
+          <template v-if="unfinishedFlows.length">
+            <div
+              v-for="(unfinishedFlow, id) in unfinishedFlows"
+              :key="id"
+              class="unfinished-flows-list__row"
+            >
+              <p class="unfinished-flows-list__type">
+                <!-- eslint-disable-next-line max-len -->
+                {{ `${unfinishedFlow.token.originalType} / ${unfinishedFlow.token.internalType}` }}
+              </p>
+              <p class="unfinished-flows-list__amount">
+                {{
+                  unfinishedFlow.flow.tokenId ||
+                    toExternalBalance(
+                      unfinishedFlow.flow.amount,
+                      unfinishedFlow.decimals,
+                      unfinishedFlow.token.ticker,
+                    )
+                }}
+              </p>
+              <div class="unfinished-flows-list__chain">
+                <p class="unfinished-flows-list__chain-token">
+                  {{ unfinishedFlow.flow.ticker }}
+                </p>
+                <p class="unfinished-flows-list__chain-name">
+                  {{ unfinishedFlow.flow.isTypeWithdraw
+                    ? baseChain.name
+                    : unfinishedFlow.chain.name
+                  }}
+                </p>
+              </div>
+              <div class="unfinished-flows-list__chain">
+                <p class="unfinished-flows-list__chain-token">
+                  {{ unfinishedFlow.flow.ticker }}
+                </p>
+                <p class="unfinished-flows-list__chain-name">
+                  {{ unfinishedFlow.flow.isTypeWithdraw
+                    ? unfinishedFlow.chain.name
+                    : baseChain.name
+                  }}
+                </p>
+              </div>
+              <p class="unfinished-flows-list__destination">
+                {{ unfinishedFlow.flow.sender }}
+              </p>
+              <app-button
+                class="unfinished-flows-list__repeat-btn"
+                scheme="secondary"
+                type="submit"
+                :text="$t('bridge-page.unfinished-flows-list.repeat-btn')"
+                @click="openForm(id)"
+              />
+            </div>
+          </template>
+          <template v-else>
+            <no-data-message
+              :message="$t('bridge-page.unfinished-flows-list.no-data-message')"
+              is-row-block
+            />
+          </template>
+        </template>
+      </template>
+      <template v-else>
+        <loader />
+      </template>
     </div>
-    <template v-if="unfinishedFlows.length">
-      <div
-        v-for="(unfinishedFlow, id) in unfinishedFlows"
-        :key="id"
-        class="unfinished-flows-list__row"
-      >
-        <p class="unfinished-flows-list__type">
-          <!-- eslint-disable-next-line max-len -->
-          {{ `${unfinishedFlow.token.originalType} / ${unfinishedFlow.token.internalType}` }}
-        </p>
-        <p class="unfinished-flows-list__amount">
-          {{
-            unfinishedFlow.flow.tokenId ||
-              toExternalBalance(
-                unfinishedFlow.flow.amount,
-                unfinishedFlow.decimals,
-                unfinishedFlow.token.ticker,
-              )
-          }}
-        </p>
-        <div class="unfinished-flows-list__chain">
-          <p class="unfinished-flows-list__chain-token">
-            {{ unfinishedFlow.flow.ticker }}
-          </p>
-          <p class="unfinished-flows-list__chain-name">
-            {{ unfinishedFlow.flow.isTypeWithdraw
-              ? baseChain.name
-              : unfinishedFlow.chain.name
-            }}
-          </p>
-        </div>
-        <div class="unfinished-flows-list__chain">
-          <p class="unfinished-flows-list__chain-token">
-            {{ unfinishedFlow.flow.ticker }}
-          </p>
-          <p class="unfinished-flows-list__chain-name">
-            {{ unfinishedFlow.flow.isTypeWithdraw
-              ? unfinishedFlow.chain.name
-              : baseChain.name
-            }}
-          </p>
-        </div>
-        <p class="unfinished-flows-list__destination">
-          {{ unfinishedFlow.flow.sender }}
-        </p>
-        <app-button
-          class="unfinished-flows-list__repeat-btn"
-          scheme="secondary"
-          type="submit"
-          :text="$t('bridge-page.unfinished-flows-list.repeat-btn')"
-          @click="openForm(id)"
-        />
-      </div>
-    </template>
-    <template v-else>
-      <no-data-message
-        :message="$t('bridge-page.unfinished-flows-list.no-data-message')"
-        is-row-block
-      />
-    </template>
+
+    <collection-loader
+      ref="collectionLoader"
+      class="unfinished-flows-list__collection-loader"
+      :first-page-loader="getUnfinishedFlows"
+      :page-limit="2"
+      @first-page-load="setList"
+      @next-page-load="concatList"
+    />
 
     <drawer
       v-model:is-shown="isRepeatOpen"
@@ -103,14 +131,16 @@
 import Drawer from '@/vue/common/Drawer'
 import UnfinishedFlowsFrom from '@bridge-page/tabs/unfinished-flows/UnfinishedFlowsFrom'
 import NoDataMessage from '@/vue/common/NoDataMessage'
+import Loader from '@/vue/common/Loader'
+import ErrorMessage from '@/vue/common/ErrorMessage'
+import CollectionLoader from '@/vue/common/CollectionLoader'
 
-import { reactive, toRefs, computed } from 'vue'
+import { ref, reactive, toRefs, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useFormatBalance } from '@/vue/composables'
-
-const EVENTS = {
-  updateFlowList: 'update-flow-list',
-}
+import { bridgeEthereumApi } from '@api'
+import { useWeb3, useFormatBalance } from '@/vue/composables'
+import { ErrorHandler } from '@/js/helpers/error-handler'
+import { UnfinishedFlowRecord } from '@/js/records/unfinished-flow.record'
 
 export default {
   name: 'unfinished-flows-list',
@@ -119,25 +149,35 @@ export default {
     Drawer,
     UnfinishedFlowsFrom,
     NoDataMessage,
+    CollectionLoader,
+    ErrorMessage,
+    Loader,
   },
 
   props: {
-    unfinishedFlows: {
-      type: Array,
+    chains: {
+      type: Array, /** {@link ChainRecord} **/
+      required: true,
+    },
+    tokens: {
+      type: Array, /** {@link TokenRecord} **/
       required: true,
     },
     baseChain: { type: Object, required: true },
   },
 
-  emits: Object.values(EVENTS),
-
-  setup (props, { emit }) {
+  setup (props) {
     const { t } = useI18n()
     const { toExternalBalance } = useFormatBalance()
     const state = reactive({
       isRepeatOpen: false,
       selectedFlow: null,
+      unfinishedFlows: [],
+      isLoaded: false,
+      isLoadFailed: false,
     })
+    const collectionLoader = ref(null)
+    const { web3Account } = useWeb3()
 
     const drawerHeader = computed(() =>
       state.selectedFlow.flow.isTypeWithdraw
@@ -150,9 +190,61 @@ export default {
       state.isRepeatOpen = true
     }
 
-    function closeDrawer () {
+    async function getUnfinishedFlows () {
+      let response
+      state.isLoaded = false
+      state.isLoadFailed = false
+      try {
+        response = await bridgeEthereumApi.get('/oracle/flows', {
+          page: {
+            limit: 2,
+          },
+          filter: {
+            sender: web3Account.value,
+          },
+        })
+      } catch (e) {
+        state.isLoadFailed = true
+        ErrorHandler.processWithoutFeedback(e)
+      }
+      state.isLoaded = true
+      return response
+    }
+
+    function collectioningUnfinishedFlows (flowRecords) {
+      return flowRecords.map(flow => {
+        const chain = props.chains.find(curChain =>
+          curChain.id === flow.chainId,
+        )
+        const token = props.tokens.find(curToken =>
+          curToken.chainId === flow.chainId &&
+              curToken.ticker === flow.ticker,
+        )
+
+        return {
+          chain,
+          token,
+          flow,
+          decimals: +token.nativeChainDecimals,
+        }
+      })
+    }
+
+    function setList (newList) {
+      const flowRecords = newList.map(i => (new UnfinishedFlowRecord(i)))
+      state.unfinishedFlows = collectioningUnfinishedFlows(flowRecords)
+    }
+
+    function concatList (newChunk) {
+      const newChunkRecords =
+        newChunk.map(i => (new UnfinishedFlowRecord(i)))
+      const newUnfinishedFlows = collectioningUnfinishedFlows(newChunkRecords)
+      state.stakingList = state.stakingList.concat(newUnfinishedFlows)
+    }
+
+    async function closeDrawer () {
       state.isRepeatOpen = false
-      emit(EVENTS.updateFlowList)
+      await collectionLoader.value.loadFirstPage()
     }
 
     return {
@@ -161,6 +253,11 @@ export default {
       drawerHeader,
       closeDrawer,
       toExternalBalance,
+      getUnfinishedFlows,
+      setList,
+      concatList,
+      collectionLoader,
+      web3Account,
     }
   },
 }
@@ -176,7 +273,7 @@ $grid-columns: 27rem
   minmax(20rem, 1fr)
   minmax(9rem, 12rem);
 
-.unfinished-flows-list {
+.unfinished-flows-list__body {
   overflow-x: auto;
 
   @include scrollbar;
@@ -189,6 +286,7 @@ $grid-columns: 27rem
   align-items: center;
   height: 5.2rem;
   padding: 0 1.6rem;
+  min-width: min-content;
 
   @include content-block;
 
@@ -244,5 +342,9 @@ $grid-columns: 27rem
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.unfinished-flows-list__collection-loader {
+  margin-top: 2rem;
 }
 </style>

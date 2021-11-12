@@ -798,10 +798,11 @@
     },
     "unfinished-flows-tab": {
       "error-header": "Error",
-      "error-message": "There was an error while loading."
+      "error-message": "There was an error while loading.",
+      "no-data-message": "No tokens or chains available"
     },
     "unfinished-flows-list": {
-      "type-header": "Type(original/internal)",
+      "unfinished-flows-header": "Unfinished Flows",
       "amount-or-token-id-header": "Amount/Tokens ID",
       "from-header": "From",
       "to-header": "To",
@@ -809,7 +810,9 @@
       "no-data-message": "No unfinished flows available",
       "repeat-btn": "Repeat",
       "withdraw-drawer-header": "Withdraw Retry",
-      "deposit-drawer-header": "Deposit Retry"
+      "deposit-drawer-header": "Deposit Retry",
+      "error-header": "Error",
+      "error-message": "There was an error while loading."
     },
     "unfinished-flows-from": {
       "alert-chain-status-msg": "Please switch to the network \"{ network }\" in the MetaMask wallet in order to continue.",

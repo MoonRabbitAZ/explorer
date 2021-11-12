@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Web3 provider module
 - Link to open this site of the metamask mobile application
 - Link terms of use
+- Pagination on unfinished flow list
 
 #### Changed
 - Version api packages
