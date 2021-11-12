@@ -106,7 +106,6 @@
       ref="collectionLoader"
       class="unfinished-flows-list__collection-loader"
       :first-page-loader="getUnfinishedFlows"
-      :page-limit="2"
       @first-page-load="setList"
       @next-page-load="concatList"
     />
@@ -141,6 +140,7 @@ import { bridgeEthereumApi } from '@api'
 import { useWeb3, useFormatBalance } from '@/vue/composables'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { UnfinishedFlowRecord } from '@/js/records/unfinished-flow.record'
+import CONFIG from '@/config'
 
 export default {
   name: 'unfinished-flows-list',
@@ -197,7 +197,7 @@ export default {
       try {
         response = await bridgeEthereumApi.get('/oracle/flows', {
           page: {
-            limit: 2,
+            limit: CONFIG.DEFAULT_PAGE_LIMIT,
           },
           filter: {
             sender: web3Account.value,
