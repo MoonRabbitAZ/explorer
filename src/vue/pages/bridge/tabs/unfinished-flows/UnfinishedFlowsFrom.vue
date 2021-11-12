@@ -96,7 +96,7 @@ export default {
     )
 
     const buttonTranslation = computed(() =>
-      props.isWithdraw
+      props.unfinishedFlow.flow.isTypeWithdraw
         ? t('bridge-page.unfinished-flows-from.withdraw-btn')
         : t('bridge-page.unfinished-flows-from.deposit-btn'),
     )
@@ -182,7 +182,7 @@ export default {
       state.processing = true
       try {
         await depositOrWithdraw()
-        if (props.isWithdraw) {
+        if (props.unfinishedFlow.flow.isTypeWithdraw) {
           await withdraw()
         } else {
           await deposit()
