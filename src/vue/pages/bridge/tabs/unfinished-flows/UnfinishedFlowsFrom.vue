@@ -59,7 +59,6 @@ export default {
       mintErc20,
       mintErc721,
       withdrawErc20,
-      withdrawWithNativeAbi,
       withdrawNative,
       withdrawErc721,
     } = useWeb3()
@@ -164,12 +163,7 @@ export default {
           tokenUrl: state.parameters.details.tokenUrl,
           tokenId: state.parameters.details.tokenId,
         })
-      } else if (props.unfinishedFlow.token.isInternalTypeNative) {
-        await withdrawWithNativeAbi({
-          ...depositParams,
-          amount: state.parameters.details.amount,
-        })
-      } else {
+      } else if (props.unfinishedFlow.token.isInternalTypeErc20) {
         await mintErc20({
           ...depositParams,
           amount: state.parameters.details.amount,

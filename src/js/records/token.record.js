@@ -22,6 +22,10 @@ export class TokenRecord {
     return this.internalType === TOKEN_TYPES.erc721
   }
 
+  get isInternalTypeErc20 () {
+    return this.internalType === TOKEN_TYPES.erc20
+  }
+
   get isOriginalTypeNative () {
     return this.originalType === TOKEN_TYPES.native
   }

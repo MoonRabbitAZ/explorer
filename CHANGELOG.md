@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Version api packages
 - Temples icons
 - Chain error message on bridge
+- Logic native token deposit
 
 #### Fixed
 - Display amount on unfinished flow list
