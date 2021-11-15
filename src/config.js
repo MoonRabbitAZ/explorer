@@ -69,6 +69,12 @@ export default Object.assign(
     TERMS_OF_USE_LINK: 'https://moonrabbit.com/legal/',
 
     /**
+     *  Link to documentation
+     */
+
+    LIBRARY_APP_LINK: 'https://lib.moonrabbit.com/',
+
+    /**
      * Social links
      */
     SOCIAL_LINK_DISCORD: 'https://discord.com/invite/2deuZrmfBm',

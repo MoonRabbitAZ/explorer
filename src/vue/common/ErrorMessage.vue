@@ -13,7 +13,12 @@
       </template>
     </h2>
     <p class="error-message__message">
-      {{ message }}
+      <template v-if="message">
+        {{ message }}
+      </template>
+      <template v-else>
+        <slot/>
+      </template>
     </p>
   </div>
 </template>

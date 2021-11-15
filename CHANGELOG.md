@@ -12,14 +12,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Web3 provider module
 - Link to open this site of the metamask mobile application
 - Link terms of use
+- Owner check NFT on bridge
 
 #### Changed
 - Version api packages
 - Temples icons
+- Chain error message on bridge
 
 #### Fixed
 - Display amount on unfinished flow list
-- Fix balance display on validators
+- Balance display on validators
+- 
 
 ## [0.1.0-rc.3] - 2021-10-19
 #### Added

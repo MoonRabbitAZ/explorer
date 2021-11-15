@@ -144,16 +144,51 @@
           />
         </template>
         <template v-else>
-          <error-message
-            class="bridge-tokens-form__chain-error"
-            :message="errorMessage"
-          />
+          <template v-if="isFromChainActive">
+            <error-message
+              class="bridge-tokens-form__error"
+              :message="errorMessage"
+            />
+          </template>
+          <template v-else>
+            <error-message
+              class="bridge-tokens-form__error"
+            >
+              <i18n-t
+                class="bridge-tokens-form__error-chain-msg"
+                keypath="bridge-page.bridge-tokens-form.chain-error-part-1"
+                tag="p"
+              >
+                <template #network>
+                  <span class="bridge-tokens-form__error-chain-msg">
+                    {{ fromChain.name }}
+                  </span>
+                </template>
+                <template #link>
+                  <a
+                    class="bridge-tokens-form__error-chain-link"
+                    :href="CONFIG.LIBRARY_APP_LINK"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    <!-- eslint-disable-next-line max-len -->
+                    {{ $t('bridge-page.bridge-tokens-form.chain-error-link-part-1') }}
+                  </a>
+                </template>
+              </i18n-t>
+              <p class="bridge-tokens-form__error-chain-msg">
+                {{ $t('bridge-page.bridge-tokens-form.chain-error-part-2') }}
+              </p>
+              <p class="bridge-tokens-form__error-chain-msg">
+                {{ $t('bridge-page.bridge-tokens-form.chain-error-part-3') }}
+              </p>
+            </error-message>
+          </template>
         </template>
       </template>
       <template v-else>
         <loader />
       </template>
-
       <i18n-t
         class="bridge-tokens-form__mainet-transfer-msg"
         keypath="bridge-page.bridge-tokens-form.mainet-transfer-msg"
@@ -161,7 +196,7 @@
       >
         <template #link>
           <a
-            :href="MAINET_TRANSFER_INFO_LINK"
+            :href="CONFIG.LIBRARY_APP_LINK"
             target="_blank"
             rel="noopener"
           >
@@ -212,9 +247,8 @@ import { ErrorHandler } from '@/js/helpers/error-handler'
 import { ERC721_ABI } from '@/js/const/erc721-abi.const'
 import { ERC20_ABI } from '@/js/const/erc20-abi.const'
 import { Erc721TokenRecord } from '@/js/records/erc721-token.record'
+import CONFIG from '@/config'
 import debounce from 'lodash/debounce'
-
-const MAINET_TRANSFER_INFO_LINK = 'https://lib.moonrabbit.com/'
 
 const MIN_TRANSFER_AMOUNT = 1
 const DEBOUNCE_DELAY = 500 // ms
@@ -341,11 +375,7 @@ export default {
     })
 
     const errorMessage = computed(() => {
-      if (!isFromChainActive.value) {
-        return t('bridge-page.bridge-tokens-form.chain-error-message', {
-          network: fromChain.value.name,
-        })
-      } else if (props.isErc721 && !state.erc721Token) {
+      if (props.isErc721 && !state.erc721Token) {
         return t('bridge-page.bridge-tokens-form.nft-error-message')
       } else if (!props.isErc721 && !+state.currentBalance) {
         return t('bridge-page.bridge-tokens-form.balance-error-message')
@@ -415,9 +445,16 @@ export default {
         contractAddress,
       )
 
+      const tokenOwner = await contract.methods
+        .ownerOf(formController.form.tokenId.value)
+        .call()
+
+      if (tokenOwner !== web3Account.value) return
+
       const tokentUri = await contract.methods
         .tokenURI(formController.form.tokenId.value)
         .call()
+
       const tokenDetails = await getTokenDetailsByURI(tokentUri)
       state.erc721Token = new Erc721TokenRecord({
         ...tokenDetails,
@@ -449,7 +486,6 @@ export default {
     return {
       ...toRefs(state),
       ...formController,
-      MAINET_TRANSFER_INFO_LINK,
       fromChain,
       toChain,
       web3Account,
@@ -459,6 +495,7 @@ export default {
       toConfirm,
       isDisplayForm,
       errorMessage,
+      CONFIG,
     }
   },
 }
@@ -536,8 +573,23 @@ export default {
   overflow: hidden;
 }
 
-.bridge-tokens-form__chain-error {
+.bridge-tokens-form__error {
   margin: 4rem 0;
+}
+
+.bridge-tokens-form__error-chain-msg {
+  font-size: inherit;
+  color: inherit;
+
+  & + & {
+    margin-top: 1rem;
+  }
+}
+
+.bridge-tokens-form__error-chain-link {
+  font-size: inherit;
+  color: inherit;
+  text-decoration: underline;
 }
 
 .bridge-tokens-form__mainet-transfer-msg {
