@@ -537,13 +537,24 @@
     "crowdloan-tab": {
       "add-fund-btn": "Add founds"
     },
-    "crowdloan-completed-list": {
+    "funds-list": {
       "completed-header": "Completed",
-      "no-data-message": "No completed campaigns found"
-    },
-    "crowdloan-ongoing-list": {
       "ongoing-header": "Ongoing",
-      "no-data-message": "No active campaigns found"
+      "no-data-message": "No active campaigns found",
+      "no-data-message-completed": "No completed campaigns found",
+      "drawer-title": "Fund info"
+    },
+    "fund-row": {
+      "status-winner": "Winner",
+      "status-capped": "Capped",
+      "status-active": "Active",
+      "status-past": "Past",
+      "status-ended": "Ended"
+    },
+    "fund-info": {
+      "para-id-header": "Para ID",
+      "status-header": "Status",
+      "leases-header": "Leases"
     },
     "crowdloan-summary": {
       "founds-header": "Founds"

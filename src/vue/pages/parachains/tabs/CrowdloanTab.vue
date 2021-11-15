@@ -10,16 +10,22 @@
         disabled="disabled"
       />
     </div>
-    <crowdloan-completed-list class="crowdloan-tab__completed-list"/>
-    <crowdloan-ongoing-list class="crowdloan-tab__ongoing-list"/>
+    <funds-list
+      class="crowdloan-tab__ongoing-list"
+      :funds="endedFunds"
+      :lease-period="leasePeriod"
+      :best-number="bestNumber"
+    />
   </div>
 </template>
 
 <script>
 import CrowdloanSummary from '@parachains-page/tabs/crowdloan/CrowdloanSummary'
-import CrowdloanCompletedList from '@parachains-page/tabs/crowdloan/CrowdloanCompletedList'
-import CrowdloanOngoingList from '@parachains-page/tabs/crowdloan/CrowdloanOngoingList'
+import FundsList from '@parachains-page/tabs/crowdloan/FundsList'
 
+import { computed } from 'vue'
+import { api } from '@api'
+import { useCall } from '@/vue/composables'
 import { useLeasePeriod } from '@parachains-page/composables/useLeasePeriod'
 import { useFunds } from '@parachains-page/composables/useFunds'
 
@@ -28,18 +34,41 @@ export default {
 
   components: {
     CrowdloanSummary,
-    CrowdloanOngoingList,
-    CrowdloanCompletedList,
+    FundsList,
   },
 
   setup () {
-    const leasePeriod = useLeasePeriod()
+    const bestNumber = useCall(api.derive.chain.bestNumber)
+    const { leasePeriod } = useLeasePeriod()
+    const {
+      // activeCap,
+      // activeRaised,
+      funds,
+      // totalCap,
+      // totalRaised,
+    } = useFunds()
 
-    const funds = useFunds()
+    const activeFunds = computed(() => {
+      if (!funds.value || !leasePeriod.value?.currentPeriod) return
+      const currentPeriod = leasePeriod.value.currentPeriod
+      return funds.value.filter(({ firstSlot, isCapped, isEnded, isWinner }) =>
+        !(isCapped || isEnded || isWinner) && currentPeriod.lte(firstSlot),
+      )
+    })
+
+    const endedFunds = computed(() => {
+      if (!funds.value || !leasePeriod.value?.currentPeriod) return
+      const currentPeriod = leasePeriod.value.currentPeriod
+      return funds.value.filter(({ firstSlot, isCapped, isEnded, isWinner }) =>
+        (isCapped || isEnded || isWinner) || currentPeriod.gt(firstSlot),
+      )
+    })
 
     return {
       leasePeriod,
-      funds,
+      activeFunds,
+      endedFunds,
+      bestNumber,
     }
   },
 }
