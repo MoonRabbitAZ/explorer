@@ -468,7 +468,7 @@ export default {
         const { data } = apiCaller.withBaseURL(tokentUri).getRaw('')
         return data
       } catch (e) {
-        // Skip error
+        ErrorHandler.processWithoutFeedback(e)
       }
     }
 
