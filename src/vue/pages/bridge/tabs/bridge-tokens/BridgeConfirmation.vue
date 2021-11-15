@@ -105,7 +105,6 @@ export default {
       mintErc20,
       mintErc721,
       withdrawErc20,
-      withdrawWithNativeAbi,
       withdrawNative,
       withdrawErc721,
     } = useWeb3()
@@ -179,6 +178,11 @@ export default {
 
       const { data } = await bridgeEthereumApi.post('/bridge/deposit', query)
       state.parameters = data
+
+      if (props.currentToken.isInternalTypeNative) {
+        Bus.success('bridge-page.bridge-confirmation.native-token-info-msg')
+        emit(EVENTS.closeDrawer)
+      }
     }
 
     async function withdrawFirstStep () {
@@ -264,11 +268,6 @@ export default {
           ...depositParams,
           tokenUrl: state.parameters.details.tokenUrl,
           tokenId: state.parameters.details.tokenId,
-        })
-      } else if (props.currentToken.isInternalTypeNative) {
-        await withdrawWithNativeAbi({
-          ...depositParams,
-          amount: state.parameters.details.amount,
         })
       } else {
         await mintErc20({

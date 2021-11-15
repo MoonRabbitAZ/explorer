@@ -797,7 +797,8 @@
       "alert-chain-status-msg": "Please switch to the network \"{ network }\" in the MetaMask wallet in order to continue.",
       "confirm-chain-status-msg": "The network \"{ network }\" in the MetaMask wallet was successfully switched.",
       "deposit-btn": "Deposit",
-      "withdraw-btn": "Withdraw"
+      "withdraw-btn": "Withdraw",
+      "native-token-info-msg": "Your deposit for processing. Expect translation within 10 minutes."
     },
     "unfinished-flows-tab": {
       "error-header": "Error",
