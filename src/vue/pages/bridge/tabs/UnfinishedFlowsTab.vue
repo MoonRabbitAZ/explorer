@@ -89,7 +89,7 @@ export default {
             chain,
             token,
             flow,
-            decimals: +token.nativeChainDecimals,
+            decimals: +token?.nativeChainDecimals,
           }
         })
         state.baseChain = chainsRecords.find(i => i.isBase)

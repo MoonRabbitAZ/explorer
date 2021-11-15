@@ -189,6 +189,7 @@ $grid-columns: 27rem
   align-items: center;
   height: 5.2rem;
   padding: 0 1.6rem;
+  min-width: min-content;
 
   @include content-block;
 

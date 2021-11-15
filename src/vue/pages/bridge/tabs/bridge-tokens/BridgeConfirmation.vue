@@ -191,8 +191,7 @@ export default {
         })
 
         state.txHash = transactionHash
-      }
-      if (props.currentToken.isInternalTypeNative) {
+      } else if (props.currentToken.isInternalTypeNative) {
         const { transactionHash } = await transferNative({
           fromAddress: props.web3Account,
           toAddress: props.currentToken.internalContract,

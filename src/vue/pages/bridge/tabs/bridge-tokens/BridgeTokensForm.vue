@@ -345,7 +345,7 @@ export default {
         return t('bridge-page.bridge-tokens-form.chain-error-message', {
           network: fromChain.value.name,
         })
-      } if (props.isErc721 && !state.erc721Token) {
+      } else if (props.isErc721 && !state.erc721Token) {
         return t('bridge-page.bridge-tokens-form.nft-error-message')
       } else if (!props.isErc721 && !+state.currentBalance) {
         return t('bridge-page.bridge-tokens-form.balance-error-message')
@@ -427,8 +427,12 @@ export default {
     }
 
     async function getTokenDetailsByURI (tokentUri) {
-      const { data } = apiCaller.withBaseURL(tokentUri).getRaw('')
-      return data
+      try {
+        const { data } = apiCaller.withBaseURL(tokentUri).getRaw('')
+        return data
+      } catch (e) {
+        // Skip error
+      }
     }
 
     watch(
