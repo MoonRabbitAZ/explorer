@@ -234,7 +234,7 @@ export default {
       if (props.currentToken.isOriginalTypeErc721) {
         await withdrawErc721({
           ...withdrawParams,
-          contractAddress: props.currentToken.internalContract,
+          contractAddress: props.toChain.bridgeContract,
           address: props.currentToken.originalContract,
           tokenId: state.parameters.details.tokenId,
         })

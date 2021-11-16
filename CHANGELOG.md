@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Display amount on unfinished flow list
 - Balance display on validators
 - Getting NFT on Bridge tokens form
+- Bridge contract on Withdraw NFT
 
 ## [0.1.0-rc.3] - 2021-10-19
 #### Added
