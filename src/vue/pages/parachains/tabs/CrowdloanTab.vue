@@ -1,7 +1,14 @@
 <template>
   <div class="crowdloan-tab">
     <div class="crowdloan-tab__topbar">
-      <crowdloan-summary class="crowdloan-tab__summary" />
+      <crowdloan-summary
+        class="crowdloan-tab__summary"
+        :fund-count="funds ? funds.length : 0"
+        :active-cap="activeCap"
+        :active-raised="activeRaised"
+        :total-cap="totalCap"
+        :total-raised="totalRaised"
+      />
 
       <app-button
         class="crowdloan-tab__add-fund-btn"
@@ -48,11 +55,11 @@ export default {
     const bestNumber = useCall(api.derive.chain.bestNumber)
     const { leasePeriod } = useLeasePeriod()
     const {
-      // activeCap,
-      // activeRaised,
+      activeCap,
+      activeRaised,
       funds,
-      // totalCap,
-      // totalRaised,
+      totalCap,
+      totalRaised,
     } = useFunds()
 
     const activeFunds = computed(() => {
@@ -72,10 +79,15 @@ export default {
     })
 
     return {
+      funds,
       leasePeriod,
       activeFunds,
       endedFunds,
       bestNumber,
+      activeCap,
+      activeRaised,
+      totalCap,
+      totalRaised,
     }
   },
 }
@@ -93,14 +105,13 @@ export default {
   gap: 3.2rem;
   margin: 3rem 0;
 
-  @include respond-to($x-small) {
-    width: 100%;
+  @include respond-to($x-medium) {
     flex-direction: column;
   }
 }
 
 .crowdloan-tab__summary {
-  @include respond-to($x-small) {
+  @include respond-to($tablet) {
     width: 100%;
   }
 }

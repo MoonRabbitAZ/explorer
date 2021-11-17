@@ -127,14 +127,14 @@ export default {
 
   setup (props) {
     const { t } = useI18n()
-    const { bestNumber, fund } = toRefs(props)
+    const { bestNumber, fund, isOngoing, leasePeriod } = toRefs(props)
     const {
       fundStatus,
       period,
       blocksLeftTime,
       blocksLeft,
       raisedProgress,
-    } = useFundInfo(fund, bestNumber, props.isOngoing)
+    } = useFundInfo(fund, bestNumber, isOngoing.value)
 
     const {
       derive,
@@ -144,27 +144,27 @@ export default {
     } = useContributions(fund.value.paraId)
 
     const isHasEnded = computed(() =>
-      !blocksLeft.value && Boolean(props.leasePeriod) && (
-        props.fund.isWinner
-          ? props.leasePeriod.currentPeriod.gt(props.fund.info.lastPeriod)
-          : props.leasePeriod.currentPeriod.gt(props.fund.info.firstPeriod)
+      !blocksLeft.value && Boolean(leasePeriod.value) && (
+        fund.value.isWinner
+          ? leasePeriod.value.currentPeriod.gt(fund.value.info.lastPeriod)
+          : leasePeriod.value.currentPeriod.gt(fund.value.info.firstPeriod)
       ),
     )
 
-    const isCanDissolve = computed(() => props.fund.info.raised.isZero())
-    const nub = computed(() => {
-      return props.bestNumber
+    const isCanDissolve = computed(() => {
+      const currentFund = fund.value.info.raised
+      return currentFund.isZero()
     })
 
     const isCanWithdraw = !isCanDissolve.value && isHasEnded.value
 
     const isCanContribute = computed(() =>
-      props.isOngoing && !props.fund.isCapped &&
-        !props.fund.isWinner && Boolean(blocksLeft.value),
+      props.isOngoing && !fund.value.isCapped &&
+        !fund.value.isWinner && Boolean(blocksLeft.value),
     )
 
     const dissolveButtonText = computed(() => {
-      return props.fund.isEnded
+      return fund.value.isEnded
         ? t('parachains-page.fund-info.close-btn')
         : t('parachains-page.fund-info.cancel-btn')
     })
@@ -192,7 +192,6 @@ export default {
       isCanDissolve,
       isCanContribute,
       isCanWithdraw,
-      nub,
     }
   },
 }

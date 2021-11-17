@@ -83,7 +83,7 @@ export function useFunds () {
     optLeaseMulti,
   )
 
-  function fundsHendler () {
+  function fundsHandler () {
     if (!bestNumber.value || !campaigns.value || !leases.value) return
     createResult(
       bestNumber.value,
@@ -96,7 +96,7 @@ export function useFunds () {
   // here we manually add the actual ending status and calculate the totals
   watch(
     [bestNumber, campaigns, leases],
-    fundsHendler,
+    fundsHandler,
     { immediate: true },
   )
 

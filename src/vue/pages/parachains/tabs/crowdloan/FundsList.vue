@@ -70,7 +70,7 @@ import Drawer from '@/vue/common/Drawer'
 import SkeletonLoader from '@/vue/common/SkeletonLoader'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 
-import { reactive, toRefs } from 'vue'
+import { reactive, toRefs, computed } from 'vue'
 import { BN } from '@polkadot/util'
 
 export default {
@@ -94,17 +94,21 @@ export default {
   setup (props) {
     const state = reactive({
       isInfoOpen: false,
-      currentFund: null,
+      currentParaId: '',
     })
-
     function openFundInfo (id) {
-      state.currentFund = props.funds.find(({ paraId }) => paraId.eq(id))
+      state.currentParaId = id
       state.isInfoOpen = true
     }
+
+    const currentFund = computed(() =>
+      props.funds?.find(({ paraId }) => paraId.eq(state.currentParaId)),
+    )
 
     return {
       ...toRefs(state),
       openFundInfo,
+      currentFund,
     }
   },
 }
@@ -128,11 +132,6 @@ export default {
   padding: 0 1.6rem;
   margin-bottom: 2rem;
 }
-
-// .funds-list__header {
-//   padding: 0 1.6rem;
-//
-// }
 
 .funds-list__row {
   & + & {

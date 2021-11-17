@@ -20,6 +20,7 @@
 <script>
 import AccountAddress from '@/vue/common/AccountAddress'
 
+import { toRefs } from 'vue'
 import { BN } from '@polkadot/util'
 import { useFundInfo } from '@parachains-page/composables/useFundInfo'
 
@@ -43,10 +44,12 @@ export default {
   emits: Object.values(EVENTS),
 
   setup (props, { emit }) {
+    const { fund, bestNumber, isOngoing } = toRefs(props)
+
     const { fundStatus } = useFundInfo(
-      props.fund,
-      props.bestNumber,
-      props.isOngoing,
+      fund,
+      bestNumber,
+      isOngoing.value,
     )
 
     function openFundInfo () {
