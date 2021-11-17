@@ -411,7 +411,8 @@
       "stake-title": "Stake",
       "stake-btn": "Stake",
       "error-header": "Error",
-      "error-message": "There was an error while loading."
+      "error-message": "There was an error while loading.",
+      "no-data-message":"No accounts available"
     },
     "staking-account-row": {
       "unstake-btn": "Unstake",
