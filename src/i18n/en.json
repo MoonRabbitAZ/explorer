@@ -397,7 +397,7 @@
     "clipboard-field": {
       "copied-msg": "Copied!"
     },
-    "input-field": { 
+    "input-field": {
       "caps-lock-warning": "(Warning: Caps-Lock is on)"
     }
   },
@@ -494,7 +494,7 @@
     "block-logs": {
       "title": "Logs",
       "no-data-message": "No logs available"
-    }, 
+    },
     "system-events": {
       "title": "System events",
       "no-data-message": "No events available"
@@ -758,7 +758,7 @@
   "bridge-page": {
     "bridge-tokens-tab": {
       "error-header": "Error",
-      "error-message": "There was an error while loading.",
+      "error-message": "There was an error while loading. Try hard reload page.",
       "no-data-message": "No tokens or chains available"
     },
     "bridge-tokens-form": {
@@ -799,7 +799,7 @@
       "confirm-chain-status-msg": "The network \"{ network }\" in the MetaMask wallet was successfully switched.",
       "deposit-btn": "Deposit",
       "withdraw-btn": "Withdraw",
-      "native-token-info-msg": "Your deposit for processing. Expect translation within 10 minutes."
+      "native-token-info-msg": "Your deposit for processing. Expect transaction within 10 minutes."
     },
     "unfinished-flows-tab": {
       "error-header": "Error",
