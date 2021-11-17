@@ -11,7 +11,14 @@
       />
     </div>
     <funds-list
-      class="crowdloan-tab__ongoing-list"
+      class="crowdloan-tab__fund-list"
+      :funds="activeFunds"
+      :lease-period="leasePeriod"
+      :best-number="bestNumber"
+      is-ongoing
+    />
+    <funds-list
+      class="crowdloan-tab__fund-list"
       :funds="endedFunds"
       :lease-period="leasePeriod"
       :best-number="bestNumber"
@@ -106,7 +113,9 @@ export default {
   }
 }
 
-.crowdloan-tab__completed-list {
-  margin-bottom: 3rem;
+.crowdloan-tab__fund-list {
+  & + & {
+    margin-top: 3rem;
+  }
 }
 </style>

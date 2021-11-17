@@ -1,8 +1,23 @@
 <template>
   <div class="funds-list">
-    <h1 class="funds-list__header">
-      {{ $t('parachains-page.funds-list.ongoing-header') }}
-    </h1>
+    <div class="funds-list__headers">
+      <h1 class="funds-list__header">
+        <template v-if="isOngoing">
+          {{ $t('parachains-page.funds-list.ongoing-header') }}
+        </template>
+        <template v-else>
+          {{ $t('parachains-page.funds-list.completed-header') }}
+        </template>
+      </h1>
+      <template v-if="funds?.length">
+        <h3>
+          {{ $t('parachains-page.funds-list.status-header') }}
+        </h3>
+        <h3>
+          {{ $t('parachains-page.funds-list.depositor-header') }}
+        </h3>
+      </template>
+    </div>
     <template v-if="funds">
       <template v-if="funds.length">
         <div class="funds-list__body">
@@ -12,6 +27,7 @@
             class="funds-list__row"
             :fund="fund"
             :best-number="bestNumber"
+            :is-ongoing="isOngoing"
             @open-fund-info="openFundInfo"
           />
         </div>
@@ -41,6 +57,7 @@
         :fund="currentFund"
         :best-number="bestNumber"
         :lease-period="leasePeriod"
+        :is-ongoing="isOngoing"
       />
     </drawer>
   </div>
@@ -71,6 +88,7 @@ export default {
     funds: { type: Array, default: null },
     leasePeriod: { type: Object, default: null },
     bestNumber: { type: BN, default: null },
+    isOngoing: { type: Boolean, default: false },
   },
 
   setup (props) {
@@ -102,10 +120,19 @@ export default {
   @include scrollbar;
 }
 
-.funds-list__header {
+.funds-list__headers {
+  display: grid;
+  grid-gap: 2rem;
+  grid-template-columns: 15rem 12rem minmax(15rem, 1fr) 4.4rem;
+  align-items: flex-end;
   padding: 0 1.6rem;
   margin-bottom: 2rem;
 }
+
+// .funds-list__header {
+//   padding: 0 1.6rem;
+//
+// }
 
 .funds-list__row {
   & + & {

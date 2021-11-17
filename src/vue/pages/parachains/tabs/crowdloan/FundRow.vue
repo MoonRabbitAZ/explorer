@@ -37,12 +37,17 @@ export default {
   props: {
     fund: { type: Object, required: true },
     bestNumber: { type: BN, default: null },
+    isOngoing: { type: Boolean, default: false },
   },
 
   emits: Object.values(EVENTS),
 
   setup (props, { emit }) {
-    const { fundStatus } = useFundInfo(props.fund, props.bestNumber)
+    const { fundStatus } = useFundInfo(
+      props.fund,
+      props.bestNumber,
+      props.isOngoing,
+    )
 
     function openFundInfo () {
       emit(EVENTS.openFundInfo, props.fund.paraId)
@@ -63,7 +68,7 @@ export default {
 .fund-row {
   display: grid;
   grid-gap: 2rem;
-  grid-template-columns: 15rem 15rem minmax(15rem, 1fr) 4.4rem;
+  grid-template-columns: 15rem 12rem minmax(15rem, 1fr) 4.4rem;
   align-items: center;
   padding: 1rem 1.6rem;
   min-width: min-content;
