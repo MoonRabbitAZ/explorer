@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Link to open this site of the metamask mobile application
 - Link terms of use
 - Owner check NFT on bridge
+- No data message on staking tab
 
 #### Changed
 - Version api packages
