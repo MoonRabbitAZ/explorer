@@ -10,6 +10,8 @@
         disabled="disabled"
       />
     </div>
+    {{ auctionCounter }}
+    {{ auctionInfo }}
 
     <bids-list />
   </div>
@@ -19,10 +21,23 @@
 import AuctionsSummary from '@parachains-page/tabs/auctions/AuctionsSummary'
 import BidsList from '@parachains-page/tabs/auctions/BidsList'
 
+import { useCall } from '@/vue/composables'
+import { api } from '@api'
+
 export default {
   name: 'auctions-tab',
 
   components: { BidsList, AuctionsSummary },
+
+  setup () {
+    const auctionCounter = useCall(api.query.auctions?.auctionCounter)
+    const auctionInfo = useCall(api.query.auctions?.auctionInfo)
+
+    return {
+      auctionCounter,
+      auctionInfo,
+    }
+  },
 }
 </script>
 
