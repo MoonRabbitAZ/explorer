@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { ref, reactive, watch, onBeforeUnmount, toRefs, computed } from 'vue'
 import { keyring } from '@polkadot/ui-keyring'
 import { u8aToHex } from '@polkadot/util'
