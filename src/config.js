@@ -75,6 +75,15 @@ export default Object.assign(
     LIBRARY_APP_LINK: 'https://lib.moonrabbit.com/',
 
     /**
+     *  Data to connect the network to metamask
+     */
+
+    METAMASK_EVM_NETWORK_NAME: 'Moon Rabbit EVM',
+    METAMASK_EVM_RPC_URL: 'https://evm.moonrabbit.com',
+    METAMASK_EVM_CHAIN_ID: '1280',
+    METAMASK_EVM_CURRENCY_SYMBOL: 'AAA',
+
+    /**
      * Social links
      */
     SOCIAL_LINK_DISCORD: 'https://discord.com/invite/2deuZrmfBm',

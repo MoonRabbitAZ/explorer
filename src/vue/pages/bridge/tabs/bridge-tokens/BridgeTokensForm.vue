@@ -88,6 +88,14 @@
       <template v-if="isLoaded">
         <template v-if="isDisplayForm">
           <template v-if="!isErc721">
+            <bridge-info-block
+              class="bridge-tokens-form__destination-block"
+              :header="
+                $t('bridge-page.bridge-tokens-form.available-balance-header')
+              "
+              :value="currentFormatedBalance"
+            />
+
             <div class="app__form-row">
               <div class="app__form-field">
                 <amount-field
@@ -96,7 +104,7 @@
                   name="bridge-tokens-amount"
                   :error-message="form.amount.errorMessage"
                   :label="$t('bridge-page.bridge-tokens-form.amount-lbl', {
-                    balance: currentFormatedBalance,
+                    ticker: currentToken.ticker,
                   })"
                   :decimals="currentTokenDecimals"
                   :disabled="isFormDisabled || !+currentBalance"
@@ -182,6 +190,32 @@
               <p class="bridge-tokens-form__error-chain-msg">
                 {{ $t('bridge-page.bridge-tokens-form.chain-error-part-3') }}
               </p>
+
+              <template v-if="fromChain.isBase">
+                <p class="bridge-tokens-form__error-chain-msg">
+                  {{ CONFIG.METAMASK_EVM_NETWORK_NAME }}
+                </p>
+                <p class="bridge-tokens-form__error-chain-msg">
+                  {{ $t('bridge-page.bridge-tokens-form.base-chain-name', {
+                    name: CONFIG.METAMASK_EVM_NETWORK_NAME
+                  }) }}
+                </p>
+                <p class="bridge-tokens-form__error-chain-msg">
+                  {{ $t('bridge-page.bridge-tokens-form.base-chain-rps-url', {
+                    url: CONFIG.METAMASK_EVM_RPC_URL
+                  }) }}
+                </p>
+                <p class="bridge-tokens-form__error-chain-msg">
+                  {{ $t('bridge-page.bridge-tokens-form.base-chain-id', {
+                    id: CONFIG.METAMASK_EVM_CHAIN_ID
+                  }) }}
+                </p>
+                <p class="bridge-tokens-form__error-chain-msg">
+                  {{ $t('bridge-page.bridge-tokens-form.base-chain-symbol', {
+                    symbol: CONFIG.METAMASK_EVM_CURRENCY_SYMBOL
+                  }) }}
+                </p>
+              </template>
             </error-message>
           </template>
         </template>

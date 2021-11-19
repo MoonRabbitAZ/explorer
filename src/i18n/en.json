@@ -20,7 +20,7 @@
     "field-error_sameAsPassword": "Passwords don't match",
     "field-error_mnemonicSed": "The value must be mnemonic seed",
     "field-error_hexSeed": "The value must be in hex format and consist of { length } characters.",
-    "field-error_amountRange": "Amount should be in the range from { from } to { to }"
+    "field-error_amountRange": "Amount must be in the range from { from } to { to }"
   },
   "formats": {
     "dates": {
@@ -767,10 +767,11 @@
       "from-header": "From",
       "to-header": "To",
       "token-name-header": "Token Name",
-      "amount-lbl": "Amount (Available: { balance })",
+      "available-balance-header": "Available balance",
+      "amount-lbl": "Amount ({ ticker })",
       "token-id-lbl": "Token ID",
       "token-id-placeholder": "Enter token ID",
-      "destination-info": "This is the destination address of the To network",
+      "destination-info": "This is the destination address of the \"To\" network",
       "next-btn": "Next",
       "drawer-confirmation-header": "Confirmation",
       "mainnet-transfer-msg": "Want to transfer funds to mainnet? Use { link }.",
@@ -781,7 +782,11 @@
       "chain-error-part-1": "Please switch to the network \"{ network }\" in the MetaMask wallet in order to continue. ({ link })",
       "chain-error-link-part-1": "Here's how",
       "chain-error-part-2": "Remember! You must have enough ETH on your account to cover gas fees.",
-      "chain-error-part-3": "If you were unable to deposit, switch to the \"Unfinished flows\" tab."
+      "chain-error-part-3": "If you were unable to deposit, switch to the \"Unfinished flows\" tab.",
+      "base-chain-name": "Network Name: { name }",
+      "base-chain-rps-url": "New RPC URL: { url }",
+      "base-chain-id": "Chain ID: { id }",
+      "base-chain-symbol": "Currency Symbol: { symbol }"
     },
     "bridge-confirmation-transfer-step": {
       "asset-header": "Asset",
