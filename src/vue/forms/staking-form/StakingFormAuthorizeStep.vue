@@ -20,13 +20,19 @@
         <h3 class="staking-form-authorize-step__title">
           {{ $t('forms.staking-form-authorize-step.amount-title') }}
         </h3>
-        <p class="staking-form-authorize-step__amount-value">
+        <p
+          v-tooltip="$fFullBalance(former.attrs.amount)"
+          class="staking-form-authorize-step__amount-value"
+        >
           {{ $fbalance(former.attrs.amount) }}
         </p>
         <h3 class="staking-form-authorize-step__title">
           {{ $t('forms.staking-form-authorize-step.submission-fee-title') }}
         </h3>
-        <p class="staking-form-authorize-step__fee-value">
+        <p
+          v-tooltip="$fFullBalance(partialFee)"
+          class="staking-form-authorize-step__fee-value"
+        >
           {{ $fbalance(partialFee) }}
         </p>
 

@@ -31,7 +31,7 @@ const app = createApp({
       formatCalendarInline,
     } = useFormatDate()
 
-    const { toBalance, toExternalBalance } = useFormatBalance()
+    const { toBalance, toExternalBalance, toFullBalance } = useFormatBalance()
 
     app.appContext.config.globalProperties.$fd = formatDate
     app.appContext.config.globalProperties.$fdmy = formatDateMY
@@ -41,6 +41,7 @@ const app = createApp({
     app.appContext.config.globalProperties.$fcalend = formatCalendar
     app.appContext.config.globalProperties.$fcalendi = formatCalendarInline
     app.appContext.config.globalProperties.$fbalance = toBalance
+    app.appContext.config.globalProperties.$fFullBalance = toFullBalance
     app.appContext.config.globalProperties.$fExternalBalance = toExternalBalance
     app.appContext.config.globalProperties.$fnumber = formatNumber
   },

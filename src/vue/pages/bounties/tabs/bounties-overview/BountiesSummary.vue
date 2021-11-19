@@ -12,6 +12,7 @@
       />
 
       <info-block
+        v-tooltip="$fFullBalance('0')"
         class="bounties-summary__active-total"
         :title="$t('bounties-page.bounties-summary.active-total-header')"
         :value="$fbalance('0')"

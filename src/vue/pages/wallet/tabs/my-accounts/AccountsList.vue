@@ -26,7 +26,10 @@
                   { amount: amountAccounts})
             }}
           </p>
-          <p class="accounts-list__total-balance">
+          <p
+            v-tooltip="$fFullBalance(fullBalance)"
+            class="accounts-list__total-balance"
+          >
             {{ $t('wallet-page.accounts-list.total-balance',
                   { balance: $fbalance(fullBalance)})
             }}

@@ -32,6 +32,7 @@
         </template>
       </info-block>
       <info-block
+        v-tooltip="$fFullBalance('0')"
         :title="$t('society-page.society-summary.payouts-header')"
         :value="$fbalance('0')"
       />

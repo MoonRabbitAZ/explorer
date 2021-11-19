@@ -30,7 +30,7 @@ export default Object.assign(
 
     BUILD_VERSION: packageJson.version,
 
-    WSS_NODE: 'wss://node.polkadot.tokend.io',
+    WSS_NODE: 'wss://main2.hole.moonrabbit.com',
 
     BRIDGE_API_URL: 'https://bridge.hole.moonrabbit.com/',
 

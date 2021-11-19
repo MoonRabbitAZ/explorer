@@ -2,6 +2,7 @@
   <div class="total-issuance">
     <info-block
       v-if="currentBalance"
+      v-tooltip="$fFullBalance(currentBalance)"
       class="total-issuance__info"
       :title="$t('common.total-issuance.total-issued-title')"
       :value="$fbalance(currentBalance)"
