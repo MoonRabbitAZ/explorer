@@ -33,7 +33,11 @@
           {{ `${unfinishedFlow.token.originalType} / ${unfinishedFlow.token.internalType}` }}
         </p>
         <p
-          v-tooltip="tooltipFullAmount"
+          v-tooltip="!unfinishedFlow.flow.tokenId && $fFullBalance(
+            unfinishedFlow.flow.amount,
+            unfinishedFlow.decimals,
+            unfinishedFlow.token.ticker,
+          )"
           class="unfinished-flows-list__amount"
         >
           {{
@@ -136,7 +140,7 @@ export default {
 
   setup (props, { emit }) {
     const { t } = useI18n()
-    const { toExternalBalance, toFullBalance } = useFormatBalance()
+    const { toExternalBalance } = useFormatBalance()
     const state = reactive({
       isRepeatOpen: false,
       selectedFlow: null,
@@ -158,23 +162,12 @@ export default {
       emit(EVENTS.updateFlowList)
     }
 
-    const tooltipFullAmount = computed(() =>
-      props.unfinishedFlow.flow.tokenId
-        ? ''
-        : toFullBalance(
-          props.unfinishedFlow.flow.amount,
-          props.unfinishedFlow.decimals,
-          props.unfinishedFlow.token.ticker,
-        ),
-    )
-
     return {
       ...toRefs(state),
       openForm,
       drawerHeader,
       closeDrawer,
       toExternalBalance,
-      tooltipFullAmount,
     }
   },
 }
