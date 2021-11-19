@@ -813,7 +813,7 @@
       "destination-header": "Destination",
       "no-data-message": "No unfinished flows available",
       "repeat-btn": "Repeat",
-      "withdraw-drawer-header": "Withdraw Retry",
+      "withdraw-drawer-header": "Withdrawal Retry",
       "deposit-drawer-header": "Deposit Retry"
     },
     "unfinished-flows-from": {
