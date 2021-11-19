@@ -190,8 +190,8 @@
         <loader />
       </template>
       <i18n-t
-        class="bridge-tokens-form__mainet-transfer-msg"
-        keypath="bridge-page.bridge-tokens-form.mainet-transfer-msg"
+        class="bridge-tokens-form__mainnet-transfer-msg"
+        keypath="bridge-page.bridge-tokens-form.mainnet-transfer-msg"
         tag="p"
       >
         <template #link>
@@ -200,7 +200,7 @@
             target="_blank"
             rel="noopener"
           >
-            {{ $t('bridge-page.bridge-tokens-form.mainet-transfer-link') }}
+            {{ $t('bridge-page.bridge-tokens-form.mainnet-transfer-link') }}
           </a>
         </template>
       </i18n-t>
@@ -592,7 +592,7 @@ export default {
   text-decoration: underline;
 }
 
-.bridge-tokens-form__mainet-transfer-msg {
+.bridge-tokens-form__mainnet-transfer-msg {
   text-align: center;
   margin-top: 2rem;
 }
