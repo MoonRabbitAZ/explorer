@@ -94,6 +94,7 @@
                 $t('bridge-page.bridge-tokens-form.available-balance-header')
               "
               :value="currentFormatedBalance"
+              :value-tooltip="currentFullBalance"
             />
 
             <div class="app__form-row">
@@ -316,7 +317,7 @@ export default {
   setup (props) {
     const { t } = useI18n()
     const { web3Account, web3, web3ChainId } = useWeb3()
-    const { toExternalBalance } = useFormatBalance()
+    const { toExternalBalance, toFullBalance } = useFormatBalance()
 
     const state = reactive({
       baseChain: props.chains.find(i => i.isBase),
@@ -386,6 +387,14 @@ export default {
 
     const currentFormatedBalance = computed(() =>
       toExternalBalance(
+        state.currentBalance,
+        state.currentTokenDecimals,
+        currentToken.value.ticker,
+      ),
+    )
+
+    const currentFullBalance = computed(() =>
+      toFullBalance(
         state.currentBalance,
         state.currentTokenDecimals,
         currentToken.value.ticker,
@@ -529,6 +538,7 @@ export default {
       toConfirm,
       isDisplayForm,
       errorMessage,
+      currentFullBalance,
       CONFIG,
     }
   },
