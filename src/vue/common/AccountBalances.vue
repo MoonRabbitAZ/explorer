@@ -1,10 +1,7 @@
 <template>
   <div class="account-balances">
     <template v-if="balancesAll && isLoadedStaking">
-      <p
-        v-tooltip="$fFullBalance(currentBalance)"
-        class="account-balances__total"
-      >
+      <p class="account-balances__total">
         {{ $fbalance(totalBalance) }}
       </p>
 
