@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Link terms of use
 - Owner check NFT on bridge
 - No data message on staking tab
+- Open graph meta information
 
 #### Changed
 - Version api packages
