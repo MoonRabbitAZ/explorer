@@ -4,8 +4,6 @@ import { isNull, isUndefined } from '@polkadot/util'
 
 const VALID_PARAMS = 2 // number of valid parameters, if isDoubleMap = true
 
-export function transformIdentity (value) { return value }
-
 // extract the serialized and mapped params, all ready for use in our call
 function extractParams (params = []) {
   if (params.length) {
@@ -33,7 +31,7 @@ async function subscribe (
   callValue,
   fn,
   params,
-  { transform = transformIdentity, withParams, withParamsTransform } = {},
+  { transform = value => value, withParams, withParamsTransform } = {},
 ) {
   try {
     const validParams = params.filter((p) => !isUndefined(p))

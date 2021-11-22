@@ -74,6 +74,7 @@ import { computed, ref } from 'vue'
 import { api } from '@api'
 import { useCall, useBlockTime } from '@/vue/composables'
 import { cropString } from '@/js/helpers/crop-string'
+import { LeasePeriodRecord } from '@/js/records/lease-period.record'
 import BN from 'bn.js'
 
 export default {
@@ -83,7 +84,7 @@ export default {
 
   props: {
     parachainId: { type: String, required: true },
-    leasePeriod: { type: Object, default: null },
+    leasePeriod: { type: LeasePeriodRecord, default: null },
     lastBlocks: { type: Object, default: null },
   },
 

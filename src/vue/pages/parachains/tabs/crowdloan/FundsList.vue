@@ -72,6 +72,7 @@ import NoDataMessage from '@/vue/common/NoDataMessage'
 
 import { reactive, toRefs, computed } from 'vue'
 import { BN } from '@polkadot/util'
+import { LeasePeriodRecord } from '@/js/records/lease-period.record'
 
 export default {
   name: 'funds-list',
@@ -86,7 +87,7 @@ export default {
 
   props: {
     funds: { type: Array, default: null },
-    leasePeriod: { type: Object, default: null },
+    leasePeriod: { type: LeasePeriodRecord, default: null },
     bestNumber: { type: BN, default: null },
     isOngoing: { type: Boolean, default: false },
   },

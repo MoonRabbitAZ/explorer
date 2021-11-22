@@ -112,6 +112,8 @@ import { useI18n } from 'vue-i18n'
 import { BN } from '@polkadot/util'
 import { useFundInfo } from '@parachains-page/composables/useFundInfo'
 import { useContributions } from '@parachains-page/composables/useContributions'
+import { FundRecord } from '@/js/records/fund.record'
+import { LeasePeriodRecord } from '@/js/records/lease-period.record'
 
 export default {
   name: 'fund-info',
@@ -119,9 +121,9 @@ export default {
   components: { ValueDisplayer, AccountAddressRow, MyContributorsExpander },
 
   props: {
-    fund: { type: Object, required: true },
+    fund: { type: FundRecord, required: true },
     bestNumber: { type: BN, default: null },
-    leasePeriod: { type: Object, default: null },
+    leasePeriod: { type: LeasePeriodRecord, default: null },
     isOngoing: { type: Boolean, default: false },
   },
 

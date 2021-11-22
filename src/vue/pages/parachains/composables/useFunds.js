@@ -3,6 +3,7 @@ import { api } from '@api'
 import { useMapKeys, useCall } from '@/vue/composables'
 import { BN_ZERO, u8aConcat, BN, stringToU8a } from '@polkadot/util'
 import { encodeAddress } from '@polkadot/util-crypto'
+import { FundRecord } from '@/js/records/fund.record'
 
 const CROWD_PREFIX = stringToU8a('modlpy/cfund')
 
@@ -13,7 +14,7 @@ const optFundMulti = {
     paraIds.reduce((acc, paraId, i) => {
       const info = optFunds[i].unwrapOr(null)
       if (info) {
-        acc.push({
+        const fund = new FundRecord({
           accountId: encodeAddress(createAddress(paraId)),
           firstSlot: info.firstPeriod,
           info,
@@ -21,8 +22,8 @@ const optFundMulti = {
           key: paraId.toString(),
           lastSlot: info.lastPeriod,
           paraId,
-          value: info.raised,
         })
+        acc.push(fund)
       }
 
       return acc
@@ -153,13 +154,15 @@ function sortCampaigns (a, b) {
 function createResult (bestNumber, minContribution, funds, leased, state) {
   const [activeRaised, activeCap, totalRaised, totalCap] =
     funds.reduce((
-      [ar, ac, tr, tc],
+      [activeRaised, activeCap, totalRaised, totalCap],
       { info: { cap, end, raised }, isWinner },
     ) => [
-      (bestNumber.gt(end) || isWinner) ? ar : ar.iadd(raised),
-      (bestNumber.gt(end) || isWinner) ? ac : ac.iadd(cap),
-      tr.iadd(raised),
-      tc.iadd(cap),
+      (bestNumber.gt(end) || isWinner)
+        ? activeRaised
+        : activeRaised.iadd(raised),
+      (bestNumber.gt(end) || isWinner) ? activeCap : activeCap.iadd(cap),
+      totalRaised.iadd(raised),
+      totalCap.iadd(cap),
     ], [new BN(0), new BN(0), new BN(0), new BN(0)])
 
   const hasNewActiveCap = !state.activeCap.eq(activeCap)

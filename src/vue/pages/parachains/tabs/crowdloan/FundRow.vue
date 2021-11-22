@@ -23,6 +23,7 @@ import AccountAddress from '@/vue/common/AccountAddress'
 import { toRefs } from 'vue'
 import { BN } from '@polkadot/util'
 import { useFundInfo } from '@parachains-page/composables/useFundInfo'
+import { FundRecord } from '@/js/records/fund.record'
 
 const EVENTS = {
   openFundInfo: 'open-fund-info',
@@ -31,12 +32,10 @@ const EVENTS = {
 export default {
   name: 'fund-row',
 
-  components: {
-    AccountAddress,
-  },
+  components: { AccountAddress },
 
   props: {
-    fund: { type: Object, required: true },
+    fund: { type: FundRecord, required: true },
     bestNumber: { type: BN, default: null },
     isOngoing: { type: Boolean, default: false },
   },

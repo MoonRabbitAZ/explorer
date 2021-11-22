@@ -65,7 +65,7 @@ export default {
   grid-template-columns: repeat(3, min-content);
 
   @include respond-to($tablet) {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: 1fr;
   }
 }
 </style>
