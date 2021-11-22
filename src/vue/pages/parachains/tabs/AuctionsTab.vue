@@ -10,8 +10,7 @@
         disabled="disabled"
       />
     </div>
-    {{ auctionCounter }}
-    {{ auctionInfo }}
+    {{ winningData && winningData[0] }}
 
     <bids-list />
   </div>
@@ -22,6 +21,7 @@ import AuctionsSummary from '@parachains-page/tabs/auctions/AuctionsSummary'
 import BidsList from '@parachains-page/tabs/auctions/BidsList'
 
 import { useCall } from '@/vue/composables'
+import { useWinningData } from '@parachains-page/composables/useWinningData'
 import { api } from '@api'
 
 export default {
@@ -32,10 +32,12 @@ export default {
   setup () {
     const auctionCounter = useCall(api.query.auctions?.auctionCounter)
     const auctionInfo = useCall(api.query.auctions?.auctionInfo)
+    const winningData = useWinningData(auctionInfo)
 
     return {
       auctionCounter,
       auctionInfo,
+      winningData,
     }
   },
 }

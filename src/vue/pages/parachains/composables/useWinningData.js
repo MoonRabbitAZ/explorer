@@ -1,11 +1,69 @@
 import { ref, watch } from 'vue'
 import { api } from '@api'
-import { useCall } from '@/vue/composables'
-import { BN_ZERO, BN, u8aEq, stringToU8a } from '@polkadot/util'
-import { useLeaseRanges, useEventTrigger } from './useLeaseRanges'
-export const CROWD_PREFIX = stringToU8a('modlpy/cfund')
+import { useCall, useEventTrigger } from '@/vue/composables'
+import { BN_ZERO, BN_ONE, BN, u8aEq, stringToU8a } from '@polkadot/util'
+import { useLeaseRanges } from '@parachains-page/composables/useLeaseRanges'
 
-const FIRST_PARAM = [0]
+const CROWD_PREFIX = stringToU8a('modlpy/cfund')
+
+export function useWinningData (auctionInfo) {
+  const ranges = useLeaseRanges()
+  const result = ref(null)
+  const bestNumber = useCall(api.derive.chain.bestNumber)
+  const trigger = useEventTrigger([api.events.auctions?.BidAccepted])
+  const currentTrigger = ref(trigger.value)
+  const initialEntries = useCall(api.query.auctions?.winning.entries)
+  const optFirstData = useCall(api.query.auctions?.winning, [0])
+
+  // should be fired once, all entries as an initial round
+  // watch(initialEntries, () => { console.log('initialEntries') })
+  watch([auctionInfo, initialEntries, ranges], () => {
+    if (!auctionInfo.value || !initialEntries.value) return
+    result.value = extractData(
+      ranges.value,
+      auctionInfo.value,
+      initialEntries.value,
+    )
+  }, { immediate: true })
+
+  // when block 0 changes, update (typically in non-ending-period, static otherwise)
+  watch([auctionInfo, optFirstData, ranges], () => {
+    if (!auctionInfo.value || !optFirstData.value) return
+    result.value = mergeFirst(
+      ranges.value,
+      auctionInfo.value,
+      result.value,
+      optFirstData.value,
+    )
+  })
+
+  // on a bid event, get the new entry (assuming the event really triggered, i.e. not just a block)
+  // and add it to the list when not duplicated. Additionally we cleanup after ourselves when endBlock
+  // gets cleared
+  watch([trigger, bestNumber, auctionInfo, ranges], async () => {
+    if (
+      !auctionInfo.value?.endBlock ||
+      !bestNumber.value?.gt(auctionInfo.value.endBlock) ||
+      currentTrigger.value === trigger.value
+    ) return
+    const blockOffset = bestNumber.value.sub(auctionInfo.endBlock).iadd(BN_ONE)
+
+    currentTrigger.value = trigger.value
+    /* eslint-disable */
+    api.query.auctions.winning(blockOffset)
+      .then(winning => {
+        result.value = mergeCurrent(
+          ranges.value,
+          auctionInfo.value,
+          result.value,
+          winning,
+          blockOffset,
+        )
+      }).catch(console.error)
+  })
+
+  return result
+}
 
 function isNewWinners (a, b) {
   return JSON.stringify({ w: a }) !== JSON.stringify({ w: b })
@@ -62,10 +120,11 @@ function extractData (ranges, auctionInfo, values) {
     .reduce((all, [{ args: [blockOffset] }, optData]) => {
       const winners = extractWinners(ranges, auctionInfo, optData)
 
-      winners.length && (
-        all.length === 0 ||
-        isNewWinners(winners, all[all.length - 1].winners)
-      ) && all.push(createWinning(auctionInfo, blockOffset, winners))
+      if (winners.length &&
+        (all.length === 0 || isNewWinners(winners, all[all.length - 1].winners))
+      ) {
+        all.push(createWinning(auctionInfo, blockOffset, winners))
+      }
 
       return all
     }, [])
@@ -99,6 +158,7 @@ function mergeCurrent (ranges, auctionInfo, prev, optCurrent, blockOffset) {
 
 function mergeFirst (ranges, auctionInfo, prev, optFirstData) {
   if (prev && prev.length <= 1) {
+    console.log('mergeFirst')
     const updated = prev || []
     const firstEntry = createWinning(
       auctionInfo,
@@ -116,34 +176,7 @@ function mergeFirst (ranges, auctionInfo, prev, optFirstData) {
 
     return updated.slice()
   }
+  console.log('mergeFirst end')
 
   return prev
-}
-
-export function useWinningDataImpl (auctionInfo) {
-  const ranges = useLeaseRanges()
-  const result = ref({})
-  const bestNumber = useCall(api.derive.chain.bestNumber)
-  const trigger = useEventTrigger([api.events.auctions?.BidAccepted])
-  const initialEntries = useCall(api.query.auctions?.winning.entries)
-  const optFirstData = useCall(api.query.auctions?.winning, FIRST_PARAM)
-
-  // should be fired once, all entries as an initial round
-  watch([auctionInfo, initialEntries, ranges], () => {
-    result.value = extractData(ranges, auctionInfo, initialEntries)
-  })
-
-  // when block 0 changes, update (typically in non-ending-period, static otherwise)
-  watch([auctionInfo, optFirstData, ranges], (prev) => {
-    result.value = mergeFirst(ranges, auctionInfo, prev, optFirstData)
-  })
-
-  // on a bid event, get the new entry (assuming the event really triggered, i.e. not just a block)
-  // and add it to the list when not duplicated. Additionally we cleanup after ourselves when endBlock
-  // gets cleared
-  watch([bestNumber, auctionInfo, ranges, trigger], (prev) => {
-    result.value = mergeCurrent(ranges, auctionInfo, prev, optFirstData)
-  })
-
-  return result
 }
