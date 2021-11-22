@@ -1,30 +1,34 @@
 <template>
   <div class="account-balances">
     <template v-if="balancesAll && isLoadedStaking">
-      <p class="account-balances__total">
+      <p
+        v-tooltip="$fFullBalance(totalBalance)"
+        :key="totalBalance.toString()"
+        class="account-balances__total"
+      >
         {{ $fbalance(totalBalance) }}
       </p>
 
       <readonly-row
-        class="account-balances__row"
         v-if="!availableBalance.isZero()"
-        v-tooltip="$fFullBalance(availableBalance)"
+        class="account-balances__row"
+        :value-tooltip="$fFullBalance(availableBalance)"
         :label="$t('common.account-balances.transferrable-lbl')"
         :value="$fbalance(availableBalance)"
       />
 
       <readonly-row
-        class="account-balances__row"
         v-if="!balancesAll.lockedBalance.isZero()"
-        v-tooltip="$fFullBalance(balancesAll.lockedBalance)"
+        class="account-balances__row"
+        :value-tooltip="$fFullBalance(balancesAll.lockedBalance)"
         :label="$t('common.account-balances.locked-lbl')"
         :value="$fbalance(balancesAll.lockedBalance)"
       />
 
       <readonly-row
-        class="account-balances__row"
         v-if="+stakingBalance.balance && !isLoadStakingFailed"
-        v-tooltip="$fFullBalance(stakingBalance.balance)"
+        class="account-balances__row"
+        :value-tooltip="$fFullBalance(stakingBalance.balance)"
         :label="$t('common.account-balances.staked-lbl')"
         :value="$fbalance(stakingBalance.balance)"
       />
@@ -114,6 +118,7 @@ export default {
 .account-balances__total {
   font-size: 2rem;
   color: $col-app-accent;
+  width: max-content;
 }
 
 .account-balances__row {

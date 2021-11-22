@@ -6,6 +6,7 @@
     />
     <p
       v-tooltip="staking.isStatusPending ? '' : $fFullBalance(staking.amount)"
+      :key="`amount-${staking.amount}`"
       class="staking-account-row__column"
     >
       <template v-if="staking.isStatusPending">
@@ -19,6 +20,7 @@
       <span
         v-if="staking.resultAmount"
         v-tooltip="$fFullBalance(staking.resultAmount)"
+        :key="`result-amount-${staking.resultAmount}`"
       >
         {{ $fbalance(staking.resultAmount) }}
       </span>

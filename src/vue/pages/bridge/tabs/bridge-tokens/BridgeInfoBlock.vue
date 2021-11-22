@@ -21,6 +21,7 @@
       <div class="bridge-info-block__value-wrap">
         <h2
           v-tooltip="valueTooltip"
+          :key="valueTooltip"
           class="bridge-info-block__value"
           :class="{ 'bridge-info-block__value--single': !secondaryValue}"
         >

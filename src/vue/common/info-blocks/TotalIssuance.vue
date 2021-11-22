@@ -3,6 +3,7 @@
     <info-block
       v-if="currentBalance"
       v-tooltip="$fFullBalance(currentBalance)"
+      :key="currentBalance.toString()"
       class="total-issuance__info"
       :title="$t('common.total-issuance.total-issued-title')"
       :value="$fbalance(currentBalance)"

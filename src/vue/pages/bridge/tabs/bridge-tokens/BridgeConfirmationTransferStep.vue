@@ -4,6 +4,7 @@
       <template v-if="isFromChainActive">
         <h1
           v-tooltip="isErc721 ? '' : currentFullAmount"
+          :key="isErc721 ? '' : currentFullAmount"
           class="
           bridge-confirmation-transfer-step__amount
           bridge-confirmation-transfer-step__item

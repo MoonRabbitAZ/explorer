@@ -1,8 +1,8 @@
 import BN from 'bn.js'
-import { formatNumber, BN_TEN } from '@polkadot/util'
+import { formatNumber, BN_TEN, bnToBn } from '@polkadot/util'
 
 export function fromWei (weiInput, unitNum, withDelimiter = false) {
-  const wei = new BN(weiInput)
+  const wei = bnToBn(weiInput)
   const base = BN_TEN.pow(new BN(unitNum))
 
   const baseLength = base.toString().length - 1 || 1

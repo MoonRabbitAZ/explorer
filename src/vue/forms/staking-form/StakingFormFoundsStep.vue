@@ -27,6 +27,7 @@
           </h3>
           <p
             v-tooltip="$fFullBalance(senderBalances.availableBalance)"
+            :key="`available-balance-${senderBalances.availableBalance.toString()}`"
             class="staking-form-founds-step__balance-value"
           >
             {{ $fbalance(senderBalances.availableBalance) }}
@@ -36,6 +37,7 @@
           </h3>
           <p
             v-tooltip="$fFullBalance(existentialDeposit)"
+            :key="`existential-deposit-${existentialDeposit.toString()}`"
             class="staking-form-founds-step__deposit-value"
           >
             {{ $fbalance(existentialDeposit) }}
