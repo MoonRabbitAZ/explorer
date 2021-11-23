@@ -1,4 +1,3 @@
-
 export class ChainRecord {
   constructor (record) {
     this._record = record

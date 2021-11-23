@@ -16,7 +16,6 @@ export function useWinningData (auctionInfo) {
   const optFirstData = useCall(api.query.auctions?.winning, [0])
 
   // should be fired once, all entries as an initial round
-  // watch(initialEntries, () => { console.log('initialEntries') })
   watch([auctionInfo, initialEntries, ranges], () => {
     if (!auctionInfo.value || !initialEntries.value) return
     result.value = extractData(
@@ -46,7 +45,9 @@ export function useWinningData (auctionInfo) {
       !bestNumber.value?.gt(auctionInfo.value.endBlock) ||
       currentTrigger.value === trigger.value
     ) return
-    const blockOffset = bestNumber.value.sub(auctionInfo.endBlock).iadd(BN_ONE)
+    const blockOffset = bestNumber.value
+      .sub(auctionInfo.value.endBlock)
+      .iadd(BN_ONE)
 
     currentTrigger.value = trigger.value
     /* eslint-disable */
@@ -158,7 +159,6 @@ function mergeCurrent (ranges, auctionInfo, prev, optCurrent, blockOffset) {
 
 function mergeFirst (ranges, auctionInfo, prev, optFirstData) {
   if (prev && prev.length <= 1) {
-    console.log('mergeFirst')
     const updated = prev || []
     const firstEntry = createWinning(
       auctionInfo,
@@ -176,7 +176,6 @@ function mergeFirst (ranges, auctionInfo, prev, optFirstData) {
 
     return updated.slice()
   }
-  console.log('mergeFirst end')
 
   return prev
 }

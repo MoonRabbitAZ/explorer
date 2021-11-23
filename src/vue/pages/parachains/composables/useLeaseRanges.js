@@ -34,5 +34,5 @@ export function useLeaseRanges () {
 export function useLeaseRangeMax () {
   const ranges = useLeaseRanges()
 
-  return computed(() => new BN(ranges[ranges.length - 1][1]))
+  return computed(() => new BN(ranges.value[ranges.value.length - 1][1]))
 }

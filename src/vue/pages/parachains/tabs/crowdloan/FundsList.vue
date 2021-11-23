@@ -86,7 +86,10 @@ export default {
   },
 
   props: {
-    funds: { type: Array, default: null },
+    funds: {
+      type: Array, /** {@link FundRecord} **/
+      default: null,
+    },
     leasePeriod: { type: LeasePeriodRecord, default: null },
     bestNumber: { type: BN, default: null },
     isOngoing: { type: Boolean, default: false },

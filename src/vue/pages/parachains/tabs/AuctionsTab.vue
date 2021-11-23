@@ -10,9 +10,12 @@
         disabled="disabled"
       />
     </div>
-    {{ winningData && winningData[0] }}
 
-    <bids-list />
+    <bids-list
+      :winning-data="winningData"
+      :funds="funds"
+      :auction-info="auctionInfo"
+    />
   </div>
 </template>
 
@@ -20,9 +23,12 @@
 import AuctionsSummary from '@parachains-page/tabs/auctions/AuctionsSummary'
 import BidsList from '@parachains-page/tabs/auctions/BidsList'
 
+import { computed } from 'vue'
 import { useCall } from '@/vue/composables'
 import { useWinningData } from '@parachains-page/composables/useWinningData'
+import { useFunds } from '@parachains-page/composables/useFunds'
 import { api } from '@api'
+import { AuctionInfoRecord } from '@/js/records/auction-info.record'
 
 export default {
   name: 'auctions-tab',
@@ -31,13 +37,28 @@ export default {
 
   setup () {
     const auctionCounter = useCall(api.query.auctions?.auctionCounter)
-    const auctionInfo = useCall(api.query.auctions?.auctionInfo)
+    const auctionInfoCall = useCall(api.query.auctions?.auctionInfo)
+
+    const auctionInfo = computed(() => {
+      if (!auctionCounter.value || !auctionInfoCall.value) return null
+      const [leasePeriod, endBlock] =
+        auctionInfoCall.value?.unwrapOr([null, null])
+      return new AuctionInfoRecord({
+        leasePeriod,
+        endBlock,
+        numAuctions: auctionCounter.value,
+      })
+    })
+
     const winningData = useWinningData(auctionInfo)
+    const { funds } = useFunds()
 
     return {
       auctionCounter,
       auctionInfo,
       winningData,
+      funds,
+      auctionInfoCall,
     }
   },
 }

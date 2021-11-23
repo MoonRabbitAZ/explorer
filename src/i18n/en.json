@@ -543,6 +543,10 @@
       "bids-header": "Bids",
       "no-data-message": "No ongoing auction"
     },
+    "bids-row": {
+      "is-crowdloan": "Yes",
+      "is-not-crowdloan": "No"
+    },
     "auctions-summary": {
       "auctions-header": "Auctions",
       "active-header": "Active",
