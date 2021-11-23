@@ -53,6 +53,7 @@ import NoDataMessage from '@/vue/common/NoDataMessage'
 import { ref, reactive, watch } from 'vue'
 import { api } from '@api'
 import { useCall } from '@/vue/composables'
+import { LeasePeriodRecord } from '@/js/records/lease-period.record'
 
 export default {
   name: 'parachains-list',
@@ -67,7 +68,7 @@ export default {
 
   props: {
     parachainIds: { type: Array, default: null },
-    leasePeriod: { type: Object, default: null },
+    leasePeriod: { type: LeasePeriodRecord, default: null },
   },
 
   setup () {

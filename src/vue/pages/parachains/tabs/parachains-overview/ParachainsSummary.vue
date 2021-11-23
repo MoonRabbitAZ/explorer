@@ -45,6 +45,7 @@ import ProgressBar from '@/vue/common/ProgressBar'
 
 import { useBlockTime } from '@/vue/composables'
 import { computed } from 'vue'
+import { LeasePeriodRecord } from '@/js/records/lease-period.record'
 
 export default {
   name: 'parachains-summary',
@@ -59,7 +60,7 @@ export default {
   props: {
     parachainsAmount: { type: Number, default: 0 },
     parathreadAmount: { type: Number, default: 0 },
-    leasePeriod: { type: Object, default: () => ({}) },
+    leasePeriod: { type: LeasePeriodRecord, default: null },
   },
 
   setup (props) {

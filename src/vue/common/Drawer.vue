@@ -144,6 +144,8 @@ $media-small: 460px;
   overflow-y: auto;
   height: 0;
 
+  @include scrollbar;
+
   &--default {
     background-color: $col-app-bg;
     padding: $drawer-padding 0;
