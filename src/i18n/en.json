@@ -555,13 +555,38 @@
     "crowdloan-tab": {
       "add-fund-btn": "Add founds"
     },
-    "crowdloan-completed-list": {
+    "funds-list": {
       "completed-header": "Completed",
-      "no-data-message": "No completed campaigns found"
-    },
-    "crowdloan-ongoing-list": {
+      "status-header": "Status",
+      "depositor-header": "Depositor",
       "ongoing-header": "Ongoing",
-      "no-data-message": "No active campaigns found"
+      "no-data-message": "No active campaigns found",
+      "no-data-message-completed": "No completed campaigns found",
+      "drawer-title": "Fund info"
+    },
+    "fund-row": {
+      "status-winner": "Winner",
+      "status-capped": "Capped",
+      "status-active": "Active",
+      "status-past": "Past",
+      "status-ended": "Ended"
+    },
+    "fund-info": {
+      "depositor-header": "Depositor",
+      "para-id-header": "Para ID",
+      "status-header": "Status",
+      "leases-header": "Leases",
+      "ending-header": "Ending",
+      "raised-header": "Raised",
+      "cap-header": "Cap",
+      "all-contributors-header": "All contributors",
+      "contribute-btn": "Contribute",
+      "close-btn": "Close",
+      "cancel-btn": "Cancel",
+      "refund-btn": "Refund"
+    },
+    "my-contributors-expander": {
+      "my-contributors-header": "My contributors ({ count })"
     },
     "crowdloan-summary": {
       "founds-header": "Founds"
