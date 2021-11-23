@@ -28,7 +28,6 @@
           </p>
           <p
             v-tooltip="$fFullBalance(fullBalance)"
-            :key="fullBalance.toString()"
             class="accounts-list__total-balance"
           >
             {{ $t('wallet-page.accounts-list.total-balance',

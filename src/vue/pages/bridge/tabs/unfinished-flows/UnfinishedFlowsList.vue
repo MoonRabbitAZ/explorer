@@ -39,16 +39,14 @@
               unfinishedFlow.decimals,
               unfinishedFlow.token.ticker,
             )"
-            :key="unfinishedFlow.flow.amount"
             class="unfinished-flows-list__amount"
           >
             {{
-              unfinishedFlow.flow.tokenId ||
-                toExternalBalance(
-                  unfinishedFlow.flow.amount,
-                  unfinishedFlow.decimals,
-                  unfinishedFlow.token.ticker,
-                )
+              unfinishedFlow.flow.tokenId || toExternalBalance(
+                unfinishedFlow.flow.amount,
+                unfinishedFlow.decimals,
+                unfinishedFlow.token.ticker,
+              )
             }}
 
           </span>

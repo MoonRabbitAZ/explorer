@@ -3,7 +3,6 @@
     <template v-if="balancesAll && isLoadedStaking">
       <p
         v-tooltip="$fFullBalance(totalBalance)"
-        :key="totalBalance.toString()"
         class="account-balances__total"
       >
         {{ $fbalance(totalBalance) }}
@@ -12,7 +11,7 @@
       <readonly-row
         v-if="!availableBalance.isZero()"
         class="account-balances__row"
-        :value-tooltip="$fFullBalance(availableBalance)"
+        :tooltip="$fFullBalance(availableBalance)"
         :label="$t('common.account-balances.transferrable-lbl')"
         :value="$fbalance(availableBalance)"
       />
@@ -20,7 +19,7 @@
       <readonly-row
         v-if="!balancesAll.lockedBalance.isZero()"
         class="account-balances__row"
-        :value-tooltip="$fFullBalance(balancesAll.lockedBalance)"
+        :tooltip="$fFullBalance(balancesAll.lockedBalance)"
         :label="$t('common.account-balances.locked-lbl')"
         :value="$fbalance(balancesAll.lockedBalance)"
       />
@@ -28,7 +27,7 @@
       <readonly-row
         v-if="+stakingBalance.balance && !isLoadStakingFailed"
         class="account-balances__row"
-        :value-tooltip="$fFullBalance(stakingBalance.balance)"
+        :tooltip="$fFullBalance(stakingBalance.balance)"
         :label="$t('common.account-balances.staked-lbl')"
         :value="$fbalance(stakingBalance.balance)"
       />

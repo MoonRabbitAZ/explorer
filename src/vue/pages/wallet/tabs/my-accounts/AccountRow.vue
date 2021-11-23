@@ -12,10 +12,7 @@
       </div>
       <div>
         <template v-if="totalBalance">
-          <span
-            v-tooltip="$fFullBalance(totalBalance)"
-            :key="totalBalance.toString()"
-          >
+          <span v-tooltip="$fFullBalance(totalBalance)">
             {{ $fbalance(totalBalance) }}
           </span>
         </template>

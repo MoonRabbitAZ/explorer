@@ -10,7 +10,6 @@
         </h3>
         <p
           v-tooltip="$fFullBalance(former.attrs.amount)"
-          :key="`amount-${former.attrs.amount}`"
           class="transfer-form-authorize-step__amount-value"
         >
           {{ $fbalance(former.attrs.amount) }}
@@ -20,7 +19,6 @@
         </h3>
         <p
           v-tooltip="$fFullBalance(partialFee)"
-          :key="`partial-fee-${partialFee}`"
           class="transfer-form-authorize-step__fee-value"
         >
           {{ $fbalance(partialFee) }}

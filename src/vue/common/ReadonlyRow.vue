@@ -5,8 +5,7 @@
         {{ label }}
       </h5>
       <p
-        v-tooltip="valueTooltip"
-        :key="valueTooltip"
+        v-tooltip="tooltip"
         class="readonly-row__value"
       >
         {{ value }}
@@ -23,7 +22,7 @@ export default {
   props: {
     label: { type: String, required: true },
     value: { type: String, default: '' },
-    valueTooltip: { type: String, default: '' },
+    tooltip: { type: String, default: '' },
   },
 }
 </script>

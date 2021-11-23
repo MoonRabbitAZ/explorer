@@ -4,7 +4,6 @@
       <info-block
         class="block-info-summary__info"
         v-tooltip="$fFullBalance(deposits)"
-        :key="deposits.toString()"
         :title="$t('explorer-page.block-info-summary.header-deposits')"
         :value="$fbalance(deposits)"
       />
@@ -12,7 +11,6 @@
       <info-block
         class="block-info-summary__info"
         v-tooltip="$fFullBalance(transfers)"
-        :key="transfers.toString()"
         :title="$t('explorer-page.block-info-summary.header-transfers')"
         :value="$fbalance(transfers)"
       />

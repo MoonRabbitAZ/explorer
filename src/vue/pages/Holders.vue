@@ -22,10 +22,7 @@
           <account-address
             :account-address="holder.address"
           />
-          <p
-            v-tooltip="$fFullBalance(holder.balance)"
-            :key="holder.balance.toString()"
-          >
+          <p v-tooltip="$fFullBalance(holder.balance)">
             {{ $fbalance(holder.balance) }}
           </p>
         </div>
