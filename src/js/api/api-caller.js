@@ -31,6 +31,13 @@ export class ApiCaller {
     }
   }
 
+  withBaseURL (baseURL) {
+    const newCaller =
+      Object.assign(Object.create(Object.getPrototypeOf(this)), this)
+    newCaller.useBaseURL(baseURL)
+    return newCaller
+  }
+
   /**
    * Makes a `GET` to a target `endpoint` with the provided `query` params.
    * Signing can be enabled with `needSign` argument. Parses the response in

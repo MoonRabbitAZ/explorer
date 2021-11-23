@@ -32,13 +32,13 @@ export default {
     label: { type: String, default: '' },
     modelValue: { type: [String, Number], default: '' },
     errorMessage: { type: String, default: '' },
+    decimals: { type: Number, default: api.registry.chainDecimals[0] },
   },
 
   emits: Object.values(EVENTS),
 
   setup (props, { emit }) {
     const value = ref('')
-    const decimal = api.registry.chainDecimals[0]
 
     function inputToBn (input) {
       const div = new BN(input.replace(/\.\d*$/, ''))
@@ -47,20 +47,20 @@ export default {
       const mod = new BN(modString || 0)
 
       const result = div
-        .mul(BN_TEN.pow(new BN(decimal)))
-        .add(mod.mul(BN_TEN.pow(new BN(decimal - modString.length))))
+        .mul(BN_TEN.pow(new BN(props.decimals)))
+        .add(mod.mul(BN_TEN.pow(new BN(props.decimals - modString.length))))
 
       return result
     }
 
     function onInput (event) {
       const formatValue = event.target.value.replace(/,/, '.')
-      value.value = formatValue.match(`\\d*\\.?\\d{0,${decimal}}`)[0]
+      value.value = formatValue.match(`\\d*\\.?\\d{0,${props.decimals}}`)[0]
       if (value.value === '.') value.value = '0.'
       emit(EVENTS.updateModelValue, inputToBn(value.value).toString())
     }
 
-    value.value = fromWei(props.modelValue, decimal)
+    value.value = fromWei(props.modelValue, props.decimals)
 
     return { onInput, value }
   },

@@ -6,11 +6,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 #### Added
+- Collection loader
+- Ethereum bridge  tab
+- Metamask form
+- Web3 provider module
+- Link to open this site of the metamask mobile application
+- Link terms of use
+- Owner check NFT on bridge
+- No data message on staking tab
 - Crowdloan list and crowdloan info
 
 #### Changed
 - Version api packages
 - Temples icons
+- Chain error message on bridge
+- Logic native token deposit
+
+#### Fixed
+- Display amount on unfinished flow list
+- Balance display on validators
+- Getting NFT on Bridge tokens form
+- Bridge contract on Withdraw NFT
+- Gitlab CI
+- Localization `mainet` -> `mainnet`
 
 ## [0.1.0-rc.3] - 2021-10-19
 #### Added

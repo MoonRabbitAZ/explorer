@@ -28,6 +28,9 @@
         {{ description }}
       </p>
     </div>
+    <template v-else>
+      <slot />
+    </template>
   </div>
 </template>
 
@@ -190,7 +193,7 @@ $tick-size: 2.4rem;
 
   .tick-field__input:disabled ~ & {
     cursor: not-allowed;
-    background-color: $field-color-unfocused;
+    background-color: $field-color-disabled;
   }
 }
 

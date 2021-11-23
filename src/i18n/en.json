@@ -94,7 +94,8 @@
     "accounts": {
       "name": "Accounts",
       "routers": {
-        "wallet": "Wallet"
+        "wallet": "Wallet",
+        "bridge": "Bridge"
       }
     },
     "settings": {
@@ -161,6 +162,11 @@
     "tech-comm": {
       "overview": "Overview",
       "proposals": "Proposals"
+    },
+    "bridge": {
+      "tokens": "Tokens",
+      "nft": "NFT",
+      "unfinished-flows": "Unfinished flows"
     }
   },
   "navigation": {
@@ -374,13 +380,24 @@
     },
     "total-issuance": {
       "total-issued-title": "Total issued"
+    },
+    "collection-loader": {
+      "more-btn": "More"
+    },
+    "metamask-form": {
+      "create-msg": "To continue working with the Bridge, please create the MetaMask wallet.",
+      "connect-msg": "To continue working with the Bridge, please connect the MetaMask wallet.",
+      "mobile-open-msg": "To continue, open metamask in your browser",
+      "connect-btn": "Connect Wallet",
+      "download-btn": "Download Now",
+      "open-metamask-btn": "Open Metamask"
     }
   },
   "fields": {
     "clipboard-field": {
       "copied-msg": "Copied!"
     },
-    "input-field": { 
+    "input-field": {
       "caps-lock-warning": "(Warning: Caps-Lock is on)"
     }
   },
@@ -394,7 +411,8 @@
       "stake-title": "Stake",
       "stake-btn": "Stake",
       "error-header": "Error",
-      "error-message": "There was an error while loading."
+      "error-message": "There was an error while loading.",
+      "no-data-message":"No accounts available"
     },
     "staking-account-row": {
       "unstake-btn": "Unstake",
@@ -476,7 +494,7 @@
     "block-logs": {
       "title": "Logs",
       "no-data-message": "No logs available"
-    }, 
+    },
     "system-events": {
       "title": "System events",
       "no-data-message": "No events available"
@@ -760,6 +778,74 @@
       "decimals-header": "Decimals",
       "chain-type-header": "Chain Type",
       "network-logo": "Network logo"
+    }
+  },
+  "bridge-page": {
+    "bridge-tokens-tab": {
+      "error-header": "Error",
+      "error-message": "There was an error while loading. Try hard reload page.",
+      "no-data-message": "No tokens or chains available"
+    },
+    "bridge-tokens-form": {
+      "asset-lbl": "Asset",
+      "destination-header": "Destination",
+      "from-header": "From",
+      "to-header": "To",
+      "token-name-header": "Token Name",
+      "amount-lbl": "Amount (Available: { balance })",
+      "token-id-lbl": "Token ID",
+      "token-id-placeholder": "Enter token ID",
+      "destination-info": "This is the destination address of the To network",
+      "next-btn": "Next",
+      "drawer-confirmation-header": "Confirmation",
+      "mainnet-transfer-msg": "Want to transfer funds to mainnet? Use { link }.",
+      "mainnet-transfer-link": "this link",
+      "balance-error-message": "Balance not found or equality 0",
+      "nft-error-message": "Token not found at the used address",
+      "default-error-message": "There was an error while loading.",
+      "chain-error-part-1": "Please switch to the network \"{ network }\" in the MetaMask wallet in order to continue. ({ link })",
+      "chain-error-link-part-1": "Here's how",
+      "chain-error-part-2": "Remember! You must have enough ETH on your account to cover gas fees.",
+      "chain-error-part-3": "If you were unable to deposit, switch to the \"Unfinished flows\" tab."
+    },
+    "bridge-confirmation-transfer-step": {
+      "asset-header": "Asset",
+      "destination-header": "Destination",
+      "from-header": "From",
+      "to-header": "To",
+      "confirmation-info-msg": "Please initiate a single transfer, we will only monitor the first transfer.",
+      "confirm-btn": "Confirm",
+      "terms-of-use-lbl": "I have read and agree to the { link }",
+      "terms-of-use-link": "Terms of Use",
+      "chain-error-message": "Please switch to the network \"{ network }\" in the MetaMask wallet in order to continue."
+    },
+    "bridge-confirmation": {
+      "alert-chain-status-msg": "Please switch to the network \"{ network }\" in the MetaMask wallet in order to continue.",
+      "confirm-chain-status-msg": "The network \"{ network }\" in the MetaMask wallet was successfully switched.",
+      "deposit-btn": "Deposit",
+      "withdraw-btn": "Withdraw",
+      "native-token-info-msg": "Your deposit for processing. Expect transaction within 10 minutes."
+    },
+    "unfinished-flows-tab": {
+      "error-header": "Error",
+      "error-message": "There was an error while loading."
+    },
+    "unfinished-flows-list": {
+      "type-header": "Type(original/internal)",
+      "amount-or-token-id-header": "Amount/Tokens ID",
+      "from-header": "From",
+      "to-header": "To",
+      "destination-header": "Destination",
+      "no-data-message": "No unfinished flows available",
+      "repeat-btn": "Repeat",
+      "withdraw-drawer-header": "Withdraw Retry",
+      "deposit-drawer-header": "Deposit Retry"
+    },
+    "unfinished-flows-from": {
+      "alert-chain-status-msg": "Please switch to the network \"{ network }\" in the MetaMask wallet in order to continue.",
+      "confirm-chain-status-msg": "The network \"{ network }\" in the MetaMask wallet was successfully switched.",
+      "deposit-btn": "Deposit",
+      "withdraw-btn": "Withdraw"
     }
   }
 }

@@ -51,6 +51,10 @@ import ProposalsTab from '@tech-comm-page/tabs/ProposalsTab'
 import Settings from '@settings-page/Settings'
 import SettingsMetadataTab from '@settings-page/tabs/SettingsMetadataTab'
 
+import Bridge from '@bridge-page/Bridge'
+import BridgeTokensTab from '@bridge-page/tabs/BridgeTokensTab'
+import UnfinishedFlowsTab from '@bridge-page/tabs/UnfinishedFlowsTab'
+
 import { createRouter, createWebHistory } from 'vue-router'
 import { vueRoutes } from '@/vue-router/routes'
 
@@ -285,6 +289,30 @@ const routes = [
             path: '/settings/metadata',
             name: vueRoutes.settingsMetadataTab.name,
             component: SettingsMetadataTab,
+          },
+        ],
+      },
+      {
+        path: '/bridge',
+        name: vueRoutes.bridgePage.name,
+        component: Bridge,
+        redirect: vueRoutes.bridgeTokensTab,
+        children: [
+          {
+            path: '/bridge/tokens',
+            name: vueRoutes.bridgeTokensTab.name,
+            component: BridgeTokensTab,
+          },
+          {
+            path: '/bridge/nft',
+            name: vueRoutes.bridgeNFTTab.name,
+            component: BridgeTokensTab,
+            props: { isErc721: true },
+          },
+          {
+            path: '/bridge/unfinished-flows',
+            name: vueRoutes.unfinishedFlowsTab.name,
+            component: UnfinishedFlowsTab,
           },
         ],
       },

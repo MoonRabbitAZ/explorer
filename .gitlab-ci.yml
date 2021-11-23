@@ -16,7 +16,23 @@ build:
   tags:
     - tokend
   script:
-    - sh ./.ci/build.sh
+    - docker build --build-arg BUILD_VERSION="$CI_COMMIT_SHA" --pull -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+
+build_tag:
+  image: registry.gitlab.com/tokend/deployment/docker-build:latest
+  stage: build
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  tags:
+    - tokend
+  script:
+    - docker build --build-arg BUILD_VERSION="$CI_COMMIT_TAG" --pull -t $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
+  only:
+    - tags
+  except:
+    - branches
 
 lint:
   image: node:14

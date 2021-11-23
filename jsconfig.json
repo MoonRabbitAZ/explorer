@@ -23,6 +23,7 @@
       "@treasury-page": ["src/vue/pages/treasury/*"],
       "@bounties-page/*": ["src/vue/pages/bounties/*"],
       "@tech-comm-page/*": ["src/vue/pages/tech-comm/*"],
+      "@bridge-page/*": ["src/vue/pages/bridge/*"],
     }
   },
   "exclude": ["node_modules", "dist"]

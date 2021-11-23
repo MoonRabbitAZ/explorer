@@ -83,6 +83,7 @@ module.exports = {
         '@treasury-page': `${root}/vue/pages/treasury`,
         '@bounties-page': `${root}/vue/pages/bounties`,
         '@tech-comm-page': `${root}/vue/pages/tech-comm`,
+        '@bridge-page': `${root}/vue/pages/bridge`,
       },
     },
   },

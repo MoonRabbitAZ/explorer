@@ -8,6 +8,7 @@
     <success-icon v-if="ICON_NAMES.success === name" />
     <info-icon v-if="ICON_NAMES.info === name" />
     <rotate-icon v-if="ICON_NAMES.rotate === name" />
+    <metamask-icon v-if="ICON_NAMES.metamask === name" />
 
     <!-- Socila icons -->
     <discord-icon v-if="ICON_NAMES.discord === name" />
@@ -45,6 +46,7 @@ import AlertIcon from '@/vue/common/icons/Alert-icon'
 import SuccessIcon from '@/vue/common/icons/Success-icon'
 import InfoIcon from '@/vue/common/icons/Info-icon'
 import RotateIcon from '@/vue/common/icons/Rotate-icon'
+import MetamaskIcon from '@/vue/common/icons/Metamask-icon'
 
 // Socila icons
 import DiscordIcon from '@/vue/common/icons/social/Discord-icon'
@@ -78,6 +80,7 @@ const ICON_NAMES = {
   success: 'success',
   info: 'info',
   rotate: 'rotate',
+  metamask: 'metamask',
 
   // Socila icons
   discord: 'discord',
@@ -136,6 +139,7 @@ export default {
     TelegramRuIcon,
     TelegramTrIcon,
     WeiboIcon,
+    MetamaskIcon,
   },
   props: {
     name: {

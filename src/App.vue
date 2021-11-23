@@ -4,7 +4,8 @@
       class="app__background"
       :class="{
         'app__background--loaded': isLoaded,
-        'app__background--blurred': isBlurredBg
+        'app__background--blurred': isBlurredBg,
+        'app__background--bridge': isBridgePage
       }"
     />
     <template v-if="isLoaded">
@@ -63,6 +64,7 @@ export default {
         api.derive.chain.subscribeNewHeads(blockAuthorHandler)
         store.dispatch(vuexTypes.SUBSCRIBE_ERA_POINTS)
         store.dispatch(vuexTypes.SUBSCRIBE_EVENTS)
+        store.dispatch(vuexTypes.INIT_WEB3)
 
         isAppInitialised.value = true
       } catch (e) {
@@ -78,12 +80,17 @@ export default {
       route.name === vueRoutes.validatorsMapPage.name && isLoaded.value,
     )
 
+    const isBridgePage = computed(() =>
+      route.matched.some(({ name }) => name === vueRoutes.bridgePage.name),
+    )
+
     return {
       isAppInitialised,
       isApiConnected,
       isBlurredBg,
       isLoaded,
       CONFIG,
+      isBridgePage,
     }
   },
 }
@@ -118,6 +125,17 @@ export default {
       linear-gradient(rgba($col-app-bg, 0.6), rgba($col-app-bg, 0.6)),
       url('~@static/branding/app-content-bg.png');
     filter: blur(2.5rem);
+  }
+
+  &--bridge {
+    background-image: url('~@static/images/bridge-page/bridge-bg.png');
+    filter: none;
+
+    @include respond-to($sidebar-hide-bp) {
+      background-image:
+        linear-gradient(rgba($col-app-bg, 0.4), rgba($col-app-bg, 0.4)),
+        url('~@static/images/bridge-page/bridge-mobile-bg.png');
+    }
   }
 }
 

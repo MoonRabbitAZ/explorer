@@ -8,32 +8,40 @@
         />
       </template>
       <template v-else>
-        <div class="staking-tab__top-bar">
-          <app-button
-            class="my-accounts-tab__actions-button"
-            scheme="primary"
-            :text="$t('wallet-page.staking-tab.stake-btn')"
-            :disabled="!stakingOptions.length"
-            @click="isStakeFormOpen = true"
-          />
-        </div>
+        <template v-if="addresses.length">
+          <div class="staking-tab__top-bar">
+            <app-button
+              class="my-accounts-tab__actions-button"
+              scheme="primary"
+              :text="$t('wallet-page.staking-tab.stake-btn')"
+              :disabled="!stakingOptions.length"
+              @click="isStakeFormOpen = true"
+            />
+          </div>
 
-        <staking-list :addresses="addresses"/>
+          <staking-list :addresses="addresses"/>
 
-        <drawer
-          v-model:is-shown="isStakeFormOpen"
-          is-default-body
-          :close-by-click-outside="false"
-        >
-          <template #heading>
-            {{ $t('wallet-page.staking-tab.stake-title') }}
-          </template>
-          <staking-form
-            :my-accounts="myAccounts"
-            :staking-options="stakingOptions"
-            @close-drawer="isStakeFormOpen = false"
+          <drawer
+            v-model:is-shown="isStakeFormOpen"
+            is-default-body
+            :close-by-click-outside="false"
+          >
+            <template #heading>
+              {{ $t('wallet-page.staking-tab.stake-title') }}
+            </template>
+            <staking-form
+              :my-accounts="myAccounts"
+              :staking-options="stakingOptions"
+              @close-drawer="isStakeFormOpen = false"
+            />
+          </drawer>
+        </template>
+        <template v-else>
+          <no-data-message
+            class="staking-tab__no-data-message"
+            :message="$t('wallet-page.staking-tab.no-data-message')"
           />
-        </drawer>
+        </template>
       </template>
     </template>
     <template v-else>
@@ -48,6 +56,7 @@ import StakingForm from '@/vue/forms/StakingForm'
 import Drawer from '@/vue/common/Drawer'
 import Loader from '@/vue/common/Loader'
 import ErrorMessage from '@/vue/common/ErrorMessage'
+import NoDataMessage from '@/vue/common/NoDataMessage'
 
 import { reactive, toRefs, onBeforeUnmount } from 'vue'
 import { keyring } from '@polkadot/ui-keyring'
@@ -64,6 +73,7 @@ export default {
     Drawer,
     Loader,
     ErrorMessage,
+    NoDataMessage,
   },
 
   setup () {
@@ -89,7 +99,7 @@ export default {
         try {
           state.addresses = accounts ? Object.keys(accounts) : []
           state.myAccounts =
-      state.addresses.map(address => keyring.getAccount(address))
+            state.addresses.map(address => keyring.getAccount(address))
 
           await getStakingsOptions()
         } catch (e) {
@@ -131,5 +141,10 @@ export default {
   & + & {
     margin-top: 0.4rem;
   }
+}
+
+.staking-tab__no-data-message {
+  margin: 0 auto;
+  width: max-content;
 }
 </style>

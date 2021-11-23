@@ -20,7 +20,7 @@ function extractValue (val) {
 
 export function useValidators () {
   const { t } = useI18n()
-  const { toBalance } = useFormatBalance()
+  const { toBalance, toExternalBalance } = useFormatBalance()
 
   const required = value => {
     let isRequired
@@ -97,7 +97,7 @@ export function useValidators () {
       : t('validation.field-error_hexSeed', { length: seedLength })
   }
 
-  const amountRange = (minValue, maxValue) => {
+  const amountRange = (minValue, maxValue, decimals, ticker) => {
     return (val) => {
       const extractMinValue = extractValue(minValue)
       const extractMaxValue = extractValue(maxValue)
@@ -112,8 +112,12 @@ export function useValidators () {
       return bnMinValue.lte(bnValue) && bnValue.lte(bnMaxValue)
         ? ''
         : t('validation.field-error_amountRange', {
-          from: toBalance(bnMinValue),
-          to: toBalance(bnMaxValue),
+          from: ticker
+            ? toExternalBalance(bnMinValue, decimals, ticker)
+            : toBalance(bnMinValue, decimals),
+          to: ticker
+            ? toExternalBalance(bnMaxValue, decimals, ticker)
+            : toBalance(bnMaxValue, ticker),
         })
     }
   }

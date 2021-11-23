@@ -36,7 +36,43 @@ export default Object.assign(
 
     STAKING_API_URL: 'https://staking.polkadot.tokend.io/',
 
+    BRIDGE_ETHEREUM_API_URL: '',
+
     STAKING_SYSTEM_ADDRESS: 'GsvVmjr1CBHwQHw84pPHMDxgNY3iBLz6Qn7qS3CH8qPhrHz',
+
+    /**
+     * Default page limit for requests
+     */
+
+    DEFAULT_PAGE_LIMIT: 15,
+
+    /**
+     *  IPFS host to get Token URI from.
+     */
+    TOKEN_URI_HOST: 'gateway.ipfs.io/ipfs/',
+
+    /**
+     *  IPFS protocol to get Token URI.
+     */
+    TOKEN_URI_PROTOCOL: 'https',
+
+    /**
+     *  Link to open this site of the metamask mobile application
+     * @see {@link https://metamask.github.io/metamask-deeplinks}
+     */
+    OPEN_METAMASK_MOBILE_APP_LINK: 'https://metamask.app.link/dapp/stage.hole.moonrabbit.com/bridge',
+
+    /**
+     *  Link terms of use
+     */
+
+    TERMS_OF_USE_LINK: 'https://moonrabbit.com/legal/',
+
+    /**
+     *  Link to documentation
+     */
+
+    LIBRARY_APP_LINK: 'https://lib.moonrabbit.com/',
 
     /**
      * Social links
@@ -58,7 +94,6 @@ export default Object.assign(
     SOCIAL_LINK_TELEGRAM_TR: 'https://t.me/MoonRabbitTR',
     SOCIAL_LINK_TELEGRAM_ENG: 'https://t.me/moonrabbitcom',
     SOCIAL_LINK_TELEGRAM_NEWS: 'https://t.me/moonrabbitchannel',
-
     SOCIAL_LINK_COMMUNITY: '',
     SOCIAL_LINK_BITCOIN_TALK: 'https://bitcointalk.org',
     SOCIAL_LINK_WEIBO: 'https://weibo.com/u/7616523840?refer_flag=1001030103_&is_all=1',

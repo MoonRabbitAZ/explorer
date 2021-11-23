@@ -14,6 +14,10 @@ export function useMenuLinksGroups () {
           translationName: t('routers-groups.accounts.routers.wallet'),
           route: vueRoutes.walletPage,
         },
+        {
+          translationName: t('routers-groups.accounts.routers.bridge'),
+          route: vueRoutes.bridgePage,
+        },
       ],
     },
 

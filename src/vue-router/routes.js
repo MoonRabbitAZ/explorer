@@ -64,4 +64,10 @@ export const vueRoutes = Object.freeze({
   techCommPage: { name: 'tech-comm' },
   techCommOverviewTab: { name: 'tech-comm.tech-comm-overview-tab' },
   proposalsTab: { name: 'tech-comm.proposals-tab' },
+
+  // bridge page
+  bridgePage: { name: 'bridge' },
+  bridgeTokensTab: { name: 'bridge.bridge-tokens-tab' },
+  bridgeNFTTab: { name: 'bridge.bridge-nft-tab' },
+  unfinishedFlowsTab: { name: 'bridge.unfinished-flows-tab' },
 })

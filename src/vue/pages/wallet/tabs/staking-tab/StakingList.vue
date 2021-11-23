@@ -1,42 +1,52 @@
 <template>
   <div class="staking-list">
-    <h1 class="staking-list__header">
-      {{ $t('wallet-page.staking-list.staking-header') }}
-    </h1>
+    <div class="staking-list__body">
+      <h1 class="staking-list__header">
+        {{ $t('wallet-page.staking-list.staking-header') }}
+      </h1>
 
-    <template v-if="isLoaded">
-      <template v-if="isLoadFailed">
-        <error-message
-          :header="$t('wallet-page.staking-list.error-header')"
-          :message="$t('wallet-page.staking-list.error-message')"
-        />
-      </template>
-      <template v-else>
-        <template v-if="stakingList.length">
-          <staking-account-row
-            v-for="staking in stakingList"
-            :key="staking.id"
-            v-model:is-processing-unstake="isProcessingUnstake"
-            class="staking-list__row"
-            :staking="staking"
-            @withdrawn="getStakings"
+      <template v-if="isLoaded">
+        <template v-if="isLoadFailed">
+          <error-message
+            :header="$t('wallet-page.staking-list.error-header')"
+            :message="$t('wallet-page.staking-list.error-message')"
           />
         </template>
         <template v-else>
-          <no-data-message
-            is-row-block
-            :message="$t('wallet-page.staking-list.no-data-message')"
-          />
+          <template v-if="stakingList.length">
+            <staking-account-row
+              v-for="staking in stakingList"
+              :key="staking.id"
+              v-model:is-processing-unstake="isProcessingUnstake"
+              class="staking-list__row"
+              :staking="staking"
+              @withdrawn="collectionLoader.loadFirstPage"
+            />
+          </template>
+          <template v-else>
+            <no-data-message
+              is-row-block
+              :message="$t('wallet-page.staking-list.no-data-message')"
+            />
+          </template>
         </template>
       </template>
-    </template>
-    <template v-else>
-      <skeleton-loader
-        v-for="i in 3"
-        :key="i"
-        class="staking-list__skeleton"
-      />
-    </template>
+      <template v-else>
+        <skeleton-loader
+          v-for="i in 3"
+          :key="i"
+          class="staking-list__skeleton"
+        />
+      </template>
+    </div>
+
+    <collection-loader
+      ref="collectionLoader"
+      class="staking-list__collection-loader"
+      :first-page-loader="getStakings"
+      @first-page-load="setList"
+      @next-page-load="concatList"
+    />
   </div>
 </template>
 
@@ -45,8 +55,9 @@ import StakingAccountRow from '@wallet-page/tabs/staking-tab/StakingAccountRow'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 import ErrorMessage from '@/vue/common/ErrorMessage'
 import SkeletonLoader from '@/vue/common/SkeletonLoader'
+import CollectionLoader from '@/vue/common/CollectionLoader'
 
-import { reactive, toRefs, watch } from 'vue'
+import { reactive, ref, toRefs, onMounted } from 'vue'
 import { StakingRecord } from '@/js/records/staking.record'
 import { stakingApi } from '@api'
 import { Bus } from '@/js/helpers/event-bus'
@@ -67,6 +78,7 @@ export default {
     NoDataMessage,
     ErrorMessage,
     SkeletonLoader,
+    CollectionLoader,
   },
 
   props: {
@@ -77,6 +89,7 @@ export default {
   },
 
   setup (props) {
+    const collectionLoader = ref(null)
     const state = reactive({
       stakingList: [],
       isProcessingUnstake: false,
@@ -85,43 +98,52 @@ export default {
     })
 
     async function getStakings () {
+      let response
       state.isLoaded = false
       state.isLoadFailed = false
+
       try {
-        const stakings = await Promise.all(
-          props.addresses.map(async (address) =>
-            stakingApi.get(`api/staking/${address}`, {
-              page: {
-                order: 'desc',
-                limit: 100,
-              },
-              filter: {
-                status: STATUS_FILTER,
-              },
-              include: ['stake_options'],
-            }),
-          ))
-
-        state.stakingList = stakings.reduce((acc, { data }) => {
-          const result = data.map(i => new StakingRecord(i))
-          acc.push(...result)
-
-          return acc
-        }, [])
+        response = await stakingApi.get('api/staking', {
+          page: {
+            order: 'desc',
+          },
+          filter: {
+            status: STATUS_FILTER,
+            addresses: props.addresses.join(','),
+          },
+          include: ['stake_options'],
+        })
       } catch (e) {
         state.isLoadFailed = true
         ErrorHandler.processWithoutFeedback(e)
       }
-
       state.isLoaded = true
+      return response
     }
 
-    watch(() => props.addresses, getStakings, { immediate: true })
-    Bus.on(Bus.eventList.updateStakingList, getStakings)
+    function setList (newList) {
+      state.stakingList = newList.map(i => new StakingRecord(i))
+    }
+
+    function concatList (newChunk) {
+      state.stakingList = state.stakingList.concat(
+        newChunk.map(i => new StakingRecord(i)),
+      )
+    }
+
+    onMounted(() => {
+      Bus.on(
+        Bus.eventList.updateStakingList,
+        collectionLoader.value.loadFirstPage,
+      )
+    })
 
     return {
       ...toRefs(state),
       getStakings,
+      setList,
+      concatList,
+      collectionLoader,
     }
   },
 }
@@ -131,7 +153,7 @@ export default {
 @import '~@scss/mixins';
 @import '~@scss/variables';
 
-.staking-list {
+.staking-list__body {
   overflow-x: auto;
   padding-bottom: 1rem;
 

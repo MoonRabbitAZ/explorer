@@ -132,6 +132,7 @@ export default {
 
 .group-menu-links__dropdown {
   display: none;
+  min-width: 100%;
   position: absolute;
   top: 100%;
   left: 0;

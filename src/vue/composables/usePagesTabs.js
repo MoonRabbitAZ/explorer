@@ -133,6 +133,17 @@ export function usePagesTabs () {
         route: vueRoutes.settingsMetadataTab,
       },
     ],
+
+    bridge: [
+      {
+        translationName: t('page-tabs.bridge.tokens'),
+        route: vueRoutes.bridgeTokensTab,
+      },
+      {
+        translationName: t('page-tabs.bridge.unfinished-flows'),
+        route: vueRoutes.unfinishedFlowsTab,
+      },
+    ],
   })
 
   return {
