@@ -72,6 +72,7 @@ module.exports = {
     'vue/no-textarea-mustache': 2,
     'vue/no-unused-components': 1,
     'vue/no-unused-vars': 1,
+    'vue/script-setup-uses-vars': 0,
     'vue/no-v-html': 1,
     'vue-i18n/no-v-html': ['off'],
     'vue/prop-name-casing': 2,

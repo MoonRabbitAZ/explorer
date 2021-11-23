@@ -1,9 +1,9 @@
 import BN from 'bn.js'
-import { BN_TEN } from '@polkadot/util'
+import { formatNumber, BN_TEN, bnToBn } from '@polkadot/util'
 
-export function fromWei (weiInput, unitNUm) {
-  const wei = new BN(weiInput)
-  const base = BN_TEN.pow(new BN(unitNUm))
+export function fromWei (weiInput, unitNum, withDelimiter = false) {
+  const wei = bnToBn(weiInput)
+  const base = BN_TEN.pow(new BN(unitNum))
 
   const baseLength = base.toString().length - 1 || 1
 
@@ -15,7 +15,8 @@ export function fromWei (weiInput, unitNUm) {
   fraction = fraction.match(/^([0-9]*[1-9]|0)(0*)/)[1]
 
   const whole = wei.div(base).toString(10)
+  const viewWhole = withDelimiter ? formatNumber(whole) : whole
 
-  const result = `${whole}${fraction === '0' ? '' : `.${fraction}`}`
+  const result = `${viewWhole}${fraction === '0' ? '' : `.${fraction}`}`
   return result
 }

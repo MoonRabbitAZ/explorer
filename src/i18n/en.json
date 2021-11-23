@@ -20,7 +20,7 @@
     "field-error_sameAsPassword": "Passwords don't match",
     "field-error_mnemonicSed": "The value must be mnemonic seed",
     "field-error_hexSeed": "The value must be in hex format and consist of { length } characters.",
-    "field-error_amountRange": "Amount should be in the range from { from } to { to }"
+    "field-error_amountRange": "Amount must be in the range from { from } to { to }"
   },
   "formats": {
     "dates": {
@@ -555,13 +555,38 @@
     "crowdloan-tab": {
       "add-fund-btn": "Add founds"
     },
-    "crowdloan-completed-list": {
+    "funds-list": {
       "completed-header": "Completed",
-      "no-data-message": "No completed campaigns found"
-    },
-    "crowdloan-ongoing-list": {
+      "status-header": "Status",
+      "depositor-header": "Depositor",
       "ongoing-header": "Ongoing",
-      "no-data-message": "No active campaigns found"
+      "no-data-message": "No active campaigns found",
+      "no-data-message-completed": "No completed campaigns found",
+      "drawer-title": "Fund info"
+    },
+    "fund-row": {
+      "status-winner": "Winner",
+      "status-capped": "Capped",
+      "status-active": "Active",
+      "status-past": "Past",
+      "status-ended": "Ended"
+    },
+    "fund-info": {
+      "depositor-header": "Depositor",
+      "para-id-header": "Para ID",
+      "status-header": "Status",
+      "leases-header": "Leases",
+      "ending-header": "Ending",
+      "raised-header": "Raised",
+      "cap-header": "Cap",
+      "all-contributors-header": "All contributors",
+      "contribute-btn": "Contribute",
+      "close-btn": "Close",
+      "cancel-btn": "Cancel",
+      "refund-btn": "Refund"
+    },
+    "my-contributors-expander": {
+      "my-contributors-header": "My contributors ({ count })"
     },
     "crowdloan-summary": {
       "founds-header": "Founds"
@@ -767,21 +792,26 @@
       "from-header": "From",
       "to-header": "To",
       "token-name-header": "Token Name",
-      "amount-lbl": "Amount (Available: { balance })",
+      "available-balance-header": "Available balance",
+      "amount-lbl": "Amount ({ ticker })",
       "token-id-lbl": "Token ID",
       "token-id-placeholder": "Enter token ID",
-      "destination-info": "This is the destination address of the To network",
+      "destination-info": "This is the destination address of the \"To\" network",
       "next-btn": "Next",
       "drawer-confirmation-header": "Confirmation",
-      "mainet-transfer-msg": "Want to transfer funds to mainet? Use { link }.",
-      "mainet-transfer-link": "this link",
+      "mainnet-transfer-msg": "Want to transfer funds to mainnet? Use { link }.",
+      "mainnet-transfer-link": "this link",
       "balance-error-message": "Balance not found or equality 0",
       "nft-error-message": "Token not found at the used address",
       "default-error-message": "There was an error while loading.",
       "chain-error-part-1": "Please switch to the network \"{ network }\" in the MetaMask wallet in order to continue. ({ link })",
       "chain-error-link-part-1": "Here's how",
       "chain-error-part-2": "Remember! You must have enough ETH on your account to cover gas fees.",
-      "chain-error-part-3": "If you were unable to deposit, switch to the \"Unfinished flows\" tab."
+      "chain-error-part-3": "If you were unable to deposit, switch to the \"Unfinished flows\" tab.",
+      "base-chain-name": "Network Name: { name }",
+      "base-chain-rps-url": "New RPC URL: { url }",
+      "base-chain-id": "Chain ID: { id }",
+      "base-chain-symbol": "Currency Symbol: { symbol }"
     },
     "bridge-confirmation-transfer-step": {
       "asset-header": "Asset",
@@ -813,7 +843,7 @@
       "destination-header": "Destination",
       "no-data-message": "No unfinished flows available",
       "repeat-btn": "Repeat",
-      "withdraw-drawer-header": "Withdraw Retry",
+      "withdraw-drawer-header": "Withdrawal Retry",
       "deposit-drawer-header": "Deposit Retry"
     },
     "unfinished-flows-from": {

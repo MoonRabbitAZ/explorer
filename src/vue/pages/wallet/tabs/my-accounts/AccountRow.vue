@@ -12,7 +12,9 @@
       </div>
       <div>
         <template v-if="totalBalance">
-          {{ $fbalance(totalBalance) }}
+          <span v-tooltip="$fFullBalance(totalBalance)">
+            {{ $fbalance(totalBalance) }}
+          </span>
         </template>
         <template v-else>
           <skeleton-loader

@@ -4,7 +4,10 @@
       is-name-display
       :account-address="staking.address"
     />
-    <p class="staking-account-row__column">
+    <p
+      v-tooltip="staking.isStatusPending ? '' : $fFullBalance(staking.amount)"
+      class="staking-account-row__column"
+    >
       <template v-if="staking.isStatusPending">
         {{ $t('wallet-page.staking-account-row.status-pending') }}
       </template>
@@ -13,9 +16,12 @@
       </template>
     </p>
     <p class="staking-account-row__column">
-      <template v-if="staking.resultAmount">
+      <span
+        v-if="staking.resultAmount"
+        v-tooltip="$fFullBalance(staking.resultAmount)"
+      >
         {{ $fbalance(staking.resultAmount) }}
-      </template>
+      </span>
     </p>
     <p class="staking-account-row__column">
       {{ $t(`staking-options.types.type-${staking.stakeOptionId}`, {

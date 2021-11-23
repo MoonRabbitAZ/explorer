@@ -1,5 +1,7 @@
 import { formatBalance } from '@polkadot/util'
 import { unref } from 'vue'
+import { fromWei } from '@/js/util/amount.util'
+import { api } from '@api'
 import BN from 'bn.js'
 
 export function useFormatBalance () {
@@ -31,8 +33,19 @@ export function useFormatBalance () {
       : formatBalance(bnValue, options, unrefDecimals)
   }
 
+  function toFullBalance (value, decimals, unitTicker) {
+    const unrefValue = unref(value)
+    const unrefDecimals = unref(decimals)
+    const unrefUnitTicker = unref(unitTicker)
+    const currentDecimals = unrefDecimals || api.registry.chainDecimals[0]
+    const currentTicker = unrefUnitTicker || formatBalance.findSi('-')?.text
+
+    return `${fromWei(unrefValue, currentDecimals, true)} ${currentTicker}`
+  }
+
   return {
     toBalance,
     toExternalBalance,
+    toFullBalance,
   }
 }

@@ -32,15 +32,24 @@
           <!-- eslint-disable-next-line max-len -->
           {{ `${unfinishedFlow.token.originalType} / ${unfinishedFlow.token.internalType}` }}
         </p>
-        <p class="unfinished-flows-list__amount">
-          {{
-            unfinishedFlow.flow.tokenId ||
-              toExternalBalance(
+        <p class="unfinished-flows-list__amount-wrap">
+          <span
+            v-tooltip="!unfinishedFlow.flow.tokenId && $fFullBalance(
+              unfinishedFlow.flow.amount,
+              unfinishedFlow.decimals,
+              unfinishedFlow.token.ticker,
+            )"
+            class="unfinished-flows-list__amount"
+          >
+            {{
+              unfinishedFlow.flow.tokenId || toExternalBalance(
                 unfinishedFlow.flow.amount,
                 unfinishedFlow.decimals,
                 unfinishedFlow.token.ticker,
               )
-          }}
+            }}
+
+          </span>
         </p>
         <div class="unfinished-flows-list__chain">
           <p class="unfinished-flows-list__chain-token">
@@ -213,6 +222,11 @@ $grid-columns: 27rem
 
 .unfinished-flows-list__destination-header {
   grid-column: 5/-1;
+}
+
+.unfinished-flows-list__amount-wrap {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .unfinished-flows-list__type,

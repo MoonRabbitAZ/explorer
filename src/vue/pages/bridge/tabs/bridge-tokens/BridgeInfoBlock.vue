@@ -20,6 +20,7 @@
       </div>
       <div class="bridge-info-block__value-wrap">
         <h2
+          v-tooltip="valueTooltip"
           class="bridge-info-block__value"
           :class="{ 'bridge-info-block__value--single': !secondaryValue}"
         >
@@ -46,6 +47,7 @@ export default {
     secondaryValue: { type: String, default: '' },
     header: { type: String, default: '' },
     isHeaderSecondary: { type: Boolean, default: false },
+    valueTooltip: { type: String, default: '' },
   },
 }
 </script>

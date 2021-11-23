@@ -3,10 +3,11 @@
     <div class="bridge-confirmation-transfer-step__confirmation-body">
       <template v-if="isFromChainActive">
         <h1
+          v-tooltip="isErc721 ? '' : currentFullAmount"
           class="
-          bridge-confirmation-transfer-step__amount
-          bridge-confirmation-transfer-step__item
-        "
+            bridge-confirmation-transfer-step__amount
+            bridge-confirmation-transfer-step__item
+          "
         >
           <template v-if="isErc721">
             {{ erc721Token?.name }}
@@ -170,7 +171,7 @@ export default {
   emits: Object.values(EVENTS),
 
   setup (props, { emit }) {
-    const { toExternalBalance } = useFormatBalance()
+    const { toExternalBalance, toFullBalance } = useFormatBalance()
     const isAgreeTerms = ref(false)
 
     const isDepositBtnDisabled = computed(() =>
@@ -185,6 +186,14 @@ export default {
       ),
     )
 
+    const currentFullAmount = computed(() =>
+      toFullBalance(
+        props.amount,
+        props.currentTokenDecimals,
+        props.currentToken.ticker,
+      ),
+    )
+
     function onConfirm () { emit(EVENTS.confirm) }
 
     return {
@@ -192,6 +201,7 @@ export default {
       onConfirm,
       isDepositBtnDisabled,
       currentFormatedAmount,
+      currentFullAmount,
       CONFIG,
     }
   },

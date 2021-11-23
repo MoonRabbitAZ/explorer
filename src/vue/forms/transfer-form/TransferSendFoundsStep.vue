@@ -7,13 +7,19 @@
       <h3 class="transfer-form-founds-step__title">
         {{ $t('forms.transfer-form-founds-step.balance-title') }}
       </h3>
-      <p class="transfer-form-founds-step__balance-value">
+      <p
+        v-tooltip="$fFullBalance(senderBalances.availableBalance)"
+        class="transfer-form-founds-step__balance-value"
+      >
         {{ $fbalance(senderBalances.availableBalance) }}
       </p>
       <h3 class="transfer-form-founds-step__title">
         {{ $t('forms.transfer-form-founds-step.deposit-title') }}
       </h3>
-      <p class="transfer-form-founds-step__deposit-value">
+      <p
+        v-tooltip="$fFullBalance(existentialDeposit)"
+        class="transfer-form-founds-step__deposit-value"
+      >
         {{ $fbalance(existentialDeposit) }}
       </p>
 

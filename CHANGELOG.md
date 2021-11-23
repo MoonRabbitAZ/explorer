@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Link terms of use
 - Owner check NFT on bridge
 - No data message on staking tab
+- Crowdloan list and crowdloan info
+- Open graph meta information
+- Data to connect the network in metamask
+- Full balance tooltip
 
 #### Changed
 - Version api packages
@@ -27,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Getting NFT on Bridge tokens form
 - Bridge contract on Withdraw NFT
 - Gitlab CI
+- Localization `mainet` -> `mainnet`
 
 ## [0.1.0-rc.3] - 2021-10-19
 #### Added

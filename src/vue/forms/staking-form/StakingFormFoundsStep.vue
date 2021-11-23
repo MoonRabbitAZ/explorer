@@ -25,13 +25,19 @@
           <h3 class="staking-form-founds-step__title">
             {{ $t('forms.staking-form-founds-step.balance-title') }}
           </h3>
-          <p class="staking-form-founds-step__balance-value">
+          <p
+            v-tooltip="$fFullBalance(senderBalances.availableBalance)"
+            class="staking-form-founds-step__balance-value"
+          >
             {{ $fbalance(senderBalances.availableBalance) }}
           </p>
           <h3 class="staking-form-founds-step__title">
             {{ $t('forms.staking-form-founds-step.deposit-title') }}
           </h3>
-          <p class="staking-form-founds-step__deposit-value">
+          <p
+            v-tooltip="$fFullBalance(existentialDeposit)"
+            class="staking-form-founds-step__deposit-value"
+          >
             {{ $fbalance(existentialDeposit) }}
           </p>
 

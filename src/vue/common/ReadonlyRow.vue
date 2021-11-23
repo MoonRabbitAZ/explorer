@@ -4,7 +4,10 @@
       <h5 class="readonly-row__label">
         {{ label }}
       </h5>
-      <p class="readonly-row__value">
+      <p
+        v-tooltip="tooltip"
+        class="readonly-row__value"
+      >
         {{ value }}
       </p>
     </div>
@@ -19,6 +22,7 @@ export default {
   props: {
     label: { type: String, required: true },
     value: { type: String, default: '' },
+    tooltip: { type: String, default: '' },
   },
 }
 </script>

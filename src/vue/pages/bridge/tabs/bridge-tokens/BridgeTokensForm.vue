@@ -88,6 +88,15 @@
       <template v-if="isLoaded">
         <template v-if="isDisplayForm">
           <template v-if="!isErc721">
+            <bridge-info-block
+              class="bridge-tokens-form__destination-block"
+              :header="
+                $t('bridge-page.bridge-tokens-form.available-balance-header')
+              "
+              :value="currentFormatedBalance"
+              :value-tooltip="currentFullBalance"
+            />
+
             <div class="app__form-row">
               <div class="app__form-field">
                 <amount-field
@@ -96,7 +105,7 @@
                   name="bridge-tokens-amount"
                   :error-message="form.amount.errorMessage"
                   :label="$t('bridge-page.bridge-tokens-form.amount-lbl', {
-                    balance: currentFormatedBalance,
+                    ticker: currentToken.ticker,
                   })"
                   :decimals="currentTokenDecimals"
                   :disabled="isFormDisabled || !+currentBalance"
@@ -182,6 +191,32 @@
               <p class="bridge-tokens-form__error-chain-msg">
                 {{ $t('bridge-page.bridge-tokens-form.chain-error-part-3') }}
               </p>
+
+              <template v-if="fromChain.isBase">
+                <p class="bridge-tokens-form__error-chain-msg">
+                  {{ CONFIG.METAMASK_EVM_NETWORK_NAME }}
+                </p>
+                <p class="bridge-tokens-form__error-chain-msg">
+                  {{ $t('bridge-page.bridge-tokens-form.base-chain-name', {
+                    name: CONFIG.METAMASK_EVM_NETWORK_NAME
+                  }) }}
+                </p>
+                <p class="bridge-tokens-form__error-chain-msg">
+                  {{ $t('bridge-page.bridge-tokens-form.base-chain-rps-url', {
+                    url: CONFIG.METAMASK_EVM_RPC_URL
+                  }) }}
+                </p>
+                <p class="bridge-tokens-form__error-chain-msg">
+                  {{ $t('bridge-page.bridge-tokens-form.base-chain-id', {
+                    id: CONFIG.METAMASK_EVM_CHAIN_ID
+                  }) }}
+                </p>
+                <p class="bridge-tokens-form__error-chain-msg">
+                  {{ $t('bridge-page.bridge-tokens-form.base-chain-symbol', {
+                    symbol: CONFIG.METAMASK_EVM_CURRENCY_SYMBOL
+                  }) }}
+                </p>
+              </template>
             </error-message>
           </template>
         </template>
@@ -190,8 +225,8 @@
         <loader />
       </template>
       <i18n-t
-        class="bridge-tokens-form__mainet-transfer-msg"
-        keypath="bridge-page.bridge-tokens-form.mainet-transfer-msg"
+        class="bridge-tokens-form__mainnet-transfer-msg"
+        keypath="bridge-page.bridge-tokens-form.mainnet-transfer-msg"
         tag="p"
       >
         <template #link>
@@ -200,7 +235,7 @@
             target="_blank"
             rel="noopener"
           >
-            {{ $t('bridge-page.bridge-tokens-form.mainet-transfer-link') }}
+            {{ $t('bridge-page.bridge-tokens-form.mainnet-transfer-link') }}
           </a>
         </template>
       </i18n-t>
@@ -282,7 +317,7 @@ export default {
   setup (props) {
     const { t } = useI18n()
     const { web3Account, web3, web3ChainId } = useWeb3()
-    const { toExternalBalance } = useFormatBalance()
+    const { toExternalBalance, toFullBalance } = useFormatBalance()
 
     const state = reactive({
       baseChain: props.chains.find(i => i.isBase),
@@ -352,6 +387,14 @@ export default {
 
     const currentFormatedBalance = computed(() =>
       toExternalBalance(
+        state.currentBalance,
+        state.currentTokenDecimals,
+        currentToken.value.ticker,
+      ),
+    )
+
+    const currentFullBalance = computed(() =>
+      toFullBalance(
         state.currentBalance,
         state.currentTokenDecimals,
         currentToken.value.ticker,
@@ -495,6 +538,7 @@ export default {
       toConfirm,
       isDisplayForm,
       errorMessage,
+      currentFullBalance,
       CONFIG,
     }
   },
@@ -592,7 +636,7 @@ export default {
   text-decoration: underline;
 }
 
-.bridge-tokens-form__mainet-transfer-msg {
+.bridge-tokens-form__mainnet-transfer-msg {
   text-align: center;
   margin-top: 2rem;
 }

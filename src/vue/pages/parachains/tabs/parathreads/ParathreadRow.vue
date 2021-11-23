@@ -49,6 +49,7 @@ import { api } from '@api'
 import { useCall } from '@/vue/composables'
 import { cropString } from '@/js/helpers/crop-string'
 import { useI18n } from 'vue-i18n'
+import { LeasePeriodRecord } from '@/js/records/lease-period.record'
 
 export default {
   name: 'parathread-row',
@@ -58,7 +59,7 @@ export default {
   props: {
     paraId: { type: String, required: true },
     leases: { type: Array, default: null },
-    leasePeriod: { type: Object, default: null },
+    leasePeriod: { type: LeasePeriodRecord, default: null },
   },
 
   setup (props) {
