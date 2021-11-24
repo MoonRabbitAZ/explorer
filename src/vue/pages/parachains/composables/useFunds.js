@@ -16,11 +16,8 @@ const optFundMulti = {
       if (info) {
         const fund = new FundRecord({
           accountId: encodeAddress(createAddress(paraId)),
-          firstSlot: info.firstPeriod,
           info,
           isCrowdloan: true,
-          key: paraId.toString(),
-          lastSlot: info.lastPeriod,
           paraId,
         })
         acc.push(fund)

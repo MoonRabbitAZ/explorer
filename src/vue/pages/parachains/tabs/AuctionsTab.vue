@@ -1,7 +1,11 @@
 <template>
   <div class="auctions-tab">
     <div class="auctions-tab__topbar">
-      <auctions-summary class="auctions-tab__summary" />
+      <auctions-summary
+        class="auctions-tab__summary"
+        :auction-info="auctionInfo"
+        :last-winners-total-balance="winningData?.[0]?.total"
+      />
 
       <app-button
         class="auctions-tab__bid-btn"
@@ -76,14 +80,13 @@ export default {
   gap: 3.2rem;
   margin: 3rem 0;
 
-  @include respond-to($x-small) {
-    width: 100%;
+  @include respond-to($medium) {
     flex-direction: column;
   }
 }
 
 .auctions-tab__summary {
-  @include respond-to($x-small) {
+  @include respond-to($medium) {
     width: 100%;
   }
 }

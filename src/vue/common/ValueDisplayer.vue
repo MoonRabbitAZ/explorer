@@ -1,7 +1,10 @@
 <template>
   <div
     class="value-displayer"
-    :class="[`value-displayer--text-lvl-${valueLevel}`]"
+    :class="[
+      `value-displayer--text-lvl-${valueLevel}`,
+      ...(isMediumIndent ? ['value-displayer--medium-indent'] : [])
+    ]"
   >
     <h1
       v-if="headerLevel === HEADER_LEVELS.lvl1"
@@ -112,6 +115,7 @@ export default {
     header: { type: String, required: true },
     value: { type: [String, Number], default: null },
     route: { type: Object, default: null },
+    isMediumIndent: { type: Boolean, default: false },
   },
 
   setup (_, { slots }) {
@@ -201,11 +205,18 @@ $font-size-text-level-6: 1rem;
       height: $font-size-text-level-6 * $app-text-line-height;
     }
   }
+
+  &--medium-indent {
+    .value-displayer__header {
+      margin-bottom: 0.6rem;
+    }
+  }
 }
 
 .value-displayer__header {
   color: $col-app-header-secondary;
   margin-bottom: 1rem;
+  white-space: nowrap;
 }
 
 .value-displayer__value {

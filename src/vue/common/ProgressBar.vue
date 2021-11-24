@@ -1,33 +1,44 @@
 <template>
   <div class="progress-bar">
-    <div class="progress-bar__clip-first">
-      <div
-        class="progress-bar__slice"
-        :style="{ 'transform': `rotate(${firstHalfAngle}deg)` }"
-      />
-    </div>
-    <div class="progress-bar__clip-second">
-      <div
-        class="progress-bar__slice"
-        :style="{ 'transform': `rotate(${secondHalfAngle}deg)` }"
-      />
-    </div>
-    <div class="progress-bar__status">
-      {{ `${progressPercent}%` }}
-    </div>
+    <template v-if="current && total">
+      <div class="progress-bar__content">
+        <div class="progress-bar__clip-first">
+          <div
+            class="progress-bar__slice"
+            :style="{ 'transform': `rotate(${firstHalfAngle}deg)` }"
+          />
+        </div>
+        <div class="progress-bar__clip-second">
+          <div
+            class="progress-bar__slice"
+            :style="{ 'transform': `rotate(${secondHalfAngle}deg)` }"
+          />
+        </div>
+        <div class="progress-bar__status">
+          {{ `${progressPercent}%` }}
+        </div>
+      </div>
+    </template>
+    <template v-else>
+      <skeleton-loader class="progress-bar__skeleton-loader"/>
+    </template>
   </div>
 </template>
 
 <script>
+import SkeletonLoader from '@/vue/common/SkeletonLoader'
+
 import { ref, watch } from 'vue'
 import { BN } from '@polkadot/util'
 
 export default {
   name: 'progress-bar',
 
+  components: { SkeletonLoader },
+
   props: {
-    current: { type: BN, default: () => (new BN(0)) },
-    total: { type: BN, default: () => (new BN(0)) },
+    current: { type: BN, default: null },
+    total: { type: BN, default: null },
   },
 
   setup (props) {
@@ -36,20 +47,22 @@ export default {
     const secondHalfAngle = ref(0)
 
     function calcProgress () {
-      const angle = props.total.isZero()
-        ? 0
-        : props.current.muln(36000).div(props.total).toNumber() / 100
-      const drawAngle = angle % 360
+      if (props.current && props.total) {
+        const angle = props.total.isZero()
+          ? 0
+          : props.current.muln(36000).div(props.total).toNumber() / 100
+        const drawAngle = angle % 360
 
-      firstHalfAngle.value = drawAngle <= 180
-        ? drawAngle
-        : 180
+        firstHalfAngle.value = drawAngle <= 180
+          ? drawAngle
+          : 180
 
-      secondHalfAngle.value = drawAngle <= 180
-        ? 0
-        : drawAngle - 180
+        secondHalfAngle.value = drawAngle <= 180
+          ? 0
+          : drawAngle - 180
 
-      progressPercent.value = Math.floor(angle * 100 / 360)
+        progressPercent.value = Math.floor(angle * 100 / 360)
+      }
     }
 
     watch(() => [props.current, props.total], calcProgress, { immediate: true })
@@ -81,7 +94,7 @@ $progress-clip-rect-2: rect(
   0
 );
 
-.progress-bar {
+.progress-bar__content {
   background-color: $col-progress-bar-bg;
   width: $progress-bar-size;
   height: $progress-bar-size;
@@ -133,5 +146,10 @@ $progress-clip-rect-2: rect(
   background: $col-progress-bar-status-bg;
   border-radius: 50%;
   transform: translate(-50%, -50%);
+}
+
+.progress-bar__skeleton-loader {
+  width: $progress-bar-size;
+  height: $progress-bar-size;
 }
 </style>

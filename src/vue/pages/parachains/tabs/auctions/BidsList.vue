@@ -1,17 +1,38 @@
 <template>
   <div class="bids-list">
-    <h1 class="bids-list__header">
-      {{ $t('parachains-page.bids-list.bids-header') }}
-    </h1>
+    <div class="bids-list__headers-wrap">
+      <h1 class="bids-list__header">
+        {{ $t('parachains-page.bids-list.bids-header') }}
+      </h1>
+      <template v-if="collectedWinningData?.length || loans?.length">
+        <h4>
+          {{ $t('parachains-page.bids-list.para-id-header') }}
+        </h4>
+        <h4>
+          {{ $t('parachains-page.bids-list.bidder-header') }}
+        </h4>
+        <h4>
+          {{ $t('parachains-page.bids-list.crowdloan-header') }}
+        </h4>
+        <h4>
+          {{ $t('parachains-page.bids-list.leases-header') }}
+        </h4>
+        <h4>
+          {{ $t('parachains-page.bids-list.value-header') }}
+        </h4>
+      </template>
+    </div>
     <template v-if="isLoaded">
-      <template v-if="collectedWinningData.length">
+      <template v-if="collectedWinningData?.length || loans?.length">
         <div class="bids-list__body">
           <bids-row
             v-for="(item, index) in collectedWinningData"
             :key="index"
+            class="bids-list__row"
             :auction-info="auctionInfo"
             :block-number="item.blockNumber"
             :winners-with-loans="item.winnersWithLoans"
+            :is-latest="item.isLatest"
           />
         </div>
       </template>
@@ -78,9 +99,7 @@ export default {
     })
 
     const isLoaded = computed(() =>
-      props.auctionInfo?.leasePeriod &&
-        props.winningData &&
-        loans.value,
+      newRaise.value && props.winningData && props.auctionInfo?.numAuctions,
     )
 
     const collectedWinningData = computed(() => {
@@ -88,6 +107,7 @@ export default {
 
       if (props.winningData.length) {
         return props.winningData.map(({ blockNumber, winners }, index) => ({
+          isLatest: index === 0,
           blockNumber: blockNumber,
           winnersWithLoans: interleave(
             loans.value,
@@ -97,6 +117,7 @@ export default {
         }))
       } else if (loans.value) {
         return [{
+          isLatest: true,
           blockNumber: null,
           winnersWithLoans: interleave(loans.value, false),
         }]
@@ -108,26 +129,33 @@ export default {
     function interleave (loans, asIs, winners = []) {
       if (asIs || !newRaise.value) return winners
 
-      return winners
-        .concat(...loans
-          .filter(({ firstSlot, lastSlot, paraId, value }) =>
-            !winners.some((w) =>
-              w.firstSlot.eq(firstSlot) && w.lastSlot.eq(lastSlot),
-            ) &&
-          !loans.value.some((e) =>
+      const filteredLoans = loans
+        .filter(({ firstSlot, lastSlot, paraId, value }) => {
+          const isEqualsWinners = winners.some((w) =>
+            w.firstSlot.eq(firstSlot) && w.lastSlot.eq(lastSlot),
+          )
+
+          const isEqualsLoans = loans.value.some((e) =>
             !paraId.eq(e.paraId) &&
             firstSlot.eq(e.firstSlot) &&
             lastSlot.eq(e.lastSlot) &&
             value.lt(e.value),
-          ),
-          ))
-        .map((w) =>
-          loans.value.find(({ firstSlot, lastSlot, value }) =>
+          )
+
+          return !isEqualsWinners && !isEqualsLoans
+        })
+
+      return winners
+        .concat(...filteredLoans)
+        .map((w) => {
+          const loan = loans.value.find(({ firstSlot, lastSlot, value }) =>
             w.firstSlot.eq(firstSlot) &&
             w.lastSlot.eq(lastSlot) &&
             w.value.lt(value),
-          ) || w,
-        )
+          )
+
+          return loan || w
+        })
         .sort((a, b) =>
           a.firstSlot.eq(b.firstSlot)
             ? a.lastSlot.cmp(b.lastSlot)
@@ -138,6 +166,7 @@ export default {
     return {
       isLoaded,
       collectedWinningData,
+      loans,
     }
   },
 }
@@ -147,9 +176,22 @@ export default {
 @import '~@scss/mixins';
 @import '~@scss/variables';
 
-.bids-list__header {
-  padding: 0 1.6rem;
+.bids-list {
+  overflow-x: auto;
+
+  @include scrollbar;
+}
+
+.bids-list__row {
+  & + & {
+    margin-top: 0.4rem;
+  }
+}
+
+.bids-list__headers-wrap {
   margin-bottom: 2rem;
+
+  @include action-bid-grid-row(flex-end, 1rem);
 }
 
 </style>

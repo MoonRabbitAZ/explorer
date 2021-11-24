@@ -4,10 +4,14 @@ export class FundRecord {
 
     this.accountId = record?.accountId
     this.paraId = record?.paraId
-    this.firstSlot = record?.firstSlot
-    this.lastSlot = record?.lastSlot
     this.info = record?.info
+    this.firstSlot = record?.info?.firstPeriod
+    this.lastSlot = record?.info?.lastPeriod
+    this.value = record?.info?.raised
     this.isCrowdloan = record?.isCrowdloan || false
-    this.key = record?.key
+  }
+
+  get key () {
+    return this.paraId?.toString()
   }
 }

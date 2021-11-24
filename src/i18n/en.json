@@ -541,9 +541,15 @@
     },
     "bids-list": {
       "bids-header": "Bids",
+      "para-id-header": "Para ID",
+      "bidder-header": "Bidder",
+      "crowdloan-header": "Crowdloan",
+      "leases-header": "Leases",
+      "value-header": "Value",
       "no-data-message": "No ongoing auction"
     },
     "bids-row": {
+      "latest-bid": "Latest",
       "is-crowdloan": "Yes",
       "is-not-crowdloan": "No"
     },
@@ -551,7 +557,11 @@
       "auctions-header": "Auctions",
       "active-header": "Active",
       "auctions-active-value": "Yes",
-      "auctions-inactive-value": "No"
+      "auctions-inactive-value": "No",
+      "first-last-header": "First - Last",
+      "total-header": "Total",
+      "end-period-at-header": "End period at",
+      "ending-period-header": "Ending period"
     },
     "auctions-tab": {
       "bid-btn": "Bid"

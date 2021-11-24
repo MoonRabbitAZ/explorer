@@ -1,12 +1,16 @@
 <template>
   <div class="bids-row">
-    <div
+    <template
       v-for="(item, index) in winnersWithLoans"
       :key="index"
-      class="bids-row__bid"
     >
-      <p>
-        {{ item.paraId }}
+      <p class="bids-row__block-number">
+        <template v-if="index === 0">
+          {{ blockNumberOrLatest }}
+        </template>
+      </p>
+      <p class="bids-row__para-id">
+        {{ $fnumber(item.paraId) }}
       </p>
       <account-address :account-address="item.accountId"/>
       <p>
@@ -23,16 +27,21 @@
         }}
       </p>
       <p>
-        {{ $fbalance(item.value) }}
+        <span v-tooltip="$fFullBalance(item.value)">
+          {{ $fbalance(item.value) }}
+        </span>
       </p>
-    </div>
+    </template>
   </div>
 </template>
 
 <script>
 import AccountAddress from '@/vue/common/AccountAddress'
 
-import { BN } from '@polkadot/util'
+import { computed } from 'vue'
+import { BN, formatNumber } from '@polkadot/util'
+import { useI18n } from 'vue-i18n'
+import { AuctionInfoRecord } from '@/js/records/auction-info.record'
 
 export default {
   name: 'bids-list',
@@ -41,7 +50,24 @@ export default {
 
   props: {
     winnersWithLoans: { type: Array, required: true },
-    blockNumber: { type: BN, default: null },
+    auctionInfo: { type: AuctionInfoRecord, required: true },
+    isLatest: { type: Boolean, required: true },
+    blockNumber: { type: BN, required: true },
+  },
+
+  setup (props) {
+    const { t } = useI18n()
+
+    const blockNumberOrLatest = computed(() => {
+      const blockNum = (!props.blockNumber || props.blockNumber.isZero())
+        ? props.auctionInfo.endBlock
+        : props.blockNumber
+      return props.isLatest
+        ? t('parachains-page.bids-row.latest-bid')
+        : '#' + formatNumber(blockNum)
+    })
+
+    return { blockNumberOrLatest }
   },
 }
 </script>
@@ -51,16 +77,12 @@ export default {
 @import '~@scss/variables';
 
 .bids-row {
-  padding: 1rem 1.6rem;
-
+  @include action-bid-grid-row(center, 1rem);
   @include content-block;
 }
 
-.bids-row__bid {
-  display: grid;
-  grid-gap: 2rem;
-  grid-template-columns: repeat(3, 1fr) 15rem 11rem;
-  align-items: center;
+.bids-row__block-number,
+.bids-row__para-id {
+  font-size: 1.6rem;
 }
-
 </style>

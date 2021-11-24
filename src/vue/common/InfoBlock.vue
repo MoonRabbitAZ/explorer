@@ -1,12 +1,13 @@
 <template>
   <div class="info-block">
     <div class="info-block__main">
-      <h3 class="info-block__name">
-        {{ title }}
-      </h3>
-      <p class="info-block__value">
-        {{ value }}
-      </p>
+      <value-displayer
+        class="fund-info__value-displayer"
+        :header="title"
+        :value="value"
+        :header-level="5"
+        is-medium-indent
+      />
       <p
         v-if="isSecondaryValueDisplay"
         class="info-block__secondary-value"
@@ -23,6 +24,7 @@
 </template>
 
 <script>
+import ValueDisplayer from '@/vue/common/ValueDisplayer'
 
 import { computed } from 'vue'
 
@@ -33,9 +35,11 @@ const SLOTS = {
 export default {
   name: 'info-block',
 
+  components: { ValueDisplayer },
+
   props: {
     title: { type: String, required: true },
-    value: { type: [String, Number], default: '' },
+    value: { type: [String, Number], default: null },
     secondaryValue: { type: [String, Number], default: '' },
   },
 
