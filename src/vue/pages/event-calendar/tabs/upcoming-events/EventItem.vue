@@ -15,6 +15,7 @@
       class="event-item__row"
       keypath="event-calendar-page.event-item.message"
       tag="p"
+      scope="global"
     >
       <template #message>
         <span>

@@ -167,6 +167,7 @@
                 class="bridge-tokens-form__error-chain-msg"
                 keypath="bridge-page.bridge-tokens-form.chain-error-part-1"
                 tag="p"
+                scope="global"
               >
                 <template #network>
                   <span class="bridge-tokens-form__error-chain-msg">
@@ -228,6 +229,7 @@
         class="bridge-tokens-form__mainnet-transfer-msg"
         keypath="bridge-page.bridge-tokens-form.mainnet-transfer-msg"
         tag="p"
+        scope="global"
       >
         <template #link>
           <a

@@ -92,6 +92,7 @@
             class="bridge-confirmation-transfer-step__terms-of-use-lbl"
             keypath="bridge-page.bridge-confirmation-transfer-step.terms-of-use-lbl"
             tag="p"
+            scope="global"
           >
             <template #link>
               <a 

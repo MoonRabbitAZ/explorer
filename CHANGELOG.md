@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Data to connect the network in metamask
 - Full balance tooltip
 - Bids list logic parachains auction tab
-- Added webpack chunks 
+- Chunks of webpack from pages
 
 #### Changed
 - Version api packages
