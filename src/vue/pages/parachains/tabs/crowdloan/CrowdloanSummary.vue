@@ -6,7 +6,7 @@
         :value="$fnumber(fundCount)"
       />
       <info-block
-        :title="$t('parachains-page.crowdloan-summary.founds-header')"
+        :title="$t('parachains-page.crowdloan-summary.raised-founds-title')"
         :value="$fbalance(activeCap)"
         :secondary-value="$fbalance(activeRaised)"
       >
@@ -19,7 +19,7 @@
       </info-block>
 
       <info-block
-        :title="$t('parachains-page.crowdloan-summary.founds-header')"
+        :title="$t('parachains-page.crowdloan-summary.total-founds-title')"
         :value="$fbalance(totalCap)"
         :secondary-value="$fbalance(totalRaised)"
       >

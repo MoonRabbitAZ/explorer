@@ -604,7 +604,9 @@
       "my-contributors-header": "My contributors ({ count })"
     },
     "crowdloan-summary": {
-      "founds-header": "Founds"
+      "founds-header": "Founds",
+      "raised-founds-title": "Cap / Active Raised",
+      "total-founds-title": "Cap / Total Raised"
     }
   },
   "gilt-page": {
