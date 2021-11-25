@@ -122,7 +122,7 @@ export default {
           blockNumber: blockNumber,
           winnersWithLoans: interleave(
             loans.value,
-            index !== 0 || props.winningData.length !== 1,
+            !index || props.winningData.length !== 1,
             winners,
           ),
         }))
