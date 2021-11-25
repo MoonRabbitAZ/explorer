@@ -546,7 +546,8 @@
       "crowdloan-header": "Crowdloan",
       "leases-header": "Leases",
       "value-header": "Value",
-      "no-data-message": "No ongoing auction"
+      "no-winners-message": "No winners in this auction",
+      "no-ongoing-auction-message": "No ongoing auction"
     },
     "bids-row": {
       "latest-bid": "Latest",

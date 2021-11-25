@@ -1,10 +1,13 @@
 <template>
   <div class="bids-list">
-    <div class="bids-list__headers-wrap">
+    <div
+      class="bids-list__headers-wrap"
+      :class="{'bids-list__headers-wrap--grid': collectedWinningData?.length}"
+    >
       <h1 class="bids-list__header">
         {{ $t('parachains-page.bids-list.bids-header') }}
       </h1>
-      <template v-if="collectedWinningData?.length || loans?.length">
+      <template v-if="collectedWinningData?.length">
         <h4>
           {{ $t('parachains-page.bids-list.para-id-header') }}
         </h4>
@@ -23,7 +26,7 @@
       </template>
     </div>
     <template v-if="isLoaded">
-      <template v-if="collectedWinningData?.length || loans?.length">
+      <template v-if="collectedWinningData?.length">
         <div class="bids-list__body">
           <bids-row
             v-for="(item, index) in collectedWinningData"
@@ -39,7 +42,7 @@
       <template v-else>
         <no-data-message
           class="bids-list__no-data"
-          :message="$t('parachains-page.bids-list.no-data-message')"
+          :message="noDataMessage"
           is-row-block
         />
       </template>
@@ -56,6 +59,7 @@ import SkeletonLoader from '@/vue/common/SkeletonLoader'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useCall } from '@/vue/composables'
 import { useLeaseRangeMax } from '@parachains-page/composables/useLeaseRanges'
 import { api } from '@api'
@@ -79,6 +83,7 @@ export default {
   setup (props) {
     const rangeMax = useLeaseRangeMax()
     const newRaise = useCall(api.query.crowdloan.newRaise)
+    const { t } = useI18n()
 
     const loans = computed(() => {
       if (newRaise.value && props.auctionInfo?.leasePeriod && props.funds) {
@@ -102,6 +107,12 @@ export default {
       newRaise.value && props.winningData && props.auctionInfo?.numAuctions,
     )
 
+    const noDataMessage = computed(() =>
+      props.auctionInfo?.endBlock && !props.winningData?.length
+        ? t('parachains-page.bids-list.no-winners-message')
+        : t('parachains-page.bids-list.no-ongoing-auction-message'),
+    )
+
     const collectedWinningData = computed(() => {
       if (!isLoaded.value) return null
 
@@ -115,7 +126,7 @@ export default {
             winners,
           ),
         }))
-      } else if (loans.value) {
+      } else if (loans.value?.length) {
         return [{
           isLatest: true,
           blockNumber: null,
@@ -167,6 +178,7 @@ export default {
       isLoaded,
       collectedWinningData,
       loans,
+      noDataMessage,
     }
   },
 }
@@ -191,7 +203,9 @@ export default {
 .bids-list__headers-wrap {
   margin-bottom: 2rem;
 
-  @include action-bid-grid-row(flex-end, 1rem);
+  &--grid {
+    @include action-bid-grid-row(flex-end, 1rem);
+  }
 }
 
 </style>

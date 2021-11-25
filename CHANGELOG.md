@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Open graph meta information
 - Data to connect the network in metamask
 - Full balance tooltip
+- Bids list logic parachains auction tab
 
 #### Changed
 - Version api packages
