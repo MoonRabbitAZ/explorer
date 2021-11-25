@@ -9,17 +9,16 @@ const RANGES_DEFAULT = [
   [3, 3],
 ]
 
-function isU32 (leasePeriodsPerSlot) {
-  return !!leasePeriodsPerSlot
-}
+function isU32 (leasePeriodsPerSlot) { return Boolean(leasePeriodsPerSlot) }
 
 export function useLeaseRanges () {
   return computed(() => {
-    if (isU32(api.consts.auctions?.leasePeriodsPerSlot)) {
+    const leasePeriodsPerSlot = api.consts.auctions?.leasePeriodsPerSlot
+    if (isU32(leasePeriodsPerSlot)) {
       const ranges = []
 
-      for (let i = 0; api.consts.auctions.leasePeriodsPerSlot.gtn(i); i++) {
-        for (let j = i; api.consts.auctions.leasePeriodsPerSlot.gtn(j); j++) {
+      for (let i = 0; leasePeriodsPerSlot.gtn(i); i++) {
+        for (let j = i; leasePeriodsPerSlot.gtn(j); j++) {
           ranges.push([i, j])
         }
       }
