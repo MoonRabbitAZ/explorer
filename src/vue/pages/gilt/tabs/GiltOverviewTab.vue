@@ -11,7 +11,9 @@
       />
     </div>
 
-    <queues-list />
+    <queues-list
+      :queue-totals="queueTotals"
+    />
   </div>
 </template>
 
@@ -19,10 +21,19 @@
 import GiltSummary from '@gilt-page/tabs/gilt-overview/GiltSummary'
 import QueuesList from '@gilt-page/tabs/gilt-overview/QueuesList'
 
+import { useGiltInfo } from '@gilt-page/composables/useGiltInfo'
 export default {
   name: 'gilt-overview-tab',
 
   components: { QueuesList, GiltSummary },
+
+  setup () {
+    const { queueTotals } = useGiltInfo()
+
+    return {
+      queueTotals,
+    }
+  },
 }
 </script>
 

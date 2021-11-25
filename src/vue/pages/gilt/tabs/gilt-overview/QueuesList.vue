@@ -1,11 +1,31 @@
 <template>
   <div class="queues-list">
-    <h1 class="queues-list__header">
-      {{ $t('gilt-page.queues-list.queues-header') }}
-    </h1>
-    <template v-if="true">
-      <template v-if="false">
-        <div class="queues-list__body"/>
+    <div class="queues-list__headers">
+      <h1 class="queues-list__header">
+        {{ $t('gilt-page.queues-list.queues-header') }}
+      </h1>
+    </div>
+    <template v-if="queueTotals">
+      <template v-if="queueTotals.length">
+        <div class="queues-list__body">
+          <div
+            v-for="queue in queueTotals"
+            :key="queue.index"
+            class="queues-list__row"
+          >
+            <p class="queues-list__queue-index">
+              {{ $fnumber(queue.index) }}
+            </p>
+            <p>
+              {{ $fnumber(queue.numItems) }}
+            </p>
+            <p>
+              <span v-tooltip="$fFullBalance(queue.balance)">
+                {{ $fbalance(queue.balance) }}
+              </span>
+            </p>
+          </div>
+        </div>
       </template>
       <template v-else>
         <no-data-message
@@ -32,6 +52,10 @@ export default {
     SkeletonLoader,
     NoDataMessage,
   },
+
+  props: {
+    queueTotals: { type: Object, default: null },
+  },
 }
 </script>
 
@@ -42,6 +66,24 @@ export default {
 .queues-list__header {
   padding: 0 1.6rem;
   margin-bottom: 2rem;
+}
+
+.queues-list__row {
+  display: grid;
+  grid-gap: 2rem;
+  grid-template-columns: minmax(10rem, 1fr) 12rem 10rem;
+  align-items: center;
+  padding: 1rem 1.6rem;
+
+  @include content-block;
+
+  & + & {
+    margin-top: 0.4rem;
+  }
+}
+
+.queues-list__queue-index {
+  font-size: 1.6rem;
 }
 
 </style>
