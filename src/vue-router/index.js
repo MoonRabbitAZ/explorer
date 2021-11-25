@@ -1,59 +1,3 @@
-import AppContent from '@/AppContent'
-
-import Explorer from '@explorer-page/Explorer'
-import BlockInfoTab from '@explorer-page/tabs/BlockInfoTab'
-import ChainInfoTab from '@explorer-page/tabs/ChainInfoTab'
-
-import EventCalendar from '@event-calendar-page/EventCalendar'
-import UpcomingEventsTab from '@event-calendar-page/tabs/UpcomingEventsTab'
-
-import Wallet from '@wallet-page/Wallet'
-import MyAccountsTab from '@wallet-page/tabs/MyAccountsTab'
-import StakingTab from '@wallet-page/tabs/StakingTab'
-
-import Holders from '@/vue/pages/Holders'
-
-import ValidatorsMap from '@/vue/pages/validators-map/ValidatorsMap'
-
-import Parachains from '@parachains-page/Parachains'
-import ParachainsOverviewTab from '@parachains-page/tabs/ParachainsOverviewTab'
-import ParathreadsTab from '@parachains-page/tabs/ParathreadsTab'
-import AuctionsTab from '@parachains-page/tabs/AuctionsTab'
-import CrowdloanTab from '@parachains-page/tabs/CrowdloanTab'
-
-import Gilt from '@gilt-page/Gilt'
-import GiltOverviewTab from '@gilt-page/tabs/GiltOverviewTab'
-
-import Society from '@society-page/Society'
-import SocietyOverviewTab from '@society-page/tabs/SocietyOverviewTab'
-import CandidatesTab from '@society-page/tabs/CandidatesTab'
-import SuspendedTab from '@society-page/tabs/SuspendedTab'
-
-import Democracy from '@democracy-page/Democracy'
-import DemocracyOverviewTab from '@democracy-page/tabs/DemocracyOverviewTab'
-import DispatchTab from '@democracy-page/tabs/DispatchTab'
-
-import Council from '@council-page/Council'
-import CouncilOverviewTab from '@council-page/tabs/CouncilOverviewTab'
-import MotionsTab from '@council-page/tabs/MotionsTab'
-
-import Treasury from '@treasury-page/Treasury'
-import TreasuryOverviewTab from '@treasury-page/tabs/TreasuryOverviewTab'
-import TipsTab from '@treasury-page/tabs/TipsTab'
-
-import Bounties from '@bounties-page/Bounties'
-import BountiesOverviewTab from '@bounties-page/tabs/BountiesOverviewTab'
-
-import TechComm from '@tech-comm-page/TechComm'
-import TechCommOverviewTab from '@tech-comm-page/tabs/TechCommOverviewTab'
-import ProposalsTab from '@tech-comm-page/tabs/ProposalsTab'
-
-import Settings from '@settings-page/Settings'
-import SettingsMetadataTab from '@settings-page/tabs/SettingsMetadataTab'
-
-import Bridge from '@bridge-page/Bridge'
-import BridgeTokensTab from '@bridge-page/tabs/BridgeTokensTab'
-import UnfinishedFlowsTab from '@bridge-page/tabs/UnfinishedFlowsTab'
 
 import { createRouter, createWebHistory } from 'vue-router'
 import { vueRoutes } from '@/vue-router/routes'
@@ -67,37 +11,50 @@ const routes = [
     path: '/',
     name: vueRoutes.app.name,
     redirect: vueRoutes.explorerPage,
-    component: AppContent,
+    component: () => import(/* webpackChunkName: "app-pages" */ '@/AppContent'),
     children: [
+      {
+        path: '/settings',
+        name: vueRoutes.settingsPage.name,
+        component: () => import(/* webpackChunkName: "app-pages" */ '@settings-page/Settings'),
+        redirect: vueRoutes.settingsMetadataTab,
+        children: [
+          {
+            path: '/settings/metadata',
+            name: vueRoutes.settingsMetadataTab.name,
+            component: () => import(/* webpackChunkName: "app-pages" */ '@settings-page/tabs/SettingsMetadataTab'),
+          },
+        ],
+      },
       {
         path: '/rabbit-hole',
         name: vueRoutes.explorerPage.name,
-        component: Explorer,
+        component: () => import(/* webpackChunkName: "rabbit-hole-page" */ '@explorer-page/Explorer'),
         redirect: vueRoutes.chainInfoTab,
         children: [
           {
             path: '/rabbit-hole/chain-info',
             name: vueRoutes.chainInfoTab.name,
-            component: ChainInfoTab,
+            component: () => import(/* webpackChunkName: "rabbit-hole-page" */ '@explorer-page/tabs/ChainInfoTab'),
             props: true,
           },
           {
             path: '/rabbit-hole/block-info/:blockIdent?',
             name: vueRoutes.blockInfoTab.name,
-            component: BlockInfoTab,
+            component: () => import(/* webpackChunkName: "rabbit-hole-page" */ '@explorer-page/tabs/BlockInfoTab'),
           },
         ],
       },
       {
         path: '/annals',
         name: vueRoutes.eventCalendarPage.name,
-        component: EventCalendar,
+        component: () => import(/* webpackChunkName: "event-сalendar-page" */ '@event-calendar-page/EventCalendar'),
         redirect: vueRoutes.upcomingEventsTab,
         children: [
           {
             path: '/annals/upcoming-events',
             name: vueRoutes.upcomingEventsTab.name,
-            component: UpcomingEventsTab,
+            component: () => import(/* webpackChunkName: "event-сalendar-page" */ '@event-calendar-page/tabs/UpcomingEventsTab'),
             props: true,
           },
         ],
@@ -105,214 +62,201 @@ const routes = [
       {
         path: '/wallet',
         name: vueRoutes.walletPage.name,
-        component: Wallet,
+        component: () => import(/* webpackChunkName: "wallet-page" */ '@wallet-page/Wallet'),
         redirect: vueRoutes.myAccountsTab,
         children: [
           {
             path: '/wallet/my-accounts',
             name: vueRoutes.myAccountsTab.name,
-            component: MyAccountsTab,
+            component: () => import(/* webpackChunkName: "wallet-page" */ '@wallet-page/tabs/MyAccountsTab'),
           },
           {
             path: '/wallet/staking',
             name: vueRoutes.stakingTab.name,
-            component: StakingTab,
+            component: () => import(/* webpackChunkName: "wallet-page" */ '@wallet-page/tabs/StakingTab'),
           },
         ],
       },
       {
         path: '/holders',
         name: vueRoutes.holdersPage.name,
-        component: Holders,
+        component: () => import(/* webpackChunkName: "holders-page" */ '@/vue/pages/Holders'),
       },
       {
         path: '/map',
         name: vueRoutes.validatorsMapPage.name,
-        component: ValidatorsMap,
+        component: () => import(/* webpackChunkName: "validators-map-page" */ '@/vue/pages/validators-map/ValidatorsMap'),
       },
       {
         path: '/parachains',
         name: vueRoutes.parachainsPage.name,
-        component: Parachains,
+        component: () => import(/* webpackChunkName: "parachains-page" */ '@parachains-page/Parachains'),
         redirect: vueRoutes.parachainsOverviewTab,
         children: [
           {
             path: '/parachains/overview',
             name: vueRoutes.parachainsOverviewTab.name,
-            component: ParachainsOverviewTab,
+            component: () => import(/* webpackChunkName: "parachains-page" */ '@parachains-page/tabs/ParachainsOverviewTab'),
           },
           {
             path: '/parachains/parathreads',
             name: vueRoutes.parathreadsTab.name,
-            component: ParathreadsTab,
+            component: () => import(/* webpackChunkName: "parachains-page" */ '@parachains-page/tabs/ParathreadsTab'),
           },
           {
             path: '/parachains/auctions',
             name: vueRoutes.auctionsTab.name,
-            component: AuctionsTab,
+            component: () => import(/* webpackChunkName: "parachains-page" */ '@parachains-page/tabs/AuctionsTab'),
           },
           {
             path: '/parachains/crowdloan',
             name: vueRoutes.crowdloanTab.name,
-            component: CrowdloanTab,
+            component: () => import(/* webpackChunkName: "parachains-page" */ '@parachains-page/tabs/CrowdloanTab'),
           },
         ],
       },
       {
         path: '/gilt',
         name: vueRoutes.giltPage.name,
-        component: Gilt,
+        component: () => import(/* webpackChunkName: "gilt-page" */ '@gilt-page/Gilt'),
         redirect: vueRoutes.giltOverviewTab,
         children: [
           {
             path: '/gilt/overview',
             name: vueRoutes.giltOverviewTab.name,
-            component: GiltOverviewTab,
+            component: () => import(/* webpackChunkName: "gilt-page" */ '@gilt-page/tabs/GiltOverviewTab'),
           },
         ],
       },
       {
         path: '/society',
         name: vueRoutes.societyPage.name,
-        component: Society,
+        component: () => import(/* webpackChunkName: "society-page" */ '@society-page/Society'),
         redirect: vueRoutes.societyOverviewTab,
         children: [
           {
             path: '/society/overview',
             name: vueRoutes.societyOverviewTab.name,
-            component: SocietyOverviewTab,
+            component: () => import(/* webpackChunkName: "society-page" */ '@society-page/tabs/SocietyOverviewTab'),
           },
           {
             path: '/society/candidates',
             name: vueRoutes.candidatesTab.name,
-            component: CandidatesTab,
+            component: () => import(/* webpackChunkName: "society-page" */ '@society-page/tabs/CandidatesTab'),
           },
           {
             path: '/society/suspended',
             name: vueRoutes.suspendedTab.name,
-            component: SuspendedTab,
+            component: () => import(/* webpackChunkName: "society-page" */ '@society-page/tabs/SuspendedTab'),
           },
         ],
       },
       {
         path: '/democracy',
         name: vueRoutes.democracyPage.name,
-        component: Democracy,
+        component: () => import(/* webpackChunkName: "democracy-page" */ '@democracy-page/Democracy'),
         redirect: vueRoutes.democracyOverviewTab,
         children: [
           {
             path: '/democracy/overview',
             name: vueRoutes.democracyOverviewTab.name,
-            component: DemocracyOverviewTab,
+            component: () => import(/* webpackChunkName: "democracy-page" */ '@democracy-page/tabs/DemocracyOverviewTab'),
           },
           {
             path: '/democracy/dispatch',
             name: vueRoutes.dispatchTab.name,
-            component: DispatchTab,
+            component: () => import(/* webpackChunkName: "democracy-page" */ '@democracy-page/tabs/DispatchTab'),
           },
         ],
       },
       {
         path: '/council',
         name: vueRoutes.councilPage.name,
-        component: Council,
+        component: () => import(/* webpackChunkName: "council-page" */ '@council-page/Council'),
         redirect: vueRoutes.councilOverviewTab,
         children: [
           {
             path: '/council/overview',
             name: vueRoutes.councilOverviewTab.name,
-            component: CouncilOverviewTab,
+            component: () => import(/* webpackChunkName: "council-page" */ '@council-page/tabs/CouncilOverviewTab'),
           },
           {
             path: '/council/motions',
             name: vueRoutes.motionsTab.name,
-            component: MotionsTab,
+            component: () => import(/* webpackChunkName: "council-page" */ '@council-page/tabs/MotionsTab'),
           },
         ],
       },
       {
         path: '/treasury',
         name: vueRoutes.treasuryPage.name,
-        component: Treasury,
+        component: () => import(/* webpackChunkName: "treasury-page" */ '@treasury-page/Treasury'),
         redirect: vueRoutes.treasuryOverviewTab,
         children: [
           {
             path: '/treasury/overview',
             name: vueRoutes.treasuryOverviewTab.name,
-            component: TreasuryOverviewTab,
+            component: () => import(/* webpackChunkName: "treasury-page" */ '@treasury-page/tabs/TreasuryOverviewTab'),
           },
           {
             path: '/treasury/tips',
             name: vueRoutes.tipsTab.name,
-            component: TipsTab,
+            component: () => import(/* webpackChunkName: "treasury-page" */ '@treasury-page/tabs/TipsTab'),
           },
         ],
       },
       {
         path: '/bounties',
         name: vueRoutes.bountiesPage.name,
-        component: Bounties,
+        component: () => import(/* webpackChunkName: "bounties-page" */ '@bounties-page/Bounties'),
         redirect: vueRoutes.bountiesOverviewTab,
         children: [
           {
             path: '/bounties/overview',
             name: vueRoutes.bountiesOverviewTab.name,
-            component: BountiesOverviewTab,
+            component: () => import(/* webpackChunkName: "bounties-page" */ '@bounties-page/tabs/BountiesOverviewTab'),
           },
         ],
       },
       {
         path: '/tech-comm',
         name: vueRoutes.techCommPage.name,
-        component: TechComm,
+        component: () => import(/* webpackChunkName: "tech-comm-page" */ '@tech-comm-page/TechComm'),
         redirect: vueRoutes.techCommOverviewTab,
         children: [
           {
             path: '/tech-comm/overview',
             name: vueRoutes.techCommOverviewTab.name,
-            component: TechCommOverviewTab,
+            component: () => import(/* webpackChunkName: "tech-comm-page" */ '@tech-comm-page/tabs/TechCommOverviewTab'),
           },
           {
             path: '/tech-comm/proposals',
             name: vueRoutes.proposalsTab.name,
-            component: ProposalsTab,
-          },
-        ],
-      },
-      {
-        path: '/settings',
-        name: vueRoutes.settingsPage.name,
-        component: Settings,
-        redirect: vueRoutes.settingsMetadataTab,
-        children: [
-          {
-            path: '/settings/metadata',
-            name: vueRoutes.settingsMetadataTab.name,
-            component: SettingsMetadataTab,
+            component: () => import(/* webpackChunkName: "tech-comm-page" */ '@tech-comm-page/tabs/ProposalsTab'),
           },
         ],
       },
       {
         path: '/bridge',
         name: vueRoutes.bridgePage.name,
-        component: Bridge,
+        component: () => import(/* webpackChunkName: "bridge-page" */ '@bridge-page/Bridge'),
         redirect: vueRoutes.bridgeTokensTab,
         children: [
           {
             path: '/bridge/tokens',
             name: vueRoutes.bridgeTokensTab.name,
-            component: BridgeTokensTab,
+            component: () => import(/* webpackChunkName: "bridge-page" */ '@bridge-page/tabs/BridgeTokensTab'),
           },
           {
             path: '/bridge/nft',
             name: vueRoutes.bridgeNFTTab.name,
-            component: BridgeTokensTab,
+            component: () => import(/* webpackChunkName: "bridge-page" */ '@bridge-page/tabs/BridgeTokensTab'),
             props: { isErc721: true },
           },
           {
             path: '/bridge/unfinished-flows',
             name: vueRoutes.unfinishedFlowsTab.name,
-            component: UnfinishedFlowsTab,
+            component: () => import(/* webpackChunkName: "bridge-page" */ '@bridge-page/tabs/UnfinishedFlowsTab'),
           },
         ],
       },
