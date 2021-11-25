@@ -99,13 +99,6 @@ module.exports = {
     // Pre-fetching ALL the chunks harms the app performance
     config.plugins.delete('prefetch')
 
-    config.module
-      .rule('i18n')
-      .resourceQuery(/blockType=i18n/)
-      .type('javascript/auto')
-      .use('i18n')
-      .loader('@intlify/vue-i18n-loader')
-
     // Fix issue with url(...) imports in SASS
     const moduleTypes = ['vue-modules', 'vue', 'normal-modules', 'normal']
     moduleTypes.forEach(rule => {

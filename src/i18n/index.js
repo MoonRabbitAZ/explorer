@@ -17,13 +17,4 @@ const i18n = createI18n({
   },
 })
 
-// Hot module replacement
-if (module.hot) {
-  module.hot.accept(['./resources.js'], function () {
-    const resources = require('./resources.js').default
-
-    i18n.setLocaleMessage('en', resources.en)
-  })
-}
-
 export { i18n }
