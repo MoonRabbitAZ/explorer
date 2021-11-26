@@ -15,26 +15,42 @@
       />
     </div>
 
-    <members-list class="council-overview-tab__list"/>
-    <runners-up-list class="council-overview-tab__list"/>
-    <candidates-list class="council-overview-tab__list"/>
+    <councils-list
+      :elections="electionsInfo"
+      class="council-overview-tab__list"
+    />
   </div>
 </template>
 
 <script>
 import CouncilSummary from '@council-page/tabs/council-overview/CouncilSummary'
-import MembersList from '@council-page/tabs/council-overview/MembersList'
-import RunnersUpList from '@council-page/tabs/council-overview/RunnersUpList'
-import CandidatesList from '@council-page/tabs/council-overview/CandidatesList'
+import CouncilsList from '@council-page/tabs/council-overview/CouncilsList'
+
+import { useCall } from '@/vue/composables'
+import { api } from '@api'
+import { useAllVotes } from '@council-page/composables/useAllVotes'
+import { useModuleElections } from '@council-page/composables/useModuleElections'
 
 export default {
   name: 'council-overview-tab',
 
   components: {
     CouncilSummary,
-    MembersList,
-    RunnersUpList,
-    CandidatesList,
+    CouncilsList,
+  },
+
+  setup () {
+    const prime = useCall(api.derive.council.prime)
+    const electionsInfo = useCall(api.derive.elections.info)
+    const allVotes = useAllVotes()
+    const moduleElections = useModuleElections()
+
+    return {
+      prime,
+      electionsInfo,
+      allVotes,
+      moduleElections,
+    }
   },
 }
 </script>
