@@ -1,9 +1,21 @@
-@mixin action-bid-grid-row ($alignItems, $paddingVertical: 0) {
+// for parachains page
+@mixin auction-bid-grid-row ($alignItems, $paddingVertical: 0) {
   width: 100%;
   min-width: min-content;
   display: grid;
   grid-gap: 1.6rem;
   grid-template-columns: 15rem 10rem minmax(15rem, 1fr) 10rem 10rem 11rem;
+  align-items: $alignItems;
+  padding: $paddingVertical 1.6rem;
+}
+
+// for gilt page
+@mixin gilt-queue-grid-row ($alignItems, $paddingVertical: 0) {
+  width: 100%;
+  min-width: min-content;
+  display: grid;
+  grid-gap: 1.6rem;
+  grid-template-columns: minmax(10rem, 1fr) 12rem 10rem;
   align-items: $alignItems;
   padding: $paddingVertical 1.6rem;
 }

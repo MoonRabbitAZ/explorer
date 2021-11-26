@@ -204,7 +204,7 @@ export default {
   margin-bottom: 2rem;
 
   &--grid {
-    @include action-bid-grid-row(flex-end, 1rem);
+    @include auction-bid-grid-row(flex-end, 1rem);
   }
 }
 

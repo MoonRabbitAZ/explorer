@@ -615,6 +615,8 @@
     },
     "queues-list": {
       "queues-header": "Queues",
+      "participants-header": "Participants",
+      "balances-header": "Balances",
       "no-data-message": "No active gilt queues found."
     },
     "gilt-summary": {
@@ -623,8 +625,8 @@
       "proportion-header": "Proportion",
       "target-header": "Target",
       "intake-header": "Intake",
-      "queues-active-value": "Yes",
-      "queues-inactive-value": "No"
+      "queues-active-value": "yes",
+      "queues-inactive-value": "no"
     }
   },
   "society-page": {

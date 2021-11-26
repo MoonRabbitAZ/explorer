@@ -4,6 +4,14 @@
       <h1 class="queues-list__header">
         {{ $t('gilt-page.queues-list.queues-header') }}
       </h1>
+      <template v-if="queueTotals?.length">
+        <h4>
+          {{ $t('gilt-page.queues-list.participants-header') }}
+        </h4>
+        <h4>
+          {{ $t('gilt-page.queues-list.balances-header') }}
+        </h4>
+      </template>
     </div>
     <template v-if="queueTotals">
       <template v-if="queueTotals.length">
@@ -63,18 +71,14 @@ export default {
 @import '~@scss/mixins';
 @import '~@scss/variables';
 
-.queues-list__header {
-  padding: 0 1.6rem;
+.queues-list__headers {
   margin-bottom: 2rem;
+
+  @include gilt-queue-grid-row(center);
 }
 
 .queues-list__row {
-  display: grid;
-  grid-gap: 2rem;
-  grid-template-columns: minmax(10rem, 1fr) 12rem 10rem;
-  align-items: center;
-  padding: 1rem 1.6rem;
-
+  @include gilt-queue-grid-row(center, 1rem);
   @include content-block;
 
   & + & {

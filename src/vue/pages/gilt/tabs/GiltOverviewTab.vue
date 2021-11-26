@@ -1,7 +1,11 @@
 <template>
   <div class="gilt-overview-tab">
     <div class="gilt-overview-tab__topbar">
-      <gilt-summary class="gilt-overview-tab__summary" />
+      <gilt-summary
+        class="gilt-overview-tab__summary"
+        :active-total="activeTotal"
+        :is-active-gilt="isActiveGilt"
+      />
 
       <app-button
         class="gilt-overview-tab__bid-btn"
@@ -21,17 +25,25 @@
 import GiltSummary from '@gilt-page/tabs/gilt-overview/GiltSummary'
 import QueuesList from '@gilt-page/tabs/gilt-overview/QueuesList'
 
+import { computed } from 'vue'
 import { useGiltInfo } from '@gilt-page/composables/useGiltInfo'
+
 export default {
   name: 'gilt-overview-tab',
 
   components: { QueuesList, GiltSummary },
 
   setup () {
-    const { queueTotals } = useGiltInfo()
+    const { queueTotals, activeTotal } = useGiltInfo()
+
+    const isActiveGilt = computed(() =>
+      activeTotal.value && !activeTotal.value.target.isZero(),
+    )
 
     return {
       queueTotals,
+      activeTotal,
+      isActiveGilt,
     }
   },
 }

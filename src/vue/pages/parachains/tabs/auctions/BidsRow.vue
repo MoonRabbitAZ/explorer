@@ -77,7 +77,7 @@ export default {
 @import '~@scss/variables';
 
 .bids-row {
-  @include action-bid-grid-row(center, 1rem);
+  @include auction-bid-grid-row(center, 1rem);
   @include content-block;
 }
 
