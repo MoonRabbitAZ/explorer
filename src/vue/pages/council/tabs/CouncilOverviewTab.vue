@@ -15,10 +15,29 @@
       />
     </div>
 
-    <councils-list
-      :elections="electionsInfo"
-      class="council-overview-tab__list"
-    />
+    <div class="council-overview-tab__body">
+      <councils-list
+        :elections="electionsInfo"
+        :prime="prime"
+        :all-votes="allVotes"
+        elections-list-type="candidates"
+        class="council-overview-tab__list"
+      />
+      <councils-list
+        :elections="electionsInfo"
+        :prime="prime"
+        :all-votes="allVotes"
+        elections-list-type="members"
+        class="council-overview-tab__list"
+      />
+      <councils-list
+        :elections="electionsInfo"
+        :prime="prime"
+        :all-votes="allVotes"
+        elections-list-type="runnersUp"
+        class="council-overview-tab__list"
+      />
+    </div>
   </div>
 </template>
 

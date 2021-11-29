@@ -7,9 +7,7 @@ const transformVotes = {
       votes.forEach((candidate) => {
         const address = candidate.toString()
 
-        if (!result[address]) {
-          result[address] = []
-        }
+        if (!result[address]) result[address] = []
 
         result[address].push(voter)
       })

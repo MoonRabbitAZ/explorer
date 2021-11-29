@@ -703,17 +703,13 @@
       "candidates-header": "Candidates",
       "term-progress-header": "Term progress"
     },
-    "members-list": {
+    "councils-list": {
       "members-header": "Members",
-      "no-data-message": "No members found"
-    },
-    "runners-up-list": {
+      "members-no-data-message": "No members found",
       "runners-up-header": "Runners up",
-      "no-data-message": "No runners up found"
-    },
-    "candidates-list": {
+      "runners-up-no-data-message": "No runners up found",
       "candidates-header": "Candidates",
-      "no-data-message": "No candidates"
+      "candidates-no-data-message": "No candidates"
     },
     "motions-tab": {
       "propose-motion-btn": "Propose motion",
