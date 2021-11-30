@@ -19,3 +19,20 @@
   align-items: $alignItems;
   padding: $paddingVertical 1.6rem;
 }
+
+@mixin councils-grid-row ($alignItems, $paddingVertical: 0) {
+  display: grid;
+  grid-gap: 2rem;
+  grid-template-columns: minmax(15rem, 1fr) 10rem 5rem 4.4rem;
+  align-items: $alignItems;
+  padding: $paddingVertical 1.6rem;
+
+  @include respond-to($x-small) {
+    grid-template-columns: minmax(15rem, 1fr) 4.4rem;
+
+    & > :nth-child(2),
+    & > :nth-child(3) {
+      display: none;
+    }
+  }
+}

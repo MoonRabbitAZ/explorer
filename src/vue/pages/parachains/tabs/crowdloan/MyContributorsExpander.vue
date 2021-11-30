@@ -1,5 +1,5 @@
 <template>
-  <div class="my-my-contributors-expander">
+  <div class="my-contributors-expander">
     <div
       class="my-contributors-expander__my-contributors"
       :class="{

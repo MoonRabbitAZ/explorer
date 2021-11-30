@@ -7,9 +7,10 @@
     >
       <account-address-row
         is-accent-color
-        is-text-elipsis
         :account-address="accountAddress"
         :is-name-display="isNameDisplay"
+        :is-text-elipsis="isTextElipsis"
+        :icon-size="iconSize"
       />
     </button>
 
@@ -52,6 +53,8 @@ export default {
   props: {
     accountAddress: { type: String, required: true },
     isNameDisplay: { type: Boolean, default: false },
+    iconSize: { type: String, default: 'medium' },
+    isTextElipsis: { type: Boolean, default: true },
   },
 
   setup () {

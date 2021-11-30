@@ -704,12 +704,23 @@
       "term-progress-header": "Term progress"
     },
     "councils-list": {
-      "members-header": "Members",
+      "header-members": "Members",
+      "header-runners-up": "Runners Up",
+      "header-candidates": "Candidates",
+      "backing-header": "Backing",
+      "votes-header": "Votes",
+      "drawer-header-member": "Member",
+      "drawer-header-runner-up": "Runner Up",
+      "drawer-header-candidate": "Candidate",
       "members-no-data-message": "No members found",
       "runners-up-header": "Runners up",
       "runners-up-no-data-message": "No runners up found",
       "candidates-header": "Candidates",
       "candidates-no-data-message": "No candidates"
+    },
+    "council-info": {
+      "prime-voter": "Prime Voter",
+      "backing-header": "Backing"
     },
     "motions-tab": {
       "propose-motion-btn": "Propose motion",

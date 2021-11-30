@@ -92,9 +92,23 @@ export default {
   }
 }
 
+.council-overview-tab__body {
+  display: grid;
+  gap: 2rem 3.4rem;
+  grid-template-columns: 0.3fr 0.7fr;
+
+  @include respond-to($sidebar-hide-bp) {
+    grid-template-columns: 1fr;
+  }
+}
+
 .council-overview-tab__list {
-  & + & {
-    margin-top: 3rem;
+  &:first-child {
+    grid-row: 1/3;
+
+    @include respond-to($sidebar-hide-bp) {
+      grid-row: 3/4;
+    }
   }
 }
 </style>

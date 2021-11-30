@@ -1,16 +1,21 @@
 <template>
   <div class="council-row">
-    <div>
+    <div class="council-row__account">
       <account-address
         :account-address="accountId"
       />
+      <icon
+        v-if="isPrime"
+        class="council-row__prime-icon"
+        name="crown"
+      />
     </div>
-    <p>
+    <p class="council-row__balance">
       <span v-tooltip="$fFullBalance(balance)">
         {{ $fbalance(balance) }}
       </span>
     </p>
-    <p>
+    <p class="council-row__votes">
       {{ $fnumber(votersCount) }}
     </p>
     <div>
@@ -25,6 +30,7 @@
 
 <script>
 import AccountAddress from '@/vue/common/AccountAddress'
+import Icon from '@/vue/common/Icon'
 
 import { BN } from '@polkadot/util'
 
@@ -37,6 +43,7 @@ export default {
 
   components: {
     AccountAddress,
+    Icon,
   },
 
   props: {
@@ -66,12 +73,19 @@ export default {
 @import '~@scss/variables';
 
 .council-row {
-  display: grid;
-  grid-gap: 2rem;
-  grid-template-columns: minmax(15rem, 1fr) 10rem 5rem 4.4rem;
-  align-items: center;
-  padding: 1rem 1.6rem;
-
+  @include councils-grid-row(center, 1rem);
   @include content-block;
+}
+
+.council-row__account {
+  display: flex;
+  align-items: center;
+}
+
+.council-row__prime-icon {
+  width: 2.4rem;
+  height: 2.4rem;
+  min-width: 2.4rem;
+  margin-left: 2rem;
 }
 </style>
