@@ -33,13 +33,14 @@
               :account-id="accountId.toString()"
               :balance="balance"
               :is-prime="prime?.eq(accountId)"
-              :voters-count="allVotes[accountId.toString()]?.length"
+              :votes-count="allVotes[accountId.toString()]?.length"
               :elections-list-type="electionsListType"
               @openInfo="openInfo"
             />
           </template>
         </div>
       </template>
+      <!-- <template v-if="false"> -->
       <template
         v-else-if="elections.candidates.length
           && electionsListType === ELECTIONS_LIST_TYPE.candidates"
@@ -70,7 +71,7 @@
               class="councils-list__row"
               :account-id="accountId.toString()"
               :balance="balance"
-              :voters-count="allVotes[accountId.toString()]?.length"
+              :votes-count="allVotes[accountId.toString()]?.length"
               :elections-list-type="electionsListType"
               @openInfo="openInfo"
             />
@@ -80,7 +81,7 @@
       <template v-else>
         <no-data-message
           class="councils-list__no-data"
-          :message="$t('council-page.councils-list.members-no-data-message')"
+          :message="noDataMessage"
           is-row-block
         />
       </template>
@@ -88,7 +89,6 @@
     <template v-else>
       <skeleton-loader />
     </template>
-
     <drawer
       class="councils-list__info-drawer"
       v-model:is-shown="isInfoOpen"
@@ -101,6 +101,7 @@
         :account-id="currentElection.accountId"
         :balance="currentElection.balance"
         :is-prime="prime?.eq(currentElection.accountId)"
+        :votes="allVotes[currentAccountId]"
       />
     </drawer>
   </div>
@@ -151,6 +152,27 @@ export default {
     const currentAccountId = ref('')
     const isInfoOpen = ref(false)
 
+    const isLoaded = computed(() =>
+      Boolean(props.elections && props.allVotes),
+    )
+
+    const noDataMessage = computed(() => {
+      let translation
+      switch (props.electionsListType) {
+        case ELECTIONS_LIST_TYPE.members:
+          translation = t('council-page.councils-list.members-no-data-message')
+          break
+        case ELECTIONS_LIST_TYPE.runnersUp:
+          translation = t('council-page.councils-list.runners-up-no-data-message')
+          break
+        case ELECTIONS_LIST_TYPE.candidates:
+          translation = t('council-page.councils-list.candidates-no-data-message')
+          break
+      }
+
+      return translation
+    })
+
     const drawerHeaderTranslation = computed(() => {
       let translation
       switch (props.electionsListType) {
@@ -165,10 +187,6 @@ export default {
       return translation
     })
 
-    const isLoaded = computed(() =>
-      Boolean(props.elections && props.allVotes),
-    )
-
     const isHeaderDisplay = computed(() => {
       let isLength = false
       if (isLoaded.value) {
@@ -180,7 +198,7 @@ export default {
             isLength = Boolean(props.elections.runnersUp.length)
             break
           case ELECTIONS_LIST_TYPE.candidates:
-            isLength = Boolean(props.elections.candidates.length)
+            isLength = false
             break
         }
       }
@@ -247,12 +265,14 @@ export default {
 
     return {
       isLoaded,
+      noDataMessage,
       isHeaderDisplay,
       drawerHeaderTranslation,
       currentElection,
       isInfoOpen,
       openInfo,
       listHeaderTranslation,
+      currentAccountId,
       ELECTIONS_LIST_TYPE,
     }
   },
@@ -291,6 +311,7 @@ export default {
 
 .councils-list__candidates-row {
   padding: 1rem 1.6rem;
+  overflow: hidden;
 
   @include content-block;
 }

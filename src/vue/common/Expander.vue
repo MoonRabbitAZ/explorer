@@ -1,7 +1,10 @@
 <template>
   <div
     class="expander"
-    :class="{'expander--open': isOpenDropdown}"
+    :class="{
+      'expander--open': isOpenDropdown,
+      'expander--in-drawer': isInDrawer,
+    }"
   >
     <div
       class="expander__header"
@@ -66,6 +69,7 @@ export default {
   props: {
     title: { type: String, required: true },
     subtitle: { type: String, default: '' },
+    isInDrawer: { type: Boolean, default: false },
   },
 
   setup (props, { slots }) {
@@ -115,6 +119,16 @@ export default {
     .expander__dropdown {
       margin-top: 1.6rem;
       opacity: 1;
+    }
+  }
+
+  &--in-drawer {
+    background: $col-app-block-bg;
+    padding: 1.8rem $drawer-padding;
+
+    .expander__title {
+      color: $col-app-text;
+      font-size: 1.6rem;
     }
   }
 }

@@ -4,11 +4,13 @@
       <account-address
         :account-address="accountId"
       />
-      <icon
-        v-if="isPrime"
-        class="council-row__prime-icon"
-        name="crown"
-      />
+      <template v-if="isPrime">
+        <icon
+          v-tooltip="$t('council-page.council-row.prime-voter')"
+          class="council-row__prime-icon"
+          name="crown"
+        />
+      </template>
     </div>
     <p class="council-row__balance">
       <span v-tooltip="$fFullBalance(balance)">
@@ -16,7 +18,7 @@
       </span>
     </p>
     <p class="council-row__votes">
-      {{ $fnumber(votersCount) }}
+      {{ $fnumber(votesCount) }}
     </p>
     <div>
       <app-button
@@ -50,7 +52,7 @@ export default {
     accountId: { type: String, required: true },
     balance: { type: BN, default: null },
     isPrime: { type: Boolean, default: false },
-    votersCount: { type: Number, default: 0 },
+    votesCount: { type: Number, default: 0 },
     electionsListType: { type: String, required: true },
   },
 

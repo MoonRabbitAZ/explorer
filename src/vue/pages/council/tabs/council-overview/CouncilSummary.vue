@@ -1,34 +1,42 @@
 <template>
   <div class="council-summary">
-    <div class="council-summary__content">
+    <div
+      class="council-summary__content"
+      :class="{'council-summary__content--full': hasElections }"
+    >
       <info-block
+        class="council-summary__members"
         :title="$t('council-page.council-summary.seats-header')"
-        value="0/19"
+        :value="membersCount"
       />
 
-      <info-block
-        :title="$t('council-page.council-summary.runners-up-header')"
-        value="0/19"
-      />
+      <template v-if="hasElections">
+        <info-block
+          :title="$t('council-page.council-summary.runners-up-header')"
+          :value="runnersUpCount"
+        />
 
-      <info-block
-        :title="$t('council-page.council-summary.candidates-header')"
-        value="0"
-      />
+        <info-block
+          :title="$t('council-page.council-summary.candidates-header')"
+          :value="elections?.candidateCount.toString()"
+        />
+      </template>
 
-      <info-block
-        class="council-summary__term-progress"
-        :title="$t('council-page.council-summary.term-progress-header')"
-        value="1day"
-        secondary-value="20hrs 30mins"
-      >
-        <template #additional>
-          <progress-bar
-            :current="HURDCODE_CURRENT_PROGRESS"
-            :total="HURDCODE_TOTAL_PROGRESS"
-          />
-        </template>
-      </info-block>
+      <template v-if="elections?.termDuration">
+        <info-block
+          class="council-summary__term-progress"
+          :title="$t('council-page.council-summary.term-progress-header')"
+          :value="termTimes.total"
+          :secondary-value="termTimes.progress"
+        >
+          <template #additional>
+            <progress-bar
+              :current="termValue"
+              :total="elections?.termDuration"
+            />
+          </template>
+        </info-block>
+      </template>
     </div>
   </div>
 </template>
@@ -36,20 +44,70 @@
 <script>
 import InfoBlock from '@/vue/common/InfoBlock'
 import ProgressBar from '@/vue/common/ProgressBar'
-import { BN } from '@polkadot/util'
 
-const HURDCODE_CURRENT_PROGRESS = new BN(14)
-const HURDCODE_TOTAL_PROGRESS = new BN(100)
+import { computed } from 'vue'
+import { useBlockTime, useCall } from '@/vue/composables'
+import { api } from '@api'
+import { formatNumber } from '@polkadot/util'
 
 export default {
   name: 'council-summary',
 
   components: { InfoBlock, ProgressBar },
 
-  setup () {
+  props: {
+    elections: { type: Object, default: null },
+    hasElections: { type: Boolean, default: false },
+  },
+
+  setup (props) {
+    const { calculateTimeStr } = useBlockTime()
+    const bestNumber = useCall(api.derive.chain.bestNumber)
+
+    const membersCount = computed(() =>
+      props.elections?.members && props.elections?.desiredSeats
+        ? `${formatNumber(props.elections.members.length)} / ${formatNumber(props.elections.desiredSeats)}`
+        : props.elections?.members
+          ? formatNumber(props.elections.members.length)
+          : null,
+    )
+
+    const runnersUpCount = computed(() =>
+      props.elections?.runnersUp && props.elections?.desiredRunnersUp
+        ? `${formatNumber(props.elections.runnersUp.length)} / ${formatNumber(props.elections.desiredRunnersUp)}`
+        : props.elections?.runnersUp
+          ? formatNumber(props.elections.runnersUp.length)
+          : null,
+    )
+
+    const termValue = computed(() =>
+      bestNumber.value && props.elections?.termDuration
+        ? bestNumber.value.mod(props.elections.termDuration)
+        : null,
+    )
+
+    const termTimes = computed(() => {
+      if (termValue.value) {
+        const progressValue =
+          props.elections.termDuration.sub(termValue.value)
+
+        return {
+          total: calculateTimeStr(props.elections.termDuration, true),
+          progress: calculateTimeStr(progressValue, true),
+        }
+      } else {
+        return {
+          total: null,
+          progress: null,
+        }
+      }
+    })
+
     return {
-      HURDCODE_CURRENT_PROGRESS,
-      HURDCODE_TOTAL_PROGRESS,
+      membersCount,
+      termValue,
+      termTimes,
+      runnersUpCount,
     }
   },
 }
@@ -62,11 +120,25 @@ export default {
 .council-summary__content {
   display: grid;
   grid-gap: 1.6rem 3rem;
-  grid-template-columns: repeat(4, min-content);
-  justify-content: center;
+  grid-template-columns: repeat(2, min-content);
 
   @include respond-to($tablet) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
+  }
+
+  &--full {
+    grid-template-columns: repeat(4, min-content);
+    justify-content: center;
+
+    @include respond-to($tablet) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+.council-summary__members {
+  @include respond-to($tablet) {
+    grid-column: 1/-1;
   }
 }
 

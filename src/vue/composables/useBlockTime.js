@@ -1,6 +1,5 @@
-import BN from 'bn.js'
 import { api } from '@api'
-import { extractTime, BN_ONE } from '@polkadot/util'
+import { extractTime, BN_ONE, BN } from '@polkadot/util'
 import { useFormatTime } from '@/vue/composables'
 
 const DEFAULT_TIME = new BN(6000)

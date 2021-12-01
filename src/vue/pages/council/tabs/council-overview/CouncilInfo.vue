@@ -28,13 +28,36 @@
       :value="$fbalance(balance)"
       :value-level="1"
     />
+
+    <expander
+      :title="$t('council-page.council-info.votes-header', {
+        count: votes.length
+      })"
+      is-in-drawer
+    >
+      <template #secondary>
+        <div>
+          <template
+            v-for="account in votes"
+            :key="account"
+          >
+            <council-vote
+              class="council-info__vote"
+              :account-id="account.toString()"
+            />
+          </template>
+        </div>
+      </template>
+    </expander>
   </div>
 </template>
 
 <script>
+import CouncilVote from '@council-page/tabs/council-overview/CouncilVote'
 import ValueDisplayer from '@/vue/common/ValueDisplayer'
 import AccountAddress from '@/vue/common/AccountAddress'
 import Icon from '@/vue/common/Icon'
+import Expander from '@/vue/common/Expander'
 
 import { BN } from '@polkadot/util'
 
@@ -42,15 +65,18 @@ export default {
   name: 'council-info',
 
   components: {
+    CouncilVote,
     ValueDisplayer,
     AccountAddress,
     Icon,
+    Expander,
   },
 
   props: {
     accountId: { type: String, required: true },
     balance: { type: BN, default: null },
     isPrime: { type: Boolean, default: false },
+    votes: { type: Array, default: null },
   },
 
   setup (props) {
@@ -93,5 +119,15 @@ export default {
 .council-info__backing {
   margin: 4rem 0;
   padding: 0 $drawer-padding;
+}
+
+.council-info__vote {
+  & + & {
+    margin-top: 1.6rem;
+  }
+}
+
+.council-info__vote-balance-loader {
+  height: 2rem;
 }
 </style>

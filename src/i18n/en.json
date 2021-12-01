@@ -720,7 +720,11 @@
     },
     "council-info": {
       "prime-voter": "Prime Voter",
-      "backing-header": "Backing"
+      "backing-header": "Backing",
+      "votes-header": "Votes ({ count })"
+    },
+    "council-row": {
+      "prime-voter": "Current prime member, default voting"
     },
     "motions-tab": {
       "propose-motion-btn": "Propose motion",
