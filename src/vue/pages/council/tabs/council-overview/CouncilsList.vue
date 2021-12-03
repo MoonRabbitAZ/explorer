@@ -303,6 +303,7 @@ export default {
   }
 }
 
+.councils-list__candidates-row,
 .councils-list__row {
   & + & {
     margin-top: 0.4rem;
