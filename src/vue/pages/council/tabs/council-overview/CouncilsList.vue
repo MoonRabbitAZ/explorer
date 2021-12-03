@@ -40,7 +40,6 @@
           </template>
         </div>
       </template>
-      <!-- <template v-if="false"> -->
       <template
         v-else-if="elections.candidates.length
           && electionsListType === ELECTIONS_LIST_TYPE.candidates"
