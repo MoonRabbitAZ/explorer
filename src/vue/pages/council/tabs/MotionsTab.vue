@@ -25,11 +25,26 @@
 <script>
 import MotionsList from '@council-page/tabs/motions/MotionsList'
 
+import { useCall, useCollectiveMembers } from '@/vue/composables'
+import { api } from '@api'
+
 export default {
   name: 'motions-tab',
 
   components: {
     MotionsList,
+  },
+
+  setup () {
+    const prime = useCall(api.derive.council.prime)
+    const motions = useCall(api.derive.council.proposals)
+    const { members } = useCollectiveMembers('council')
+
+    return {
+      prime,
+      motions,
+      members,
+    }
   },
 }
 </script>

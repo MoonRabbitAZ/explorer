@@ -5,7 +5,9 @@
     </h1>
     <template v-if="true">
       <template v-if="false">
-        <div class="motions-list__body"/>
+        <div class="motions-list__body">
+          <motion-row />
+        </div>
       </template>
       <template v-else>
         <no-data-message
@@ -24,6 +26,7 @@
 <script>
 import SkeletonLoader from '@/vue/common/SkeletonLoader'
 import NoDataMessage from '@/vue/common/NoDataMessage'
+import MotionRow from '@council-page/tabs/motions/MotionRow'
 
 export default {
   name: 'motions-list',
@@ -31,6 +34,7 @@ export default {
   components: {
     SkeletonLoader,
     NoDataMessage,
+    MotionRow,
   },
 }
 </script>
