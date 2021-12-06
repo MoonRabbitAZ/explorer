@@ -3,7 +3,7 @@ import { isFunction } from '@polkadot/util'
 import { useCall } from '@/vue/composables'
 import { api } from '@api'
 
-export function useVotingStatus (votes, numMembers, section) {
+export function useVotingStatus (votes, members, section) {
   const status = ref({
     hasFailed: false,
     hasPassed: false,
@@ -14,7 +14,7 @@ export function useVotingStatus (votes, numMembers, section) {
 
   const bestNumber = useCall(api.derive.chain.bestNumber)
 
-  function getStatus (section) {
+  function getStatus () {
     if (!bestNumber.value && votes.value) {
       status.value = {
         hasFailed: false,
@@ -27,8 +27,9 @@ export function useVotingStatus (votes, numMembers, section) {
     }
 
     const specName = api.runtimeVersion.specName.toString()
-    const [moduleInstances] = api.registry.getModuleInstances(specName, section)
-    const instance = moduleInstances || section.value
+    const moduleInstances =
+      api.registry.getModuleInstances(specName, section.value) || []
+    const instance = moduleInstances[0] || section.value
 
     const modLocation = isFunction(api.tx[instance]?.close)
       ? instance
@@ -48,7 +49,7 @@ export function useVotingStatus (votes, numMembers, section) {
     const isEnd = bestNumber.value.gte(votes.value.end)
     const hasPassed = votes.value.threshold.lten(votes.value.ayes.length)
     const hasFailed = votes.value.threshold
-      .gtn(Math.abs(numMembers.value - votes.value.nays.length))
+      .gtn(Math.abs(members.value.length - votes.value.nays.length))
 
     status.value = {
       hasFailed,
@@ -59,11 +60,11 @@ export function useVotingStatus (votes, numMembers, section) {
       isVoteable: !isEnd,
       remainingBlocks: isEnd
         ? null
-        : votes.end.sub(bestNumber.value),
+        : votes.value.end.sub(bestNumber.value),
     }
   }
 
-  watch([bestNumber, numMembers, section], getStatus, { immediate: true })
+  watch([bestNumber, members, section], getStatus, { immediate: true })
 
   return status
 }

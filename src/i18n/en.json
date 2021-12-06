@@ -733,7 +733,8 @@
     },
     "motions-list": {
       "motions-header": "Motions",
-      "no-data-message": "No council motions"
+      "no-data-message": "No council motions",
+      "drawer-motion-header": "Motion { index }"
     }
   },
   "treasury-page": {

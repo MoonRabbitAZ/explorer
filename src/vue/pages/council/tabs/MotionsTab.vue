@@ -18,7 +18,12 @@
       />
     </div>
 
-    <motions-list />
+    <motions-list
+      :motions="motions"
+      :members="members"
+      :prime="prime"
+      :is-member="isMember"
+    />
   </div>
 </template>
 
@@ -38,12 +43,13 @@ export default {
   setup () {
     const prime = useCall(api.derive.council.prime)
     const motions = useCall(api.derive.council.proposals)
-    const { members } = useCollectiveMembers('council')
+    const { members, isMember } = useCollectiveMembers('council')
 
     return {
       prime,
       motions,
       members,
+      isMember,
     }
   },
 }
