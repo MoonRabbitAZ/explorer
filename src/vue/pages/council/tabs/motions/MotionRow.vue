@@ -1,6 +1,6 @@
 <template>
   <div class="motion-row">
-    <p>
+    <p class="motion-row__index">
       {{ $fnumber(motion.votes.index) }}
     </p>
     <div>
@@ -10,7 +10,7 @@
       {{ $fnumber(motion.votes.threshold) }}
     </p>
     <div>
-      <p>
+      <p class="motion-row__time">
         {{ votingEndTime }}
       </p>
       <p>
@@ -22,13 +22,14 @@
         class="motion-row__button"
         scheme="secondary"
         :text="'Votes'"
-        @click="openVotersInfo"
+        @click="openVotesInfo"
       />
       <template v-if="true">
         <app-button
           class="motion-row__button"
           scheme="secondary"
           mdi-icon-name="mdi-check"
+          disabled
         />
       </template>
       <template v-else>
@@ -36,6 +37,7 @@
           class="motion-row__button"
           scheme="secondary"
           mdi-icon-name="mdi-close"
+          disabled
         />
       </template>
     </div>
@@ -48,7 +50,7 @@ import { useBlockTime } from '@/vue/composables'
 import { useVotingStatus } from '@council-page/composables/useVotingStatus'
 
 const EVENTS = {
-  openVoters: 'open-voters',
+  openVotes: 'open-votes',
 }
 
 export default {
@@ -75,15 +77,15 @@ export default {
       return calculateTimeStr(votingStatus.value.remainingBlocks, true)
     })
 
-    function openVotersInfo () {
-      emit(EVENTS.openVoters, motion.value.hash.toHex())
+    function openVotesInfo () {
+      emit(EVENTS.openVotes, motion.value.hash.toHex())
     }
 
     return {
       votingStatus,
       votingEndTime,
       votes,
-      openVotersInfo,
+      openVotesInfo,
     }
   },
 }
@@ -94,13 +96,12 @@ export default {
 @import '~@scss/variables';
 
 .motion-row {
-  display: grid;
-  grid-gap: 1.6rem;
-  grid-template-columns: repeat(2, 1fr) 15rem 11rem 20rem;
-  align-items: center;
-  padding: 1rem 1.6rem;
-
+  @include councils-motions-grid-row(center, 1rem);
   @include content-block;
+}
+
+.motion-row__index {
+  font-size: 1.6rem;
 }
 
 .motion-row__actions {
@@ -112,6 +113,10 @@ export default {
   & + & {
     margin-left: 1rem;
   }
+}
+
+.motion-row__time {
+  margin-bottom: 1rem;
 }
 
 </style>

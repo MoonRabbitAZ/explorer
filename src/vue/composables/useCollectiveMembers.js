@@ -8,15 +8,21 @@ const transformMembers = {
 }
 
 export function useCollectiveMembers (collective) {
-  const { allAccounts } = useAccounts()
-  const members = useCall(
+  const { allAccounts, hasAccounts } = useAccounts()
+  const collectiveMembers = useCall(
     api.derive[collective]?.members,
     undefined,
     transformMembers,
   )
 
+  const members = computed(() =>
+    hasAccounts.value
+      ? collectiveMembers.value || []
+      : [],
+  )
+
   const isMember = computed(() =>
-    (members.value || []).some((accountId) =>
+    members.value.some((accountId) =>
       allAccounts.value.includes(accountId),
     ),
   )

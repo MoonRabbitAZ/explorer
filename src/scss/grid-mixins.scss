@@ -22,7 +22,7 @@
 
 @mixin councils-grid-row ($alignItems, $paddingVertical: 0) {
   display: grid;
-  grid-gap: 2rem;
+  grid-gap: 1.6rem;
   grid-template-columns: minmax(15rem, 1fr) 10rem 5rem 4.4rem;
   align-items: $alignItems;
   padding: $paddingVertical 1.6rem;
@@ -35,4 +35,12 @@
       display: none;
     }
   }
+}
+
+@mixin councils-motions-grid-row ($alignItems, $paddingVertical: 0) {
+  display: grid;
+  grid-gap: 1.6rem;
+  grid-template-columns: repeat(2, 1fr) 15rem 11rem 20rem;
+  align-items: $alignItems;
+  padding: $paddingVertical 1.6rem;
 }

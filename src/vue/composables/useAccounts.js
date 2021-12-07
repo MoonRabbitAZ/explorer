@@ -15,7 +15,7 @@ export function useAccounts () {
     state.allAccounts = accounts ? Object.keys(accounts) : []
     state.allAccountsHex =
         state.allAccounts.map((a) => u8aToHex(decodeAddress(a)))
-    state.hasAccounts = !state.allAccounts.length
+    state.hasAccounts = Boolean(state.allAccounts.length)
     state.isAccountsLoaded = true
   })
 

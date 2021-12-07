@@ -733,8 +733,15 @@
     },
     "motions-list": {
       "motions-header": "Motions",
+      "threshold-header": "Threshold",
+      "voting-end-header": "Voting end",
       "no-data-message": "No council motions",
-      "drawer-motion-header": "Motion { index }"
+      "votes-header": "Votes"
+    }, 
+    "motions-votes": {
+      "ayes-header": "Aye ({ count })",
+      "nays-header": "Nay ({ count })",
+      "no-data-message":"No votes available"
     }
   },
   "treasury-page": {
