@@ -1,9 +1,7 @@
 <template>
   <div class="council-row">
     <div class="council-row__account">
-      <account-address
-        :account-address="accountId"
-      />
+      <account-address :account-address="accountId" />
       <template v-if="isPrime">
         <icon
           v-tooltip="$t('council-page.council-row.prime-voter')"

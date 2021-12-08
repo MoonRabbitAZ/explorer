@@ -3,8 +3,12 @@
     <p class="motion-row__index">
       {{ $fnumber(motion.votes.index) }}
     </p>
-    <div>
-      <!--  -->
+    <div class="motion-row__proposals-wrap">
+      <proposal-cell
+        class="motion-row__proposals"
+        :image-hash="motion.hash"
+        :proposal="motion.proposal"
+      />
     </div>
     <p>
       {{ $fnumber(motion.votes.threshold) }}
@@ -45,6 +49,8 @@
 </template>
 
 <script>
+import ProposalCell from '@council-page/tabs/motions/ProposalCell'
+
 import { ref, computed, toRefs } from 'vue'
 import { useBlockTime } from '@/vue/composables'
 import { useVotingStatus } from '@council-page/composables/useVotingStatus'
@@ -55,6 +61,8 @@ const EVENTS = {
 
 export default {
   name: 'motions-row',
+
+  components: { ProposalCell },
 
   props: {
     motion: { type: Object, required: true },
@@ -96,6 +104,8 @@ export default {
 @import '~@scss/variables';
 
 .motion-row {
+  min-width: min-content;
+
   @include councils-motions-grid-row(center, 1rem);
   @include content-block;
 }
@@ -107,6 +117,14 @@ export default {
 .motion-row__actions {
   display: flex;
   justify-content: flex-end;
+}
+
+.motion-row__proposals-wrap {
+  max-width: 100%;
+}
+
+.motion-row__proposals {
+  max-width: max-content;
 }
 
 .motion-row__button {

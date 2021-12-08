@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="extrinsic-display"
-  >
+  <div class="call-expander">
     <expander
       :title="`${extractExtrinsic.section}.${extractExtrinsic.method}`"
       :subtitle="metaString"
@@ -15,9 +13,9 @@
 
       <template #secondary>
         <clipboard-field
-          class="extrinsic-display__secondary-item"
+          class="call-expander__secondary-item"
           v-if="extractExtrinsic.signature"
-          :label="$t('common.extrinsic-display.signature', {
+          :label="$t('common.call-expander.signature', {
             type: extractExtrinsic.signatureType
               ? `(${extractExtrinsic.signatureType })`
               : ''
@@ -26,20 +24,20 @@
         />
         <clipboard-field
           v-if="extractExtrinsic.hash"
-          class="extrinsic-display__secondary-item"
-          :label="$t('common.extrinsic-display.hash')"
+          class="call-expander__secondary-item"
+          :label="$t('common.call-expander.hash')"
           :value="extractExtrinsic.hash"
         />
         <param-viewer
-          v-if="extractExtrinsic.isSigned"
-          class="extrinsic-display__secondary-item"
-          :label="$t('common.extrinsic-display.lifetime')"
+          v-if="extractExtrinsic.isSigned && blockNumber"
+          class="call-expander__secondary-item"
+          :label="$t('common.call-expander.lifetime')"
           :string-value="era.length
-            ? $t('common.extrinsic-display.mortal', {
+            ? $t('common.call-expander.mortal', {
               startAt: era[0],
               endsAt: era[1],
             })
-            : $t('common.extrinsic-display.immortal')
+            : $t('common.call-expander.immortal')
           "
         />
       </template>
@@ -55,9 +53,10 @@ import ClipboardField from '@/vue/fields/ClipboardField'
 
 import { computed, toRefs } from 'vue'
 import { formatMetaPartsToString } from '@/js/helpers/blockchain-event-helper'
+import { useExtrinsic } from '@/vue/composables'
 
 export default {
-  name: 'extrinsic-display',
+  name: 'call-expander',
 
   components: {
     Expander,
@@ -67,16 +66,19 @@ export default {
   },
 
   props: {
-    extractExtrinsic: { type: Object, required: true },
-    blockNumber: { type: Number, required: true },
+    extrinsic: { type: Object, required: true },
+    blockNumber: { type: Number, default: null },
   },
 
   setup (props) {
-    const { extractExtrinsic, blockNumber } = toRefs(props)
+    const { extrinsic, blockNumber } = toRefs(props)
+    const { extractExtrinsicState } = useExtrinsic()
+
+    const extractExtrinsic = extractExtrinsicState(extrinsic)
 
     const era = computed(() => {
-      const era = extractExtrinsic.value.era
-      return blockNumber.value && era.isMortalEra
+      const era = extractExtrinsic?.era
+      return blockNumber.value && era?.isMortalEra
         ? [
             era.asMortalEra.birth(blockNumber.value),
             era.asMortalEra.death(blockNumber.value),
@@ -85,22 +87,23 @@ export default {
     })
 
     const extrinsicParamsWithValues = computed(() => {
-      return props.extractExtrinsic.params.map((item, index) => {
+      return extractExtrinsic.params.map((item, index) => {
         return {
           param: item,
-          value: props.extractExtrinsic.values[index],
+          value: extractExtrinsic.values[index],
         }
       })
     })
 
     const metaString = computed(() =>
-      formatMetaPartsToString(props.extractExtrinsic.meta),
+      formatMetaPartsToString(extractExtrinsic.meta),
     )
 
     return {
       era,
       extrinsicParamsWithValues,
       metaString,
+      extractExtrinsic,
     }
   },
 }
@@ -110,7 +113,7 @@ export default {
 @import '~@scss/mixins';
 @import '~@scss/variables';
 
-.extrinsic-display__secondary-item {
+.call-expander__secondary-item {
   margin-top: 1.6rem;
 }
 </style>

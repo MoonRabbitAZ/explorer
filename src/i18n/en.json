@@ -340,7 +340,7 @@
       "locked-lbl": "Locked",
       "staked-lbl": "Staked"
     },
-    "extrinsic-display": {
+    "call-expander": {
       "signature": "Signature { type }",
       "hash": "Hash",
       "lifetime": "Lifetime",

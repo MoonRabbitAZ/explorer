@@ -120,6 +120,12 @@ export default {
 @import '~@scss/mixins';
 @import '~@scss/variables';
 
+.motions-list {
+  overflow-x: auto;
+
+  @include scrollbar;
+}
+
 .motions-list__headers {
   margin-bottom: 2rem;
   padding: 0 1.6rem;

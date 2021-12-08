@@ -13,6 +13,7 @@
             <account-address
               v-for="accountId in votes.ayes"
               :key="accountId.toString()"
+              class="motions-votes__address"
               :account-address="accountId.toString()"
             />
           </template>
@@ -31,6 +32,7 @@
             <account-address
               v-for="accountId in votes.nays"
               :key="accountId.toString()"
+              class="motions-votes__address"
               :account-address="accountId.toString()"
             />
           </template>
@@ -96,6 +98,12 @@ export default {
 .motions-votes__expander {
   & + & {
     margin-top: 2rem;
+  }
+}
+
+.motions-votes__address {
+  & + & {
+    margin-top: 1.6rem;
   }
 }
 

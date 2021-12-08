@@ -40,7 +40,7 @@
 @mixin councils-motions-grid-row ($alignItems, $paddingVertical: 0) {
   display: grid;
   grid-gap: 1.6rem;
-  grid-template-columns: repeat(2, 1fr) 15rem 11rem 20rem;
+  grid-template-columns: 10rem minmax(45rem, 1fr) 15rem 11rem 20rem;
   align-items: $alignItems;
   padding: $paddingVertical 1.6rem;
 }

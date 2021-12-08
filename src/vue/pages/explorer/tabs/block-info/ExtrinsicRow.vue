@@ -1,14 +1,12 @@
 <template>
-  <div
-    class="extrinsic-row"
-  >
-    <extrinsic-display
-      :extract-extrinsic="extractExtrinsic"
+  <div class="extrinsic-row">
+    <call-expander
+      :extrinsic="extrinsic"
       :block-number="blockNumber"
     />
     <div>
       <event-display
-        v-for="({event}, id) in filtredEvents"
+        v-for="({event}, id) in filteredEvents"
         class="extrinsic-row__event-item"
         :key="id"
         :event="event"
@@ -29,10 +27,9 @@
 
 <script>
 import EventDisplay from '@/vue/common/EventDisplay'
-import ExtrinsicDisplay from '@/vue/common/ExtrinsicDisplay'
+import CallExpander from '@/vue/common/CallExpander'
 
 import { toRefs, computed } from 'vue'
-import { useExtrinsic } from '@/vue/composables'
 import { getTypeDef } from '@polkadot/types'
 import { getAddress } from '@/js/helpers/account-helper'
 import { BCH_EVENT_METHODS, BCH_EVENT_SECTION } from '@/js/const/blockchain-event.const'
@@ -42,7 +39,7 @@ export default {
 
   components: {
     EventDisplay,
-    ExtrinsicDisplay,
+    CallExpander,
   },
 
   props: {
@@ -54,17 +51,15 @@ export default {
 
   setup (props) {
     const { extrinsic, index, events } = toRefs(props)
-    const { extractExtrinsicState } = useExtrinsic()
-    const extractExtrinsic = extractExtrinsicState(extrinsic)
 
-    const filtredEvents = computed(() => {
+    const filteredEvents = computed(() => {
       return events.value.filter(({ phase }) =>
         phase.isApplyExtrinsic && phase.asApplyExtrinsic.eq(index.value),
       )
     })
 
     const weight = computed(() => {
-      const infoRecord = filtredEvents.value
+      const infoRecord = filteredEvents.value
         .find(({ event: { method, section } }) =>
           section === BCH_EVENT_SECTION.system &&
             [
@@ -86,8 +81,7 @@ export default {
 
     return {
       getTypeDef,
-      filtredEvents,
-      extractExtrinsic,
+      filteredEvents,
       signerDisplay,
       weight,
     }
