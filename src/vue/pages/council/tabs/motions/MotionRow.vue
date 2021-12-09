@@ -14,12 +14,14 @@
       {{ $fnumber(motion.votes.threshold) }}
     </p>
     <div>
-      <p class="motion-row__time">
-        {{ votingEndTime }}
-      </p>
-      <p>
-        {{ `#${$fnumber(votes.end)}` }}
-      </p>
+      <template v-if="votingEndTime && votes?.end">
+        <p class="motion-row__time">
+          {{ votingEndTime }}
+        </p>
+        <p>
+          {{ `#${$fnumber(votes.end)}` }}
+        </p>
+      </template>
     </div>
     <div class="motion-row__actions">
       <app-button

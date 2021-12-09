@@ -41,6 +41,8 @@
           "
         />
       </template>
+
+      <slot />
     </expander>
   </div>
 </template>

@@ -742,6 +742,10 @@
       "ayes-header": "Aye ({ count })",
       "nays-header": "Nay ({ count })",
       "no-data-message":"No votes available"
+    },
+    "external-cell": {
+      "signature": "Signature { type }",
+      "hash": "Hash"
     }
   },
   "treasury-page": {

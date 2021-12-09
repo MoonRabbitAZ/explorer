@@ -8,6 +8,9 @@ export function useExtrinsic () {
 
   function extractExtrinsicState (val, withHash = true, withSignature = true) {
     const extr = unref(val)
+
+    if (!extr) return null
+
     const { meta, method, section } = extr.registry.findMetaCall(extr.callIndex)
 
     const state = reactive({
