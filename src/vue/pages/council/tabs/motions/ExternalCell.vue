@@ -1,6 +1,9 @@
 <template>
-  <div class="external-cell">
-    <template v-if="proposal">
+  <div
+    v-if="proposal"
+    class="external-cell"
+  >
+    <template>
       <div>
         <params
           :params="externalParamsWithValues"
@@ -8,16 +11,6 @@
         />
       </div>
       <div>
-        <clipboard-field
-          class="external-cell__secondary-item"
-          v-if="extractExternal.signature"
-          :label="$t('common.external-cell.signature', {
-            type: extractExternal.signatureType
-              ? `(${extractExternal.signatureType })`
-              : ''
-          })"
-          :value="extractExternal.signature"
-        />
         <clipboard-field
           v-if="extractExternal.hash"
           class="external-cell__secondary-item"
@@ -30,12 +23,17 @@
 </template>
 
 <script>
+import Params from '@/vue/common/Params'
+import ClipboardField from '@/vue/fields/ClipboardField'
+
 import { computed } from 'vue'
 import { useCall, useExtrinsic } from '@/vue/composables'
 import { api } from '@api'
 
 export default {
   name: 'external-cell',
+
+  components: { ClipboardField, Params },
 
   props: {
     hash: { type: Uint8Array, required: true },
@@ -49,7 +47,10 @@ export default {
       { transform: (val) => val.proposal },
     )
 
-    const extractExternal = extractExtrinsicState(proposal)
+    const extractExternal = extractExtrinsicState({
+      val: proposal,
+      withHash: true,
+    })
     const externalParamsWithValues = computed(() => {
       return proposal.value?.params.map((item, index) => {
         return {

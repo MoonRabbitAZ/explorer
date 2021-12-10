@@ -6,7 +6,11 @@ export function useExtrinsic () {
     return !!value.signature
   }
 
-  function extractExtrinsicState (val, withHash = true, withSignature = true) {
+  function extractExtrinsicState ({
+    val,
+    withHash = false,
+    withSignature = false,
+  }) {
     const extr = unref(val)
 
     if (!extr) return null

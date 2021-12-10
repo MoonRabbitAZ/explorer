@@ -3,6 +3,8 @@
     <call-expander
       :extrinsic="extrinsic"
       :block-number="blockNumber"
+      with-hash
+      with-signature
     />
     <div>
       <event-display

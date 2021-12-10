@@ -40,9 +40,9 @@
             : $t('common.call-expander.immortal')
           "
         />
-      </template>
 
-      <slot />
+        <slot />
+      </template>
     </expander>
   </div>
 </template>
@@ -70,13 +70,19 @@ export default {
   props: {
     extrinsic: { type: Object, required: true },
     blockNumber: { type: Number, default: null },
+    withHash: { type: Boolean, default: false },
+    withSignature: { type: Boolean, default: false },
   },
 
   setup (props) {
     const { extrinsic, blockNumber } = toRefs(props)
     const { extractExtrinsicState } = useExtrinsic()
 
-    const extractExtrinsic = extractExtrinsicState(extrinsic)
+    const extractExtrinsic = extractExtrinsicState({
+      val: extrinsic,
+      withHash: props.withHash,
+      withSignature: props.withSignature,
+    })
 
     const era = computed(() => {
       const era = extractExtrinsic?.era

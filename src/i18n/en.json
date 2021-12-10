@@ -744,7 +744,6 @@
       "no-data-message":"No votes available"
     },
     "external-cell": {
-      "signature": "Signature { type }",
       "hash": "Hash"
     }
   },
