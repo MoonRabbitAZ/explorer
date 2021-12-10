@@ -3,9 +3,16 @@
     <h1 class="dispatch-queue-list__header">
       {{ $t('democracy-page.dispatch-queue-list.dispatch-queue-header') }}
     </h1>
-    <template v-if="true">
-      <template v-if="false">
-        <div class="dispatch-queue-list__body"/>
+    <template v-if="filteredQueued">
+      <template v-if="filteredQueued.length">
+        <template
+          v-for="entry in filteredQueued"
+          :key="entry.index.toString()"
+        >
+          <dispatch-entry-row
+            :entry="entry"
+          />
+        </template>
       </template>
       <template v-else>
         <no-data-message
@@ -22,8 +29,13 @@
 </template>
 
 <script>
+import DispatchEntryRow from '@democracy-page/tabs/dispatch/DispatchEntryRow'
 import SkeletonLoader from '@/vue/common/SkeletonLoader'
 import NoDataMessage from '@/vue/common/NoDataMessage'
+
+import { computed } from 'vue'
+import { useCall } from '@/vue/composables'
+import { api } from '@api'
 
 export default {
   name: 'dispatch-queue-list',
@@ -31,6 +43,19 @@ export default {
   components: {
     SkeletonLoader,
     NoDataMessage,
+    DispatchEntryRow,
+  },
+
+  setup () {
+    const bestNumber = useCall(api.derive.chain.bestNumber)
+    const queued = useCall(api.derive.democracy.dispatchQueue)
+
+    const filteredQueued = computed(() => {
+      if (!bestNumber.value || !queued.value) return null
+      return queued.value?.filter(({ at }) => at.gte(bestNumber.value))
+    })
+
+    return { filteredQueued }
   },
 }
 </script>
