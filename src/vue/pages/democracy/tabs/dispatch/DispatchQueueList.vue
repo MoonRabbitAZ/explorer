@@ -19,7 +19,10 @@
           v-for="entry in filteredQueued"
           :key="entry.index.toString()"
         >
-          <dispatch-entry-row :entry="entry" />
+          <dispatch-entry-row
+            class="dispatch-queue-list__row"
+            :entry="entry"
+          />
         </template>
       </template>
       <template v-else>
@@ -72,6 +75,12 @@ export default {
 @import '~@scss/mixins';
 @import '~@scss/variables';
 
+.dispatch-queue-list {
+  overflow-x: auto;
+
+  @include scrollbar;
+}
+
 .dispatch-queue-list__header {
   padding: 0 1.6rem;
   margin-bottom: 2rem;
@@ -87,6 +96,12 @@ export default {
 
   &--grid {
     @include democracy-dispatch-grid-row(flex-end);
+  }
+}
+
+.dispatch-queue-list__row {
+  & + & {
+    margin-top: 0.4rem;
   }
 }
 

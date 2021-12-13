@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Council lists
 - Council summary
 - Motions list
+- Dispatch queue list and Scheduled list on Dispatch tab
 
 ## [0.1.0] - 2021-11-26
 #### Added

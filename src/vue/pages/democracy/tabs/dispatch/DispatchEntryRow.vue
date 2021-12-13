@@ -57,13 +57,15 @@ export default {
 @import '~@scss/mixins';
 @import '~@scss/variables';
 
-.dispatch-entry-row__index {
-  font-size: 1.6rem;
-}
-
 .dispatch-entry-row {
+  min-width: min-content;
+
   @include democracy-dispatch-grid-row(center, 1rem);
   @include content-block;
+}
+
+.dispatch-entry-row__index {
+  font-size: 1.6rem;
 }
 
 .dispatch-entry-row__time {

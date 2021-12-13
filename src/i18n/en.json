@@ -690,6 +690,10 @@
     },
     "scheduled-list": {
       "scheduled-header": "Scheduled",
+      "id-header": "Id",
+      "remaining-header": "Remaining",
+      "period-header": "Period",
+      "count-header": "Count",
       "no-data-message": "No active schedules"
     }
   },

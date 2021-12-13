@@ -1,7 +1,10 @@
 <template>
   <div class="dispatch-tab">
     <dispatch-queue-list class="dispatch-tab__list"/>
-    <scheduled-list class="dispatch-tab__list"/>
+
+    <template v-if="api.query.scheduler">
+      <scheduled-list class="dispatch-tab__list"/>
+    </template>
   </div>
 </template>
 
@@ -9,6 +12,7 @@
 import DispatchQueueList from '@democracy-page/tabs/dispatch/DispatchQueueList'
 import ScheduledList from '@democracy-page/tabs/dispatch/ScheduledList'
 
+import { api } from '@api'
 export default {
   name: 'dispatch-tab',
 
@@ -16,6 +20,8 @@ export default {
     ScheduledList,
     DispatchQueueList,
   },
+
+  setup () { return { api } },
 }
 </script>
 

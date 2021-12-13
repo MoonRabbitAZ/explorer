@@ -52,3 +52,11 @@
   align-items: $alignItems;
   padding: $paddingVertical 1.6rem;
 }
+
+@mixin democracy-schedule-grid-row ($alignItems, $paddingVertical: 0) {
+  display: grid;
+  grid-gap: 1.6rem;
+  grid-template-columns: minmax(45rem, 1fr) 20rem 10rem 10rem 8rem;
+  align-items: $alignItems;
+  padding: $paddingVertical 1.6rem;
+}
