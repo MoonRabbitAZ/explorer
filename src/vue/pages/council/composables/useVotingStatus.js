@@ -7,13 +7,15 @@ export function useVotingStatus (votes, members, section) {
   const status = ref({})
 
   function setStatus (currentStatus) {
-    status.value = {
-      hasFailed: currentStatus?.hasFailed || false,
-      hasPassed: currentStatus?.hasPassed || false,
-      isCloseable: currentStatus?.isCloseable || false,
-      isVoteable: currentStatus?.isVoteable || false,
-      remainingBlocks: currentStatus?.remainingBlocks || null,
+    const defaultStatus = {
+      hasFailed: false,
+      hasPassed: false,
+      isCloseable: false,
+      isVoteable: false,
+      remainingBlocks: null,
     }
+
+    status.value = { ...defaultStatus, ...currentStatus }
   }
 
   setStatus()
