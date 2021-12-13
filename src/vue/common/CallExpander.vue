@@ -3,6 +3,7 @@
     <expander
       :title="`${extractExtrinsic.section}.${extractExtrinsic.method}`"
       :subtitle="metaString"
+      :is-full-width-header="isFullWidthHeader"
     >
       <template #dropdown-main>
         <params
@@ -72,6 +73,7 @@ export default {
     blockNumber: { type: Number, default: null },
     withHash: { type: Boolean, default: false },
     withSignature: { type: Boolean, default: false },
+    isFullWidthHeader: { type: Boolean, default: true },
   },
 
   setup (props) {

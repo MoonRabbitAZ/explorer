@@ -685,6 +685,7 @@
     },
     "dispatch-queue-list": {
       "dispatch-queue-header": "Dispatch queue",
+      "enact-header": "Enact",
       "no-data-message": "Nothing queued for execution"
     },
     "scheduled-list": {

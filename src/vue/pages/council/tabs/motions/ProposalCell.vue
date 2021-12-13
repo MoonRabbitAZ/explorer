@@ -3,6 +3,7 @@
     <call-expander
       :extrinsic="proposal"
       :with-hash="!isExternal && !isTreasury"
+      :is-full-width-header="false"
     >
       <template v-if="isExternal && false">
         <external-cell

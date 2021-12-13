@@ -8,6 +8,7 @@
   >
     <div
       class="expander__header"
+      :class="{ 'expander__header--full': isFullWidthHeader}"
       @click="toggleOpenDropdown"
     >
       <div class="expander__title">
@@ -70,6 +71,7 @@ export default {
     title: { type: String, required: true },
     subtitle: { type: String, default: '' },
     isInDrawer: { type: Boolean, default: false },
+    isFullWidthHeader: { type: Boolean, default: true },
   },
 
   setup (props, { slots }) {
@@ -137,6 +139,11 @@ export default {
   position: relative;
   padding-right: 4rem;
   cursor: pointer;
+  max-width: max-content;
+
+  &--full {
+    width: 100%;
+  }
 }
 
 .expander__title {

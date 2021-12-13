@@ -1,6 +1,6 @@
 <template>
   <div class="dispatch-entry-row">
-    <p>
+    <p class="dispatch-entry-row__index">
       {{ $fnumber(entry.index) }}
     </p>
     <div>
@@ -57,8 +57,8 @@ export default {
 @import '~@scss/mixins';
 @import '~@scss/variables';
 
-.dispatch-entry-row__proposals-wrap {
-  max-width: 100%;
+.dispatch-entry-row__index {
+  font-size: 1.6rem;
 }
 
 .dispatch-entry-row {

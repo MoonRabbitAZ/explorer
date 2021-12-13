@@ -1,17 +1,25 @@
 <template>
   <div class="dispatch-queue-list">
-    <h1 class="dispatch-queue-list__header">
-      {{ $t('democracy-page.dispatch-queue-list.dispatch-queue-header') }}
-    </h1>
+    <div
+      class="dispatch-queue-list__headers"
+      :class="{'dispatch-queue-list__headers--grid': filteredQueued?.length}"
+    >
+      <h1>
+        {{ $t('democracy-page.dispatch-queue-list.dispatch-queue-header') }}
+      </h1>
+      <template v-if="filteredQueued?.length">
+        <h4>
+          {{ $t('democracy-page.dispatch-queue-list.enact-header') }}
+        </h4>
+      </template>
+    </div>
     <template v-if="filteredQueued">
       <template v-if="filteredQueued.length">
         <template
           v-for="entry in filteredQueued"
           :key="entry.index.toString()"
         >
-          <dispatch-entry-row
-            :entry="entry"
-          />
+          <dispatch-entry-row :entry="entry" />
         </template>
       </template>
       <template v-else>
@@ -67,6 +75,19 @@ export default {
 .dispatch-queue-list__header {
   padding: 0 1.6rem;
   margin-bottom: 2rem;
+}
+
+.dispatch-queue-list__headers {
+  margin-bottom: 2rem;
+  padding: 0 1.6rem;
+
+  & > :first-child {
+    grid-column: 1/3;
+  }
+
+  &--grid {
+    @include democracy-dispatch-grid-row(flex-end);
+  }
 }
 
 </style>
