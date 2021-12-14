@@ -16,8 +16,8 @@
     <template v-if="filteredQueued">
       <template v-if="filteredQueued.length">
         <template
-          v-for="entry in filteredQueued"
-          :key="entry.index.toString()"
+          v-for="(entry, index) in filteredQueued"
+          :key="index"
         >
           <dispatch-entry-row
             class="dispatch-queue-list__row"
