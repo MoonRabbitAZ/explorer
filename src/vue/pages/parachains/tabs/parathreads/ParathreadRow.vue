@@ -116,6 +116,7 @@ export default {
   grid-template-columns: 8rem minmax(12rem, 1fr) 15rem 15rem 10rem;
   align-items: center;
   padding: 1rem 1.6rem;
+  min-width: min-content;
 
   @include content-block;
 }

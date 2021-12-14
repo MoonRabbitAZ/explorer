@@ -104,7 +104,7 @@ export default {
     })
 
     const isLoaded = computed(() =>
-      newRaise.value && props.winningData && props.auctionInfo?.numAuctions,
+      props.winningData && loans.value,
     )
 
     const noDataMessage = computed(() =>
@@ -115,14 +115,13 @@ export default {
 
     const collectedWinningData = computed(() => {
       if (!isLoaded.value) return null
-
       if (props.winningData.length) {
         return props.winningData.map(({ blockNumber, winners }, index) => ({
           isLatest: index === 0,
           blockNumber: blockNumber,
           winnersWithLoans: interleave(
             loans.value,
-            !index || props.winningData.length !== 1,
+            Boolean(index) || props.winningData.length !== 1,
             winners,
           ),
         }))
@@ -138,7 +137,7 @@ export default {
     })
 
     function interleave (loans, asIs, winners = []) {
-      if (asIs || !newRaise.value) return winners
+      if (asIs) return winners
 
       const filteredLoans = loans
         .filter(({ firstSlot, lastSlot, paraId, value }) => {
@@ -146,7 +145,7 @@ export default {
             w.firstSlot.eq(firstSlot) && w.lastSlot.eq(lastSlot),
           )
 
-          const isEqualsLoans = loans.value.some((e) =>
+          const isEqualsLoans = loans.some((e) =>
             !paraId.eq(e.paraId) &&
             firstSlot.eq(e.firstSlot) &&
             lastSlot.eq(e.lastSlot) &&
@@ -159,7 +158,7 @@ export default {
       return winners
         .concat(...filteredLoans)
         .map((w) => {
-          const loan = loans.value.find(({ firstSlot, lastSlot, value }) =>
+          const loan = loans.find(({ firstSlot, lastSlot, value }) =>
             w.firstSlot.eq(firstSlot) &&
             w.lastSlot.eq(lastSlot) &&
             w.value.lt(value),
