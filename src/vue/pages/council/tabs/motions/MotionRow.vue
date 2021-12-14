@@ -30,11 +30,11 @@
         :text="'Votes'"
         @click="openVotesInfo"
       />
-      <template v-if="true">
+      <template v-if="votingStatus.isCloseable">
         <app-button
           class="motion-row__button"
           scheme="secondary"
-          mdi-icon-name="mdi-check"
+          mdi-icon-name="mdi-close"
           disabled
         />
       </template>
@@ -42,7 +42,7 @@
         <app-button
           class="motion-row__button"
           scheme="secondary"
-          mdi-icon-name="mdi-close"
+          mdi-icon-name="mdi-check"
           disabled
         />
       </template>

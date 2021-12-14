@@ -4,25 +4,27 @@ import { useCall } from '@/vue/composables'
 import { api } from '@api'
 
 export function useVotingStatus (votes, members, section) {
-  const status = ref({
-    hasFailed: false,
-    hasPassed: false,
-    isCloseable: false,
-    isVoteable: false,
-    remainingBlocks: null,
-  })
+  const status = ref({})
+
+  function setStatus (currentStatus) {
+    const defaultStatus = {
+      hasFailed: false,
+      hasPassed: false,
+      isCloseable: false,
+      isVoteable: false,
+      remainingBlocks: null,
+    }
+
+    status.value = { ...defaultStatus, ...currentStatus }
+  }
+
+  setStatus()
 
   const bestNumber = useCall(api.derive.chain.bestNumber)
 
-  function getStatus () {
+  function updateStatus () {
     if (!bestNumber.value && votes.value) {
-      status.value = {
-        hasFailed: false,
-        hasPassed: false,
-        isCloseable: false,
-        isVoteable: false,
-        remainingBlocks: null,
-      }
+      setStatus()
       return
     }
 
@@ -36,13 +38,7 @@ export function useVotingStatus (votes, members, section) {
       : null
 
     if (!votes.value.end || !modLocation) {
-      status.value = {
-        hasFailed: false,
-        hasPassed: false,
-        isCloseable: false,
-        isVoteable: true,
-        remainingBlocks: null,
-      }
+      setStatus({ isVoteable: true })
       return
     }
 
@@ -51,7 +47,7 @@ export function useVotingStatus (votes, members, section) {
     const hasFailed = votes.value.threshold
       .gtn(Math.abs(members.value.length - votes.value.nays.length))
 
-    status.value = {
+    setStatus({
       hasFailed,
       hasPassed,
       isCloseable: api.tx[modLocation].close.meta.args.length === 4 // current-generation
@@ -61,10 +57,10 @@ export function useVotingStatus (votes, members, section) {
       remainingBlocks: isEnd
         ? null
         : votes.value.end.sub(bestNumber.value),
-    }
+    })
   }
 
-  watch([bestNumber, members, section], getStatus, { immediate: true })
+  watch([bestNumber, members, section], updateStatus, { immediate: true })
 
   return status
 }

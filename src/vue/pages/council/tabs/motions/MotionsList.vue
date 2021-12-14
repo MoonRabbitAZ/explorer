@@ -20,8 +20,8 @@
       <template v-if="motions.length">
         <div class="motions-list__body">
           <motion-row
-            v-for="motion in motions"
-            :key="motion.hash.toHex()"
+            v-for="(motion, index) in motions"
+            :key="index"
             class="motions-list__row"
             :motion="motion"
             :members="members"

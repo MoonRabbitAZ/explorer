@@ -3,13 +3,13 @@
     <div
       class="councils-list__headers"
       :class="{
-        'councils-list__headers--grid': isHeaderDisplay
+        'councils-list__headers--grid': isHeaderShown
       }"
     >
       <h1 class="councils-list__header">
         {{ listHeaderTranslation }}
       </h1>
-      <template v-if="isHeaderDisplay">
+      <template v-if="isHeaderShown">
         <h4>
           {{ $t('council-page.councils-list.backing-header') }}
         </h4>
@@ -186,23 +186,23 @@ export default {
       return translation
     })
 
-    const isHeaderDisplay = computed(() => {
-      let isLength = false
+    const isHeaderShown = computed(() => {
+      let isListLength = false
       if (isLoaded.value) {
         switch (props.electionsListType) {
           case ELECTIONS_LIST_TYPE.members:
-            isLength = Boolean(props.elections.members.length)
+            isListLength = props.elections.members.length
             break
           case ELECTIONS_LIST_TYPE.runnersUp:
-            isLength = Boolean(props.elections.runnersUp.length)
+            isListLength = props.elections.runnersUp.length
             break
           case ELECTIONS_LIST_TYPE.candidates:
-            isLength = false
+            isListLength = false
             break
         }
       }
 
-      return isLoaded.value && isLength
+      return isLoaded.value && Boolean(isListLength)
     })
 
     const listHeaderTranslation = computed(() => {
@@ -223,38 +223,27 @@ export default {
     })
 
     const currentElection = computed(() => {
-      let accountId = ''
-      let balance = null
+      const result = { accountId: '', balance: null }
+      if (!props.elections) return result
 
-      if (props.elections) {
-        switch (props.electionsListType) {
-          case ELECTIONS_LIST_TYPE.members: {
-            const [accId, bal] = props.elections.members.find(([accountId]) =>
-              currentAccountId.value === accountId.toString(),
-            )
-            if (accId) {
-              accountId = currentAccountId.value
-              balance = bal
-            }
-            break
-          }
-          case ELECTIONS_LIST_TYPE.runnersUp: {
-            const [accId, bal] = props.elections.runnersUp.find(([accountId]) =>
-              currentAccountId.value === accountId.toString(),
-            )
-            if (accId) {
-              accountId = currentAccountId.value
-              balance = bal
-            }
-            break
-          }
-        }
+      let elections
+
+      if (props.electionsListType === ELECTIONS_LIST_TYPE.members) {
+        elections = props.elections.members
+      } else if (props.electionsListType === ELECTIONS_LIST_TYPE.runnersUp) {
+        elections = props.elections.runnersUp
       }
 
-      return {
-        accountId,
-        balance,
+      const [accId, bal] = elections.find(([accountId]) =>
+        currentAccountId.value === accountId.toString(),
+      )
+
+      if (accId) {
+        result.accountId = currentAccountId.value
+        result.balance = bal
       }
+
+      return result
     })
 
     function openInfo (accountId) {
@@ -265,7 +254,7 @@ export default {
     return {
       isLoaded,
       noDataMessage,
-      isHeaderDisplay,
+      isHeaderShown,
       drawerHeaderTranslation,
       currentElection,
       isInfoOpen,
