@@ -78,12 +78,6 @@ export default {
     isPrime: { type: Boolean, default: false },
     votes: { type: Array, default: null },
   },
-
-  setup (props) {
-    return {
-
-    }
-  },
 }
 </script>
 
