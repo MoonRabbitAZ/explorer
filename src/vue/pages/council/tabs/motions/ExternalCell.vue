@@ -1,70 +1,38 @@
 <template>
-  <div
-    v-if="proposal"
-    class="external-cell"
-  >
-    <template>
-      <div>
-        <params
-          :params="externalParamsWithValues"
-          :registry="extractExternal.registry"
-        />
-      </div>
-      <div>
-        <clipboard-field
-          v-if="extractExternal.hash"
-          class="external-cell__secondary-item"
-          :label="$t('common.external-cell.hash')"
-          :value="extractExternal.hash"
-        />
-      </div>
-    </template>
+  <div v-if="proposal" class="external-cell">
+    <div class="external-cell__call-expander">
+      <call-expander
+        :extrinsic="proposal.proposal"
+        with-hash
+        :is-full-width-header="false"
+      />
+    </div>
   </div>
 </template>
 
 <script>
-import Params from '@/vue/common/Params'
-import ClipboardField from '@/vue/fields/ClipboardField'
+import CallExpander from '@/vue/common/CallExpander'
 
 import { computed } from 'vue'
-import { useCall, useExtrinsic } from '@/vue/composables'
+import { useCall } from '@/vue/composables'
 import { api } from '@api'
 
 export default {
   name: 'external-cell',
 
-  components: { ClipboardField, Params },
+  components: { CallExpander },
 
   props: {
     hash: { type: Uint8Array, required: true },
   },
 
   setup (props) {
-    const { extractExtrinsicState } = useExtrinsic()
     const proposal = useCall(
       api.derive.democracy.preimage,
-      [props.hash],
-      { transform: (val) => val.proposal },
+      computed(() => ([props.hash])),
     )
 
-    const extractExternal = extractExtrinsicState({
-      val: proposal,
-      withHash: true,
-    })
-    const externalParamsWithValues = computed(() => {
-      return proposal.value?.params.map((item, index) => {
-        return {
-          param: item,
-          value: proposal.value.values[index],
-        }
-      })
-    })
-
-    return {
-      proposal,
-      extractExternal,
-      externalParamsWithValues,
-    }
+    return { proposal }
   },
 }
 </script>
@@ -73,4 +41,11 @@ export default {
 @import '~@scss/mixins';
 @import '~@scss/variables';
 
+.external-cell__call-expander {
+  padding: 0 0 0.5rem 3rem;
+  border-left: 0.3rem solid $col-app-accent;
+  overflow-x: auto;
+
+  @include scrollbar;
+}
 </style>

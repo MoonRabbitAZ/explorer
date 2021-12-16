@@ -1,12 +1,12 @@
 <template>
   <div v-if="proposal" class="treasury-cell">
-    <div>
-      <params :params="paramsWithValues" />
-    </div>
+    <params :params="paramsWithValues" />
   </div>
 </template>
 
 <script>
+import Params from '@/vue/common/Params'
+
 import { computed } from 'vue'
 import { useCall } from '@/vue/composables'
 import { api } from '@api'
@@ -15,15 +15,16 @@ import { getTypeDef } from '@polkadot/types/create'
 export default {
   name: 'treasury-cell',
 
+  components: { Params },
+
   props: {
     treasuryProposal: { type: Object, required: true },
   },
 
   setup (props) {
-    const proposalId = computed(() => props.treasuryProposal.unwrap())
     const proposal = useCall(
       api.query.treasury.proposals,
-      [proposalId],
+      computed(() => ([props.treasuryProposal.unwrap()])),
       { transform: (optProp) => optProp.unwrapOr(null) },
     )
 
@@ -34,17 +35,27 @@ export default {
             name: 'proposal',
             type: getTypeDef('TreasuryProposal'),
           },
-          value: {
-            isValid: true,
-            value: proposal,
-          },
+          value: proposal.value,
         }]
       } else {
         return []
       }
     })
 
-    return { paramsWithValues }
+    return { paramsWithValues, proposal }
   },
 }
 </script>
+
+<style lang="scss" scoped>
+@import '~@scss/mixins';
+@import '~@scss/variables';
+
+.treasury-cell {
+  padding: 0 0 0.5rem 3rem;
+  border-left: 0.3rem solid $col-app-accent;
+  overflow-x: auto;
+
+  @include scrollbar;
+}
+</style>

@@ -9,7 +9,7 @@
     <div
       class="expander__header"
       :class="{ 'expander__header--full': isFullWidthHeader}"
-      @click="toggleOpenDropdown"
+      @click="isOpenDropdown = !isOpenDropdown"
     >
       <div class="expander__title">
         {{ title }}
@@ -33,10 +33,7 @@
     >
       <slot :name="SLOTS.description"/>
     </div>
-    <div
-      ref="dropdown"
-      class="expander__dropdown"
-    >
+    <div class="expander__dropdown">
       <div
         v-if="isSlotDisplay(SLOTS.dropdownMain)"
         class="expander__dropdown-main"
@@ -75,7 +72,6 @@ export default {
   },
 
   setup (props, { slots }) {
-    const dropdown = ref(null)
     const isOpenDropdown = ref(false)
 
     function isSlotDisplay (slotName) {
@@ -86,21 +82,9 @@ export default {
       Boolean(props.subtitle || isSlotDisplay(SLOTS.subtitle)),
     )
 
-    function toggleOpenDropdown () {
-      if (isOpenDropdown.value) {
-        dropdown.value.style.height = '0px'
-      } else {
-        dropdown.value.style.height = `${dropdown.value.scrollHeight}px`
-      }
-
-      isOpenDropdown.value = !isOpenDropdown.value
-    }
-
     return {
-      dropdown,
       isOpenDropdown,
       isSubtitleDisplay,
-      toggleOpenDropdown,
       isSlotDisplay,
       SLOTS,
     }
@@ -114,13 +98,14 @@ export default {
 
 .expander {
   &--open {
-    .expander__icon-arrow {
+    & > .expander__header > .expander__icon-arrow {
       transform: translateY(-50%) rotate(180deg);
     }
 
-    .expander__dropdown {
+    & > .expander__dropdown {
       margin-top: 1.6rem;
       opacity: 1;
+      height: auto;
     }
   }
 
@@ -142,7 +127,7 @@ export default {
   max-width: max-content;
 
   &--full {
-    width: 100%;
+    max-width: 100%;
   }
 }
 

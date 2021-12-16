@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import { isUndefined } from '@polkadot/util'
 import { encodeTypeDef, TypeRegistry } from '@polkadot/types/create'
 
@@ -37,8 +37,9 @@ export default {
   },
 
   setup (props) {
-    const stringInfoValue = ref('')
-    stringInfoValue.value = JSON.stringify(props.infoValue, null, 2).replace(/["\\]/g, '')
+    const stringInfoValue = computed(() =>
+      JSON.stringify(props.infoValue, null, 2).replace(/["\\]/g, ''),
+    )
 
     const title = computed(() => {
       return isEmpty(props.parameter)

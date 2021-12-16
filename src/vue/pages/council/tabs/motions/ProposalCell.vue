@@ -5,16 +5,18 @@
       :with-hash="!isExternal && !isTreasury"
       :is-full-width-header="false"
     >
-      <template v-if="isExternal && false">
-        <external-cell
-          :hash="proposal.args[0]"
-        />
-      </template>
+      <template v-if="proposal?.args">
+        <template v-if="isExternal">
+          <external-cell
+            :hash="proposal.args[0]"
+          />
+        </template>
 
-      <template v-if="isTreasury && false">
-        <treasury-cell
-          :treasury-proposal="proposal.args[0]"
-        />
+        <template v-if="isTreasury">
+          <treasury-cell
+            :treasury-proposal="proposal.args[0]"
+          />
+        </template>
       </template>
     </call-expander>
   </div>

@@ -104,7 +104,7 @@ export default {
     })
 
     const isLoaded = computed(() =>
-      props.winningData && loans.value,
+      props.winningData && newRaise.value && props.auctionInfo?.numAuctions,
     )
 
     const noDataMessage = computed(() =>
@@ -137,7 +137,7 @@ export default {
     })
 
     function interleave (loans, asIs, winners = []) {
-      if (asIs) return winners
+      if (asIs || !loans) return winners
 
       const filteredLoans = loans
         .filter(({ firstSlot, lastSlot, paraId, value }) => {

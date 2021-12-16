@@ -31,7 +31,7 @@
 
     <expander
       :title="$t('council-page.council-info.votes-header', {
-        count: votes.length
+        count: votes?.length || 0
       })"
       is-in-drawer
     >
