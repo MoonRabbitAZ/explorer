@@ -72,14 +72,16 @@ export default {
 
     const totalBalance = computed(() => {
       if (!balancesAll.value) return
-      return props.accountAddress === ADMIN_ADDRESS
+      return props.accountAddress === ADMIN_ADDRESS &&
+        balancesAll.value.freeBalance.gt(DEDUCTIBLE_BALANCE)
         ? balancesAll.value.freeBalance.sub(DEDUCTIBLE_BALANCE)
         : balancesAll.value.freeBalance
     })
 
     const availableBalance = computed(() => {
       if (!balancesAll.value) return
-      return props.accountAddress === ADMIN_ADDRESS
+      return props.accountAddress === ADMIN_ADDRESS &&
+        balancesAll.value.freeBalance.gt(DEDUCTIBLE_BALANCE)
         ? balancesAll.value.availableBalance.sub(DEDUCTIBLE_BALANCE)
         : balancesAll.value.availableBalance
     })

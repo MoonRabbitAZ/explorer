@@ -14,7 +14,8 @@
       </template>
     </div>
     <template v-if="filteredQueued">
-      <template v-if="filteredQueued.length">
+      <!-- TODO: remove `false` after update -->
+      <template v-if="filteredQueued.length && false">
         <template
           v-for="(entry, index) in filteredQueued"
           :key="index"

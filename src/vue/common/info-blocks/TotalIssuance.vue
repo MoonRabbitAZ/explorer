@@ -35,7 +35,7 @@ export default {
     const totalIssuance = useCall(api.query.balances?.totalIssuance)
     const currentBalance = computed(() => {
       if (!totalIssuance.value) return
-      return IS_MAIN_NODE
+      return IS_MAIN_NODE && totalIssuance.value.gt(DEDUCTIBLE_BALANCE)
         ? totalIssuance.value.sub(DEDUCTIBLE_BALANCE)
         : totalIssuance.value
     })

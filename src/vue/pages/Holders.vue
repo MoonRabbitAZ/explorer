@@ -78,7 +78,8 @@ export default {
         b[1].data.free.cmp(a[1].data.free)).slice(0, AMOUNT_LIST_ITEMS)
       return sort.map((item, index) => {
         const address = keyring.encodeAddress(item[0].slice(-32))
-        const balance = address === ADMIN_ADDRESS
+        const balance = address === ADMIN_ADDRESS &&
+          item[1].data.free.gt(DEDUCTIBLE_BALANCE)
           ? item[1].data.free.sub(DEDUCTIBLE_BALANCE).toString()
           : item[1].data.free.toString()
 
