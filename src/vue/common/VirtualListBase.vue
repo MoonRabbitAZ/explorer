@@ -1,9 +1,9 @@
 <template>
-  <div class="ui-list-base">
+  <div class="virtual-list-base">
     <template v-if="loading">
       <div
-        class="ui-list-base__loading"
-        :class="{ 'ui-list-base__loading--grid': gridTemplate }"
+        class="virtual-list-base__loading"
+        :class="{ 'virtual-list-base__loading--grid': gridTemplate }"
       >
         <!-- @slot Slot for loading state -->
         <slot name="loading-stub" />
@@ -11,7 +11,7 @@
     </template>
 
     <template v-else-if="list.length === 0">
-      <div class="ui-list-base__no-list-stub">
+      <div class="virtual-list-base__no-list-stub">
         <!-- @slot Slot for empty list -->
         <slot name="no-list-msg" />
       </div>
@@ -20,8 +20,8 @@
     <div
       v-else
       ref="listBase"
-      class="ui-list-base__items"
-      :class="{ 'ui-list-base__items--grid': gridTemplate }"
+      class="virtual-list-base__items"
+      :class="{ 'virtual-list-base__items--grid': gridTemplate }"
       :style="{ height: `${totalHeight}px` }"
     >
       <!-- @slot Slot for list main content -->
@@ -29,7 +29,7 @@
     </div>
 
     <div
-      class="ui-list-base__infinite-scroll-anchor"
+      class="virtual-list-base__infinite-scroll-anchor"
       ref="infiniteScrollAnchor"
     />
   </div>
@@ -37,10 +37,10 @@
 
 <script>
 import { ref, reactive, toRefs, computed, watch, nextTick, onBeforeUnmount, onMounted } from 'vue'
-import { viewport } from '@/vue/composables/resizeListener'
+import { useResizeListener } from '@/vue/composables'
 
 export default {
-  name: 'ui-list-base',
+  name: 'virtual-list-base',
 
   props: {
     /** List of entities to be displayed */
@@ -66,15 +66,18 @@ export default {
     })
     const infiniteScrollAnchor = ref(null)
     const listBase = ref(null)
+    const { addResizeListener, removeResizeListener } = useResizeListener()
 
     const isInfiniteScrollDisabled = computed(() =>
       props.loading || !props.hasMoreItems || props.list.length === 0,
     )
 
     async function loadingHandler (val) {
-      state.listWidth = 0
-      await onResize()
-      await onScroll()
+      if (!val) {
+        state.listWidth = 0
+        await onResize()
+        await onScroll()
+      }
     }
 
     function initObserver () {
@@ -139,17 +142,18 @@ export default {
     }
 
     watch(() => props.loading, loadingHandler, { immediate: true })
-    onBeforeUnmount(() => {
-      window.removeEventListener('scroll', onScroll)
-      viewport.removeResizeListener(state.resizeListenerId)
-    })
 
     onMounted(async () => {
       await onResize()
       initObserver()
 
       window.addEventListener('scroll', onScroll, { passive: true })
-      state.resizeListenerId = viewport.addResizeListener(onResize)
+      state.resizeListenerId = addResizeListener(onResize)
+    })
+
+    onBeforeUnmount(() => {
+      window.removeEventListener('scroll', onScroll)
+      removeResizeListener(state.resizeListenerId)
     })
 
     return {
@@ -165,17 +169,17 @@ export default {
 @import '~@/scss/variables';
 @import '~@/scss/mixins';
 
-.ui-list-base {
+.virtual-list-base {
   position: relative;
 }
 
-.ui-list-base__loading {
+.virtual-list-base__loading {
   display: grid;
   grid-auto-flow: row;
   grid-row-gap: var(--ui-list-row-gap, 1.2rem);
 }
 
-.ui-list-base__no-list-stub {
+.virtual-list-base__no-list-stub {
   font-weight: 500;
   margin: 3rem 0;
   padding: 1.75rem;
@@ -184,15 +188,15 @@ export default {
   box-shadow: 0 0.25rem 0.625rem #{color-code(pal-black, 0.05)};
 }
 
-.ui-list-base__items {
+.virtual-list-base__items {
   position: relative;
   box-sizing: border-box;
   contain: layout;
   will-change: transform;
 }
 
-.ui-list-base__loading,
-.ui-list-base__items {
+.virtual-list-base__loading,
+.virtual-list-base__items {
   &--grid {
     display: grid;
     grid-template-rows: auto;
@@ -208,7 +212,7 @@ export default {
   }
 }
 
-.ui-list-base__infinite-scroll-anchor {
+.virtual-list-base__infinite-scroll-anchor {
   position: absolute;
   bottom: 0;
   left: 0;

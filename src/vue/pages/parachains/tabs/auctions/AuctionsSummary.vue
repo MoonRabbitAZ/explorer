@@ -12,7 +12,7 @@
         :value="auctionActiveStatus"
       />
 
-      <template v-if="lastWinnersTotalBalance">
+      <template v-if="auctionInfo?.leasePeriod">
         <info-block
           class="auctions-summary__info-block"
           :title="$t('parachains-page.auctions-summary.first-last-header')"
@@ -22,6 +22,7 @@
 
       <template v-if="auctionInfo?.endBlock">
         <info-block
+          v-if="isHaveWinners"
           class="auctions-summary__info-block"
           v-tooltip="$fFullBalance(lastWinnersTotalBalance)"
           :title="$t('parachains-page.auctions-summary.total-header')"
@@ -72,6 +73,7 @@ export default {
   props: {
     auctionInfo: { type: AuctionInfoRecord, default: null },
     lastWinnersTotalBalance: { type: BN, default: null },
+    isHaveWinners: { type: Boolean, required: true },
   },
 
   setup (props) {
