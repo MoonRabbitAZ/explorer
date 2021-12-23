@@ -14,27 +14,29 @@
       />
     </button>
 
-    <drawer
-      class="account-address__drawer"
-      v-model:is-shown="isInfoOpen"
-      is-default-body
-    >
-      <template #heading>
-        {{ $t('common.account-address.information-title') }}
-      </template>
-      <div class="account-address__drawer-addr-wrap">
-        <account-address-row
-          :account-address="accountAddress"
-          icon-size="big"
-        />
-      </div>
-      <div class="account-address__drawer-balance-wrap">
-        <h3 class="account-address__drawer-balance-header">
-          {{ $t('common.account-address.balance-header') }}
-        </h3>
-        <account-balances :account-address="accountAddress"/>
-      </div>
-    </drawer>
+    <teleport to="#app-content">
+      <drawer
+        class="account-address__drawer"
+        v-model:is-shown="isInfoOpen"
+        is-default-body
+      >
+        <template #heading>
+          {{ $t('common.account-address.information-title') }}
+        </template>
+        <div class="account-address__drawer-addr-wrap">
+          <account-address-row
+            :account-address="accountAddress"
+            icon-size="big"
+          />
+        </div>
+        <div class="account-address__drawer-balance-wrap">
+          <h3 class="account-address__drawer-balance-header">
+            {{ $t('common.account-address.balance-header') }}
+          </h3>
+          <account-balances :account-address="accountAddress"/>
+        </div>
+      </drawer>
+    </teleport>
   </div>
 </template>
 

@@ -1,4 +1,4 @@
-import { reactive } from 'vue'
+import { reactive, onBeforeUnmount } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 
 export function useResizeListener () {
@@ -29,6 +29,10 @@ export function useResizeListener () {
 
   updateDimensions()
   window.addEventListener('resize', updateDimensions)
+
+  onBeforeUnmount(() => {
+    window.removeEventListener('resize', updateDimensions)
+  })
 
   return {
     viewport,

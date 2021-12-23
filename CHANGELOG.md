@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Council summary
 - Motions list
 - Dispatch queue list and Scheduled list on Dispatch tab
+- Virtual list
 
 #### Fixed
 - Collected winning data on auction tab

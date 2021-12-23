@@ -39,6 +39,12 @@
 import { ref, reactive, toRefs, computed, watch, nextTick, onBeforeUnmount, onMounted } from 'vue'
 import { useResizeListener } from '@/vue/composables'
 
+const EVENTS = {
+  scroll: 'scroll',
+  askLoadMore: 'ask-load-more',
+  resize: 'resize',
+}
+
 export default {
   name: 'virtual-list-base',
 
@@ -54,6 +60,8 @@ export default {
     /** Total height of the list in px */
     totalHeight: { type: Number, required: true },
   },
+
+  emits: Object.values(EVENTS),
 
   setup (props, { emit }) {
     const state = reactive({
@@ -87,7 +95,7 @@ export default {
            * Emits on reaching the list bottom if more items are available.
            * @type {undefined}
            */
-          emit('ask-load-more')
+          emit(EVENTS.askLoadMore)
         }
       })
 
@@ -118,7 +126,7 @@ export default {
          * Emits on resizing the window.
          * @type {HTMLDivElement}
          */
-        emit('resize', listBase.value)
+        emit(EVENTS.resize, listBase.value)
       }
     }
 
@@ -134,7 +142,7 @@ export default {
          * Emits when document scroll event fired.
          * @type {number}
          */
-        emit('scroll', scrollTop)
+        emit(EVENTS.scroll, scrollTop)
 
         await nextTick()
         state.scrollDirty = false
@@ -168,6 +176,8 @@ export default {
 <style lang="scss" scoped>
 @import '~@/scss/variables';
 @import '~@/scss/mixins';
+
+$infinite-scroll-anchor: z-index(negative);
 
 .virtual-list-base {
   position: relative;
@@ -219,7 +229,7 @@ export default {
   width: 100%;
   height: 150vh; // Always keep at least one screen of content ahead
   max-height: 33%; // Handle lists embedded in dropdowns and etc
-  // z-index: z-index(negative);
+  z-index: $infinite-scroll-anchor;
   pointer-events: none;
 
   @include respond-to($x-medium) {

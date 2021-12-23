@@ -60,6 +60,11 @@ import VirtualListBase from '@/vue/common/VirtualListBase'
 import { ref, toRefs, reactive, computed, watch, nextTick } from 'vue'
 import isEqualWith from 'lodash/isEqualWith'
 
+const EVENTS = {
+  scroll: 'scroll',
+  askLoadMore: 'ask-load-more',
+}
+
 export default {
   name: 'virtual-list',
   components: { VirtualListBase },
@@ -78,6 +83,8 @@ export default {
     /** Can list items have different height with each other */
     variableHeight: { type: Boolean, default: false },
   },
+
+  emits: Object.values(EVENTS),
 
   setup (props, { emit }) {
     const state = reactive({
@@ -207,7 +214,7 @@ export default {
         calculateHeights()
       }
 
-      emit('scroll', scrollTop)
+      emit(EVENTS.scroll, scrollTop)
     }
 
     async function onResize (list) {
@@ -237,7 +244,7 @@ export default {
        * Emits on reaching the list bottom if more items are available.
        * @type {undefined}
        */
-      emit('ask-load-more')
+      emit(EVENTS.askLoadMore)
     }
 
     async function adjustVariableHeight () {
@@ -246,27 +253,22 @@ export default {
       calculateHeights()
     }
 
-    watch(
-      () => props.list,
-      async (val, oldVal = []) => {
-        const lengthDelta = val.length - oldVal.length
-        const arrayLength = lengthDelta > 0 ? lengthDelta : val.length
-        const emptyArray = new Array(arrayLength).fill(0)
+    async function listHandler (val, oldVal = []) {
+      const lengthDelta = val.length - oldVal.length
+      const arrayLength = lengthDelta > 0 ? lengthDelta : val.length
+      const emptyArray = new Array(arrayLength).fill(0)
 
-        const keyComparator = (a, b) => a[props.keyField] === b[props.keyField]
-        const isIdsEqual = isEqualWith(val, oldVal, keyComparator)
+      const keyComparator = (a, b) => a[props.keyField] === b[props.keyField]
+      const isIdsEqual = isEqualWith(val, oldVal, keyComparator)
 
-        if (lengthDelta > 0) {
-          state.itemHeights = state.itemHeights.concat(emptyArray)
-        } else if (!isIdsEqual || lengthDelta < 0) {
-          await adjustVariableHeight()
-        }
-      },
-      {
-        immediate: true,
-        // deep: true,
-      },
-    )
+      if (lengthDelta > 0) {
+        state.itemHeights = state.itemHeights.concat(emptyArray)
+      } else if (!isIdsEqual || lengthDelta < 0) {
+        await adjustVariableHeight()
+      }
+    }
+
+    watch(() => props.list, listHandler, { immediate: true, deep: true })
 
     return {
       ...toRefs(state),
