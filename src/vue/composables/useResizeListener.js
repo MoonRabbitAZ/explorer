@@ -1,5 +1,5 @@
 import { reactive, onBeforeUnmount } from 'vue'
-import { v4 as uuidv4 } from 'uuid'
+import uniqueId from 'lodash/uniqueId'
 
 export function useResizeListener () {
   const viewport = reactive({
@@ -9,7 +9,7 @@ export function useResizeListener () {
   })
 
   function addResizeListener (listener) {
-    const listenerId = uuidv4()
+    const listenerId = uniqueId()
     viewport.resizeListeners[listenerId] = listener
 
     return listenerId

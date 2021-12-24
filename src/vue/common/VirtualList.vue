@@ -195,7 +195,7 @@ export default {
           const currentIndex = Number(el?.attributes?.['data-key']?.value || -1)
           if (currentIndex === -1) return
 
-          if (state.itemHeights[currentIndex] === 0) {
+          if (!state.itemHeights[currentIndex]) {
             state.itemHeights[currentIndex] = el.offsetHeight
           }
         })
