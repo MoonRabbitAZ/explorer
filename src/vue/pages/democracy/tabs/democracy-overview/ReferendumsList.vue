@@ -3,9 +3,13 @@
     <h1 class="referendums-list__header">
       {{ $t('democracy-page.referendums-list.referendums-header') }}
     </h1>
-    <template v-if="true">
-      <template v-if="false">
-        <div class="referendums-list__body"/>
+    <template v-if="referendums">
+      <template v-if="referendums.length">
+        <referendum-row
+          v-for="(referendum, index) in referendums"
+          :key="index"
+          :referendum="referendum"
+        />
       </template>
       <template v-else>
         <no-data-message
@@ -22,6 +26,7 @@
 </template>
 
 <script>
+import ReferendumRow from '@democracy-page/tabs/democracy-overview/ReferendumRow'
 import SkeletonLoader from '@/vue/common/SkeletonLoader'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 
@@ -29,8 +34,13 @@ export default {
   name: 'referendums-list',
 
   components: {
+    ReferendumRow,
     SkeletonLoader,
     NoDataMessage,
+  },
+
+  props: {
+    referendums: { type: Array, default: null },
   },
 }
 </script>
