@@ -60,3 +60,11 @@
   align-items: $alignItems;
   padding: $paddingVertical 1.6rem;
 }
+
+@mixin democracy-referendum-grid-row ($alignItems, $paddingVertical: 0) {
+  display: grid;
+  grid-gap: 1.6rem;
+  grid-template-columns: 8rem minmax(45rem, 1fr) 10rem 10rem 2rem 8rem;
+  align-items: $alignItems;
+  padding: $paddingVertical 1.6rem;
+}

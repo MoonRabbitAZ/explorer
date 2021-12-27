@@ -27,7 +27,7 @@
       <app-button
         class="motion-row__button"
         scheme="secondary"
-        :text="'Votes'"
+        :text="$t('council-page.motion-row.vote-btn')"
         @click="openVotesInfo"
       />
       <template v-if="votingStatus.isCloseable">

@@ -681,7 +681,22 @@
     },
     "referendums-list": {
       "referendums-header": "Referendums",
-      "no-data-message": "No active referendums"
+      "no-data-message": "No active referendums",
+      "drawer-referendum-header": "Referendum ({ index })"
+    },
+    "referendum-row": {
+      "passing-badge-tooltip": "{ threshold }, passing",
+      "not-passing-badge-tooltip": "{ threshold }, not passing",
+      "votes-btn": "Votes"
+    },
+    "referendum-votes": {
+      "aye-header": "Aye ({ percent })",
+      "nay-header": "Nay ({ percent })",
+      "turnout-header": "Turnout"
+    },
+    "referendum-votes-expander": {
+      "nays-header":"Nay votes ({ count })",
+      "ayes-header":"Aye votes ({ count })"
     },
     "dispatch-queue-list": {
       "dispatch-queue-header": "Dispatch queue",
@@ -742,7 +757,10 @@
       "voting-end-header": "Voting end",
       "no-data-message": "No council motions",
       "votes-header": "Votes"
-    }, 
+    },
+    "motion-row": {
+      "vote-btn": "Vote"
+    },
     "motions-votes": {
       "ayes-header": "Aye ({ count })",
       "nays-header": "Nay ({ count })",

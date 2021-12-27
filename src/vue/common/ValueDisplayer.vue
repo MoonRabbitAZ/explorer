@@ -56,6 +56,7 @@
 
       <router-link
         v-else-if="route"
+        v-tooltip="tooltip"
         class="value-displayer__value value-displayer__link"
         :to="route"
       >
@@ -64,6 +65,7 @@
 
       <p
         v-else
+        v-tooltip="tooltip"
         class="value-displayer__value"
       >
         {{ value }}
@@ -116,6 +118,7 @@ export default {
     value: { type: [String, Number], default: null },
     route: { type: Object, default: null },
     isMediumIndent: { type: Boolean, default: false },
+    tooltip: { type: String, default: '' },
   },
 
   setup (_, { slots }) {
@@ -224,6 +227,7 @@ $font-size-text-level-6: 1rem;
   text-overflow: ellipsis;
   max-width: 100%;
   white-space: nowrap;
+  width: max-content;
 }
 
 .value-displayer__link {

@@ -255,20 +255,22 @@ export default {
 
     async function listHandler (val, oldVal = []) {
       const lengthDelta = val.length - oldVal.length
-      const arrayLength = lengthDelta > 0 ? lengthDelta : val.length
-      const emptyArray = new Array(arrayLength).fill(0)
+
+      if (lengthDelta > 0) {
+        const arrayLength = lengthDelta > 0 ? lengthDelta : val.length
+        const emptyArray = new Array(arrayLength).fill(0)
+        state.itemHeights = state.itemHeights.concat(emptyArray)
+        return
+      }
 
       const keyComparator = (a, b) => a[props.keyField] === b[props.keyField]
       const isIdsEqual = isEqualWith(val, oldVal, keyComparator)
-
-      if (lengthDelta > 0) {
-        state.itemHeights = state.itemHeights.concat(emptyArray)
-      } else if (!isIdsEqual || lengthDelta < 0) {
+      if (!isIdsEqual || lengthDelta < 0) {
         await adjustVariableHeight()
       }
     }
 
-    watch(() => props.list, listHandler, { immediate: true, deep: true })
+    watch(() => props.list, listHandler, { immediate: true })
 
     return {
       ...toRefs(state),

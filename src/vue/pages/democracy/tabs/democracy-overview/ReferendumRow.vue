@@ -30,6 +30,26 @@
         </p>
       </template>
     </div>
+    <div>
+      <template v-if="isBoolean(referendum.isPassing)">
+        <i
+          v-tooltip="badgeTooltip"
+          class="mdi referendum-row__badge-icon"
+          :class="{
+            'mdi-check': referendum.isPassing,
+            'mdi-close': !referendum.isPassing,
+            'referendum-row__badge-icon--passing': referendum.isPassing
+          }"
+        />
+      </template>
+    </div>
+    <div>
+      <app-button
+        scheme="secondary"
+        :text="$t('democracy-page.referendum-row.votes-btn')"
+        @click="openVotes"
+      />
+    </div>
   </div>
 </template>
 
@@ -37,9 +57,14 @@
 import ProposalCell from '@council-page/tabs/motions/ProposalCell'
 
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useBlockTime, useCall } from '@/vue/composables'
 import { api } from '@api'
-import { BN_ONE } from '@polkadot/util'
+import { BN_ONE, isBoolean } from '@polkadot/util'
+
+const EVENTS = {
+  openVotes: 'open-votes',
+}
 
 export default {
   name: 'referendum-row',
@@ -50,7 +75,10 @@ export default {
     referendum: { type: Object, required: true },
   },
 
-  setup (props) {
+  emits: Object.values(EVENTS),
+
+  setup (props, { emit }) {
+    const { t } = useI18n()
     const { calculateTimeStr } = useBlockTime()
     const bestNumber = useCall(api.derive.chain.bestNumber)
 
@@ -73,11 +101,32 @@ export default {
       return calculateTimeStr(enactBlock.value.sub(bestNumber.value), true)
     })
 
+    const badgeTooltip = computed(() => {
+      const threshold = props.referendum.status.threshold.type
+        .toString()
+        .replace('majority', ' majority ')
+
+      return props.referendum.isPassing
+        ? t('democracy-page.referendum-row.passing-badge-tooltip', {
+          threshold,
+        })
+        : t('democracy-page.referendum-row.not-passing-badge-tooltip', {
+          threshold,
+        })
+    })
+
+    function openVotes () {
+      emit(EVENTS.openVotes, props.referendum.index.toString())
+    }
+
     return {
       remainTime,
       remainBlock,
       enactBlock,
       enactTime,
+      isBoolean,
+      badgeTooltip,
+      openVotes,
     }
   },
 }
@@ -90,7 +139,7 @@ export default {
 .referendum-row {
   min-width: min-content;
 
-  @include democracy-dispatch-grid-row(center, 1rem);
+  @include democracy-referendum-grid-row(center, 1rem);
   @include content-block;
 }
 
@@ -100,5 +149,15 @@ export default {
 
 .referendum-row__time {
   margin-bottom: 1rem;
+}
+
+.referendum-row__badge-icon {
+  font-size: 2rem;
+  color: $col-app-error;
+  line-height: 1;
+
+  &--passing {
+    color: $col-app-accent;
+  }
 }
 </style>
