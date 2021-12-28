@@ -14,7 +14,7 @@
       />
     </button>
 
-    <teleport to="#app-content">
+    <teleport to="#app__main">
       <drawer
         class="account-address__drawer"
         v-model:is-shown="isInfoOpen"

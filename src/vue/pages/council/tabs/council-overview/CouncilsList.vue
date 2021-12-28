@@ -2,9 +2,7 @@
   <div class="councils-list">
     <div
       class="councils-list__headers"
-      :class="{
-        'councils-list__headers--grid': isHeaderShown
-      }"
+      :class="{'councils-list__headers--grid': isHeaderShown}"
     >
       <h1 class="councils-list__header">
         {{ listHeaderTranslation }}

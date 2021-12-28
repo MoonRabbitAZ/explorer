@@ -1,31 +1,32 @@
+@mixin default-grid-row ($alignItems, $paddingVertical) {
+  display: grid;
+  grid-gap: 1.6rem;
+  align-items: $alignItems;
+  padding: $paddingVertical 1.6rem;
+}
+
 // for parachains page
 @mixin auction-bid-grid-row ($alignItems, $paddingVertical: 0) {
   width: 100%;
   min-width: min-content;
-  display: grid;
-  grid-gap: 1.6rem;
   grid-template-columns: 15rem 10rem minmax(15rem, 1fr) 10rem 10rem 11rem;
-  align-items: $alignItems;
-  padding: $paddingVertical 1.6rem;
+
+  @include default-grid-row($alignItems, $paddingVertical);
 }
 
 // for gilt page
 @mixin gilt-queue-grid-row ($alignItems, $paddingVertical: 0) {
   width: 100%;
   min-width: min-content;
-  display: grid;
-  grid-gap: 1.6rem;
   grid-template-columns: minmax(10rem, 1fr) 12rem 10rem;
-  align-items: $alignItems;
-  padding: $paddingVertical 1.6rem;
+
+  @include default-grid-row($alignItems, $paddingVertical);
 }
 
 @mixin councils-grid-row ($alignItems, $paddingVertical: 0) {
-  display: grid;
-  grid-gap: 1.6rem;
   grid-template-columns: minmax(15rem, 1fr) 10rem 5rem 4.4rem;
-  align-items: $alignItems;
-  padding: $paddingVertical 1.6rem;
+
+  @include default-grid-row($alignItems, $paddingVertical);
 
   @include respond-to($x-small) {
     grid-template-columns: minmax(15rem, 1fr) 4.4rem;
@@ -38,33 +39,25 @@
 }
 
 @mixin councils-motions-grid-row ($alignItems, $paddingVertical: 0) {
-  display: grid;
-  grid-gap: 1.6rem;
   grid-template-columns: 10rem minmax(45rem, 1fr) 15rem 11rem 20rem;
-  align-items: $alignItems;
-  padding: $paddingVertical 1.6rem;
+
+  @include default-grid-row($alignItems, $paddingVertical);
 }
 
 @mixin democracy-dispatch-grid-row ($alignItems, $paddingVertical: 0) {
-  display: grid;
-  grid-gap: 1.6rem;
   grid-template-columns: 10rem minmax(45rem, 1fr) 15rem;
-  align-items: $alignItems;
-  padding: $paddingVertical 1.6rem;
+
+  @include default-grid-row($alignItems, $paddingVertical);
 }
 
 @mixin democracy-schedule-grid-row ($alignItems, $paddingVertical: 0) {
-  display: grid;
-  grid-gap: 1.6rem;
   grid-template-columns: minmax(45rem, 1fr) 20rem 10rem 10rem 8rem;
-  align-items: $alignItems;
-  padding: $paddingVertical 1.6rem;
+
+  @include default-grid-row($alignItems, $paddingVertical);
 }
 
 @mixin democracy-referendum-grid-row ($alignItems, $paddingVertical: 0) {
-  display: grid;
-  grid-gap: 1.6rem;
-  grid-template-columns: 8rem minmax(45rem, 1fr) 10rem 10rem 2rem 8rem;
-  align-items: $alignItems;
-  padding: $paddingVertical 1.6rem;
+  grid-template-columns: 8rem minmax(45rem, 1fr) 12rem 10rem 2rem 8rem;
+
+  @include default-grid-row($alignItems, $paddingVertical);
 }

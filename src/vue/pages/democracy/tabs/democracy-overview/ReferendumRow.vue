@@ -16,7 +16,9 @@
           {{ remainTime }}
         </p>
         <p>
-          {{ `#${$fnumber(remainBlock)}` }}
+          {{ $t('democracy-page.referendum-row.blocks-value', {
+            count: $fnumber(remainBlock)
+          }) }}
         </p>
       </template>
     </div>

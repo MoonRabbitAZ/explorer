@@ -1,8 +1,21 @@
 <template>
   <div class="referendums-list">
-    <h1 class="referendums-list__header">
-      {{ $t('democracy-page.referendums-list.referendums-header') }}
-    </h1>
+    <div
+      class="referendums-list__headers"
+      :class="{'referendums-list__headers--grid': referendums?.length}"
+    >
+      <h1>
+        {{ $t('democracy-page.referendums-list.referenda-header') }}
+      </h1>
+      <template v-if="referendums?.length">
+        <h3>
+          {{ $t('democracy-page.referendums-list.remaining-header') }}
+        </h3>
+        <h3>
+          {{ $t('democracy-page.referendums-list.activate-header') }}
+        </h3>
+      </template>
+    </div>
     <template v-if="referendums">
       <template v-if="referendums.length">
         <referendum-row
@@ -34,9 +47,7 @@
           index: currentReferendumIndex,
         }) }}
       </template>
-      <referendum-votes
-        :referendum="currentReferendum"
-      />
+      <referendum-votes :referendum="currentReferendum"/>
     </drawer>
   </div>
 </template>
@@ -48,7 +59,7 @@ import SkeletonLoader from '@/vue/common/SkeletonLoader'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 import Drawer from '@/vue/common/Drawer'
 
-import { computed, reactive, toRefs } from 'vue'
+import { computed, reactive, toRefs, watch } from 'vue'
 
 export default {
   name: 'referendums-list',
@@ -82,6 +93,10 @@ export default {
       ),
     )
 
+    watch(currentReferendum, (value) => {
+      if (!value) state.isVotesDrawerOpen = false
+    })
+
     return {
       ...toRefs(state),
       openVotes,
@@ -95,9 +110,23 @@ export default {
 @import '~@scss/mixins';
 @import '~@scss/variables';
 
-.referendums-list__header {
+.referendums-list {
+  overflow-x: auto;
+
+  @include scrollbar;
+}
+
+.referendums-list__headers {
   padding: 0 1.6rem;
   margin-bottom: 2rem;
+
+  &--grid {
+    & > :first-child {
+      grid-column: 1/3;
+    }
+
+    @include democracy-referendum-grid-row(flex-end);
+  }
 }
 
 </style>

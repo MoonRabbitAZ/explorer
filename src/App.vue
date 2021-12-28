@@ -1,5 +1,5 @@
 <template>
-  <div class="app__main">
+  <div id="app__main" class="app__main">
     <div
       class="app__background"
       :class="{

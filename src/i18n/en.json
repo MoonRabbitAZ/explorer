@@ -680,13 +680,16 @@
       "no-data-message": "No active civic initiatives"
     },
     "referendums-list": {
-      "referendums-header": "Referendums",
+      "referenda-header": "Referenda",
+      "remaining-header": "Remaining",
+      "activate-header": "Activate",
       "no-data-message": "No active referendums",
       "drawer-referendum-header": "Referendum ({ index })"
     },
     "referendum-row": {
       "passing-badge-tooltip": "{ threshold }, passing",
       "not-passing-badge-tooltip": "{ threshold }, not passing",
+      "blocks-value": "{ count } blocks",
       "votes-btn": "Votes"
     },
     "referendum-votes": {
@@ -765,6 +768,9 @@
       "ayes-header": "Aye ({ count })",
       "nays-header": "Nay ({ count })",
       "no-data-message":"No votes available"
+    },
+    "proposal-cell": {
+      "preimage": "preimage { hash }"
     },
     "external-cell": {
       "hash": "Hash"
