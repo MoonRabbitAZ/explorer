@@ -5,28 +5,37 @@
     is-in-drawer
   >
     <template #secondary>
-      <div class="referendum-votes-expander__vote">
-        <template
-          v-for="(vote, index) in votes"
-          :key="index"
-        >
-          <account-address
-            class="referendum-votes-expander__address"
-            :account-address="vote.accountId.toString()"
-          />
-          <div class="referendum-votes-expander__balance">
-            <p
-              v-tooltip="$fFullBalance(vote.balance)"
-              class="referendum-votes-expander__balance-amount"
-            >
-              {{ $fbalance(vote.balance) }}
-            </p>
-            <p class="referendum-votes-expander__conviction">
-              {{ voteLabel(vote.vote.conviction, vote.isDelegating) }}
-            </p>
+      <virtual-list
+        v-if="scrolledElement"
+        class="referendum-votes-expander__virtual-list"
+        :list="votes"
+        :scrolled-element="scrolledElement"
+      >
+        <template v-slot:list="{ item }">
+          <div class="referendum-votes-expander__vote">
+            <account-address
+              class="referendum-votes-expander__address"
+              :account-address="item.accountId.toString()"
+            />
+            <div class="referendum-votes-expander__balance">
+              <p
+                v-tooltip="$fFullBalance(item.balance)"
+                class="referendum-votes-expander__balance-amount"
+              >
+                {{ $fbalance(item.balance) }}
+              </p>
+              <p class="referendum-votes-expander__conviction">
+                {{ voteLabel(item.vote.conviction, item.isDelegating) }}
+              </p>
+            </div>
           </div>
         </template>
-      </div>
+        <template #no-list-msg>
+          <p>
+            {{ $t('democracy-page.referendum-votes-expander.nays-header') }}
+          </p>
+        </template>
+      </virtual-list>
     </template>
   </expander>
 </template>
@@ -34,6 +43,7 @@
 <script>
 import Expander from '@/vue/common/Expander'
 import AccountAddress from '@/vue/common/AccountAddress'
+import VirtualList from '@/vue/common/VirtualList'
 
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -46,11 +56,14 @@ export default {
   components: {
     Expander,
     AccountAddress,
+    VirtualList,
   },
 
   props: {
     votes: { type: Object, required: true },
     isNay: { type: Boolean, default: false },
+    /** @type {HTMLElement} Element that will scroll  */
+    scrolledElement: { type: Object, default: null },
   },
 
   setup (props) {
@@ -81,6 +94,10 @@ export default {
 <style lang="scss" scoped>
 @import '~@scss/mixins';
 @import '~@scss/variables';
+
+.referendum-votes-expander__virtual-list {
+  --virtual-list-row-gap: 1.6rem;
+}
 
 .referendum-votes-expander__vote {
   display: grid;

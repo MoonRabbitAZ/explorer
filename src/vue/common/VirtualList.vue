@@ -7,6 +7,7 @@
     :has-more-items="hasMoreItems"
     :grid-template="gridTemplate"
     :total-height="totalListHeight"
+    :scrolled-element="scrolledElement"
     @resize="onResize"
     @scroll="onScroll"
     @ask-load-more="askLoadMore"
@@ -24,7 +25,7 @@
     <template v-slot:list>
       <div
         v-for="(item, i) in viewportList"
-        :key="`${item[keyField]}-${topIndex + i}`"
+        :key="`viewport-item-${topIndex + i}`"
         class="virtual-list__item"
         :class="{ 'virtual-list__item--absolute': visibleItemsCount > 1 }"
         :style="itemStyles[topIndex + i]"
@@ -58,7 +59,6 @@
 import VirtualListBase from '@/vue/common/VirtualListBase'
 
 import { ref, toRefs, reactive, computed, watch, nextTick } from 'vue'
-import isEqualWith from 'lodash/isEqualWith'
 
 const EVENTS = {
   scroll: 'scroll',
@@ -78,10 +78,10 @@ export default {
     hasMoreItems: { type: Boolean, default: false },
     /** Should the list items be arranged as a grid */
     gridTemplate: { type: Boolean, default: false },
-    /** Key field of the list item entity */
-    keyField: { type: String, default: 'id' },
     /** Can list items have different height with each other */
     variableHeight: { type: Boolean, default: false },
+    /** @type {HTMLElement} Element that will scroll  */
+    scrolledElement: { type: Object, default: null },
   },
 
   emits: Object.values(EVENTS),
@@ -98,7 +98,9 @@ export default {
 
     const visibleRowsCount = computed(() => {
       const viewportHeight = uiList.value?.viewportHeight || 0
-      return Math.ceil(viewportHeight / state.itemHeight)
+      return state.itemHeight && viewportHeight
+        ? Math.ceil(viewportHeight / state.itemHeight)
+        : 0
     })
 
     const viewportList = computed(() => {
@@ -257,15 +259,9 @@ export default {
       const lengthDelta = val.length - oldVal.length
 
       if (lengthDelta > 0) {
-        const arrayLength = lengthDelta > 0 ? lengthDelta : val.length
-        const emptyArray = new Array(arrayLength).fill(0)
+        const emptyArray = new Array(lengthDelta).fill(0)
         state.itemHeights = state.itemHeights.concat(emptyArray)
-        return
-      }
-
-      const keyComparator = (a, b) => a[props.keyField] === b[props.keyField]
-      const isIdsEqual = isEqualWith(val, oldVal, keyComparator)
-      if (!isIdsEqual || lengthDelta < 0) {
+      } else if (lengthDelta < 0) {
         await adjustVariableHeight()
       }
     }

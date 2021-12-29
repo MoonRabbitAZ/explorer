@@ -1,5 +1,5 @@
 <template>
-  <div class="virtual-list-base">
+  <div ref="rootListBase" class="virtual-list-base">
     <template v-if="loading">
       <div
         class="virtual-list-base__loading"
@@ -11,10 +11,8 @@
     </template>
 
     <template v-else-if="list.length === 0">
-      <div class="virtual-list-base__no-list-stub">
-        <!-- @slot Slot for empty list -->
-        <slot name="no-list-msg" />
-      </div>
+      <!-- @slot Slot for empty list -->
+      <slot name="no-list-msg" />
     </template>
 
     <div
@@ -59,6 +57,8 @@ export default {
     gridTemplate: { type: Boolean, default: false },
     /** Total height of the list in px */
     totalHeight: { type: Number, required: true },
+    /** @type {HTMLElement} Element that will scroll  */
+    scrolledElement: { type: Object, default: null },
   },
 
   emits: Object.values(EVENTS),
@@ -74,6 +74,7 @@ export default {
     })
     const infiniteScrollAnchor = ref(null)
     const listBase = ref(null)
+    const rootListBase = ref(null)
     const { addResizeListener, removeResizeListener } = useResizeListener()
 
     const isInfiniteScrollDisabled = computed(() =>
@@ -118,7 +119,7 @@ export default {
         const boundingRect = listBase.value.getBoundingClientRect()
         if (state.listWidth === boundingRect.width) return
 
-        state.topOffset = window.pageYOffset + boundingRect.y
+        state.topOffset = rootListBase.value.offsetTop + boundingRect.y
         state.listWidth = boundingRect.width
         state.viewportHeight = window.innerHeight
 
@@ -133,10 +134,15 @@ export default {
     async function onScroll () {
       if (!listBase.value) return
 
+      state.topOffset = rootListBase.value.offsetTop
+
       if (!state.scrollDirty) {
         state.scrollDirty = true
 
-        const scrollTop = document.scrollingElement.scrollTop - state.topOffset
+        const scrollingElement = props.scrolledElement?.$el ||
+          props.scrolledElement ||
+          document.scrollingElement
+        const scrollTop = scrollingElement.scrollTop - state.topOffset
 
         /**
          * Emits when document scroll event fired.
@@ -150,17 +156,26 @@ export default {
     }
 
     watch(() => props.loading, loadingHandler, { immediate: true })
+    watch(() => props.list, onResize)
 
     onMounted(async () => {
       await onResize()
       initObserver()
 
-      window.addEventListener('scroll', onScroll, { passive: true })
+      const element = props.scrolledElement?.$el ||
+        props.scrolledElement ||
+        window
+
+      element.addEventListener('scroll', onScroll, { passive: true })
       state.resizeListenerId = addResizeListener(onResize)
     })
 
     onBeforeUnmount(() => {
-      window.removeEventListener('scroll', onScroll)
+      const element = props.scrolledElement?.$el ||
+        props.scrolledElement ||
+        window
+
+      element.removeEventListener('scroll', onScroll)
       removeResizeListener(state.resizeListenerId)
     })
 
@@ -168,6 +183,7 @@ export default {
       ...toRefs(state),
       infiniteScrollAnchor,
       listBase,
+      rootListBase,
     }
   },
 }
@@ -187,15 +203,6 @@ $infinite-scroll-anchor: z-index(negative);
   display: grid;
   grid-auto-flow: row;
   grid-row-gap: var(--ui-list-row-gap, 1.2rem);
-}
-
-.virtual-list-base__no-list-stub {
-  font-weight: 500;
-  margin: 3rem 0;
-  padding: 1.75rem;
-  text-align: center;
-  border-radius: 0.4rem;
-  box-shadow: 0 0.25rem 0.625rem #{color-code(pal-black, 0.05)};
 }
 
 .virtual-list-base__items {

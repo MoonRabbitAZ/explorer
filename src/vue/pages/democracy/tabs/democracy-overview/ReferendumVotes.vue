@@ -32,11 +32,13 @@
     <referendum-votes-expander
       class="referendum-votes__ferendum-votes-expander"
       :votes="referendum.allAye"
+      :scrolled-element="scrolledElement"
     />
 
     <referendum-votes-expander
       class="referendum-votes__ferendum-votes-expander"
       :votes="referendum.allNay"
+      :scrolled-element="scrolledElement"
       is-nay
     />
   </div>
@@ -61,6 +63,8 @@ export default {
 
   props: {
     referendum: { type: Object, required: true },
+    /** @type {HTMLElement} Element that will scroll  */
+    scrolledElement: { type: Object, default: null },
   },
 
   setup (props) {
@@ -121,5 +125,4 @@ export default {
     margin-top: 3rem;
   }
 }
-
 </style>

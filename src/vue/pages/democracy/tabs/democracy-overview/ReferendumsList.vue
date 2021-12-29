@@ -38,6 +38,7 @@
     </template>
 
     <drawer
+      ref="drawer"
       class="referendums-list__votes-drawer"
       v-model:is-shown="isVotesDrawerOpen"
       is-default-body
@@ -47,7 +48,10 @@
           index: currentReferendumIndex,
         }) }}
       </template>
-      <referendum-votes :referendum="currentReferendum"/>
+      <referendum-votes
+        :referendum="currentReferendum"
+        :scrolled-element="drawerBody"
+      />
     </drawer>
   </div>
 </template>
@@ -59,7 +63,7 @@ import SkeletonLoader from '@/vue/common/SkeletonLoader'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 import Drawer from '@/vue/common/Drawer'
 
-import { computed, reactive, toRefs, watch } from 'vue'
+import { computed, reactive, ref, toRefs, watch, nextTick } from 'vue'
 
 export default {
   name: 'referendums-list',
@@ -80,7 +84,9 @@ export default {
     const state = reactive({
       currentReferendumIndex: '',
       isVotesDrawerOpen: false,
+      drawerBody: null,
     })
+    const drawer = ref(null)
 
     function openVotes (index) {
       state.currentReferendumIndex = index
@@ -97,10 +103,18 @@ export default {
       if (!value) state.isVotesDrawerOpen = false
     })
 
+    watch(() => state.isVotesDrawerOpen, async (value) => {
+      if (value) {
+        await nextTick()
+        state.drawerBody = drawer.value?.$el?.querySelector('.drawer__body')
+      }
+    })
+
     return {
       ...toRefs(state),
       openVotes,
       currentReferendum,
+      drawer,
     }
   },
 }
