@@ -3,9 +3,13 @@
     <h1 class="proposals-list__header">
       {{ $t('democracy-page.proposals-list.proposals-header') }}
     </h1>
-    <template v-if="true">
-      <template v-if="false">
-        <div class="proposals-list__body"/>
+    <template v-if="proposals">
+      <template v-if="proposals.length">
+        <proposal-row
+          v-for="(proposal, index) in proposals"
+          :key="index"
+          :proposal="proposal"
+        />
       </template>
       <template v-else>
         <no-data-message
@@ -22,15 +26,27 @@
 </template>
 
 <script>
+import ProposalRow from '@democracy-page/tabs/democracy-overview/ProposalRow'
 import SkeletonLoader from '@/vue/common/SkeletonLoader'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 
+import { useCall } from '@/vue/composables'
+import { api } from '@api'
 export default {
   name: 'proposals-list',
 
   components: {
     SkeletonLoader,
     NoDataMessage,
+    ProposalRow,
+  },
+
+  setup () {
+    const proposals = useCall(api.derive.democracy.proposals)
+
+    return {
+      proposals,
+    }
   },
 }
 </script>
