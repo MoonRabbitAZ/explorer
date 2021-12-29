@@ -699,7 +699,8 @@
     },
     "referendum-votes-expander": {
       "nays-header":"Nay votes ({ count })",
-      "ayes-header":"Aye votes ({ count })"
+      "ayes-header":"Aye votes ({ count })",
+      "no-data-message": "No votes available"
     },
     "dispatch-queue-list": {
       "dispatch-queue-header": "Dispatch queue",

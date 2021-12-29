@@ -31,8 +31,8 @@
           </div>
         </template>
         <template #no-list-msg>
-          <p>
-            {{ $t('democracy-page.referendum-votes-expander.nays-header') }}
+          <p class="referendum-votes-expander__no-data-message">
+            {{ $t('democracy-page.referendum-votes-expander.no-data-message') }}
           </p>
         </template>
       </virtual-list>
@@ -115,5 +115,9 @@ export default {
 
 .referendum-votes-expander__conviction {
   text-align: right;
+}
+
+.referendum-votes-expander__no-data-message {
+  color: $col-app-secondary;
 }
 </style>
