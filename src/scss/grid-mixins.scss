@@ -63,7 +63,7 @@
 }
 
 @mixin democracy-proposal-grid-row ($alignItems, $paddingVertical: 0) {
-  grid-template-columns: 8rem minmax(45rem, 1fr) 12rem 10rem 2rem 8rem;
+  grid-template-columns: 8rem minmax(45rem, 1fr) 20rem 10rem 10rem 12rem;
 
   @include default-grid-row($alignItems, $paddingVertical);
 }

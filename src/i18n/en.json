@@ -677,7 +677,18 @@
     },
     "proposals-list": {
       "proposals-header": "Civic initiatives",
-      "no-data-message": "No active civic initiatives"
+      "proposer-header": "Proposer",
+      "locked-header": "Locked",
+      "seconds-header": "Seconds",
+      "no-data-message": "No active civic initiatives",
+      "drawer-proposal-header": "Proposal ({ index })"
+    },
+    "proposal-row": {
+      "seconding-btn": "Seconding"
+    },
+    "proposal-seconds": {
+      "seconds-header": "Seconds ({ count })",
+      "second-btn": "Second"
     },
     "referendums-list": {
       "referenda-header": "Referenda",

@@ -8,12 +8,12 @@
         {{ $t('democracy-page.referendums-list.referenda-header') }}
       </h1>
       <template v-if="referendums?.length">
-        <h3>
+        <h4>
           {{ $t('democracy-page.referendums-list.remaining-header') }}
-        </h3>
-        <h3>
+        </h4>
+        <h4>
           {{ $t('democracy-page.referendums-list.activate-header') }}
-        </h3>
+        </h4>
       </template>
     </div>
     <template v-if="referendums">
@@ -21,6 +21,7 @@
         <referendum-row
           v-for="(referendum, index) in referendums"
           :key="index"
+          class="referendums-list__row"
           :referendum="referendum"
           @open-votes="openVotes"
         />
@@ -140,6 +141,12 @@ export default {
     }
 
     @include democracy-referendum-grid-row(flex-end);
+  }
+}
+
+.referendums-list__row {
+  & + & {
+    margin-top: 0.4rem;
   }
 }
 
