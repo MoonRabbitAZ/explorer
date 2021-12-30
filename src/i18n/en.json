@@ -673,6 +673,8 @@
     },
     "external-list": {
       "external-header": "External",
+      "proposer-header": "Proposer",
+      "locked-header": "Locked",
       "no-data-message": "No external proposal"
     },
     "proposals-list": {

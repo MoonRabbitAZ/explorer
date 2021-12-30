@@ -23,6 +23,7 @@
   @include default-grid-row($alignItems, $paddingVertical);
 }
 
+// for councils page
 @mixin councils-grid-row ($alignItems, $paddingVertical: 0) {
   grid-template-columns: minmax(15rem, 1fr) 10rem 5rem 4.4rem;
 
@@ -44,6 +45,7 @@
   @include default-grid-row($alignItems, $paddingVertical);
 }
 
+// for democracy page
 @mixin democracy-dispatch-grid-row ($alignItems, $paddingVertical: 0) {
   grid-template-columns: 10rem minmax(45rem, 1fr) 15rem;
 
@@ -64,6 +66,12 @@
 
 @mixin democracy-proposal-grid-row ($alignItems, $paddingVertical: 0) {
   grid-template-columns: 8rem minmax(45rem, 1fr) 20rem 10rem 10rem 12rem;
+
+  @include default-grid-row($alignItems, $paddingVertical);
+}
+
+@mixin democracy-external-grid-row ($alignItems, $paddingVertical: 0) {
+  grid-template-columns: minmax(45rem, 1fr) minmax(15rem, 1fr) 10rem;
 
   @include default-grid-row($alignItems, $paddingVertical);
 }

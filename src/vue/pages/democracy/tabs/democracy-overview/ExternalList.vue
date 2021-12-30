@@ -1,11 +1,24 @@
 <template>
   <div class="external-list">
-    <h1 class="external-list__header">
-      {{ $t('democracy-page.external-list.external-header') }}
-    </h1>
-    <template v-if="true">
-      <template v-if="false">
-        <div class="external-list__body"/>
+    <div
+      class="external-list__headers"
+      :class="{'external-list__headers--grid': external}"
+    >
+      <h1>
+        {{ $t('democracy-page.external-list.external-header') }}
+      </h1>
+      <template v-if="external">
+        <h4>
+          {{ $t('democracy-page.external-list.proposer-header') }}
+        </h4>
+        <h4>
+          {{ $t('democracy-page.external-list.locked-header') }}
+        </h4>
+      </template>
+    </div>
+    <template v-if="external !== undefined">
+      <template v-if="external !== null">
+        <external-row :external="external"/>
       </template>
       <template v-else>
         <no-data-message
@@ -22,15 +35,26 @@
 </template>
 
 <script>
+import ExternalRow from '@democracy-page/tabs/democracy-overview/ExternalRow'
 import SkeletonLoader from '@/vue/common/SkeletonLoader'
 import NoDataMessage from '@/vue/common/NoDataMessage'
+
+import { useCall } from '@/vue/composables'
+import { api } from '@api'
 
 export default {
   name: 'external-list',
 
   components: {
+    ExternalRow,
     SkeletonLoader,
     NoDataMessage,
+  },
+
+  setup () {
+    const external = useCall(api.derive.democracy.nextExternal)
+
+    return { external }
   },
 }
 </script>
@@ -39,9 +63,17 @@ export default {
 @import '~@scss/mixins';
 @import '~@scss/variables';
 
-.external-list__header {
-  padding: 0 1.6rem;
-  margin-bottom: 2rem;
+.external-list {
+  overflow-x: auto;
+
+  @include scrollbar;
 }
 
+.external-list__headers {
+  margin-bottom: 2rem;
+
+  &--grid {
+    @include democracy-external-grid-row(flex-end);
+  }
+}
 </style>
