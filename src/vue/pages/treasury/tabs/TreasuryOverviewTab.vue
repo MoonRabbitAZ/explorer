@@ -1,6 +1,9 @@
 <template>
   <div class="treasury-overview-tab">
-    <treasury-summary />
+    <treasury-summary
+      :approval-count="proposals?.approvals.length"
+      :proposal-count="proposals?.proposals.length"
+    />
 
     <div class="treasury-overview-tab__topbar">
       <app-button
