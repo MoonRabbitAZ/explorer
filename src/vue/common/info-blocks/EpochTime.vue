@@ -1,85 +1,28 @@
 <template>
-  <div class="epoch-time">
-    <template v-if="sessionInfo">
-      <info-block
-        class="epoch-time__info"
-        :title="$t('common.epoch-time.epoch-title')"
-        :value="epochTime.total"
-        :secondary-value="epochTime.progress"
-      >
-        <template #additional>
-          <progress-bar
-            :current="sessionInfo.sessionProgress"
-            :total="sessionInfo.sessionLength"
-          />
-        </template>
-      </info-block>
-    </template>
-    <skeleton-loader
-      v-else
-      class="epoch-time__sceleton-loader"
-    />
-  </div>
+  <progress-info-block
+    :title="$t('common.epoch-time.epoch-title')"
+    :total="sessionInfo?.sessionLength"
+    :current="sessionInfo?.sessionProgress"
+  />
 </template>
 
 <script>
-import InfoBlock from '@/vue/common/InfoBlock'
-import ProgressBar from '@/vue/common/ProgressBar'
-import SkeletonLoader from '@/vue/common/SkeletonLoader'
+import ProgressInfoBlock from '@/vue/common/ProgressInfoBlock'
 
 import { api } from '@api'
-import { useCall, useBlockTime } from '@/vue/composables'
-import { computed } from 'vue'
+import { useCall } from '@/vue/composables'
 
 export default {
   name: 'epoch-time',
 
   components: {
-    InfoBlock,
-    SkeletonLoader,
-    ProgressBar,
+    ProgressInfoBlock,
   },
 
   setup () {
     const sessionInfo = useCall(api.derive.session?.progress)
-    const { calculateTimeStr } = useBlockTime()
 
-    const epochTime = computed(() => {
-      if (sessionInfo.value) {
-        const progresValue =
-          sessionInfo.value.sessionProgress.sub(sessionInfo.value.sessionLength)
-
-        return {
-          total: calculateTimeStr(sessionInfo.value.sessionLength),
-          progress: calculateTimeStr(progresValue),
-        }
-      } else {
-        return {
-          total: '',
-          progress: '',
-        }
-      }
-    })
-
-    return {
-      epochTime,
-      sessionInfo,
-    }
+    return { sessionInfo }
   },
 }
 </script>
-
-<style lang="scss" scoped>
-@import '~@scss/mixins';
-@import '~@scss/variables';
-
-.epoch-time__info {
-  width: 100%;
-  min-width: 4.7rem;
-}
-
-.epoch-time__sceleton-loader {
-  width: 100%;
-  height: $min-height-info-block;
-}
-</style>

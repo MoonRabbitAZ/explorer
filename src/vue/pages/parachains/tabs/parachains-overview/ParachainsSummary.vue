@@ -14,19 +14,13 @@
         :title="$t('parachains-page.parachains-summary.current-lease-header')"
         :value="leasePeriod?.currentPeriod?.toString()"
       />
-      <info-block
+
+      <progress-info-block
         class="parachains-summary__info"
         :title="$t('parachains-page.parachains-summary.lease-period-header')"
-        :value="leaseTimes?.total"
-        :secondary-value="leaseTimes?.progress"
-      >
-        <template #additional>
-          <progress-bar
-            :current="leasePeriod?.progress"
-            :total="leasePeriod?.length"
-          />
-        </template>
-      </info-block>
+        :current="leasePeriod?.progress"
+        :total="leasePeriod?.length"
+      />
 
       <best-number
         class="parachains-summary__info"
@@ -41,10 +35,8 @@
 import InfoBlock from '@/vue/common/InfoBlock'
 import BestNumber from '@/vue/common/info-blocks/BestNumber'
 import EpochTime from '@/vue/common/info-blocks/EpochTime'
-import ProgressBar from '@/vue/common/ProgressBar'
+import ProgressInfoBlock from '@/vue/common/ProgressInfoBlock'
 
-import { useBlockTime } from '@/vue/composables'
-import { computed } from 'vue'
 import { LeasePeriodRecord } from '@/js/records/lease-period.record'
 
 export default {
@@ -54,36 +46,13 @@ export default {
     InfoBlock,
     BestNumber,
     EpochTime,
-    ProgressBar,
+    ProgressInfoBlock,
   },
 
   props: {
     parachainsAmount: { type: Number, default: 0 },
     parathreadAmount: { type: Number, default: 0 },
     leasePeriod: { type: LeasePeriodRecord, default: null },
-  },
-
-  setup (props) {
-    const { calculateTimeStr } = useBlockTime()
-
-    const leaseTimes = computed(() => {
-      if (props.leasePeriod?.length && props.leasePeriod?.progress) {
-        const progresValue =
-          props.leasePeriod.progress.sub(props.leasePeriod.length)
-
-        return {
-          total: calculateTimeStr(props.leasePeriod.length),
-          progress: calculateTimeStr(progresValue),
-        }
-      } else {
-        return {
-          total: '',
-          progress: '',
-        }
-      }
-    })
-
-    return { leaseTimes }
   },
 }
 </script>

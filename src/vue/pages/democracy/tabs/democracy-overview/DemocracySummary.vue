@@ -21,43 +21,35 @@
         :value="$fnumber(referendumTotal)"
       />
 
-      <info-block
+      <progress-info-block
         class="democracy-summary__launch-period"
         :title="$t('democracy-page.democracy-summary.launch-period-header')"
-        :value="launchPeriodTime.total"
-        :secondary-value="launchPeriodTime.progress"
-      >
-        <template #additional>
-          <progress-bar
-            :current="progressLaunchPeriod"
-            :total="launchPeriod"
-          />
-        </template>
-      </info-block>
+        :total="launchPeriod"
+        :current="progressLaunchPeriod"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import InfoBlock from '@/vue/common/InfoBlock'
-import ProgressBar from '@/vue/common/ProgressBar'
+import ProgressInfoBlock from '@/vue/common/ProgressInfoBlock'
 
 import { computed } from 'vue'
-import { useCall, useBlockTime } from '@/vue/composables'
+import { useCall } from '@/vue/composables'
 import { api } from '@api'
 import { BN_ONE } from '@polkadot/util'
 
 export default {
   name: 'democracy-summary',
 
-  components: { InfoBlock, ProgressBar },
+  components: { InfoBlock, ProgressInfoBlock },
 
   props: {
     referendumCount: { type: Number, default: 0 },
   },
 
   setup () {
-    const { calculateTimeStr } = useBlockTime()
     const activeProposals = useCall(api.derive.democracy.proposals)
     const publicPropCount = useCall(api.query.democracy.publicPropCount)
     const referendumTotal = useCall(api.query.democracy.referendumCount)
@@ -70,28 +62,12 @@ export default {
         : null,
     )
 
-    const launchPeriodTime = computed(() => {
-      if (progressLaunchPeriod.value) {
-        const progressValue = launchPeriod.sub(progressLaunchPeriod.value)
-        return {
-          total: calculateTimeStr(launchPeriod, true),
-          progress: calculateTimeStr(progressValue, true),
-        }
-      } else {
-        return {
-          total: null,
-          progress: null,
-        }
-      }
-    })
-
     return {
       activeProposals,
       publicPropCount,
       referendumTotal,
       launchPeriod,
       progressLaunchPeriod,
-      launchPeriodTime,
     }
   },
 }

@@ -5,45 +5,34 @@
         :title="$t('parachains-page.crowdloan-summary.founds-header')"
         :value="$fnumber(fundCount)"
       />
-      <info-block
-        :title="$t('parachains-page.crowdloan-summary.raised-founds-title')"
-        :value="$fbalance(activeCap)"
-        :secondary-value="$fbalance(activeRaised)"
-      >
-        <template #additional>
-          <progress-bar
-            :current="activeRaised"
-            :total="activeCap"
-          />
-        </template>
-      </info-block>
 
-      <info-block
+      <progress-info-block
+        :title="$t('parachains-page.crowdloan-summary.raised-founds-title')"
+        :current="activeRaised"
+        :total="activeCap"
+        with-balance
+      />
+
+      <progress-info-block
         :title="$t('parachains-page.crowdloan-summary.total-founds-title')"
-        :value="$fbalance(totalCap)"
-        :secondary-value="$fbalance(totalRaised)"
-      >
-        <template #additional>
-          <progress-bar
-            :current="totalRaised"
-            :total="totalCap"
-          />
-        </template>
-      </info-block>
+        :current="totalRaised"
+        :total="totalCap"
+        with-balance
+      />
     </div>
   </div>
 </template>
 
 <script>
 import InfoBlock from '@/vue/common/InfoBlock'
-import ProgressBar from '@/vue/common/ProgressBar'
+import ProgressInfoBlock from '@/vue/common/ProgressInfoBlock'
 
 import { BN } from '@polkadot/util'
 
 export default {
   name: 'crowdloan-summary',
 
-  components: { InfoBlock, ProgressBar },
+  components: { InfoBlock, ProgressInfoBlock },
 
   props: {
     fundCount: { type: Number, required: true },

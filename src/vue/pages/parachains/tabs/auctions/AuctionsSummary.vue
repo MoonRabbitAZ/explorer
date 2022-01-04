@@ -20,9 +20,8 @@
         />
       </template>
 
-      <template v-if="auctionInfo?.endBlock">
+      <template v-if="auctionInfo?.endBlock && isHaveWinners">
         <info-block
-          v-if="isHaveWinners"
           class="auctions-summary__info-block"
           v-tooltip="$fFullBalance(lastWinnersTotalBalance)"
           :title="$t('parachains-page.auctions-summary.total-header')"

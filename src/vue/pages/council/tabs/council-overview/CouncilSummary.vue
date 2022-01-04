@@ -23,19 +23,12 @@
       </template>
 
       <template v-if="elections?.termDuration">
-        <info-block
+        <progress-info-block
           class="council-summary__term-progress"
           :title="$t('council-page.council-summary.term-progress-header')"
-          :value="termTimes.total"
-          :secondary-value="termTimes.progress"
-        >
-          <template #additional>
-            <progress-bar
-              :current="termValue"
-              :total="elections?.termDuration"
-            />
-          </template>
-        </info-block>
+          :current="termValue"
+          :total="elections?.termDuration"
+        />
       </template>
     </div>
   </div>
@@ -43,17 +36,17 @@
 
 <script>
 import InfoBlock from '@/vue/common/InfoBlock'
-import ProgressBar from '@/vue/common/ProgressBar'
+import ProgressInfoBlock from '@/vue/common/ProgressInfoBlock'
 
 import { computed } from 'vue'
-import { useBlockTime, useCall } from '@/vue/composables'
+import { useCall } from '@/vue/composables'
 import { api } from '@api'
 import { formatNumber } from '@polkadot/util'
 
 export default {
   name: 'council-summary',
 
-  components: { InfoBlock, ProgressBar },
+  components: { InfoBlock, ProgressInfoBlock },
 
   props: {
     elections: { type: Object, default: null },
@@ -61,7 +54,6 @@ export default {
   },
 
   setup (props) {
-    const { calculateTimeStr } = useBlockTime()
     const bestNumber = useCall(api.derive.chain.bestNumber)
 
     const membersCount = computed(() =>
@@ -86,27 +78,9 @@ export default {
         : null,
     )
 
-    const termTimes = computed(() => {
-      if (termValue.value) {
-        const progressValue =
-          props.elections.termDuration.sub(termValue.value)
-
-        return {
-          total: calculateTimeStr(props.elections.termDuration, true),
-          progress: calculateTimeStr(progressValue, true),
-        }
-      } else {
-        return {
-          total: null,
-          progress: null,
-        }
-      }
-    })
-
     return {
       membersCount,
       termValue,
-      termTimes,
       runnersUpCount,
     }
   },
