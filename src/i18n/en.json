@@ -804,11 +804,12 @@
     },
     "proposals-list": {
       "proposals-header": "Civic initiatives",
-      "no-data-message": "No pending civic initiatives"
-    },
-    "approved-list": {
       "approved-header": "Approved",
-      "no-data-message": "No approved civic initiatives"
+      "beneficiary-header": "Beneficiary",
+      "payment-header": "Payment",
+      "bond-header": "Bond",
+      "no-data-message-proposal": "No pending civic initiatives",
+      "no-data-message-approved": "No approved civic initiatives"
     },
     "tips-tab": {
       "propose-tip-btn": "Propose tip",

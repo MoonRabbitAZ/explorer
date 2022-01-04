@@ -10,15 +10,25 @@
       />
     </div>
 
-    <proposals-list class="treasury-overview-tab__list"/>
-    <approved-list class="treasury-overview-tab__list"/>
+    <proposals-list
+      class="treasury-overview-tab__list"
+      :proposals="proposals?.proposals"
+    />
+
+    <proposals-list
+      class="treasury-overview-tab__list"
+      :proposals="proposals?.approvals"
+      is-approved
+    />
   </div>
 </template>
 
 <script>
 import TreasurySummary from '@treasury-page/tabs/treasury-overview/TreasurySummary'
-import ApprovedList from '@treasury-page/tabs/treasury-overview/ApprovedList'
 import ProposalsList from '@treasury-page/tabs/treasury-overview/ProposalsList'
+
+import { useCall } from '@/vue/composables'
+import { api } from '@api'
 
 export default {
   name: 'treasury-overview-tab',
@@ -26,7 +36,12 @@ export default {
   components: {
     TreasurySummary,
     ProposalsList,
-    ApprovedList,
+  },
+
+  setup () {
+    const proposals = useCall(api.derive.treasury.proposals)
+
+    return { proposals }
   },
 }
 </script>

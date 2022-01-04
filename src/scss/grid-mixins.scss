@@ -3,6 +3,11 @@
   grid-gap: 1.6rem;
   align-items: $alignItems;
   padding: $paddingVertical 1.6rem;
+  min-width: min-content;
+
+  & + & {
+    margin-top: 0.4rem;
+  }
 }
 
 // for parachains page
@@ -72,6 +77,13 @@
 
 @mixin democracy-external-grid-row ($alignItems, $paddingVertical: 0) {
   grid-template-columns: minmax(45rem, 1fr) minmax(15rem, 1fr) 10rem;
+
+  @include default-grid-row($alignItems, $paddingVertical);
+}
+
+// for treasury page
+@mixin treasury-proposal-grid-row ($alignItems, $paddingVertical: 0) {
+  grid-template-columns: 8rem minmax(15rem, 1fr) minmax(15rem, 1fr) 10rem 10rem;
 
   @include default-grid-row($alignItems, $paddingVertical);
 }
