@@ -1,6 +1,8 @@
 <template>
   <div class="democracy-overview-tab">
-    <democracy-summary />
+    <democracy-summary
+      :referendum-count="referendums?.length"
+    />
 
     <div class="democracy-overview-tab__topbar">
       <app-button

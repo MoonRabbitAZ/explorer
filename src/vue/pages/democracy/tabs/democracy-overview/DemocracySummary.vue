@@ -3,34 +3,34 @@
     <div class="democracy-summary__content">
       <info-block
         :title="$t('democracy-page.democracy-summary.proposals-header')"
-        value="0"
+        :value="$fnumber(activeProposals?.length)"
       />
 
       <info-block
         :title="$t('democracy-page.democracy-summary.total-header')"
-        value="1"
+        :value="$fnumber(publicPropCount)"
       />
 
       <info-block
         :title="$t('democracy-page.democracy-summary.referenda-header')"
-        value="0"
+        :value="$fnumber(referendumCount)"
       />
 
       <info-block
         :title="$t('democracy-page.democracy-summary.total-header')"
-        value="1"
+        :value="$fnumber(referendumTotal)"
       />
 
       <info-block
         class="democracy-summary__launch-period"
         :title="$t('democracy-page.democracy-summary.launch-period-header')"
-        value="7days"
-        secondary-value="5days 21hrs"
+        :value="launchPeriodTime.total"
+        :secondary-value="launchPeriodTime.progress"
       >
         <template #additional>
           <progress-bar
-            :current="HURDCODE_CURRENT_PROGRESS"
-            :total="HURDCODE_TOTAL_PROGRESS"
+            :current="progressLaunchPeriod"
+            :total="launchPeriod"
           />
         </template>
       </info-block>
@@ -41,20 +41,57 @@
 <script>
 import InfoBlock from '@/vue/common/InfoBlock'
 import ProgressBar from '@/vue/common/ProgressBar'
-import { BN } from '@polkadot/util'
 
-const HURDCODE_CURRENT_PROGRESS = new BN(15)
-const HURDCODE_TOTAL_PROGRESS = new BN(100)
+import { computed } from 'vue'
+import { useCall, useBlockTime } from '@/vue/composables'
+import { api } from '@api'
+import { BN_ONE } from '@polkadot/util'
 
 export default {
   name: 'democracy-summary',
 
   components: { InfoBlock, ProgressBar },
 
+  props: {
+    referendumCount: { type: Number, default: 0 },
+  },
+
   setup () {
+    const { calculateTimeStr } = useBlockTime()
+    const activeProposals = useCall(api.derive.democracy.proposals)
+    const publicPropCount = useCall(api.query.democracy.publicPropCount)
+    const referendumTotal = useCall(api.query.democracy.referendumCount)
+    const bestNumber = useCall(api.derive.chain.bestNumber)
+    const launchPeriod = api.consts.democracy.launchPeriod
+
+    const progressLaunchPeriod = computed(() =>
+      bestNumber.value && launchPeriod
+        ? bestNumber.value.mod(launchPeriod).iadd(BN_ONE)
+        : null,
+    )
+
+    const launchPeriodTime = computed(() => {
+      if (progressLaunchPeriod.value) {
+        const progressValue = launchPeriod.sub(progressLaunchPeriod.value)
+        return {
+          total: calculateTimeStr(launchPeriod, true),
+          progress: calculateTimeStr(progressValue, true),
+        }
+      } else {
+        return {
+          total: null,
+          progress: null,
+        }
+      }
+    })
+
     return {
-      HURDCODE_CURRENT_PROGRESS,
-      HURDCODE_TOTAL_PROGRESS,
+      activeProposals,
+      publicPropCount,
+      referendumTotal,
+      launchPeriod,
+      progressLaunchPeriod,
+      launchPeriodTime,
     }
   },
 }
