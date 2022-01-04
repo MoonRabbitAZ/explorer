@@ -124,6 +124,7 @@ export default {
 
 .proposals-list__headers {
   margin-bottom: 2rem;
+  padding: 0 1.6rem;
 
   &--grid {
     & > :first-child {

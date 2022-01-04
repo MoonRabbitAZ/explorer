@@ -71,6 +71,7 @@ export default {
 
 .external-list__headers {
   margin-bottom: 2rem;
+  padding: 0 1.6rem;
 
   &--grid {
     @include democracy-external-grid-row(flex-end);
