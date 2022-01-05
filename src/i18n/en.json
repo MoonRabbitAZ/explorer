@@ -828,8 +828,8 @@
   },
   "bridge-page": {
     "bridge-tokens-tab": {
-      "error-header": "Error",
-      "error-message": "There was an error while loading. Try hard reload page.",
+      "error-header": "Maintenance",
+      "error-message": "We currently provide tech support for EVM Jurisdiction. It will be available soon",
       "no-data-message": "No tokens or chains available"
     },
     "bridge-tokens-form": {
@@ -878,8 +878,8 @@
       "native-token-info-msg": "Your deposit for processing. Expect transaction within 10 minutes."
     },
     "unfinished-flows-tab": {
-      "error-header": "Error",
-      "error-message": "There was an error while loading."
+      "error-header": "Maintenance",
+      "error-message": "We currently provide tech support for EVM Jurisdiction. It will be available soon"
     },
     "unfinished-flows-list": {
       "type-header": "Type(original/internal)",
