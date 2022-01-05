@@ -6,7 +6,7 @@
         :with-hash="!isExternal && !isTreasury"
         :is-full-width-header="false"
       >
-        <template v-if="proposal?.args">
+        <template v-if="proposal.args">
           <template v-if="isExternal">
             <external-cell
               :hash="proposal.args[0]"
