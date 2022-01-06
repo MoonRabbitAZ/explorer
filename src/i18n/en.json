@@ -817,7 +817,15 @@
     },
     "tips-list": {
       "tips-header": "Tips",
+      "finder-header": "Finder",
+      "median-header": "Median",
+      "tippers-drawer-header": "Tippers",
       "no-data-message": "No open tips"
+    },
+    "tippers-info": {
+      "median-header": "Median",
+      "reason-header": "Reason",
+      "tippers-expander-header": "Tippers ({ count })"
     }
   },
   "bounties-page": {

@@ -20,12 +20,14 @@
         class="treasury-summary__available"
         :title="$t('treasury-page.treasury-summary.available-header')"
         :value="$fbalance(freeBalance)"
+        :tooltip="$fFullBalance(freeBalance)"
       />
 
       <info-block
         class="treasury-summary__next-burn"
         :title="$t('treasury-page.treasury-summary.next-burn-header')"
         :value="$fbalance(burn)"
+        :tooltip="$fFullBalance(burn)"
       />
 
       <template v-if="currentPeriod">

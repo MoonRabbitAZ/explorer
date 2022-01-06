@@ -1,7 +1,7 @@
 <template>
   <div class="motion-row">
     <p class="motion-row__index">
-      {{ $fnumber(motion.votes.index) }}
+      {{ $fnumber(motion.votes?.index) }}
     </p>
     <div class="motion-row__proposals-wrap">
       <proposal-cell
@@ -11,7 +11,7 @@
       />
     </div>
     <p>
-      {{ $fnumber(motion.votes.threshold) }}
+      {{ $fnumber(motion.votes?.threshold) }}
     </p>
     <div>
       <template v-if="votingEndTime && votes?.end">

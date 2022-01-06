@@ -87,3 +87,9 @@
 
   @include default-grid-row($alignItems, $paddingVertical);
 }
+
+@mixin treasury-tip-grid-row ($alignItems, $paddingVertical: 0) {
+  grid-template-columns: minmax(15rem, 1fr) minmax(15rem, 1fr) 10rem 4.4rem;
+
+  @include default-grid-row($alignItems, $paddingVertical);
+}

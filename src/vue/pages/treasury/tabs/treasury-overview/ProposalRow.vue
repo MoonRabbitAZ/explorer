@@ -10,10 +10,14 @@
       :account-address="proposal.proposal.beneficiary.toString()"
     />
     <p>
-      {{ $fbalance(proposal.proposal.value) }}
+      <span v-tooltip="$fFullBalance(proposal.proposal.value)">
+        {{ $fbalance(proposal.proposal.value) }}
+      </span>
     </p>
     <p>
-      {{ $fbalance(proposal.proposal.bond) }}
+      <span v-tooltip="$fFullBalance(proposal.proposal.bond)">
+        {{ $fbalance(proposal.proposal.bond) }}
+      </span>
     </p>
   </div>
 </template>
