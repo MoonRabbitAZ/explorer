@@ -841,6 +841,10 @@
     "bounties-list": {
       "bounties-header": "Bounties",
       "no-data-message": "No open bounties"
+    },
+    "use-bounty": {
+      "next-action-payout": "{ time } (payout)",
+      "next-action-update": "{ time } (update)"
     }
   },
   "tech-comm-page": {

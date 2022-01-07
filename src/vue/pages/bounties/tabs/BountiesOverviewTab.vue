@@ -11,7 +11,9 @@
       />
     </div>
 
-    <bounties-list />
+    <bounties-list
+      :bounties="bounties"
+    />
   </div>
 </template>
 
@@ -19,10 +21,19 @@
 import BountiesSummary from '@bounties-page/tabs/bounties-overview/BountiesSummary'
 import BountiesList from '@bounties-page/tabs/bounties-overview/BountiesList'
 
+import { useCall } from '@/vue/composables'
+import { api } from '@api'
+
 export default {
   name: 'bounties-overview-tab',
 
   components: { BountiesList, BountiesSummary },
+
+  setup () {
+    const bounties = useCall(api.derive.bounties.bounties)
+
+    return { bounties }
+  },
 }
 </script>
 
