@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `Proposals list` on `Treasury overview tab`
 - Treasury summary
 - `Tips list` on `Treasury tab`
+- `Bounties list` and `Bounty summary`
 
 #### Fixed
 - Collected winning data on auction tab

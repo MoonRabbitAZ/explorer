@@ -1,7 +1,10 @@
 <template>
   <div class="bounties-overview-tab">
     <div class="bounties-overview-tab__topbar">
-      <bounties-summary class="bounties-overview-tab__summary" />
+      <bounties-summary
+        class="bounties-overview-tab__summary"
+        :bounties="bounties"
+      />
 
       <app-button
         class="bounties-overview-tab__bid-btn"
