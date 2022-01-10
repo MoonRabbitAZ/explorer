@@ -839,12 +839,33 @@
       "funding-period-header": "Funding period"
     },
     "bounties-list": {
+      "proposer-header": "Proposer",
+      "status-header": "Status",
+      "value-header": "Value",
+      "next-action-header":"Next action",
       "bounties-header": "Bounties",
       "no-data-message": "No open bounties"
     },
     "use-bounty": {
       "next-action-payout": "{ time } (payout)",
       "next-action-update": "{ time } (update)"
+    },
+    "bounty-info": {
+      "proposer-header": "Proposer",
+      "curator-header": "Curator",
+      "index-header": "Index",
+      "status-header": "Status",
+      "value-header": "Value",
+      "bond-header": "Bond",
+      "curator-fee-header": "Curator's fee",
+      "curator-deposit-header": "Curator's deposit",
+      "next-action-header": "Next action",
+      "description-header": "Description",
+      "votes-header": "Votes",
+      "aye-value": "Aye: { count }",
+      "nay-value": "Nay: { count }",
+      "ayes-expander-header": "Ayes ({ count })",
+      "nays-expander-header": "Nays ({ count })"
     }
   },
   "tech-comm-page": {
