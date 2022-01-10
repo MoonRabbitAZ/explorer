@@ -2,18 +2,18 @@
   <div class="account-balances">
     <template v-if="balancesAll && isLoadedStaking">
       <p
-        v-tooltip="$fFullBalance(totalBalance)"
+        v-tooltip="$fFullBalance(balancesAll.freeBalance)"
         class="account-balances__total"
       >
-        {{ $fbalance(totalBalance) }}
+        {{ $fbalance(balancesAll.freeBalance) }}
       </p>
 
       <readonly-row
-        v-if="!availableBalance.isZero()"
+        v-if="!balancesAll.availableBalance.isZero()"
         class="account-balances__row"
-        :tooltip="$fFullBalance(availableBalance)"
+        :tooltip="$fFullBalance(balancesAll.availableBalance)"
         :label="$t('common.account-balances.transferrable-lbl')"
-        :value="$fbalance(availableBalance)"
+        :value="$fbalance(balancesAll.availableBalance)"
       />
 
       <readonly-row
@@ -46,10 +46,9 @@
 import ReadonlyRow from '@/vue/common/ReadonlyRow'
 import SkeletonLoader from '@/vue/common/SkeletonLoader'
 
-import { computed, reactive, toRefs } from 'vue'
+import { reactive, toRefs } from 'vue'
 import { api, stakingApi } from '@api'
 import { useCall } from '@/vue/composables'
-import { ADMIN_ADDRESS, DEDUCTIBLE_BALANCE } from '@/js/const/deducticable-balance.const'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { StakingBalanceRecord } from '@/js/records/staking-balance.record'
 
@@ -70,22 +69,6 @@ export default {
     })
     const balancesAll = useCall(api.derive.balances.all, [props.accountAddress])
 
-    const totalBalance = computed(() => {
-      if (!balancesAll.value) return
-      return props.accountAddress === ADMIN_ADDRESS &&
-        balancesAll.value.freeBalance.gt(DEDUCTIBLE_BALANCE)
-        ? balancesAll.value.freeBalance.sub(DEDUCTIBLE_BALANCE)
-        : balancesAll.value.freeBalance
-    })
-
-    const availableBalance = computed(() => {
-      if (!balancesAll.value) return
-      return props.accountAddress === ADMIN_ADDRESS &&
-        balancesAll.value.freeBalance.gt(DEDUCTIBLE_BALANCE)
-        ? balancesAll.value.availableBalance.sub(DEDUCTIBLE_BALANCE)
-        : balancesAll.value.availableBalance
-    })
-
     async function getStakeBalance () {
       state.isLoadedStaking = false
       state.isLoadStakingFailed = false
@@ -105,8 +88,6 @@ export default {
     return {
       ...toRefs(state),
       balancesAll,
-      totalBalance,
-      availableBalance,
     }
   },
 }
