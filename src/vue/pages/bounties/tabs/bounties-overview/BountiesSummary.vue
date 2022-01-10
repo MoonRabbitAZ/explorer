@@ -32,11 +32,11 @@
 <script>
 import InfoBlock from '@/vue/common/InfoBlock'
 import ProgressInfoBlock from '@/vue/common/ProgressInfoBlock'
-import { BN_ZERO } from '@polkadot/util'
 
 import { computed } from 'vue'
 import { useCall, useTreasury } from '@/vue/composables'
 import { api } from '@api'
+import { BN } from '@polkadot/util'
 
 export default {
   name: 'bounties-summary',
@@ -59,8 +59,10 @@ export default {
     })
 
     const totalValue = computed(() =>
-      props.bounties
-        ?.reduce((total, { bounty: { value } }) => total.iadd(value), BN_ZERO),
+      props.bounties?.reduce((total, { bounty: { value } }) =>
+        total.iadd(value),
+      new BN(0),
+      ),
     )
 
     const currentPeriod = computed(() => {
