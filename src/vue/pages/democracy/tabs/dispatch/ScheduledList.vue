@@ -23,8 +23,7 @@
       </template>
     </div>
     <template v-if="entriesFiltered">
-      <!-- TODO: remove `false` after update -->
-      <template v-if="entriesFiltered.length && false">
+      <template v-if="entriesFiltered.length">
         <template
           v-for="(entry, index) in entriesFiltered"
           :key="index"
