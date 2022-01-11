@@ -30,7 +30,7 @@ export function useTipsWithHashes () {
             ? 0
             : -1
           : b.tip.closes.isSome
-            ? b.tip.closes.unwrap().cmp(a[1].closes.unwrap())
+            ? b.tip.closes.unwrap().cmp(a.tip.closes.unwrap())
             : 1,
       )
   })

@@ -10,6 +10,7 @@
         :title="$t('parachains-page.crowdloan-summary.raised-founds-title')"
         :current="activeRaised"
         :total="activeCap"
+        :tooltip="$fFullBalance(activeCap)"
         with-balance
       />
 
@@ -17,6 +18,7 @@
         :title="$t('parachains-page.crowdloan-summary.total-founds-title')"
         :current="totalRaised"
         :total="totalCap"
+        :tooltip="$fFullBalance(totalCap)"
         with-balance
       />
     </div>

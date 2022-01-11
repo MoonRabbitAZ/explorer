@@ -22,11 +22,11 @@
     </div>
 
     <value-displayer
-      v-tooltip="$fFullBalance(balance)"
       class="council-info__backing"
       :header="$t('council-page.council-info.backing-header')"
       :value="$fbalance(balance)"
       :value-level="1"
+      :tooltip="$fFullBalance(balance)"
     />
 
     <expander

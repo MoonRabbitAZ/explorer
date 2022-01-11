@@ -1,9 +1,9 @@
 <template>
   <info-block
-    v-tooltip="$fFullBalance(totalIssuance)"
     class="total-issuance__info"
     :title="$t('common.total-issuance.total-issued-title')"
     :value="$fbalance(totalIssuance)"
+    :tooltip="$fFullBalance(totalIssuance)"
   />
 </template>
 

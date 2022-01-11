@@ -3,16 +3,16 @@
     <div class="block-info-summary__content">
       <info-block
         class="block-info-summary__info"
-        v-tooltip="$fFullBalance(deposits)"
         :title="$t('explorer-page.block-info-summary.header-deposits')"
         :value="$fbalance(deposits)"
+        :tooltip="$fFullBalance(deposits)"
       />
 
       <info-block
         class="block-info-summary__info"
-        v-tooltip="$fFullBalance(transfers)"
         :title="$t('explorer-page.block-info-summary.header-transfers')"
         :value="$fbalance(transfers)"
+        :tooltip="$fFullBalance(transfers)"
       />
 
       <info-block

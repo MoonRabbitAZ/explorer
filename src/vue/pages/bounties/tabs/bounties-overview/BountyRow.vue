@@ -10,7 +10,9 @@
       {{ bountyState?.bountyStatus }}
     </p>
     <p>
-      {{ $fbalance(bounty.value) }}
+      <span v-tooltip="$fFullBalance(bounty.value)">
+        {{ $fbalance(bounty.value) }}
+      </span>
     </p>
     <div>
       <template v-if="blockNextAction">

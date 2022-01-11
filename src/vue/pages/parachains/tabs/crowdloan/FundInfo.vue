@@ -82,12 +82,14 @@
         class="fund-info__value-displayer"
         :header="$t('parachains-page.fund-info.raised-header')"
         :value="`${$fbalance(fund.info.raised)} (${raisedProgress})`"
+        :tooltip="$fFullBalance(fund.info.raised)"
       />
 
       <value-displayer
         class="fund-info__value-displayer"
         :header="$t('parachains-page.fund-info.cap-header')"
         :value="$fbalance(fund.info.cap)"
+        :tooltip="$fFullBalance(fund.info.cap)"
       />
 
       <value-displayer

@@ -40,7 +40,9 @@
           />
           <div class="my-contributors-expander__account-contribution">
             <template v-if="account.contribution">
-              {{ $fbalance(account.contribution) }}
+              <span v-tooltip="$fFullBalance(account.contribution)">
+                {{ $fbalance(account.contribution) }}
+              </span>
             </template>
             <template v-else>
               <skeleton-loader

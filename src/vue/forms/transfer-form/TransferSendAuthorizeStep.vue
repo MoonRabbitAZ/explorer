@@ -5,24 +5,21 @@
       @submit.prevent="isFormValid() && submit()"
     >
       <div class="transfer-form-authorize-step__body">
-        <h3 class="transfer-form-authorize-step__title">
-          {{ $t('forms.transfer-form-authorize-step.amount-title') }}
-        </h3>
-        <p
-          v-tooltip="$fFullBalance(former.attrs.amount)"
-          class="transfer-form-authorize-step__amount-value"
-        >
-          {{ $fbalance(former.attrs.amount) }}
-        </p>
-        <h3 class="transfer-form-authorize-step__title">
-          {{ $t('forms.transfer-form-authorize-step.submission-fee-title') }}
-        </h3>
-        <p
-          v-tooltip="$fFullBalance(partialFee)"
-          class="transfer-form-authorize-step__fee-value"
-        >
-          {{ $fbalance(partialFee) }}
-        </p>
+        <value-displayer
+          :header="$t('forms.transfer-form-authorize-step.amount-title')"
+          :value="$fbalance(former.attrs.amount)"
+          :tooltip="$fFullBalance(former.attrs.amount)"
+          :value-level="1"
+        />
+
+        <value-displayer
+          class="transfer-form-authorize-step__partial-fee"
+          :header="
+            $t('forms.transfer-form-authorize-step.submission-fee-title')
+          "
+          :value="$fbalance(partialFee)"
+          :tooltip="$fFullBalance(partialFee)"
+        />
 
         <div
           v-if="!senderPair.meta.isTesting"
@@ -96,6 +93,7 @@
 </template>
 
 <script>
+import ValueDisplayer from '@/vue/common/ValueDisplayer'
 import { InputField, AmountField, ClipboardField } from '@/vue/fields'
 
 import { reactive, toRefs, computed } from 'vue'
@@ -120,6 +118,7 @@ export default {
   name: 'transfer-form-authorize-step',
 
   components: {
+    ValueDisplayer,
     InputField,
     AmountField,
     ClipboardField,
@@ -246,19 +245,8 @@ export default {
   padding: 0 $drawer-padding;
 }
 
-.transfer-form-authorize-step__title {
-  margin-bottom: 1rem;
-  color: $col-app-header-secondary;
-}
-
-.transfer-form-authorize-step__amount-value {
-  margin-bottom: 2rem;
-  font-size: 2rem;
-}
-
-.transfer-form-authorize-step__fee-value {
-  font-size: 1.6rem;
-  margin-bottom: 4rem;
+.transfer-form-authorize-step__partial-fee {
+  margin: 2rem 0 4rem;
 }
 
 .transfer-form-authorize-step__call-hash {

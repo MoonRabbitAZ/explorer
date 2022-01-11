@@ -4,24 +4,19 @@
       novalidate
       @submit.prevent="isFormValid() && nextStep()"
     >
-      <h3 class="transfer-form-founds-step__title">
-        {{ $t('forms.transfer-form-founds-step.balance-title') }}
-      </h3>
-      <p
-        v-tooltip="$fFullBalance(senderBalances.availableBalance)"
-        class="transfer-form-founds-step__balance-value"
-      >
-        {{ $fbalance(senderBalances.availableBalance) }}
-      </p>
-      <h3 class="transfer-form-founds-step__title">
-        {{ $t('forms.transfer-form-founds-step.deposit-title') }}
-      </h3>
-      <p
-        v-tooltip="$fFullBalance(existentialDeposit)"
-        class="transfer-form-founds-step__deposit-value"
-      >
-        {{ $fbalance(existentialDeposit) }}
-      </p>
+      <value-displayer
+        :header="$t('forms.transfer-form-founds-step.balance-title')"
+        :value="$fbalance(senderBalances.availableBalance)"
+        :tooltip="$fFullBalance(senderBalances.availableBalance)"
+        :value-level="1"
+      />
+
+      <value-displayer
+        class="transfer-form-founds-step__existential-deposit"
+        :header="$t('forms.transfer-form-founds-step.deposit-title')"
+        :value="$fbalance(existentialDeposit)"
+        :tooltip="$fFullBalance(existentialDeposit)"
+      />
 
       <div class="app__form-row">
         <div class="app__form-field">
@@ -105,6 +100,7 @@
 </template>
 
 <script>
+import ValueDisplayer from '@/vue/common/ValueDisplayer'
 import { InputField, AmountField, SwitchField } from '@/vue/fields'
 
 import { reactive, toRefs, computed } from 'vue'
@@ -126,7 +122,13 @@ const MIN_TRANSFER_AMOUNT = 1 // pico unit
 export default {
   name: 'transfer-form-founds-step',
 
-  components: { InputField, AmountField, SwitchField, ErrorMessage },
+  components: {
+    ValueDisplayer,
+    InputField,
+    AmountField,
+    SwitchField,
+    ErrorMessage,
+  },
 
   props: {
     senderAddress: { type: String, required: true },
@@ -216,19 +218,8 @@ export default {
   padding: 0 $drawer-padding;
 }
 
-.transfer-form-founds-step__title {
-  margin-bottom: 1rem;
-  color: $col-app-header-secondary;
-}
-
-.transfer-form-founds-step__balance-value {
-  margin-bottom: 2rem;
-  font-size: 2rem;
-}
-
-.transfer-form-founds-step__deposit-value {
-  font-size: 1.6rem;
-  margin-bottom: 4rem;
+.transfer-form-founds-step__existential-deposit {
+  margin: 2rem 0 4rem;
 }
 
 .transfer-form-founds-step__actions-wrap {
