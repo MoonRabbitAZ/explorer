@@ -26,9 +26,13 @@
 </template>
 
 <script>
+import { ref, watch } from 'vue'
+
 const EVENTS = {
   updateIsShown: 'update:isShown',
 }
+
+const HTML_CLASS_NAME = 'fixed'
 
 /**
  * Drawer component serves as a wrapper for modal content.
@@ -51,8 +55,25 @@ export default {
 
   emits: Object.values(EVENTS),
 
-  setup (_, { emit }) {
+  setup (props, { emit }) {
+    const isOtherDrawerShown = ref(false)
     const closeSelf = () => emit(EVENTS.updateIsShown, false)
+
+    function toggleHtmlClass (isDrawerShown) {
+      const el = document.getElementsByTagName('html')[0]
+
+      if (isDrawerShown) {
+        if (el.classList.contains(HTML_CLASS_NAME)) {
+          isOtherDrawerShown.value = true
+        } else {
+          el.classList.add(HTML_CLASS_NAME)
+        }
+      } else if (!isOtherDrawerShown.value) {
+        el.classList.remove(HTML_CLASS_NAME)
+      }
+    }
+
+    watch(() => props.isShown, toggleHtmlClass)
 
     return {
       closeSelf,

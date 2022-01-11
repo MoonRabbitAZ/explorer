@@ -23,6 +23,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Fixed
 - Collected winning data on auction tab
 - Proposal cell display
+- Tooltip display
+
+#### Removed
+- Scrolling when the drover is open
 
 ## [0.1.0] - 2021-11-26
 #### Added
