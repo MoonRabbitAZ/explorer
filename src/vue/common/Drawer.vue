@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { ref, watch } from 'vue'
+import { ref, watch, onBeforeUnmount } from 'vue'
 
 const EVENTS = {
   updateIsShown: 'update:isShown',
@@ -58,10 +58,9 @@ export default {
   setup (props, { emit }) {
     const isOtherDrawerShown = ref(false)
     const closeSelf = () => emit(EVENTS.updateIsShown, false)
+    const el = document.getElementsByTagName('html')[0]
 
     function toggleHtmlClass (isDrawerShown) {
-      const el = document.getElementsByTagName('html')[0]
-
       if (isDrawerShown) {
         if (el.classList.contains(HTML_CLASS_NAME)) {
           isOtherDrawerShown.value = true
@@ -74,7 +73,7 @@ export default {
     }
 
     watch(() => props.isShown, toggleHtmlClass)
-
+    onBeforeUnmount(() => { el.classList.remove(HTML_CLASS_NAME) })
     return {
       closeSelf,
     }
