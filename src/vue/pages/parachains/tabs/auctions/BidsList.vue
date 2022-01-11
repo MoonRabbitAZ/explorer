@@ -27,17 +27,20 @@
     </div>
     <template v-if="isLoaded">
       <template v-if="collectedWinningData?.length">
-        <div class="bids-list__body">
-          <bids-row
-            v-for="(item, index) in collectedWinningData"
-            :key="index"
-            class="bids-list__row"
-            :auction-info="auctionInfo"
-            :block-number="item.blockNumber"
-            :winners-with-loans="item.winnersWithLoans"
-            :is-latest="item.isLatest"
-          />
-        </div>
+        <virtual-list
+          class="trades-list"
+          :list="collectedWinningData"
+        >
+          <template v-slot:list="{ item }">
+            <bids-row
+              class="bids-list__row"
+              :auction-info="auctionInfo"
+              :block-number="item.blockNumber"
+              :winners-with-loans="item.winnersWithLoans"
+              :is-latest="item.isLatest"
+            />
+          </template>
+        </virtual-list>
       </template>
       <template v-else>
         <no-data-message
@@ -54,6 +57,7 @@
 </template>
 
 <script>
+import VirtualList from '@/vue/common/VirtualList'
 import BidsRow from '@parachains-page/tabs/auctions/BidsRow'
 import SkeletonLoader from '@/vue/common/SkeletonLoader'
 import NoDataMessage from '@/vue/common/NoDataMessage'
@@ -72,6 +76,7 @@ export default {
     SkeletonLoader,
     NoDataMessage,
     BidsRow,
+    VirtualList,
   },
 
   props: {
@@ -104,7 +109,8 @@ export default {
     })
 
     const isLoaded = computed(() =>
-      props.winningData && newRaise.value && props.auctionInfo?.numAuctions,
+      props.winningData && newRaise.value && props.auctionInfo?.numAuctions &&
+        props.funds,
     )
 
     const noDataMessage = computed(() =>

@@ -65,7 +65,7 @@ export function useCall (fn, params, options) {
     subscriber: null,
   })
 
-  const callValue = ref(null)
+  const callValue = ref(undefined)
 
   // initial effect, we need an un-subscription
   onBeforeUnmount(() => { unsubscribe(tracker) })

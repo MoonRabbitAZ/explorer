@@ -21,30 +21,23 @@
         :value="targetPercent"
       />
 
-      <info-block
+      <progress-info-block
         class="gilt-summary__intake"
         :title="$t('gilt-page.gilt-summary.intake-header')"
-        :value="intakeTime.total"
-        :secondary-value="intakeTime.progress"
-      >
-        <template #additional>
-          <progress-bar
-            :current="progressIntake"
-            :total="intakePeriod"
-          />
-        </template>
-      </info-block>
+        :current="progressIntake"
+        :total="intakePeriod"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import InfoBlock from '@/vue/common/InfoBlock'
-import ProgressBar from '@/vue/common/ProgressBar'
+import ProgressInfoBlock from '@/vue/common/ProgressInfoBlock'
 
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useCall, useBlockTime } from '@/vue/composables'
+import { useCall } from '@/vue/composables'
 import { api } from '@api'
 import { BN, BN_HUNDRED, BN_QUINTILL, formatNumber } from '@polkadot/util'
 
@@ -54,7 +47,7 @@ const DIVISOR_BN = new BN(10_000)
 export default {
   name: 'gilt-summary',
 
-  components: { InfoBlock, ProgressBar },
+  components: { InfoBlock, ProgressInfoBlock },
 
   props: {
     activeTotal: { type: Object, default: null },
@@ -63,7 +56,6 @@ export default {
 
   setup (props) {
     const { t } = useI18n()
-    const { calculateTimeStr } = useBlockTime()
     const bestNumber = useCall(api.derive.chain.bestNumber)
     const intakePeriod = api.consts.gilt?.intakePeriod
 
@@ -104,27 +96,11 @@ export default {
       return bestNumber.value.mod(intakePeriod)
     })
 
-    const intakeTime = computed(() => {
-      if (progressIntake.value) {
-        return {
-          total: calculateTimeStr(intakePeriod, true),
-          progress:
-            calculateTimeStr(intakePeriod.sub(progressIntake.value), true),
-        }
-      } else {
-        return {
-          total: null,
-          progress: null,
-        }
-      }
-    })
-
     return {
       activeGiltTranslation,
       proportionPercent,
       targetPercent,
       activeIndex,
-      intakeTime,
       intakePeriod,
       progressIntake,
     }

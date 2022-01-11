@@ -1,6 +1,8 @@
 <template>
   <div class="democracy-overview-tab">
-    <democracy-summary />
+    <democracy-summary
+      :referendum-count="referendums?.length"
+    />
 
     <div class="democracy-overview-tab__topbar">
       <app-button
@@ -15,7 +17,10 @@
       />
     </div>
 
-    <referendums-list class="democracy-overview-tab__list"/>
+    <referendums-list
+      class="democracy-overview-tab__list"
+      :referendums="referendums"
+    />
     <proposals-list class="democracy-overview-tab__list"/>
     <external-list class="democracy-overview-tab__list"/>
   </div>
@@ -27,6 +32,8 @@ import ReferendumsList from '@democracy-page/tabs/democracy-overview/Referendums
 import ProposalsList from '@democracy-page/tabs/democracy-overview/ProposalsList'
 import ExternalList from '@democracy-page/tabs/democracy-overview/ExternalList'
 
+import { useCall } from '@/vue/composables'
+import { api } from '@api'
 export default {
   name: 'democracy-overview-tab',
 
@@ -35,6 +42,12 @@ export default {
     ReferendumsList,
     ProposalsList,
     ExternalList,
+  },
+
+  setup () {
+    const referendums = useCall(api.derive.democracy.referendums)
+
+    return { referendums }
   },
 }
 </script>

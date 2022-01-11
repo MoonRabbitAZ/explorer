@@ -3,69 +3,80 @@
     <div class="treasury-summary__content">
       <info-block
         :title="$t('treasury-page.treasury-summary.proposals-header')"
-        value="0"
+        :value="$fnumber(proposalCount)"
       />
 
       <info-block
         :title="$t('treasury-page.treasury-summary.total-header')"
-        value="0"
+        :value="$fnumber(totalProposals)"
       />
 
       <info-block
         :title="$t('treasury-page.treasury-summary.approved-header')"
-        value="0"
+        :value="$fnumber(approvalCount)"
       />
 
       <info-block
         class="treasury-summary__available"
         :title="$t('treasury-page.treasury-summary.available-header')"
-        :value="$fbalance(HURDCODE_AVAILABLE_UNIT)"
+        :value="$fbalance(freeBalance)"
+        :tooltip="$fFullBalance(freeBalance)"
       />
 
       <info-block
         class="treasury-summary__next-burn"
         :title="$t('treasury-page.treasury-summary.next-burn-header')"
-        :value="$fbalance(HURDCODE_NEXT_BURN_UNIT)"
+        :value="$fbalance(burn)"
+        :tooltip="$fFullBalance(burn)"
       />
 
-      <info-block
-        class="treasury-summary__launch-period"
-        :title="$t('treasury-page.treasury-summary.spend-period-header')"
-        value="6d"
-        secondary-value="5d 18h"
-      >
-        <template #additional>
-          <progress-bar
-            :current="HURDCODE_CURRENT_PROGRESS"
-            :total="HURDCODE_TOTAL_PROGRESS"
-          />
-        </template>
-      </info-block>
+      <template v-if="currentPeriod">
+        <progress-info-block
+          class="treasury-summary__launch-period"
+          :title="$t('treasury-page.treasury-summary.spend-period-header')"
+          :current="currentPeriod"
+          :total="spendPeriod"
+        />
+      </template>
     </div>
   </div>
 </template>
 
 <script>
 import InfoBlock from '@/vue/common/InfoBlock'
-import ProgressBar from '@/vue/common/ProgressBar'
-import { BN } from '@polkadot/util'
+import ProgressInfoBlock from '@/vue/common/ProgressInfoBlock'
 
-const HURDCODE_CURRENT_PROGRESS = new BN(3)
-const HURDCODE_TOTAL_PROGRESS = new BN(100)
-const HURDCODE_AVAILABLE_UNIT = '429413700000000000000'
-const HURDCODE_NEXT_BURN_UNIT = '858827000000000000'
+import { computed } from 'vue'
+import { useCall, useTreasury } from '@/vue/composables'
+import { api } from '@api'
 
 export default {
   name: 'treasury-summary',
 
-  components: { InfoBlock, ProgressBar },
+  components: { InfoBlock, ProgressInfoBlock },
+
+  props: {
+    approvalCount: { type: Number, default: null },
+    proposalCount: { type: Number, default: null },
+  },
 
   setup () {
+    const { burn, spendPeriod, freeBalance } = useTreasury()
+    const totalProposals = useCall(api.query.treasury.proposalCount)
+    const bestNumber = useCall(api.derive.chain.bestNumber)
+
+    const currentPeriod = computed(() => {
+      if (!bestNumber.value || !spendPeriod.value?.gtn(0)) return null
+      return bestNumber.value.mod(spendPeriod.value)
+    })
+
     return {
-      HURDCODE_CURRENT_PROGRESS,
-      HURDCODE_TOTAL_PROGRESS,
-      HURDCODE_AVAILABLE_UNIT,
-      HURDCODE_NEXT_BURN_UNIT,
+      totalProposals,
+      burn,
+      spendPeriod,
+      freeBalance,
+      currentPeriod,
+      bestNumber,
     }
   },
 }

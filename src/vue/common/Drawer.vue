@@ -153,7 +153,7 @@ $media-small: 460px;
 }
 
 .drawer-transition-enter-active {
-  animation-duration: 0.2s;
+  animation-duration: 0.13s;
 
   /*
     Disabled because with this nesting we can shiny see where this animation

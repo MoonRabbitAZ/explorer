@@ -52,7 +52,7 @@ export default {
     winnersWithLoans: { type: Array, required: true },
     auctionInfo: { type: AuctionInfoRecord, required: true },
     isLatest: { type: Boolean, required: true },
-    blockNumber: { type: BN, required: true },
+    blockNumber: { type: BN, default: null },
   },
 
   setup (props) {

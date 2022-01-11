@@ -5,6 +5,7 @@
         class="auctions-tab__summary"
         :auction-info="auctionInfo"
         :last-winners-total-balance="winningData?.[0]?.total"
+        :is-have-winners="Boolean(winningData?.length)"
       />
 
       <app-button

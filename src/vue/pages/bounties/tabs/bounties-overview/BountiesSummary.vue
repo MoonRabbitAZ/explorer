@@ -3,55 +3,79 @@
     <div class="bounties-summary__content">
       <info-block
         :title="$t('bounties-page.bounties-summary.active-header')"
-        value="0"
+        :value="bounties?.length"
       />
 
       <info-block
         :title="$t('bounties-page.bounties-summary.past-header')"
-        :value="'0'"
+        :value="pastBounties"
       />
 
       <info-block
-        v-tooltip="$fFullBalance('0')"
         class="bounties-summary__active-total"
         :title="$t('bounties-page.bounties-summary.active-total-header')"
-        :value="$fbalance('0')"
+        :value="$fbalance(totalValue)"
+        :tooltip="$fFullBalance(totalValue)"
       />
 
-      <info-block
+      <progress-info-block
+        v-if="spendPeriod?.gtn(0)"
         class="bounties-summary__funding-period"
         :title="$t('bounties-page.bounties-summary.funding-period-header')"
-        value="6days"
-        secondary-value="5days 17hrs"
-      >
-        <template #additional>
-          <progress-bar
-            :current="HURDCODE_CURRENT_PROGRESS"
-            :total="HURDCODE_TOTAL_PROGRESS"
-          />
-        </template>
-      </info-block>
+        :current="currentPeriod"
+        :total="spendPeriod"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import InfoBlock from '@/vue/common/InfoBlock'
-import ProgressBar from '@/vue/common/ProgressBar'
-import { BN } from '@polkadot/util'
+import ProgressInfoBlock from '@/vue/common/ProgressInfoBlock'
 
-const HURDCODE_CURRENT_PROGRESS = new BN(4)
-const HURDCODE_TOTAL_PROGRESS = new BN(100)
+import { computed } from 'vue'
+import { useCall, useTreasury } from '@/vue/composables'
+import { api } from '@api'
+import { BN } from '@polkadot/util'
 
 export default {
   name: 'bounties-summary',
 
-  components: { InfoBlock, ProgressBar },
+  components: { InfoBlock, ProgressInfoBlock },
 
-  setup () {
+  props: {
+    bounties: { type: Array, default: null },
+  },
+
+  setup (props) {
+    const { spendPeriod } = useTreasury()
+    const bestNumber = useCall(api.derive.chain.bestNumber)
+    const bountyIndex =
+      useCall((api.query.bounties || api.query.treasury).bountyCount)
+
+    const pastBounties = computed(() => {
+      if (!props.bounties) return
+      return bountyIndex.value?.subn(props.bounties.length).toString()
+    })
+
+    const totalValue = computed(() =>
+      props.bounties?.reduce((total, { bounty: { value } }) =>
+        total.iadd(value),
+      new BN(0),
+      ),
+    )
+
+    const currentPeriod = computed(() => {
+      if (!bestNumber.value || !spendPeriod.value?.gtn(0)) return null
+      return bestNumber.value.mod(spendPeriod.value)
+    })
+
     return {
-      HURDCODE_CURRENT_PROGRESS,
-      HURDCODE_TOTAL_PROGRESS,
+      bestNumber,
+      pastBounties,
+      totalValue,
+      spendPeriod,
+      currentPeriod,
     }
   },
 }

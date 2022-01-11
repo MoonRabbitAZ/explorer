@@ -673,15 +673,47 @@
     },
     "external-list": {
       "external-header": "External",
+      "proposer-header": "Proposer",
+      "locked-header": "Locked",
       "no-data-message": "No external proposal"
     },
     "proposals-list": {
       "proposals-header": "Civic initiatives",
-      "no-data-message": "No active civic initiatives"
+      "proposer-header": "Proposer",
+      "locked-header": "Locked",
+      "seconds-header": "Seconds",
+      "no-data-message": "No active civic initiatives",
+      "drawer-proposal-header": "Proposal ({ index })"
+    },
+    "proposal-row": {
+      "seconding-btn": "Seconding"
+    },
+    "proposal-seconds": {
+      "seconds-header": "Seconds ({ count })",
+      "second-btn": "Second"
     },
     "referendums-list": {
-      "referendums-header": "Referendums",
-      "no-data-message": "No active referendums"
+      "referenda-header": "Referenda",
+      "remaining-header": "Remaining",
+      "activate-header": "Activate",
+      "no-data-message": "No active referendums",
+      "drawer-referendum-header": "Referendum ({ index })"
+    },
+    "referendum-row": {
+      "passing-badge-tooltip": "{ threshold }, passing",
+      "not-passing-badge-tooltip": "{ threshold }, not passing",
+      "blocks-value": "{ count } blocks",
+      "votes-btn": "Votes"
+    },
+    "referendum-votes": {
+      "aye-header": "Aye ({ percent })",
+      "nay-header": "Nay ({ percent })",
+      "turnout-header": "Turnout"
+    },
+    "referendum-votes-expander": {
+      "nays-header":"Nay votes ({ count })",
+      "ayes-header":"Aye votes ({ count })",
+      "no-data-message": "No votes available"
     },
     "dispatch-queue-list": {
       "dispatch-queue-header": "Dispatch queue",
@@ -742,11 +774,17 @@
       "voting-end-header": "Voting end",
       "no-data-message": "No council motions",
       "votes-header": "Votes"
-    }, 
+    },
+    "motion-row": {
+      "vote-btn": "Vote"
+    },
     "motions-votes": {
       "ayes-header": "Aye ({ count })",
       "nays-header": "Nay ({ count })",
       "no-data-message":"No votes available"
+    },
+    "proposal-cell": {
+      "preimage": "preimage { hash }"
     },
     "external-cell": {
       "hash": "Hash"
@@ -766,11 +804,12 @@
     },
     "proposals-list": {
       "proposals-header": "Civic initiatives",
-      "no-data-message": "No pending civic initiatives"
-    },
-    "approved-list": {
       "approved-header": "Approved",
-      "no-data-message": "No approved civic initiatives"
+      "beneficiary-header": "Beneficiary",
+      "payment-header": "Payment",
+      "bond-header": "Bond",
+      "no-data-message-proposal": "No pending civic initiatives",
+      "no-data-message-approved": "No approved civic initiatives"
     },
     "tips-tab": {
       "propose-tip-btn": "Propose tip",
@@ -778,7 +817,15 @@
     },
     "tips-list": {
       "tips-header": "Tips",
+      "finder-header": "Finder",
+      "median-header": "Median",
+      "tippers-drawer-header": "Tippers",
       "no-data-message": "No open tips"
+    },
+    "tippers-info": {
+      "median-header": "Median",
+      "reason-header": "Reason",
+      "tippers-expander-header": "Tippers ({ count })"
     }
   },
   "bounties-page": {
@@ -792,8 +839,33 @@
       "funding-period-header": "Funding period"
     },
     "bounties-list": {
+      "proposer-header": "Proposer",
+      "status-header": "Status",
+      "value-header": "Value",
+      "next-action-header":"Next action",
       "bounties-header": "Bounties",
       "no-data-message": "No open bounties"
+    },
+    "use-bounty": {
+      "next-action-payout": "{ time } (payout)",
+      "next-action-update": "{ time } (update)"
+    },
+    "bounty-info": {
+      "proposer-header": "Proposer",
+      "curator-header": "Curator",
+      "index-header": "Index",
+      "status-header": "Status",
+      "value-header": "Value",
+      "bond-header": "Bond",
+      "curator-fee-header": "Curator's fee",
+      "curator-deposit-header": "Curator's deposit",
+      "next-action-header": "Next action",
+      "description-header": "Description",
+      "votes-header": "Votes",
+      "aye-value": "Aye: { count }",
+      "nay-value": "Nay: { count }",
+      "ayes-expander-header": "Ayes ({ count })",
+      "nays-expander-header": "Nays ({ count })"
     }
   },
   "tech-comm-page": {

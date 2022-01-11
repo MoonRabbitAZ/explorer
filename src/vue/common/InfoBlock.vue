@@ -6,6 +6,7 @@
         :header="title"
         :value="value"
         :header-level="5"
+        :tooltip="tooltip"
         is-medium-indent
       />
       <p
@@ -41,6 +42,7 @@ export default {
     title: { type: String, required: true },
     value: { type: [String, Number], default: null },
     secondaryValue: { type: [String, Number], default: '' },
+    tooltip: { type: String, default: '' },
   },
 
   setup (props, { slots }) {
