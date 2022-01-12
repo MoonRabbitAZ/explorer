@@ -122,5 +122,12 @@ module.exports = {
       .test(/^((?!\/node_modules).)*(\.png|\.jpg|\.jpeg)$/)
       .use('url-loader')
       .loader('url-loader')
+
+    config.module
+      .rule('graphql')
+      .test(/\.(graphql|gql)$/)
+      .use('graphql-tag/loader')
+      .loader('graphql-tag/loader')
+      .end()
   },
 }
