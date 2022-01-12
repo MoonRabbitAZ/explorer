@@ -260,6 +260,19 @@ const routes = [
           },
         ],
       },
+      {
+        path: '/evm-explorer',
+        name: vueRoutes.evmExplorerPage.name,
+        component: () => import(/* webpackChunkName: "evm-explorer" */ '@evm-explorer-page/EvmExplorer'),
+        redirect: vueRoutes.evmExplorerOverviewTab,
+        children: [
+          {
+            path: '/evm-explorer/overview',
+            name: vueRoutes.evmExplorerOverviewTab.name,
+            component: () => import(/* webpackChunkName: "evm-explorer" */ '@evm-explorer-page/tabs/EvmExplorerOverviewTab'),
+          },
+        ],
+      },
     ],
   },
 ]

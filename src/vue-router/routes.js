@@ -70,4 +70,8 @@ export const vueRoutes = Object.freeze({
   bridgeTokensTab: { name: 'bridge.bridge-tokens-tab' },
   bridgeNFTTab: { name: 'bridge.bridge-nft-tab' },
   unfinishedFlowsTab: { name: 'bridge.unfinished-flows-tab' },
+
+  // evm exp page
+  evmExplorerPage: { name: 'evm-explorer' },
+  evmExplorerOverviewTab: { name: 'evm-explorer.evm-explorer-overview-tab' },
 })

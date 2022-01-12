@@ -113,6 +113,12 @@
         "bounties": "Quests",
         "tech-comm": "Tech. Comm."
       }
+    },
+    "evm-explorer": {
+      "name": "EVM explorer",
+      "routers": {
+        "evm-explorer": "EVM explorer"
+      }
     }
   },
   "page-tabs": {
@@ -167,6 +173,9 @@
       "tokens": "Tokens",
       "nft": "NFT",
       "unfinished-flows": "Unfinished flows"
+    },
+    "evm-explorer": {
+      "overview": "Overview"
     }
   },
   "navigation": {
