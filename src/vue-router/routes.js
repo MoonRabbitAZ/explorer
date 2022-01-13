@@ -74,4 +74,6 @@ export const vueRoutes = Object.freeze({
   // evm exp page
   evmExplorerPage: { name: 'evm-explorer' },
   evmExplorerOverviewTab: { name: 'evm-explorer.evm-explorer-overview-tab' },
+  evmExplorerOverview: { name: 'evm-explorer.evm-explorer-overview' },
+  evmExplorerBlock: { name: 'evm-explorer.evm-explorer-block' },
 })

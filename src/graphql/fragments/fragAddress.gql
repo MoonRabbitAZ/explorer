@@ -1,0 +1,6 @@
+fragment fragAddress on Address {
+  contractCode
+  fetchedCoinBalance
+  fetchedCoinBalance
+  hash
+}

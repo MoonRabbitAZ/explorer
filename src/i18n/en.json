@@ -979,5 +979,36 @@
       "deposit-btn": "Deposit",
       "withdraw-btn": "Withdraw"
     }
+  },
+  "evm-explorer-page": {
+    "evm-explorer-overview-tab": {
+      "search-field-placeholder": "Search by hash or block number"
+    },
+    "evm-explorer-block": {
+      "block-height-header": "Block Height",
+      "timestamp-header": "Timestamp",
+      "transactions-header": "Transactions",
+      "validator-header": "Validator",
+      "size-header": "Size",
+      "hash-header": "Hash",
+      "parent-hash-header": "Parent Hash",
+      "difficulty-header": "Difficulty",
+      "total-difficulty-header": "Total Difficulty",
+      "gas-used-header": "Gas Used",
+      "gas-limit-header": "Gas Limit",
+      "nonce-header": "Nonce",
+      "size-bytes-value": "{ size } bytes",
+      "block-height-info": "The block height of a particular block is defined as the number of blocks preceding it in the blockchain.",
+      "timestamp-info": "Date & time at which block was produced.",
+      "validator-info": "A block producer who successfully included the block onto the blockchain.",
+      "size-info": "Size of the block in bytes.",
+      "hash-info": "The SHA256 hash of the block.",
+      "parent-hash-info": "The hash of the block from which this block was generated.",
+      "difficulty-info": "Block difficulty for miner, used to calibrate block generation time (Note: constant in POA based networks).",
+      "total-difficulty-info": "Total difficulty of the chain until this block.",
+      "gas-used-info": "The total gas amount used in the block and its percentage of gas filled in the block.",
+      "gas-limit-info": "Total gas limit provided by all transactions in the block.",
+      "nonce-info": "64-bit hash of value verifying proof-of-work (note: null for POA chains)."
+    }
   }
 }

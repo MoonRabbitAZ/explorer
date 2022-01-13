@@ -1,0 +1,6 @@
+#import "../fragments/fragAddress.gql"
+query getAddress($hash: AddressHash!) {
+  address(hash: $hash) {
+    ...fragAddress
+  },
+}

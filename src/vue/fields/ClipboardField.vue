@@ -5,12 +5,23 @@
     </label>
 
     <div class="clipboard-field__body">
-      <p
-        class="clipboard-field__value"
-        :id="`clipboard-target-${uid}`"
-      >
-        {{ value }}
-      </p>
+      <template v-if="routeTo">
+        <router-link
+          class="clipboard-field__value"
+          :id="`clipboard-target-${uid}`"
+          :to="routeTo"
+        >
+          {{ value }}
+        </router-link>
+      </template>
+      <template v-else>
+        <p
+          class="clipboard-field__value"
+          :id="`clipboard-target-${uid}`"
+        >
+          {{ value }}
+        </p>
+      </template>
 
       <button
         ref="clipboardBtn"
@@ -45,6 +56,7 @@ export default {
   props: {
     value: { type: String, default: '' },
     label: { type: String, default: '' },
+    routeTo: { type: Object, default: null },
   },
 
   setup () {
