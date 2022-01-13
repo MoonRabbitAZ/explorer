@@ -172,11 +172,13 @@ export default {
   },
 
   props: {
+    /** @type {import('@polkadot/types/interfaces').Bounty}  */
     bounty: { type: Object, required: true },
+    /** @type {import('@polkadot/api-derive/types').DeriveCollectiveProposal[]}  */
+    proposals: { type: Array, required: true },
     index: { type: BN, required: true },
     description: { type: String, required: true },
     bestNumber: { type: BN, default: null },
-    proposals: { type: Array, required: true },
   },
 
   setup (props) {
