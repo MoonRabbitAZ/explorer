@@ -77,4 +77,5 @@ export const vueRoutes = Object.freeze({
   evmExplorerOverview: { name: 'evm-explorer.evm-explorer-overview' },
   evmExplorerBlock: { name: 'evm-explorer.evm-explorer-block' },
   evmExplorerAddress: { name: 'evm-explorer.evm-explorer-address' },
+  evmExplorerTransaction: { name: 'evm-explorer.evm-explorer-transaction' },
 })

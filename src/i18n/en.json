@@ -1013,6 +1013,10 @@
     "evm-explorer-address": {
       "balance-header": "Balance",
       "balance-info": "Address balance in xDAI (doesn't include ERC20, ERC721, ERC1155 tokens)."
+    },
+    "evm-explorer-transaction": {
+      "transaction-hash-header": "Transaction Hash",
+      "transaction-hash-info": "Unique character string (TxID) assigned to every verified transaction."
     }
   }
 }

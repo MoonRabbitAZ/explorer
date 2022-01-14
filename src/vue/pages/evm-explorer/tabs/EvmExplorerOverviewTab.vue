@@ -64,7 +64,12 @@ export default {
             },
           })
         } else if (isHex(searchValue, 256)) {
-          //
+          router.push({
+            ...vueRoutes.evmExplorerTransaction,
+            params: {
+              hash: formController.form.search.value,
+            },
+          })
         } else {
           router.push({
             ...vueRoutes.evmExplorerBlock,

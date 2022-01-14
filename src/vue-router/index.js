@@ -289,6 +289,12 @@ const routes = [
                 component: () => import(/* webpackChunkName: "evm-explorer" */ '@evm-explorer-page/tabs/evm-explorer-overview/EvmExplorerAddress'),
                 props: true,
               },
+              {
+                path: '/evm-explorer/transaction/:hash',
+                name: vueRoutes.evmExplorerTransaction.name,
+                component: () => import(/* webpackChunkName: "evm-explorer" */ '@evm-explorer-page/tabs/evm-explorer-overview/EvmExplorerTransaction'),
+                props: true,
+              },
             ],
           },
         ],
