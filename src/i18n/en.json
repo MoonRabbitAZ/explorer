@@ -1009,6 +1009,10 @@
       "gas-used-info": "The total gas amount used in the block and its percentage of gas filled in the block.",
       "gas-limit-info": "Total gas limit provided by all transactions in the block.",
       "nonce-info": "64-bit hash of value verifying proof-of-work (note: null for POA chains)."
+    },
+    "evm-explorer-address": {
+      "balance-header": "Balance",
+      "balance-info": "Address balance in xDAI (doesn't include ERC20, ERC721, ERC1155 tokens)."
     }
   }
 }

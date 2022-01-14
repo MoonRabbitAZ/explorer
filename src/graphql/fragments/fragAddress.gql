@@ -1,6 +1,10 @@
+#import "./fragSmartContract.gql"
 fragment fragAddress on Address {
   contractCode
   fetchedCoinBalance
   fetchedCoinBalance
   hash
+  smartContract {
+    ...fragSmartContract
+  }
 }

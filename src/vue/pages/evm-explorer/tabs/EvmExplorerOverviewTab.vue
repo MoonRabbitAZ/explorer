@@ -9,6 +9,7 @@
         :placeholder="$t('evm-explorer-page.evm-explorer-overview-tab.search-field-placeholder')"
         :error-message="form.search.errorMessage"
         @blur="form.search.blur"
+        @keydown.enter="searchBlock"
       />
       <!-- eslint-enable max-len -->
 
@@ -56,7 +57,12 @@ export default {
       const searchValue = formController.form.search.value
       if (formController.isFormValid() && searchValue) {
         if (isHex(searchValue, 160)) {
-          //
+          router.push({
+            ...vueRoutes.evmExplorerAddress,
+            params: {
+              hash: formController.form.search.value,
+            },
+          })
         } else if (isHex(searchValue, 256)) {
           //
         } else {

@@ -1,7 +1,7 @@
 <template>
   <div class="evm-explorer-block">
     <template v-if="loading">
-      <!--  -->
+      <loader/>
     </template>
     <template v-else>
       <div class="evm-explorer-block__info">
@@ -123,6 +123,8 @@
 
 <script>
 import InfoValue from '@evm-explorer-page/tabs/evm-explorer-overview/InfoValue'
+import Loader from '@/vue/common/Loader'
+
 import { watch } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
 
@@ -131,7 +133,7 @@ import GET_BLOCK from '@/graphql/queries/getBlock.gql'
 export default {
   name: 'evm-explorer-block',
 
-  components: { InfoValue },
+  components: { InfoValue, Loader },
 
   props: {
     blockNumber: { type: String, required: true },

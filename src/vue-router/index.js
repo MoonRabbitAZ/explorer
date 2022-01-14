@@ -283,6 +283,12 @@ const routes = [
                 component: () => import(/* webpackChunkName: "evm-explorer" */ '@evm-explorer-page/tabs/evm-explorer-overview/EvmExplorerBlock'),
                 props: true,
               },
+              {
+                path: '/evm-explorer/address/:hash',
+                name: vueRoutes.evmExplorerAddress.name,
+                component: () => import(/* webpackChunkName: "evm-explorer" */ '@evm-explorer-page/tabs/evm-explorer-overview/EvmExplorerAddress'),
+                props: true,
+              },
             ],
           },
         ],
