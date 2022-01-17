@@ -1,6 +1,7 @@
 import { reactive } from 'vue'
 import { vueRoutes } from '@/vue-router'
 import { useI18n } from 'vue-i18n'
+import CONFIG from '@/config'
 
 export function useMenuLinksGroups () {
   const { t } = useI18n()
@@ -13,6 +14,10 @@ export function useMenuLinksGroups () {
         {
           translationName: t('routers-groups.accounts.routers.wallet'),
           route: vueRoutes.walletPage,
+        },
+        {
+          translationName: t('page-tabs.wallet.staking'),
+          route: vueRoutes.stakingTab,
         },
         {
           translationName: t('routers-groups.accounts.routers.bridge'),
@@ -79,6 +84,25 @@ export function useMenuLinksGroups () {
         {
           translationName: t('routers-groups.governance.routers.tech-comm'),
           route: vueRoutes.techCommPage,
+        },
+      ],
+    },
+
+    links: {
+      name: 'links',
+      groupTranslationName: t('routers-groups.links.name'),
+      links: [
+        {
+          translationName: t('routers-groups.links.routers.smart-contracts-explorer'),
+          link: CONFIG.EVM_EXPLORER_LINK,
+        },
+        {
+          translationName: t('routers-groups.links.routers.tutorials'),
+          link: CONFIG.LIBRARY_APP_LINK,
+        },
+        {
+          translationName: t('routers-groups.links.routers.nft'),
+          link: CONFIG.NFT_MARKETPLACE_LINK,
         },
       ],
     },

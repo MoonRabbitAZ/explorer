@@ -95,7 +95,7 @@
       "name": "Accounts",
       "routers": {
         "wallet": "Wallet",
-        "bridge": "Bridge"
+        "bridge": "Metabridge"
       }
     },
     "settings": {
@@ -112,6 +112,14 @@
         "treasury": "Treasury",
         "bounties": "Quests",
         "tech-comm": "Tech. Comm."
+      }
+    },
+    "links": {
+      "name": "Links",
+      "routers": {
+        "smart-contracts-explorer": "Smart Contracts Explorer",
+        "tutorials": "Tutorials",
+        "nft": "NFT"
       }
     }
   },
@@ -171,7 +179,7 @@
   },
   "navigation": {
     "app-footer": {
-      "all-rights": "Moon Rabbit AngoZaibatsu LLC © 2021. All Rights Reserved. This is not an investment solicitation or offering. USofA citizens, residents and legal entities are fully excluded. Versetti&Co Family Organisation"
+      "all-rights": "Moon Rabbit AngoZaibatsu LLC © 2022. All Rights Reserved. This is not an investment solicitation or offering. USofA citizens, residents and legal entities are fully excluded. Versetti&Co Family Organisation"
     }
   },
   "blockchain-events" :{
