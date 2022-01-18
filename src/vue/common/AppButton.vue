@@ -44,6 +44,7 @@ const SIZE = {
   big: 'big',
   medium: 'medium',
   small: 'small',
+  xSmall: 'x-small',
 }
 
 export default {
@@ -166,6 +167,19 @@ export default {
       font-size: 1.33rem;
       width: 1.33rem;
       height: 1.33rem;
+    }
+  }
+
+  &--x-small {
+    height: 2.4rem;
+    min-width: 2.4rem;
+    font-size: 1.6rem;
+    padding: 0 0.53rem;
+
+    .app-button__icon {
+      font-size: 1.2rem;
+      width: 1.2rem;
+      height: 1.2rem;
     }
   }
 

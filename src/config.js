@@ -50,7 +50,7 @@ export default Object.assign(
      *  EVM token decimals
      */
 
-    EVM_TOKEN_DECIMAL: '18',
+    EVM_TOKEN_DECIMAL: 18,
 
     /**
      * Default page limit for requests

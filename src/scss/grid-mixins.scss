@@ -95,9 +95,15 @@
 }
 
 // for bounty page
-
 @mixin bounty-grid-row ($alignItems, $paddingVertical: 0) {
   grid-template-columns: 12rem minmax(15rem, 1fr) 10rem 10rem 15rem 4.4rem;
+
+  @include default-grid-row($alignItems, $paddingVertical);
+}
+
+// for evm explorer page
+@mixin evm-transaction-grid-row ($alignItems, $paddingVertical: 0) {
+  grid-template-columns: minmax(20rem, 1fr) repeat(2, minmax(15rem, 1fr)) 10rem 10rem 12rem 4.4rem 13.5rem;
 
   @include default-grid-row($alignItems, $paddingVertical);
 }

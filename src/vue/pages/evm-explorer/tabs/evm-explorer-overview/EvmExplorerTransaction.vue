@@ -1,6 +1,5 @@
 <template>
   <div class="evm-explorer-transaction">
-    {{ percentGasUsed }}
     <template v-if="loading">
       <loader/>
     </template>

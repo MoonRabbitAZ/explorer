@@ -1011,8 +1011,23 @@
       "nonce-info": "64-bit hash of value verifying proof-of-work (note: null for POA chains)."
     },
     "evm-explorer-address": {
+      "address-details-header": "Address Details",
       "balance-header": "Balance",
-      "balance-info": "Address balance in xDAI (doesn't include ERC20, ERC721, ERC1155 tokens)."
+      "balance-info": "Address balance in xDAI (doesn't include ERC20, ERC721, ERC1155 tokens).",
+      "no-data-message-transactions": "There are no transactions for this address."
+    },
+    "evm-transaction-list": {
+      "transactions-header": "Transactions",
+      "from-header": "From",
+      "to-header": "To",
+      "amount-header": "Amount",
+      "result-header": "Result",
+      "time-header": "Time",
+      "block-header": "Block"
+    },
+    "transaction-direction": {
+      "status-to": "To",
+      "status-out": "Out"
     },
     "evm-explorer-transaction": {
       "transaction-hash-header": "Transaction Hash",
