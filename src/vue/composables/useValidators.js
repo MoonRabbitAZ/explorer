@@ -123,7 +123,7 @@ export function useValidators () {
   }
 
   const evmSearch = val => {
-    return /^[0-9]+$/i.test(val) || isHex(val, 160) || isHex(val, 256)
+    return !val || /^[0-9]+$/i.test(val) || isHex(val, 160) || isHex(val, 256)
       ? ''
       : t('validation.field-error_blockIdent')
   }

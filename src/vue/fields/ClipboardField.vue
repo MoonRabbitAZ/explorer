@@ -4,7 +4,10 @@
       {{ label }}
     </label>
 
-    <div class="clipboard-field__body">
+    <div
+      class="clipboard-field__body"
+      :class="{'clipboard-field__body--full': isFullValue}"
+    >
       <template v-if="routeTo">
         <router-link
           class="clipboard-field__value"
@@ -57,6 +60,7 @@ export default {
     value: { type: String, default: '' },
     label: { type: String, default: '' },
     routeTo: { type: Object, default: null },
+    isFullValue: { type: Boolean, default: false },
   },
 
   setup () {
@@ -114,6 +118,14 @@ export default {
 .clipboard-field__body {
   display: flex;
   align-items: center;
+
+  &--full {
+    .clipboard-field__value {
+      overflow: visible;
+      text-overflow: none;
+      word-break: break-all;
+    }
+  }
 }
 
 .clipboard-field__button {

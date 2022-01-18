@@ -1016,7 +1016,35 @@
     },
     "evm-explorer-transaction": {
       "transaction-hash-header": "Transaction Hash",
-      "transaction-hash-info": "Unique character string (TxID) assigned to every verified transaction."
+      "result-header": "Result",
+      "value-header": "Value",
+      "total-fee-header": "Total fee",
+      "gas-price-header": "Gas price",
+      "gas-limit-header": "Gas Limit",
+      "gas-limit-info": "Maximum gas amount approved for the transaction.",
+      "gas-used-by-transaction-header": "Gas Used by Transaction",
+      "gas-used-by-transaction-info": "Actual gas amount used by the transaction.",
+      "nonce-header": "Nonce",
+      "raw-input-header": "Raw input",
+      "block-header": "Block",
+      "timestamp-header": "Timestamp",
+      "from-address-header": "From",
+      "to-address-header": "Interacted With (To)",
+      "from-address-info": "Address (external or contract) sending the transaction.",
+      "to-address-info": "Address (external or contract) receiving the transaction.",
+      "timestamp-info": "Date & time of transaction inclusion, including length of time for confirmation.",
+      "block-info": "Block number containing the transaction.",
+      "raw-input-info": "Binary data included with the transaction. See input / logs below for additional info.",
+      "nonce-info": "Transaction number from the sending address. Each transaction sent from an address increments the nonce by 1.",
+      "gas-price-info": "Price per unit of gas specified by the sender. Higher gas prices can prioritize transaction inclusion during times of high usage.",
+      "value-info": "Value sent in the native token if applicable.",
+      "total-fee-info": "Total transaction fee.",
+      "transaction-hash-info": "Unique character string (TxID) assigned to every verified transaction.",
+      "result-info": "Current transaction state: Success, Failed (Error), or Pending (In Process)"
+    },
+    "transaction-status": {
+      "status-error": "Error",
+      "status-success": "Success"
     }
   }
 }

@@ -3,6 +3,11 @@
     <template v-if="loading">
       <loader/>
     </template>
+    <template v-else-if="error">
+      <error-message
+        :message="error.message"
+      />
+    </template>
     <template v-else>
       <div class="evm-explorer-block__info">
         <info-value
@@ -31,7 +36,12 @@
           class="evm-explorer-block__info-row"
           :header="$t('evm-explorer-page.evm-explorer-block.validator-header')"
           :value="result.block.minerHash"
-          :route-to="$routes.app"
+          :route-to="{
+            ...$routes.evmExplorerAddress,
+            params: {
+              hash: result.block.minerHash,
+            },
+          }"
           :info-tooltip="
             $t('evm-explorer-page.evm-explorer-block.validator-info')
           "
@@ -124,6 +134,7 @@
 <script>
 import InfoValue from '@evm-explorer-page/tabs/evm-explorer-overview/InfoValue'
 import Loader from '@/vue/common/Loader'
+import ErrorMessage from '@/vue/common/ErrorMessage'
 
 import { watch } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
@@ -133,14 +144,14 @@ import GET_BLOCK from '@/graphql/queries/getBlock.gql'
 export default {
   name: 'evm-explorer-block',
 
-  components: { InfoValue, Loader },
+  components: { InfoValue, Loader, ErrorMessage },
 
   props: {
     blockNumber: { type: String, required: true },
   },
 
   setup (props) {
-    const { result, variables, loading } =
+    const { result, variables, loading, error } =
       useQuery(GET_BLOCK, { number: +props.blockNumber })
 
     function selectBlockNumber () {
@@ -154,6 +165,8 @@ export default {
     return {
       result,
       loading,
+      error,
+      console,
     }
   },
 }

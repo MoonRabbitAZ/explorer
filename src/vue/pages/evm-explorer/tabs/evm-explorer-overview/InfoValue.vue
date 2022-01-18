@@ -14,6 +14,7 @@
       class="info-value__value-clipboard"
       :route-to="routeTo"
       :value="value"
+      is-full-value
     />
     <router-link
       v-else-if="routeTo"
@@ -23,11 +24,14 @@
       {{ value }}
     </router-link>
     <p
-      v-else
+      v-else-if="value"
       class="info-value__value"
     >
       {{ value }}
     </p>
+    <div v-else>
+      <slot/>
+    </div>
   </div>
 </template>
 
@@ -44,7 +48,7 @@ export default {
   props: {
     header: { type: String, required: true },
     infoTooltip: { type: String, default: '' },
-    value: { type: [String, Number], required: true },
+    value: { type: [String, Number], default: null },
     withClipboard: { type: Boolean, default: false },
     routeTo: { type: Object, default: null },
   },

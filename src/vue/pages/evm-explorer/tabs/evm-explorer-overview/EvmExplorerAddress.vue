@@ -3,6 +3,11 @@
     <template v-if="loading">
       <loader/>
     </template>
+    <template v-else-if="error">
+      <error-message
+        :message="error.message"
+      />
+    </template>
     <template v-else>
       <div class="evm-explorer-address__info">
         <h3 class="evm-explorer-address__hash">
@@ -28,24 +33,25 @@
 <script>
 import InfoValue from '@evm-explorer-page/tabs/evm-explorer-overview/InfoValue'
 import Loader from '@/vue/common/Loader'
-import CONFIG from '@/config'
+import ErrorMessage from '@/vue/common/ErrorMessage'
 
 import { watch } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
 
+import CONFIG from '@/config'
 import GET_ADDRESS from '@/graphql/queries/getAddress.gql'
 
 export default {
   name: 'evm-explorer-address',
 
-  components: { InfoValue, Loader },
+  components: { InfoValue, Loader, ErrorMessage },
 
   props: {
     hash: { type: String, required: true },
   },
 
   setup (props) {
-    const { result, variables, loading } =
+    const { result, variables, loading, error } =
       useQuery(GET_ADDRESS, { hash: props.hash })
 
     function selectHash () {
@@ -59,6 +65,7 @@ export default {
     return {
       result,
       loading,
+      error,
       CONFIG,
     }
   },
