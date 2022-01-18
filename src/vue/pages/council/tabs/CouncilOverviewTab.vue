@@ -136,7 +136,7 @@ export default {
   gap: 2rem 3.4rem;
   grid-template-columns: minmax(15rem, 0.3fr)  minmax(15rem, 0.7fr);
 
-  @include respond-to($sidebar-hide-bp) {
+  @include respond-to($media-small-desktop) {
     grid-template-columns: 1fr;
   }
 }
@@ -145,7 +145,7 @@ export default {
   &:first-child {
     grid-row: 1/3;
 
-    @include respond-to($sidebar-hide-bp) {
+    @include respond-to($media-small-desktop) {
       grid-row: 3/4;
     }
   }

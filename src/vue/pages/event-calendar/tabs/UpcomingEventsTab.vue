@@ -134,7 +134,7 @@ export default {
   width: 100%;
   display: flex;
 
-  @include respond-to($sidebar-hide-bp) {
+  @include respond-to($media-small-tablet) {
     flex-direction: column;
     align-items: center;
   }
@@ -143,7 +143,7 @@ export default {
 .upcoming-events-tab__selected-day {
   margin-left: 4rem;
 
-  @include respond-to($sidebar-hide-bp) {
+  @include respond-to($media-small-tablet) {
     margin-left: 0;
     margin-top: 2rem;
   }
@@ -152,7 +152,7 @@ export default {
 .upcoming-events-tab__all-events {
   margin-top: 2rem;
 
-  @include respond-to($sidebar-hide-bp) {
+  @include respond-to($media-small-tablet) {
     display: none;
   }
 }

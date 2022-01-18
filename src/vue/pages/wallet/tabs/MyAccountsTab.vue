@@ -147,7 +147,7 @@ export default {
   justify-content: space-between;
   margin-bottom: 3rem;
 
-  @include respond-to($sidebar-hide-bp) {
+  @include respond-to($media-small-tablet) {
     flex-direction: column;
   }
 }
@@ -157,7 +157,7 @@ export default {
   flex-wrap: nowrap;
   width: 37.5rem;
 
-  @include respond-to($sidebar-hide-bp) {
+  @include respond-to($media-small-tablet) {
     margin-bottom: 3rem;
   }
   @include respond-to($x-small) {

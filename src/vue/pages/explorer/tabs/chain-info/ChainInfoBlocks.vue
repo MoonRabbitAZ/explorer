@@ -89,7 +89,7 @@ export default {
   @include respond-to($x-medium) {
     grid-column: 1 / 4;
   }
-  @include respond-to($sidebar-hide-bp) {
+  @include respond-to($media-small-tablet) {
     grid-column: 1 / -1;
   }
 }
@@ -98,7 +98,7 @@ export default {
   @include respond-to($x-medium) {
     grid-column: 4 / -1;
   }
-  @include respond-to($sidebar-hide-bp) {
+  @include respond-to($media-small-tablet) {
     grid-column: 1 / -1;
   }
 }
@@ -107,7 +107,7 @@ export default {
   @include respond-to($x-medium) {
     grid-column: 1 / 3;
   }
-  @include respond-to($sidebar-hide-bp) {
+  @include respond-to($media-small-tablet) {
     grid-column: 1 / -1;
   }
 }
@@ -116,7 +116,7 @@ export default {
   @include respond-to($x-medium) {
     grid-column: 3 / 5;
   }
-  @include respond-to($sidebar-hide-bp) {
+  @include respond-to($media-small-tablet) {
     grid-column: 1 / 4;
   }
 }
@@ -125,7 +125,7 @@ export default {
   @include respond-to($x-medium) {
     grid-column: 5 / -1;
   }
-  @include respond-to($sidebar-hide-bp) {
+  @include respond-to($media-small-tablet) {
     grid-column: 4 / -1;
   }
 }

@@ -46,7 +46,7 @@ export default {
   grid-gap: 0 1.6rem;
   margin-top: 3rem;
 
-  @include respond-to($sidebar-hide-bp) {
+  @include respond-to($media-small-tablet) {
     grid-template-columns: 1fr;
     grid-gap: 2rem;
   }

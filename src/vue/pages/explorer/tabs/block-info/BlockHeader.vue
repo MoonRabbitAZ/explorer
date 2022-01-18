@@ -108,7 +108,7 @@ export default {
   padding: 2rem 1.6rem;
 
   @include content-block;
-  @include respond-to($sidebar-hide-bp) {
+  @include respond-to($media-small-tablet) {
     padding: 1.6rem;
   }
 }
@@ -120,7 +120,7 @@ export default {
   max-width: 100%;
   width: 100%;
 
-  @include respond-to($sidebar-hide-bp) {
+  @include respond-to($media-small-tablet) {
     grid-template-columns: 1fr;
   }
 }
