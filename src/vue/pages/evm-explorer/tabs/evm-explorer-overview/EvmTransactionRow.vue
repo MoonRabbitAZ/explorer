@@ -15,7 +15,7 @@
       class="evm-transaction-row__column"
       :to="{
         ...$routes.evmExplorerAddress,
-        params: { hash: transaction.fromAddressHash },
+        params: { hash: transaction?.fromAddressHash},
       }"
     >
       {{ transaction.fromAddressHash }}
@@ -24,10 +24,13 @@
       class="evm-transaction-row__column"
       :to="{
         ...$routes.evmExplorerAddress,
-        params: { hash: transaction.toAddressHash },
+        params: {
+          hash: transaction?.toAddressHash ||
+            transaction.createdContractAddressHash
+          },
       }"
     >
-      {{ transaction.toAddressHash }}
+      {{ transaction.toAddressHash || transaction.createdContractAddressHash }}
     </router-link>
     <p>
       {{ $fExternalBalance(

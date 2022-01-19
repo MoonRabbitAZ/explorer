@@ -107,3 +107,10 @@
 
   @include default-grid-row($alignItems, $paddingVertical);
 }
+
+// for evm explorer page
+@mixin evm-block-grid-row ($alignItems, $paddingVertical: 0) {
+  grid-template-columns: 13.5rem minmax(15rem, 1fr) 14rem 16rem;
+
+  @include default-grid-row($alignItems, $paddingVertical);
+}

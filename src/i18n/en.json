@@ -1014,7 +1014,9 @@
       "address-details-header": "Address Details",
       "balance-header": "Balance",
       "balance-info": "Address balance in xDAI (doesn't include ERC20, ERC721, ERC1155 tokens).",
-      "no-data-message-transactions": "There are no transactions for this address."
+      "no-data-message-transactions": "There are no transactions for this address.",
+      "qr-drawer-title": "QR Code",
+      "address-drawer-title": "Address"
     },
     "evm-transaction-list": {
       "transactions-header": "Transactions",
@@ -1060,6 +1062,14 @@
     "transaction-status": {
       "status-error": "Error",
       "status-success": "Success"
+    },
+    "evm-explorer-overview": {
+      "no-data-message-blocks": "No blocks available"
+    },
+    "evm-block-list": {
+      "last-blocks-header": "Last Blocks",
+      "transactions-header": "Transactions",
+      "time-header": "Time"
     }
   }
 }

@@ -13,9 +13,18 @@
           {{ $t('evm-explorer-page.evm-explorer-address.address-details-header') }}
         </h1>
         <div class="evm-explorer-address__info-block">
-          <h3 class="evm-explorer-address__hash">
-            {{ result.address.hash }}
-          </h3>
+          <div class="evm-explorer-address__hash-wrap">
+            <h3 class="evm-explorer-address__hash">
+              {{ result.address.hash }}
+            </h3>
+            <app-button
+              mdi-icon-name="mdi-qrcode"
+              size="small"
+              scheme="secondary"
+              @click="isQrDrawerOpen = true"
+            />
+          </div>
+
           <info-value
             class="evm-explorer-address__info-row"
             :header="$t('evm-explorer-page.evm-explorer-address.balance-header')"
@@ -35,9 +44,38 @@
         :transactions="transactions"
         :current-address="result.address.hash"
         :no-data-message="$t('evm-explorer-page.evm-explorer-address.no-data-message-transactions')"
+        @to-next-page="loadMore(true)"
+        @to-previous-page="loadMore"
       />
       <!-- eslint-enable  max-len-->
     </template>
+
+    <drawer
+      v-model:is-shown="isQrDrawerOpen"
+      is-default-body
+    >
+      <template #heading>
+        {{ $t('evm-explorer-page.evm-explorer-address.qr-drawer-title') }}
+      </template>
+      <div class="evm-explorer-address__drawer-body">
+        <qr-code-wrapper
+          class="evm-explorer-address__drawer-qr"
+          :value="result.address.hash"
+          :size="250"
+        />
+        <div class="evm-explorer-address__drawer-address">
+          <h3>
+            <!-- eslint-disable-next-line max-len -->
+            {{ $t('evm-explorer-page.evm-explorer-address.address-drawer-title') }}
+          </h3>
+          <div class="evm-explorer-address__drawer-clipboard-wrap">
+            <clipboard-field
+              :value="result.address.hash"
+            />
+          </div>
+        </div>
+      </div>
+    </drawer>
   </div>
 </template>
 
@@ -46,46 +84,92 @@ import InfoValue from '@evm-explorer-page/tabs/evm-explorer-overview/InfoValue'
 import EvmTransactionsList from '@evm-explorer-page/tabs/evm-explorer-overview/EvmTransactionsList'
 import Loader from '@/vue/common/Loader'
 import ErrorMessage from '@/vue/common/ErrorMessage'
+import Drawer from '@/vue/common/Drawer'
 
-import { reactive, computed, watch } from 'vue'
+import QrCodeWrapper from '@/vue/common/QrCodeWrapper'
+import { ClipboardField } from '@/vue/fields'
+
+import { reactive, ref, computed, watch } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
 
 import CONFIG from '@/config'
 import GET_ADDRESS from '@/graphql/queries/getAddress.gql'
+import GET_TRANSACTIONS from '@/graphql/queries/getTransactions.gql'
 
 export default {
   name: 'evm-explorer-address',
 
-  components: { InfoValue, Loader, ErrorMessage, EvmTransactionsList },
+  components: {
+    InfoValue,
+    Loader,
+    ErrorMessage,
+    EvmTransactionsList,
+    Drawer,
+    QrCodeWrapper,
+    ClipboardField,
+  },
 
   props: {
     hash: { type: String, required: true },
   },
 
   setup (props) {
+    const isQrDrawerOpen = ref(false)
     const accountVariables = reactive({
       hash: props.hash,
-      transactionFirst: 8,
+      transactionFirst: 6,
     })
 
-    const { result, loading, error } =
+    const { result, loading, error, fetchMore } =
       useQuery(GET_ADDRESS, accountVariables)
-
-    function selectHash () {
-      accountVariables.hash = props.hash
-    }
 
     const transactions = computed(() =>
       result.value?.address?.transactions?.edges,
     )
 
+    function selectHash () {
+      accountVariables.hash = props.hash
+    }
+
+    function loadMore (isNext = false) {
+      const pageInfo = result.value.address.transactions.pageInfo
+      fetchMore({
+        query: GET_TRANSACTIONS,
+        variables: {
+          hash: props.hash,
+          ...(isNext
+            ? {
+                transactionAfter: pageInfo.endCursor,
+                transactionFirst: 6,
+              }
+            : {
+                transactionBefore: pageInfo.startCursor,
+                transactionLast: 6,
+              }
+          ),
+        },
+        updateQuery: (previousResult, { fetchMoreResult }) => {
+          return {
+            address: {
+              ...previousResult.address,
+              transactions: {
+                ...fetchMoreResult?.address?.transactions,
+              },
+            },
+          }
+        },
+      })
+    }
+
     watch(() => props.hash, selectHash)
 
     return {
+      isQrDrawerOpen,
       result,
       loading,
       error,
       transactions,
+      loadMore,
       CONFIG,
     }
   },
@@ -103,7 +187,9 @@ export default {
   @include content-block;
 }
 
-.evm-explorer-address__hash {
+.evm-explorer-address__hash-wrap {
+  display: flex;
+  justify-content: space-between;
   margin-bottom: 4rem;
 }
 
@@ -117,4 +203,20 @@ export default {
   margin-bottom: 4rem;
 }
 
+.evm-explorer-address__drawer-body {
+  padding: 2rem $drawer-padding;
+}
+
+.evm-explorer-address__drawer-qr {
+  margin: 0 auto 3rem;
+}
+
+.evm-explorer-address__drawer-clipboard-wrap {
+  display: flex;
+  align-items: center;
+  background: $col-app-block-bg;
+  margin-top: 1rem;
+  padding: 1.6rem;
+  border-radius: 0.4rem;
+}
 </style>

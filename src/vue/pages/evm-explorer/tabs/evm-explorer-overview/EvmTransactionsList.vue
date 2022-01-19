@@ -42,12 +42,25 @@
         />
       </template>
     </div>
+    <pagination
+      class="evm-transaction-list__pagination"
+      @to-first-page="toFirstPage"
+      @to-next-page="toNextPage"
+      @to-previous-page="toPreviousPage"
+    />
   </div>
 </template>
 
 <script>
 import NoDataMessage from '@/vue/common/NoDataMessage'
 import EvmTransactionRow from '@evm-explorer-page/tabs/evm-explorer-overview/EvmTransactionRow'
+import Pagination from '@/vue/common/Pagination'
+
+const EVENTS = {
+  toFirstPage: 'to-first-page',
+  toNextPage: 'to-next-page',
+  toPreviousPage: 'to-previous-page',
+}
 
 export default {
   name: 'evm-transaction-list',
@@ -55,12 +68,27 @@ export default {
   components: {
     NoDataMessage,
     EvmTransactionRow,
+    Pagination,
   },
 
   props: {
     transactions: { type: Array, required: true },
     currentAddress: { type: String, default: '' },
     noDataMessage: { type: String, required: true },
+  },
+
+  emits: Object.values(EVENTS),
+
+  setup (_, { emit }) {
+    function toFirstPage () { emit(EVENTS.toFirstPage) }
+    function toNextPage () { emit(EVENTS.toNextPage) }
+    function toPreviousPage () { emit(EVENTS.toPreviousPage) }
+
+    return {
+      toFirstPage,
+      toNextPage,
+      toPreviousPage,
+    }
   },
 }
 </script>
@@ -86,5 +114,9 @@ export default {
 
     @include evm-transaction-grid-row(flex-end);
   }
+}
+
+.evm-transaction-list__pagination {
+  margin: 2rem auto 0;
 }
 </style>
