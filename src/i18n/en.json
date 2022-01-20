@@ -393,8 +393,8 @@
       "more-btn": "More"
     },
     "metamask-form": {
-      "create-msg": "To continue working with the Bridge, please create the MetaMask wallet.",
-      "connect-msg": "To continue working with the Bridge, please connect the MetaMask wallet.",
+      "create-msg": "To continue working with the Metabridge, please create the MetaMask wallet.",
+      "connect-msg": "To continue working with the Metabridge, please connect the MetaMask wallet.",
       "mobile-open-msg": "To continue, open metamask in your browser",
       "connect-btn": "Connect Wallet",
       "download-btn": "Download Now",
