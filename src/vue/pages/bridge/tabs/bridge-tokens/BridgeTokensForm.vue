@@ -8,9 +8,8 @@
           :label="$t('bridge-page.bridge-tokens-form.asset-lbl')"
           :options="tokens"
           :can-deselect="false"
-          value-prop="ticker"
-          option-label="ticker"
-          track-by="ticker"
+          track-by="id"
+          value-prop="id"
           object
           searchable
           clear-on-search
@@ -276,7 +275,7 @@ import BridgeConfirmation from '@bridge-page/tabs/bridge-tokens/BridgeConfirmati
 import ErrorMessage from '@/vue/common/ErrorMessage'
 import Loader from '@/vue/common/Loader'
 
-import { reactive, toRefs, computed, watch } from 'vue'
+import { reactive, toRefs, toRef, computed, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { apiCaller } from '@api'
 import { useForm, useValidators, useWeb3, useFormatBalance } from '@/vue/composables'
@@ -366,25 +365,18 @@ export default {
       ),
     })
 
+    const currentToken = toRef(formController.form.currentToken, 'value')
+
     const fromChain = computed(() =>
       state.isWithdraw
         ? state.baseChain
-        : props.chains.find(i =>
-          i.id === formController.form.currentToken.value.chainId),
+        : props.chains.find(i => i.id === currentToken.value.chainId),
     )
 
     const toChain = computed(() =>
       state.isWithdraw
-        ? props.chains.find(i =>
-          i.id === formController.form.currentToken.value.chainId)
+        ? props.chains.find(i => i.id === currentToken.value.chainId)
         : state.baseChain,
-    )
-
-    const currentToken = computed(() =>
-      props.tokens.find(i =>
-        i.ticker === formController.form.currentToken.value.ticker &&
-          i.chainId === formController.form.currentToken.value.chainId,
-      ),
     )
 
     const currentFormatedBalance = computed(() =>

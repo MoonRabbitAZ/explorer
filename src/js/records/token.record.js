@@ -4,6 +4,7 @@ export class TokenRecord {
   constructor (record) {
     this._record = record
 
+    this.id = record.id
     this.ticker = record.ticker
     this.chainId = record.originalChainId
     this.originalType = record?.originalType || ''

@@ -104,7 +104,7 @@ export default {
     clearOnSearch: { type: Boolean, default: false },
   },
 
-  emits: ['update:modelValue', 'blur', 'select', 'open'],
+  emits: ['update:modelValue', 'blur', 'select', 'open', 'close'],
 
   data: _ => ({ value: '' }),
 
@@ -120,7 +120,7 @@ export default {
       this.$emit('update:modelValue', value)
     },
 
-    onClose () { this.$emit('blur') },
+    onClose () { this.$emit('close') },
     onOpen () { this.$emit('open') },
   },
 }
