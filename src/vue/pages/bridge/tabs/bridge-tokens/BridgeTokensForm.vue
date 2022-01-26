@@ -159,9 +159,7 @@
             />
           </template>
           <template v-else>
-            <error-message
-              class="bridge-tokens-form__error"
-            >
+            <error-message class="bridge-tokens-form__error">
               <i18n-t
                 class="bridge-tokens-form__error-chain-msg"
                 keypath="bridge-page.bridge-tokens-form.chain-error-part-1"
@@ -218,6 +216,13 @@
                 </p>
               </template>
             </error-message>
+            <app-button
+              class="bridge-tokens-form__connect-chain-btn"
+              :text="$t('bridge-page.bridge-tokens-form.connect-chain-btn')"
+              :disabled="isConnectChainBtnDisabled"
+              scheme="primary"
+              @click="connectEthereumChain"
+            />
           </template>
         </template>
       </template>
@@ -283,6 +288,7 @@ import { ErrorHandler } from '@/js/helpers/error-handler'
 import { ERC721_ABI } from '@/js/const/erc721-abi.const'
 import { ERC20_ABI } from '@/js/const/erc20-abi.const'
 import { Erc721TokenRecord } from '@/js/records/erc721-token.record'
+import { switchOrAddEthereumChain } from '@/js/helpers/metamask-helper'
 import CONFIG from '@/config'
 import debounce from 'lodash/debounce'
 
@@ -330,6 +336,7 @@ export default {
       isLoadFailed: false,
       erc721Token: null,
       displaySelectValue: true,
+      isConnectChainBtnDisabled: false,
     })
 
     const { required, amountRange } = useValidators()
@@ -509,6 +516,23 @@ export default {
       }
     }
 
+    async function connectEthereumChain () {
+      state.isConnectChainBtnDisabled = true
+      try {
+        await switchOrAddEthereumChain({
+          hexId: fromChain.value.hexId,
+          nativeName: fromChain.value.nativeName,
+          rpcUrl: fromChain.value.rpcUrl,
+          blockExplorerUrl: fromChain.value.blockExplorerUrl,
+          nativeSymbol: fromChain.value.nativeSymbol,
+          nativeDecimals: fromChain.value.nativeDecimals,
+        })
+      } catch (e) {
+        ErrorHandler.processWithoutFeedback(e)
+      }
+      state.isConnectChainBtnDisabled = false
+    }
+
     watch(
       [currentToken, web3Account, toChain, web3ChainId],
       init,
@@ -533,6 +557,7 @@ export default {
       isDisplayForm,
       errorMessage,
       currentFullBalance,
+      connectEthereumChain,
       CONFIG,
     }
   },
@@ -633,5 +658,9 @@ export default {
 .bridge-tokens-form__mainnet-transfer-msg {
   text-align: center;
   margin-top: 2rem;
+}
+
+.bridge-tokens-form__connect-chain-btn {
+  margin: 0 auto;
 }
 </style>

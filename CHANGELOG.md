@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Treasury summary
 - `Tips list` on `Treasury tab`
 - `Bounties list` and `Bounty summary`
+- Connect Metamask chain button
 
 #### Fixed
 - Collected winning data on auction tab

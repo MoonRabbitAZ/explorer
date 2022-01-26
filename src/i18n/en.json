@@ -929,7 +929,8 @@
       "base-chain-name": "Network Name: { name }",
       "base-chain-rps-url": "New RPC URL: { url }",
       "base-chain-id": "Chain ID: { id }",
-      "base-chain-symbol": "Currency Symbol: { symbol }"
+      "base-chain-symbol": "Currency Symbol: { symbol }",
+      "connect-chain-btn": "Connect Chain"
     },
     "bridge-confirmation-transfer-step": {
       "asset-header": "Asset",
@@ -947,7 +948,8 @@
       "confirm-chain-status-msg": "The network \"{ network }\" in the MetaMask wallet was successfully switched.",
       "deposit-btn": "Deposit",
       "withdraw-btn": "Withdraw",
-      "native-token-info-msg": "Your deposit for processing. Expect transaction within 10 minutes."
+      "native-token-info-msg": "Your deposit for processing. Expect transaction within 10 minutes.",
+      "connect-chain-btn": "Connect Chain"
     },
     "unfinished-flows-tab": {
       "error-header": "Error",
