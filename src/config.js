@@ -75,6 +75,18 @@ export default Object.assign(
     LIBRARY_APP_LINK: 'https://lib.moonrabbit.com/',
 
     /**
+     *  Link to EVM explorer
+     */
+
+    EVM_EXPLORER_LINK: 'https://scan.moonrabbit.com/',
+
+    /**
+     *  Link to NFT marketplace
+     */
+
+    NFT_MARKETPLACE_LINK: 'https://www.nft.moonrabbit.com/',
+
+    /**
      *  Data to connect the network to metamask
      */
 

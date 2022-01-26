@@ -95,7 +95,7 @@
       "name": "Accounts",
       "routers": {
         "wallet": "Wallet",
-        "bridge": "Bridge"
+        "bridge": "Metabridge"
       }
     },
     "settings": {
@@ -112,6 +112,14 @@
         "treasury": "Treasury",
         "bounties": "Quests",
         "tech-comm": "Tech. Comm."
+      }
+    },
+    "links": {
+      "name": "Links",
+      "routers": {
+        "smart-contracts-explorer": "Smart Contracts Explorer",
+        "tutorials": "Tutorials",
+        "nft": "NFT"
       }
     }
   },
@@ -171,7 +179,7 @@
   },
   "navigation": {
     "app-footer": {
-      "all-rights": "Moon Rabbit AngoZaibatsu LLC © 2021. All Rights Reserved. This is not an investment solicitation or offering. USofA citizens, residents and legal entities are fully excluded. Versetti&Co Family Organisation"
+      "all-rights": "Moon Rabbit AngoZaibatsu LLC © 2022. All Rights Reserved. This is not an investment solicitation or offering. USofA citizens, residents and legal entities are fully excluded."
     }
   },
   "blockchain-events" :{
@@ -385,8 +393,8 @@
       "more-btn": "More"
     },
     "metamask-form": {
-      "create-msg": "To continue working with the Bridge, please create the MetaMask wallet.",
-      "connect-msg": "To continue working with the Bridge, please connect the MetaMask wallet.",
+      "create-msg": "To continue working with the Metabridge, please create the MetaMask wallet.",
+      "connect-msg": "To continue working with the Metabridge, please connect the MetaMask wallet.",
       "mobile-open-msg": "To continue, open metamask in your browser",
       "connect-btn": "Connect Wallet",
       "download-btn": "Download Now",

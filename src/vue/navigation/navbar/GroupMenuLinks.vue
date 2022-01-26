@@ -14,11 +14,21 @@
 
     <template v-else-if="groupRouters.links.length === 1">
       <router-link
+        v-if="groupRouters.links[0].route"
         class="group-menu-links__link"
         :to="groupRouters.links[0].route"
       >
         {{ groupRouters.links[0].translationName }}
       </router-link>
+      <a
+        v-else
+        :href="groupRouters.links[0].link"
+        target="_blank"
+        rel="noopener"
+        class="group-menu-links__link"
+      >
+        {{ groupRouters.links[0].translationName }}
+      </a>
     </template>
 
     <template v-else>
@@ -29,14 +39,27 @@
         <i class="mdi mdi-chevron-down group-menu-links__icon" />
       </div>
       <div class="group-menu-links__dropdown">
-        <router-link
+        <template
           v-for="(link, id) in groupRouters.links"
-          class="group-menu-links__dropdown-link"
-          :to="link.route"
           :key="id"
         >
-          {{ link.translationName }}
-        </router-link>
+          <router-link
+            v-if="link.route"
+            class="group-menu-links__dropdown-link"
+            :to="link.route"
+          >
+            {{ link.translationName }}
+          </router-link>
+          <a
+            v-else
+            :href="link.link"
+            target="_blank"
+            rel="noopener"
+            class="group-menu-links__dropdown-link"
+          >
+            {{ link.translationName }}
+          </a>
+        </template>
       </div>
     </template>
   </div>
@@ -59,7 +82,7 @@ export default {
 
     const isActiveRouter = computed(
       () => routers.matched.some(({ name }) =>
-        !!props.groupRouters.links.find(link => link.route.name === name)),
+        !!props.groupRouters.links.find(link => link.route?.name === name)),
     )
 
     return {

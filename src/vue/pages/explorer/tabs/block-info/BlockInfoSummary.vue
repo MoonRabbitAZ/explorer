@@ -115,7 +115,7 @@ export default {
     grid-template-areas: 'a a a b b b' 'c c d d e e';
     grid-template-columns: repeat(6, 1fr);
   }
-  @include respond-to($sidebar-hide-bp) {
+  @include respond-to($media-small-tablet) {
     grid-template-columns: repeat(2, 1fr);
     grid-template-areas: 'a b' 'c c' 'd e';
   }
