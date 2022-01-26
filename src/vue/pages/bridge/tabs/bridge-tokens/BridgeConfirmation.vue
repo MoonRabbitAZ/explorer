@@ -24,7 +24,7 @@
         <icon
           class="bridge-confirmation__chain-status-icon"
           :class="{
-            'bridge-confirmation__chain-status-icon--success': isToChainActive
+            'bridge-confirmation__chain-status-icon--success': isChainActive
           }"
           :name="chainStatusIconName"
         />
@@ -33,7 +33,7 @@
         </p>
 
         <app-button
-          v-if="!isToChainActive"
+          v-if="!isChainActive"
           class="bridge-confirmation__connect-chain-btn"
           scheme="primary"
           :text="$t('bridge-page.bridge-confirmation.connect-chain-btn')"
@@ -126,15 +126,15 @@ export default {
       isConnectChainBtnDisabled: false,
     })
 
-    const isToChainActive = computed(() =>
+    const isChainActive = computed(() =>
       +web3ChainId.value === props.toChain.id,
     )
     const chainStatusIconName = computed(() =>
-      isToChainActive.value ? 'success' : 'alert',
+      isChainActive.value ? 'success' : 'alert',
     )
 
     const chainStatusMsg = computed(() =>
-      isToChainActive.value
+      isChainActive.value
         ? t('bridge-page.bridge-confirmation.confirm-chain-status-msg', {
           network: props.toChain.name,
         })
@@ -144,7 +144,7 @@ export default {
     )
 
     const isButtonDisabled = computed(() =>
-      state.processing || !isToChainActive.value,
+      state.processing || !isChainActive.value,
     )
 
     const buttonTranslation = computed(() =>
@@ -344,7 +344,7 @@ export default {
       ...toRefs(state),
       chainStatusMsg,
       chainStatusIconName,
-      isToChainActive,
+      isChainActive,
       depositOrWithdrawFirstStep,
       depositOrWithdrawSecondStep,
       isButtonDisabled,

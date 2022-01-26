@@ -4,7 +4,7 @@
       <icon
         class="unfinished-flows-from__chain-status-icon"
         :class="{
-          'unfinished-flows-from__chain-status-icon--success': isToChainActive
+          'unfinished-flows-from__chain-status-icon--success': isChainActive
         }"
         :name="chainStatusIconName"
       />
@@ -73,15 +73,15 @@ export default {
         : props.baseChain,
     )
 
-    const isToChainActive = computed(() =>
+    const isChainActive = computed(() =>
       +web3ChainId.value === toChain.value.id,
     )
     const chainStatusIconName = computed(() =>
-      isToChainActive.value ? 'success' : 'alert',
+      isChainActive.value ? 'success' : 'alert',
     )
 
     const chainStatusMsg = computed(() =>
-      isToChainActive.value
+      isChainActive.value
         ? t('bridge-page.unfinished-flows-from.confirm-chain-status-msg', {
           network: toChain.value.name,
         })
@@ -91,7 +91,7 @@ export default {
     )
 
     const isButtonDisabled = computed(() =>
-      state.processing || !isToChainActive.value,
+      state.processing || !isChainActive.value,
     )
 
     const buttonTranslation = computed(() =>
@@ -194,7 +194,7 @@ export default {
       ...toRefs(state),
       chainStatusMsg,
       chainStatusIconName,
-      isToChainActive,
+      isChainActive,
       isButtonDisabled,
       buttonTranslation,
       depositOrWithdrawWithWeb3,
