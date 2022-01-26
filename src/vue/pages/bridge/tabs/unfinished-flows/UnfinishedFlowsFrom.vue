@@ -11,6 +11,15 @@
       <p class="unfinished-flows-from__chain-status-msg">
         {{ chainStatusMsg }}
       </p>
+
+      <app-button
+        v-if="!isChainActive"
+        class="unfinished-flows-from__connect-chain-btn"
+        scheme="primary"
+        :text="$t('bridge-page.unfinished-flows-from.connect-chain-btn')"
+        :disabled="isConnectChainBtnDisabled"
+        @click="connectEthereumChain"
+      />
     </div>
 
     <app-button
@@ -33,6 +42,7 @@ import { useWeb3 } from '@/vue/composables'
 import { bridgeEthereumApi } from '@api'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { Bus } from '@/js/helpers/event-bus'
+import { switchOrAddEthereumChain } from '@/js/helpers/metamask-helper'
 
 const EVENTS = {
   closeDrawer: 'close-drawer',
@@ -65,6 +75,7 @@ export default {
     const state = reactive({
       parameters: null,
       processing: false,
+      isConnectChainBtnDisabled: false,
     })
 
     const toChain = computed(() =>
@@ -190,6 +201,24 @@ export default {
       state.processing = false
     }
 
+    async function connectEthereumChain () {
+      state.isConnectChainBtnDisabled = true
+
+      try {
+        await switchOrAddEthereumChain({
+          hexId: toChain.value.hexId,
+          nativeName: toChain.value.nativeName,
+          rpcUrl: toChain.value.rpcUrl,
+          blockExplorerUrl: toChain.value.blockExplorerUrl,
+          nativeSymbol: toChain.value.nativeSymbol,
+          nativeDecimals: toChain.value.nativeDecimals,
+        })
+      } catch (e) {
+        ErrorHandler.processWithoutFeedback(e)
+      }
+      state.isConnectChainBtnDisabled = false
+    }
+
     return {
       ...toRefs(state),
       chainStatusMsg,
@@ -198,6 +227,7 @@ export default {
       isButtonDisabled,
       buttonTranslation,
       depositOrWithdrawWithWeb3,
+      connectEthereumChain,
     }
   },
 }
@@ -240,5 +270,9 @@ export default {
 
 .unfinished-flows-from__mint-btn {
   margin-top: auto;
+}
+
+.unfinished-flows-from__connect-chain-btn {
+  margin-top: 2rem;
 }
 </style>

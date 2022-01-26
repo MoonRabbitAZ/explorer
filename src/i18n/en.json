@@ -978,7 +978,8 @@
       "alert-chain-status-msg": "Please switch to the network \"{ network }\" in the MetaMask wallet in order to continue.",
       "confirm-chain-status-msg": "The network \"{ network }\" in the MetaMask wallet was successfully switched.",
       "deposit-btn": "Deposit",
-      "withdraw-btn": "Withdraw"
+      "withdraw-btn": "Withdraw",
+      "connect-chain-btn": "Connect Chain"
     }
   }
 }
