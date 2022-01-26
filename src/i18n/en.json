@@ -1018,7 +1018,7 @@
       "qr-drawer-title": "QR Code",
       "address-drawer-title": "Address"
     },
-    "evm-transaction-list": {
+    "evm-transactions-list": {
       "transactions-header": "Transactions",
       "from-header": "From",
       "to-header": "To",

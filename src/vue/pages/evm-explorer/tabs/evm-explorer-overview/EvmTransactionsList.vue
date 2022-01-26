@@ -1,28 +1,30 @@
 <template>
-  <div class="evm-transaction-list">
-    <div class="evm-transaction-list__body">
+  <div class="evm-transactions-list">
+    <div class="evm-transactions-list__body">
       <div
-        class="evm-transaction-list__headers"
-        :class="{'evm-transaction-list__headers--grid': transactions?.length}"
+        class="evm-transactions-list__headers"
+        :class="{'evm-transactions-list__headers--grid': transactions?.length}"
       >
         <h1>
-          {{ $t('evm-explorer-page.evm-transaction-list.transactions-header') }}
+          {{
+            $t('evm-explorer-page.evm-transactions-list.transactions-header')
+          }}
         </h1>
         <template v-if="transactions?.length">
           <h4>
-            {{ $t('evm-explorer-page.evm-transaction-list.from-header') }}
+            {{ $t('evm-explorer-page.evm-transactions-list.from-header') }}
           </h4>
           <h4>
-            {{ $t('evm-explorer-page.evm-transaction-list.to-header') }}
+            {{ $t('evm-explorer-page.evm-transactions-list.to-header') }}
           </h4>
           <h4>
-            {{ $t('evm-explorer-page.evm-transaction-list.amount-header') }}
+            {{ $t('evm-explorer-page.evm-transactions-list.amount-header') }}
           </h4>
           <h4>
-            {{ $t('evm-explorer-page.evm-transaction-list.time-header') }}
+            {{ $t('evm-explorer-page.evm-transactions-list.time-header') }}
           </h4>
           <h4>
-            {{ $t('evm-explorer-page.evm-transaction-list.block-header') }}
+            {{ $t('evm-explorer-page.evm-transactions-list.block-header') }}
           </h4>
         </template>
       </div>
@@ -36,14 +38,14 @@
       </template>
       <template v-else>
         <no-data-message
-          class="evm-transaction-list__no-data"
+          class="evm-transactions-list__no-data"
           :message="noDataMessage"
           is-row-block
         />
       </template>
     </div>
     <pagination
-      class="evm-transaction-list__pagination"
+      class="evm-transactions-list__pagination"
       @to-first-page="toFirstPage"
       @to-next-page="toNextPage"
       @to-previous-page="toPreviousPage"
@@ -63,7 +65,7 @@ const EVENTS = {
 }
 
 export default {
-  name: 'evm-transaction-list',
+  name: 'evm-transactions-list',
 
   components: {
     NoDataMessage,
@@ -97,13 +99,13 @@ export default {
 @import '~@scss/mixins';
 @import '~@scss/variables';
 
-.evm-transaction-list__body {
+.evm-transactions-list__body {
   overflow-x: auto;
 
   @include scrollbar;
 }
 
-.evm-transaction-list__headers {
+.evm-transactions-list__headers {
   margin-bottom: 2rem;
   padding: 0 1.6rem;
 
@@ -116,7 +118,7 @@ export default {
   }
 }
 
-.evm-transaction-list__pagination {
+.evm-transactions-list__pagination {
   margin: 2rem auto 0;
 }
 </style>
