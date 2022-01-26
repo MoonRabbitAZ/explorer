@@ -328,7 +328,8 @@ export default {
       try {
         await switchOrAddEthereumChain({
           hexId: props.toChain.hexId,
-          nativeName: props.toChain.nativeName,
+          name: props.toChain.name,
+          nativeCurrencyName: props.toChain.nativeCurrencyName,
           rpcUrl: props.toChain.rpcUrl,
           blockExplorerUrl: props.toChain.blockExplorerUrl,
           nativeSymbol: props.toChain.nativeSymbol,

@@ -10,7 +10,7 @@ export class ChainRecord {
     this.hexId = record.hexChainId
     this.rpcUrl = record.rpc
     this.blockExplorerUrl = record.explorer
-    this.nativeName = record.nativeName
+    this.nativeCurrencyName = record.nativeCurrencyName
     this.nativeSymbol = record.nativeSymbol
     this.nativeDecimals = record?.nativeDecimals
   }

@@ -31,7 +31,8 @@ async function switchEthereumChain (hexId) {
 
 async function addEthereumChain ({
   hexId,
-  nativeName,
+  name,
+  nativeCurrencyName,
   rpcUrl,
   blockExplorerUrl,
   nativeSymbol,
@@ -46,10 +47,11 @@ async function addEthereumChain ({
     params: [
       {
         chainId: hexId,
-        chainName: nativeName,
+        chainName: name,
         rpcUrls: [rpcUrl],
         blockExplorerUrls: [blockExplorerUrl],
         nativeCurrency: {
+          name: nativeCurrencyName,
           symbol: nativeSymbol,
           decimals: nativeDecimals,
         },

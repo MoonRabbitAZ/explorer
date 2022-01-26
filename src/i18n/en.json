@@ -932,7 +932,7 @@
       "default-error-message": "There was an error while loading.",
       "chain-error-part-1": "Please switch to the network \"{ network }\" in the MetaMask wallet in order to continue. ({ link })",
       "chain-error-link-part-1": "Here's how",
-      "chain-error-part-2": "Remember! You must have enough ETH on your account to cover gas fees.",
+      "chain-error-part-2": "Remember! You must have enough { ticker } on your account to cover gas fees.",
       "chain-error-part-3": "If you were unable to deposit, switch to the \"Unfinished flows\" tab.",
       "base-chain-name": "Network Name: { name }",
       "base-chain-rps-url": "New RPC URL: { url }",

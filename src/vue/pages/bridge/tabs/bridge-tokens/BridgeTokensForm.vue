@@ -184,7 +184,9 @@
                 </template>
               </i18n-t>
               <p class="bridge-tokens-form__error-chain-msg">
-                {{ $t('bridge-page.bridge-tokens-form.chain-error-part-2') }}
+                {{ $t('bridge-page.bridge-tokens-form.chain-error-part-2', {
+                  ticker: fromChain.nativeSymbol
+                }) }}
               </p>
               <p class="bridge-tokens-form__error-chain-msg">
                 {{ $t('bridge-page.bridge-tokens-form.chain-error-part-3') }}
@@ -521,7 +523,8 @@ export default {
       try {
         await switchOrAddEthereumChain({
           hexId: fromChain.value.hexId,
-          nativeName: fromChain.value.nativeName,
+          name: fromChain.value.name,
+          nativeCurrencyName: fromChain.value.nativeCurrencyName,
           rpcUrl: fromChain.value.rpcUrl,
           blockExplorerUrl: fromChain.value.blockExplorerUrl,
           nativeSymbol: fromChain.value.nativeSymbol,
