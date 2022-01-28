@@ -1,19 +1,25 @@
 #import "../fragments/fragTransaction.gql"
 #import "../fragments/fragPageInfo.gql"
 
-query getAddress(
-  $hash: AddressHash!,
-  $transactionAfter: String, 
-  $transactionBefore: String,
-  $transactionFirst: Int,
-  $transactionLast: Int,
+query getTransactions(
+  $addressHash: AddressHash,
+  $blockNumber: Int,
+  $blockHash: FullHash,
+  $after: String,
+  $before: String,
+  $count: Int,
+  $first: Int,
+  $last: Int
   ) {
-  address(hash: $hash) {
-    transactions(
-      after: $transactionAfter,
-      before: $transactionBefore,
-      first: $transactionFirst,
-      last: $transactionLast
+  transactions(
+      after: $after,
+      before: $before,
+      count: $count,
+      first: $first,
+      last: $last,
+      addressHash: $addressHash,
+      blockHash: $blockHash,
+      blockNumber: $blockNumber
     ) { 
       edges {
         node {
@@ -24,5 +30,4 @@ query getAddress(
         ...fragPageInfo,
       }
      }
-  },
 }

@@ -4,9 +4,7 @@
       <loader/>
     </template>
     <template v-else-if="error">
-      <error-message
-        :message="error.message"
-      />
+      <error-message :message="error.message"/>
     </template>
     <template v-else>
       <div class="evm-explorer-block__info">
@@ -127,11 +125,20 @@
           :info-tooltip="$t('evm-explorer-page.evm-explorer-block.nonce-info')"
         />
       </div>
+
+      <!-- eslint-disable max-len -->
+      <evm-transactions-list
+        class="evm-explorer-block__transactions-list"
+        :block-number="result.block.number"
+        :no-data-message="$t('evm-explorer-page.evm-explorer-address.no-data-message-transactions')"
+      />
+      <!-- eslint-enable max-len -->
     </template>
   </div>
 </template>
 
 <script>
+import EvmTransactionsList from '@evm-explorer-page/tabs/evm-explorer-overview/EvmTransactionsList'
 import InfoValue from '@evm-explorer-page/tabs/evm-explorer-overview/InfoValue'
 import Loader from '@/vue/common/Loader'
 import ErrorMessage from '@/vue/common/ErrorMessage'
@@ -144,7 +151,7 @@ import GET_BLOCK from '@/graphql/queries/getBlock.gql'
 export default {
   name: 'evm-explorer-block',
 
-  components: { InfoValue, Loader, ErrorMessage },
+  components: { EvmTransactionsList, InfoValue, Loader, ErrorMessage },
 
   props: {
     blockNumber: { type: String, required: true },
@@ -185,6 +192,10 @@ export default {
   & + & {
     margin-top: 2.4rem;
   }
+}
+
+.evm-explorer-block__transactions-list {
+  margin-top: 4rem;
 }
 
 </style>

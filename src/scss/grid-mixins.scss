@@ -102,13 +102,18 @@
 }
 
 // for evm explorer page
-@mixin evm-transaction-grid-row ($alignItems, $paddingVertical: 0) {
+@mixin evm-transaction-with-direction-grid-row ($alignItems, $paddingVertical: 0) {
   grid-template-columns: minmax(20rem, 1fr) repeat(2, minmax(15rem, 1fr)) 10rem 10rem 12rem 4.4rem 13.5rem;
 
   @include default-grid-row($alignItems, $paddingVertical);
 }
 
-// for evm explorer page
+@mixin evm-transaction-grid-row ($alignItems, $paddingVertical: 0) {
+  grid-template-columns: minmax(20rem, 1fr) repeat(2, minmax(15rem, 1fr)) 10rem 10rem 12rem 13.5rem;
+
+  @include default-grid-row($alignItems, $paddingVertical);
+}
+
 @mixin evm-block-grid-row ($alignItems, $paddingVertical: 0) {
   grid-template-columns: 13.5rem minmax(15rem, 1fr) 14rem 16rem;
 

@@ -1,10 +1,14 @@
 <template>
-  <div class="pagination">
+  <div
+    v-if="hasNextPage || hasPrevPage"
+    class="pagination"
+  >
     <app-button
       class="pagination__first-page-btn"
       scheme="secondary"
       size="x-small"
       mdi-icon-name="mdi-chevron-double-left"
+      :disabled="!hasPrevPage"
       @click="toFirstPage"
     />
     <app-button
@@ -12,6 +16,7 @@
       scheme="secondary"
       size="x-small"
       mdi-icon-name="mdi-chevron-left"
+      :disabled="!hasPrevPage"
       @click="toPreviousPage"
     />
     <p class="pagination__page-number">
@@ -22,6 +27,7 @@
       scheme="secondary"
       size="x-small"
       mdi-icon-name="mdi-chevron-right"
+      :disabled="!hasNextPage"
       @click="toNextPage"
     />
   </div>
@@ -41,6 +47,8 @@ export default {
     isFirsPageBtnDisabled: { type: Boolean, default: false },
     isNextBtnDisabled: { type: Boolean, default: false },
     isPrevBtnDisabled: { type: Boolean, default: false },
+    hasNextPage: { type: Boolean, default: false },
+    hasPrevPage: { type: Boolean, default: false },
   },
 
   emits: Object.values(EVENTS),

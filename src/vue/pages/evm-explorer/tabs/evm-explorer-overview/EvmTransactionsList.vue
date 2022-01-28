@@ -1,95 +1,152 @@
 <template>
   <div class="evm-transactions-list">
-    <div class="evm-transactions-list__body">
-      <div
-        class="evm-transactions-list__headers"
-        :class="{'evm-transactions-list__headers--grid': transactions?.length}"
-      >
-        <h1>
-          {{
-            $t('evm-explorer-page.evm-transactions-list.transactions-header')
-          }}
-        </h1>
-        <template v-if="transactions?.length">
-          <h4>
-            {{ $t('evm-explorer-page.evm-transactions-list.from-header') }}
-          </h4>
-          <h4>
-            {{ $t('evm-explorer-page.evm-transactions-list.to-header') }}
-          </h4>
-          <h4>
-            {{ $t('evm-explorer-page.evm-transactions-list.amount-header') }}
-          </h4>
-          <h4>
-            {{ $t('evm-explorer-page.evm-transactions-list.time-header') }}
-          </h4>
-          <h4>
-            {{ $t('evm-explorer-page.evm-transactions-list.block-header') }}
-          </h4>
+    <template v-if="loading">
+      <loader/>
+    </template>
+    <template v-else-if="error">
+      <error-message
+        :message="error.message"
+      />
+    </template>
+    <template v-else>
+      <div class="evm-transactions-list__body">
+        <div
+          class="evm-transactions-list__headers"
+          :class="{
+            'evm-transactions-list__headers--grid':
+              transactions?.length && !addressHash,
+            'evm-transactions-list__headers--grid-with-direction':
+              transactions?.length && addressHash
+          }"
+        >
+          <h1>
+            {{
+              $t('evm-explorer-page.evm-transactions-list.transactions-header')
+            }}
+          </h1>
+          <template v-if="transactions?.length">
+            <h4>
+              {{ $t('evm-explorer-page.evm-transactions-list.from-header') }}
+            </h4>
+            <h4>
+              {{ $t('evm-explorer-page.evm-transactions-list.to-header') }}
+            </h4>
+            <h4>
+              {{ $t('evm-explorer-page.evm-transactions-list.amount-header') }}
+            </h4>
+            <h4>
+              {{ $t('evm-explorer-page.evm-transactions-list.time-header') }}
+            </h4>
+            <h4>
+              {{ $t('evm-explorer-page.evm-transactions-list.block-header') }}
+            </h4>
+          </template>
+        </div>
+        <template v-if="transactions.length">
+          <evm-transaction-row
+            v-for="({node: transaction }) in transactions"
+            :key="transaction.hash"
+            :transaction="transaction"
+            :current-address="addressHash"
+          />
+        </template>
+        <template v-else>
+          <no-data-message
+            class="evm-transactions-list__no-data"
+            :message="noDataMessage"
+            is-row-block
+          />
         </template>
       </div>
-      <template v-if="transactions.length">
-        <evm-transaction-row
-          v-for="({node: transaction }) in transactions"
-          :key="transaction.hash"
-          :transaction="transaction"
-          :current-address="currentAddress"
-        />
-      </template>
-      <template v-else>
-        <no-data-message
-          class="evm-transactions-list__no-data"
-          :message="noDataMessage"
-          is-row-block
-        />
-      </template>
-    </div>
-    <pagination
-      class="evm-transactions-list__pagination"
-      @to-first-page="toFirstPage"
-      @to-next-page="toNextPage"
-      @to-previous-page="toPreviousPage"
-    />
+      <pagination
+        class="evm-transactions-list__pagination"
+        @to-first-page="toFirstPage"
+        @to-next-page="loadMore(true)"
+        @to-previous-page="loadMore"
+        :has-next-page="pageInfo?.hasNextPage"
+        :has-prev-page="pageInfo?.hasPreviousPage"
+      />
+    </template>
   </div>
 </template>
 
 <script>
-import NoDataMessage from '@/vue/common/NoDataMessage'
 import EvmTransactionRow from '@evm-explorer-page/tabs/evm-explorer-overview/EvmTransactionRow'
+import NoDataMessage from '@/vue/common/NoDataMessage'
 import Pagination from '@/vue/common/Pagination'
+import Loader from '@/vue/common/Loader'
+import ErrorMessage from '@/vue/common/ErrorMessage'
 
-const EVENTS = {
-  toFirstPage: 'to-first-page',
-  toNextPage: 'to-next-page',
-  toPreviousPage: 'to-previous-page',
-}
+import { reactive, computed } from 'vue'
+import { useQuery } from '@vue/apollo-composable'
+
+import GET_TRANSACTIONS from '@/graphql/queries/getTransactions.gql'
+
+const PAGE_LIMIT = 7
 
 export default {
   name: 'evm-transactions-list',
 
   components: {
+    Loader,
+    ErrorMessage,
     NoDataMessage,
     EvmTransactionRow,
     Pagination,
   },
 
   props: {
-    transactions: { type: Array, required: true },
-    currentAddress: { type: String, default: '' },
+    blockNumber: { type: Number, default: null },
+    addressHash: { type: String, default: null },
     noDataMessage: { type: String, required: true },
   },
 
-  emits: Object.values(EVENTS),
+  setup (props) {
+    const variables = reactive({
+      ...(props.blockNumber ? { blockNumber: props.blockNumber } : {}),
+      ...(props.addressHash ? { addressHash: props.addressHash } : {}),
+      count: PAGE_LIMIT,
+      last: PAGE_LIMIT,
+    })
 
-  setup (_, { emit }) {
-    function toFirstPage () { emit(EVENTS.toFirstPage) }
-    function toNextPage () { emit(EVENTS.toNextPage) }
-    function toPreviousPage () { emit(EVENTS.toPreviousPage) }
+    const { result, loading, error, fetchMore, refetch } =
+      useQuery(GET_TRANSACTIONS, variables, { fetchPolicy: 'network-only' })
+
+    const pageInfo = computed(() => result.value?.transactions.pageInfo)
+
+    const transactions = computed(() => result.value?.transactions.edges)
+
+    function loadMore (isNext = false) {
+      fetchMore({
+        query: GET_TRANSACTIONS,
+        variables: {
+          ...(props.blockNumber ? { blockNumber: props.blockNumber } : {}),
+          ...(props.addressHash ? { addressHash: props.addressHash } : {}),
+          ...(isNext
+            ? {
+                after: pageInfo.value.endCursor,
+                first: PAGE_LIMIT,
+              }
+            : {
+                before: pageInfo.value.startCursor,
+                last: PAGE_LIMIT,
+              }
+          ),
+        },
+      })
+    }
+
+    function toFirstPage () {
+      refetch(variables)
+    }
 
     return {
+      loading,
+      error,
+      transactions,
+      loadMore,
+      pageInfo,
       toFirstPage,
-      toNextPage,
-      toPreviousPage,
     }
   },
 }
@@ -111,10 +168,18 @@ export default {
 
   &--grid {
     & > :nth-child(5) {
-      grid-column: 6/8;
+      grid-column: 6/7;
     }
 
     @include evm-transaction-grid-row(flex-end);
+  }
+
+  &--grid-with-direction {
+    & > :nth-child(5) {
+      grid-column: 6/8;
+    }
+
+    @include evm-transaction-with-direction-grid-row(flex-end);
   }
 }
 

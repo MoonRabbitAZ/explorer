@@ -118,11 +118,11 @@ export default {
   &--secondary {
     background: transparent;
     color: $col-app-accent;
-    border: 0.1rem solid $col-app-accent;
+    border: 0.2rem solid $col-app-accent;
 
     &[disabled] {
       color: $col-app-button-disabled;
-      border: 0.1rem solid $col-app-button-disabled;
+      border: 0.2rem solid $col-app-button-disabled;
     }
 
     &:not([disabled]):hover {

@@ -41,11 +41,8 @@
       </div>
 
       <evm-transactions-list
-        :transactions="transactions"
-        :current-address="result.address.hash"
+        :address-hash="result.address.hash"
         :no-data-message="$t('evm-explorer-page.evm-explorer-address.no-data-message-transactions')"
-        @to-next-page="loadMore(true)"
-        @to-previous-page="loadMore"
       />
       <!-- eslint-enable  max-len-->
     </template>
@@ -94,7 +91,6 @@ import { useQuery } from '@vue/apollo-composable'
 
 import CONFIG from '@/config'
 import GET_ADDRESS from '@/graphql/queries/getAddress.gql'
-import GET_TRANSACTIONS from '@/graphql/queries/getTransactions.gql'
 
 export default {
   name: 'evm-explorer-address',
@@ -120,7 +116,7 @@ export default {
       transactionFirst: 6,
     })
 
-    const { result, loading, error, fetchMore } =
+    const { result, loading, error } =
       useQuery(GET_ADDRESS, accountVariables)
 
     const transactions = computed(() =>
@@ -131,36 +127,6 @@ export default {
       accountVariables.hash = props.hash
     }
 
-    function loadMore (isNext = false) {
-      const pageInfo = result.value.address.transactions.pageInfo
-      fetchMore({
-        query: GET_TRANSACTIONS,
-        variables: {
-          hash: props.hash,
-          ...(isNext
-            ? {
-                transactionAfter: pageInfo.endCursor,
-                transactionFirst: 6,
-              }
-            : {
-                transactionBefore: pageInfo.startCursor,
-                transactionLast: 6,
-              }
-          ),
-        },
-        updateQuery: (previousResult, { fetchMoreResult }) => {
-          return {
-            address: {
-              ...previousResult.address,
-              transactions: {
-                ...fetchMoreResult?.address?.transactions,
-              },
-            },
-          }
-        },
-      })
-    }
-
     watch(() => props.hash, selectHash)
 
     return {
@@ -169,7 +135,6 @@ export default {
       loading,
       error,
       transactions,
-      loadMore,
       CONFIG,
     }
   },

@@ -1,5 +1,8 @@
 <template>
-  <div class="evm-transaction-row">
+  <div
+    class="evm-transaction-row"
+    :class="{'evm-transaction-row--with-direction': currentAddress}"
+  >
     <router-link
       class="evm-transaction-row__column"
       :to="{
@@ -95,8 +98,12 @@ export default {
 @import '~@scss/variables';
 
 .evm-transaction-row {
-  @include evm-transaction-grid-row(center, 1rem);
   @include content-block;
+  @include evm-transaction-grid-row(center, 1rem);
+
+  &--with-direction {
+    @include evm-transaction-with-direction-grid-row(center, 1rem);
+  }
 }
 
 .evm-transaction-row__column {
