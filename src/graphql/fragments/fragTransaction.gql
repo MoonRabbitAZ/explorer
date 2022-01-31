@@ -2,7 +2,6 @@ fragment fragTransaction on Transaction {
   blockNumber
   createdContractAddressHash
   cumulativeGasUsed
-  error
   fromAddressHash
   gasUsed
   gas
@@ -12,10 +11,8 @@ fragment fragTransaction on Transaction {
   index
   input
   nonce
-  r
-  s
   status
   toAddressHash
-  v
+  timestamp
   value
 }

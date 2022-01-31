@@ -8,7 +8,7 @@
       scheme="secondary"
       size="x-small"
       mdi-icon-name="mdi-chevron-double-left"
-      :disabled="!hasPrevPage"
+      :disabled="!hasPrevPage || isLoaded"
       @click="toFirstPage"
     />
     <app-button
@@ -16,18 +16,18 @@
       scheme="secondary"
       size="x-small"
       mdi-icon-name="mdi-chevron-left"
-      :disabled="!hasPrevPage"
+      :disabled="!hasPrevPage || isLoaded"
       @click="toPreviousPage"
     />
     <p class="pagination__page-number">
-      <!--  -->
+      {{ pageNumber }}
     </p>
     <app-button
       class="pagination__next-page-btn"
       scheme="secondary"
       size="x-small"
       mdi-icon-name="mdi-chevron-right"
-      :disabled="!hasNextPage"
+      :disabled="!hasNextPage || isLoaded"
       @click="toNextPage"
     />
   </div>
@@ -49,6 +49,8 @@ export default {
     isPrevBtnDisabled: { type: Boolean, default: false },
     hasNextPage: { type: Boolean, default: false },
     hasPrevPage: { type: Boolean, default: false },
+    pageNumber: { type: Number, default: 1 },
+    isLoaded: { type: Boolean, default: false },
   },
 
   emits: Object.values(EVENTS),

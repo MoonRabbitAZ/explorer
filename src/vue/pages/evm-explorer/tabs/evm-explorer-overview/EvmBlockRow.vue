@@ -5,32 +5,31 @@
       :to="{
         ...$routes.evmExplorerBlock,
         params: {
-          blockNumber: block.blockNumber,
+          blockNumber: block.number,
         },
       }"
     >
-      {{ block.blockNumber }}
+      {{ block.number }}
     </router-link>
     <router-link
       class="evm-block-row__column"
       :to="{
         ...$routes.evmExplorerAddress,
-        params: { hash: block.miner },
+        params: { hash: block.minerHash },
       }"
     >
-      {{ block.miner }}
+      {{ block.minerHash }}
     </router-link>
     <p>
-      {{ block.transactions }}
+      <!-- {{ block.transactions }} -->
     </p>
-    <p>
-      {{ timeAgo }}
+    <p :key="timeNow">
+      {{ timeAgo() }}
     </p>
   </div>
 </template>
 
 <script>
-import { computed } from 'vue'
 import moment from 'moment'
 
 export default {
@@ -38,11 +37,13 @@ export default {
 
   props: {
     block: { type: Object, required: true },
-    currentAddress: { type: String, default: '' },
+    timeNow: { type: Date, required: true },
   },
 
-  setup () {
-    const timeAgo = computed(() => moment().fromNow())
+  setup (props) {
+    const timeMoment = moment(props.block.timestamp)
+
+    const timeAgo = _ => timeMoment.fromNow()
 
     return { timeAgo }
   },

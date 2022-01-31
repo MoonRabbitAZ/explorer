@@ -1,0 +1,33 @@
+#import "../fragments/fragTokenTransfer.gql"
+#import "../fragments/fragPageInfo.gql"
+
+query getTokenTransfers(
+  $transactionHash: FullHash,
+  $tokenContractAddressHash: AddressHash,
+  $actorAddressHash: AddressHash,
+  $after: String,
+  $before: String,
+  $count: Int,
+  $first: Int,
+  $last: Int
+  ) {
+  tokenTransfers(
+      after: $after,
+      before: $before,
+      count: $count,
+      first: $first,
+      last: $last,
+      transactionHash: $transactionHash,
+      tokenContractAddressHash: $tokenContractAddressHash,
+      actorAddressHash: $actorAddressHash
+    ) {
+      edges {
+        node {
+          ...fragTokenTransfer
+        }
+      }
+      pageInfo {
+        ...fragPageInfo,
+      }
+    }
+}

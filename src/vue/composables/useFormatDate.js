@@ -2,6 +2,13 @@ import moment from 'moment-timezone'
 import { useI18n } from 'vue-i18n'
 import { reactive } from 'vue'
 
+moment.relativeTimeThreshold('M', 12)
+moment.relativeTimeThreshold('d', 30)
+moment.relativeTimeThreshold('h', 24)
+moment.relativeTimeThreshold('m', 60)
+moment.relativeTimeThreshold('s', 60)
+moment.relativeTimeThreshold('ss', 1)
+
 export function useFormatDate () {
   const { t } = useI18n()
 

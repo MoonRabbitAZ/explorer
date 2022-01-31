@@ -43,8 +43,8 @@
       ) }}
     </p>
     <transaction-status :status="transaction.status"/>
-    <p>
-      {{ timeAgo }}
+    <p :key="timeNow">
+      {{ timeAgo() }}
     </p>
     <transaction-direction
       v-if="currentAddress"
@@ -67,7 +67,6 @@
 import TransactionStatus from '@evm-explorer-page/tabs/evm-explorer-overview/TransactionStatus'
 import TransactionDirection from '@evm-explorer-page/tabs/evm-explorer-overview/TransactionDirection'
 
-import { computed } from 'vue'
 import moment from 'moment'
 
 import CONFIG from '@/config'
@@ -79,11 +78,14 @@ export default {
 
   props: {
     transaction: { type: Object, required: true },
+    timeNow: { type: Date, required: true },
     currentAddress: { type: String, default: '' },
   },
 
-  setup () {
-    const timeAgo = computed(() => moment().fromNow())
+  setup (props) {
+    const timeMoment = moment(props.transaction.timestamp)
+
+    const timeAgo = _ => timeMoment.fromNow()
 
     return {
       timeAgo,

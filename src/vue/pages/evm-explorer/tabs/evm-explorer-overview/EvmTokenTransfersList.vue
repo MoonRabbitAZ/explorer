@@ -1,5 +1,5 @@
 <template>
-  <div class="evm-transactions-list">
+  <div class="evm-token-transfers-list">
     <template v-if="loading">
       <loader/>
     </template>
@@ -9,59 +9,57 @@
       />
     </template>
     <template v-else>
-      <div class="evm-transactions-list__body">
+      <div class="evm-token-transfers-list__body">
         <div
-          class="evm-transactions-list__headers"
+          class="evm-token-transfers-list__headers"
           :class="{
-            'evm-transactions-list__headers--grid':
-              transactions?.length && !addressHash,
-            'evm-transactions-list__headers--grid-with-direction':
-              transactions?.length && addressHash
+            'evm-token-transfers-list__headers--grid':
+              tokenTransfers?.length && !addressHash,
+            'evm-token-transfers-list__headers--grid-with-direction':
+              tokenTransfers?.length && addressHash
           }"
         >
+          <!-- eslint-disable  max-len -->
           <h1>
-            {{
-              $t('evm-explorer-page.evm-transactions-list.transactions-header')
-            }}
+            {{ $t('evm-explorer-page.evm-token-transfers-list.token-transfers-header') }}
           </h1>
-          <template v-if="transactions?.length">
+          <template v-if="tokenTransfers?.length">
             <h4>
-              {{ $t('evm-explorer-page.evm-transactions-list.from-header') }}
+              {{ $t('evm-explorer-page.evm-token-transfers-list.from-header') }}
             </h4>
             <h4>
-              {{ $t('evm-explorer-page.evm-transactions-list.to-header') }}
+              {{ $t('evm-explorer-page.evm-token-transfers-list.to-header') }}
             </h4>
             <h4>
-              {{ $t('evm-explorer-page.evm-transactions-list.amount-header') }}
+              {{ $t('evm-explorer-page.evm-token-transfers-list.amount-header') }}
             </h4>
             <h4>
-              {{ $t('evm-explorer-page.evm-transactions-list.time-header') }}
+              {{ $t('evm-explorer-page.evm-token-transfers-list.time-header') }}
             </h4>
             <h4>
-              {{ $t('evm-explorer-page.evm-transactions-list.block-header') }}
+              {{ $t('evm-explorer-page.evm-token-transfers-list.block-header') }}
             </h4>
           </template>
+          <!-- eslint-enable  max-len -->
         </div>
-        <template v-if="transactions.length">
-          <evm-transaction-row
-            v-for="({node: transaction }) in transactions"
-            :key="transaction.hash"
-            :transaction="transaction"
-            :current-address="addressHash"
-            :time-now="timeNow"
+        <template v-if="tokenTransfers.length">
+          <evm-token-transfer-row
+            v-for="({node: tokenTransfer }) in tokenTransfers"
+            :key="tokenTransfer.id"
+            :token-transfer="tokenTransfer"
           />
         </template>
         <template v-else>
           <no-data-message
-            class="evm-transactions-list__no-data"
+            class="evm-token-transfers-list__no-data"
             :message="noDataMessage"
+            :time-now="timeNow"
             is-row-block
           />
         </template>
       </div>
       <pagination
-        v-if="withPagination"
-        class="evm-transactions-list__pagination"
+        class="evm-token-transfers-list__pagination"
         @to-first-page="toFirstPage"
         @to-next-page="loadMore(true)"
         @to-previous-page="loadMore"
@@ -75,7 +73,7 @@
 </template>
 
 <script>
-import EvmTransactionRow from '@evm-explorer-page/tabs/evm-explorer-overview/EvmTransactionRow'
+import EvmTokenTransferRow from '@evm-explorer-page/tabs/evm-explorer-overview/EvmTokenTransferRow'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 import Pagination from '@/vue/common/Pagination'
 import Loader from '@/vue/common/Loader'
@@ -84,28 +82,26 @@ import ErrorMessage from '@/vue/common/ErrorMessage'
 import { reactive, toRefs, computed } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
 
-import GET_TRANSACTIONS from '@/graphql/queries/getTransactions.gql'
+import GET_TOKEN_TRANSFERS from '@/graphql/queries/getTokenTransfers.gql'
 
 const PAGE_LIMIT = 7
 
 export default {
-  name: 'evm-transactions-list',
+  name: 'evm-token-transfers-list',
 
   components: {
     Loader,
     ErrorMessage,
     NoDataMessage,
-    EvmTransactionRow,
+    EvmTokenTransferRow,
     Pagination,
   },
 
   props: {
     timeNow: { type: Date, required: true },
+    addressHash: { type: String, default: '' },
+    transactionHash: { type: String, default: '' },
     noDataMessage: { type: String, required: true },
-    blockNumber: { type: Number, default: null },
-    addressHash: { type: String, default: null },
-    withPagination: { type: Boolean, default: true },
-    pollInterval: { type: Number, default: 0 },
   },
 
   setup (props) {
@@ -114,30 +110,33 @@ export default {
       isLoadedPage: false,
     })
     const variables = reactive({
-      ...(props.blockNumber ? { blockNumber: props.blockNumber } : {}),
-      ...(props.addressHash ? { addressHash: props.addressHash } : {}),
+      ...(props.addressHash ? { actorAddressHash: props.addressHash } : {}),
+      ...(props.transactionHash
+        ? { transactionHash: props.transactionHash }
+        : {}
+      ),
       count: PAGE_LIMIT,
       last: PAGE_LIMIT,
     })
-    const options = reactive({
-      ...(props.pollInterval ? { pollInterval: props.pollInterval } : {}),
-    })
 
     const { result, loading, error, fetchMore, refetch, onResult } =
-      useQuery(GET_TRANSACTIONS, variables, options)
+      useQuery(GET_TOKEN_TRANSFERS, variables, { fetchPolicy: 'network-only' })
 
-    const pageInfo = computed(() => result.value?.transactions.pageInfo)
+    const pageInfo = computed(() => result.value?.tokenTransfers.pageInfo)
 
-    const transactions = computed(() => result.value?.transactions.edges)
+    const tokenTransfers = computed(() => result.value?.tokenTransfers.edges)
 
     function loadMore (isNext = false) {
       state.isLoadedPage = true
       if (isNext) { ++state.paginationPage } else { --state.paginationPage }
       fetchMore({
-        query: GET_TRANSACTIONS,
+        query: GET_TOKEN_TRANSFERS,
         variables: {
-          ...(props.blockNumber ? { blockNumber: props.blockNumber } : {}),
-          ...(props.addressHash ? { addressHash: props.addressHash } : {}),
+          ...(props.addressHash ? { actorAddressHash: props.addressHash } : {}),
+          ...(props.transactionHash
+            ? { transactionHash: props.transactionHash }
+            : {}
+          ),
           ...(isNext
             ? {
                 after: pageInfo.value.endCursor,
@@ -151,7 +150,6 @@ export default {
         },
       })
     }
-
     onResult(() => { state.isLoadedPage = false })
 
     function toFirstPage () {
@@ -164,7 +162,7 @@ export default {
       ...toRefs(state),
       loading,
       error,
-      transactions,
+      tokenTransfers,
       loadMore,
       pageInfo,
       toFirstPage,
@@ -177,13 +175,13 @@ export default {
 @import '~@scss/mixins';
 @import '~@scss/variables';
 
-.evm-transactions-list__body {
+.evm-token-transfers-list__body {
   overflow-x: auto;
 
   @include scrollbar;
 }
 
-.evm-transactions-list__headers {
+.evm-token-transfers-list__headers {
   margin-bottom: 2rem;
   padding: 0 1.6rem;
 
@@ -204,7 +202,7 @@ export default {
   }
 }
 
-.evm-transactions-list__pagination {
+.evm-token-transfers-list__pagination {
   margin: 2rem auto 0;
 }
 </style>

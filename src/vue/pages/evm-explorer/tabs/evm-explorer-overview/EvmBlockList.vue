@@ -1,34 +1,47 @@
 <template>
   <div class="evm-block-list">
-    <div
-      class="evm-block-list__headers"
-      :class="{'evm-block-list__headers--grid': blocks?.length}"
-    >
-      <h1>
-        {{ $t('evm-explorer-page.evm-block-list.last-blocks-header') }}
-      </h1>
-      <template v-if="blocks?.length">
-        <h4>
-          {{ $t('evm-explorer-page.evm-block-list.transactions-header') }}
-        </h4>
-        <h4>
-          {{ $t('evm-explorer-page.evm-block-list.time-header') }}
-        </h4>
-      </template>
-    </div>
-    <template v-if="blocks?.length">
-      <evm-block-row
-        v-for="block in blocks"
-        :key="block.blockNumber"
-        :block="block"
+    <template v-if="loading">
+      <loader/>
+    </template>
+    <template v-else-if="error">
+      <error-message
+        :message="error.message"
       />
     </template>
     <template v-else>
-      <no-data-message
-        class="evm-block-list__no-data"
-        :message="noDataMessage"
-        is-row-block
-      />
+      <div class="evm-block-list__body">
+        <div
+          class="evm-block-list__headers"
+          :class="{'evm-block-list__headers--grid': blocks?.length}"
+        >
+          <h1>
+            {{ $t('evm-explorer-page.evm-block-list.last-blocks-header') }}
+          </h1>
+          <template v-if="blocks?.length">
+            <h4>
+              {{ $t('evm-explorer-page.evm-block-list.transactions-header') }}
+            </h4>
+            <h4>
+              {{ $t('evm-explorer-page.evm-block-list.time-header') }}
+            </h4>
+          </template>
+        </div>
+        <template v-if="blocks?.length">
+          <evm-block-row
+            v-for="({node: block}) in blocks"
+            :key="block.number"
+            :block="block"
+            :time-now="timeNow"
+          />
+        </template>
+        <template v-else>
+          <no-data-message
+            class="evm-block-list__no-data"
+            :message="noDataMessage"
+            is-row-block
+          />
+        </template>
+      </div>
     </template>
   </div>
 </template>
@@ -36,18 +49,51 @@
 <script>
 import NoDataMessage from '@/vue/common/NoDataMessage'
 import EvmBlockRow from '@evm-explorer-page/tabs/evm-explorer-overview/EvmBlockRow'
+import Loader from '@/vue/common/Loader'
+import ErrorMessage from '@/vue/common/ErrorMessage'
+
+import { reactive, computed } from 'vue'
+import { useQuery } from '@vue/apollo-composable'
+
+import GET_BLOCK_LIST from '@/graphql/queries/getBlockList.gql'
+
+const PAGE_LIMIT = 7
 
 export default {
   name: 'evm-block-list',
 
   components: {
+    Loader,
+    ErrorMessage,
     NoDataMessage,
     EvmBlockRow,
   },
 
   props: {
-    blocks: { type: Array, required: true },
     noDataMessage: { type: String, required: true },
+    pollInterval: { type: Number, default: 0 },
+    timeNow: { type: Date, required: true },
+  },
+
+  setup (props) {
+    const variables = reactive({
+      first: PAGE_LIMIT,
+    })
+
+    const options = reactive({
+      ...(props.pollInterval ? { pollInterval: props.pollInterval } : {}),
+    })
+
+    const { result, loading, error } =
+      useQuery(GET_BLOCK_LIST, variables, options)
+
+    const blocks = computed(() => result.value?.blockList.edges)
+
+    return {
+      blocks,
+      loading,
+      error,
+    }
   },
 }
 </script>

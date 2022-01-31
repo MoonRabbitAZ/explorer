@@ -14,7 +14,7 @@
       class="info-value__value-clipboard"
       :route-to="routeTo"
       :value="value"
-      is-full-value
+      :is-full-value="isFullClipboard"
     />
     <router-link
       v-else-if="routeTo"
@@ -51,6 +51,7 @@ export default {
     value: { type: [String, Number], default: null },
     withClipboard: { type: Boolean, default: false },
     routeTo: { type: Object, default: null },
+    isFullClipboard: { type: Boolean, default: true },
   },
 }
 </script>

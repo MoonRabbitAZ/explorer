@@ -130,6 +130,7 @@
       <evm-transactions-list
         class="evm-explorer-block__transactions-list"
         :block-number="result.block.number"
+        :time-now="timeNow"
         :no-data-message="$t('evm-explorer-page.evm-explorer-address.no-data-message-transactions')"
       />
       <!-- eslint-enable max-len -->
@@ -145,6 +146,7 @@ import ErrorMessage from '@/vue/common/ErrorMessage'
 
 import { watch } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
+import { useTimeNow } from '@/vue/composables'
 
 import GET_BLOCK from '@/graphql/queries/getBlock.gql'
 
@@ -158,6 +160,8 @@ export default {
   },
 
   setup (props) {
+    const timeNow = useTimeNow()
+
     const { result, variables, loading, error } =
       useQuery(GET_BLOCK, { number: +props.blockNumber })
 
@@ -174,6 +178,7 @@ export default {
       loading,
       error,
       console,
+      timeNow,
     }
   },
 }

@@ -67,11 +67,14 @@
           class="evm-explorer-transaction__info-row"
           :header="$t('evm-explorer-page.evm-explorer-transaction.to-address-header')"
           :info-tooltip="$t('evm-explorer-page.evm-explorer-transaction.to-address-info')"
-          :value="result.transaction.toAddressHash"
+          :value="result.transaction.toAddressHash
+            || result.transaction.createdContractAddressHash
+          "
           :route-to="{
             ...$routes.evmExplorerAddress,
             params: {
-              hash: result.transaction.toAddressHash,
+              hash: result.transaction.toAddressHash
+                || result.transaction.createdContractAddressHash,
             },
           }"
           with-clipboard
@@ -135,9 +138,17 @@
           :header="$t('evm-explorer-page.evm-explorer-transaction.raw-input-header')"
           :info-tooltip="$t('evm-explorer-page.evm-explorer-transaction.raw-input-info')"
           :value="result.transaction.input"
+          :is-full-clipboard="false"
           with-clipboard
         />
       </div>
+
+      <evm-token-transfers-list
+        class="evm-explorer-transaction__list"
+        :transaction-hash="result.transaction.hash"
+        :time-now="timeNow"
+        :no-data-message="$t('evm-explorer-page.evm-explorer-address.no-data-message-transactions')"
+      />
       <!-- eslint-enable  max-len-->
     </template>
   </div>
@@ -146,12 +157,14 @@
 <script>
 import InfoValue from '@evm-explorer-page/tabs/evm-explorer-overview/InfoValue'
 import TransactionStatus from '@evm-explorer-page/tabs/evm-explorer-overview/TransactionStatus'
+import EvmTokenTransfersList from '@evm-explorer-page/tabs/evm-explorer-overview/EvmTokenTransfersList'
 import Loader from '@/vue/common/Loader'
 import ErrorMessage from '@/vue/common/ErrorMessage'
 
 import { watch, computed } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
 import { BN } from '@polkadot/util'
+import { useTimeNow } from '@/vue/composables'
 
 import CONFIG from '@/config'
 import GET_TRANSACTION from '@/graphql/queries/getTransaction.gql'
@@ -159,13 +172,20 @@ import GET_TRANSACTION from '@/graphql/queries/getTransaction.gql'
 export default {
   name: 'evm-explorer-transaction',
 
-  components: { InfoValue, TransactionStatus, Loader, ErrorMessage },
+  components: {
+    EvmTokenTransfersList,
+    InfoValue,
+    TransactionStatus,
+    Loader,
+    ErrorMessage,
+  },
 
   props: {
     hash: { type: String, required: true },
   },
 
   setup (props) {
+    const timeNow = useTimeNow()
     const { result, variables, loading, error } =
       useQuery(GET_TRANSACTION, { hash: props.hash })
 
@@ -188,6 +208,7 @@ export default {
     watch(() => props.hash, selectHash)
 
     return {
+      timeNow,
       result,
       loading,
       error,
@@ -219,6 +240,10 @@ export default {
   & + & {
     margin-top: 2.4rem;
   }
+}
+
+.evm-explorer-transaction__list {
+  margin-top: 4rem;
 }
 
 </style>

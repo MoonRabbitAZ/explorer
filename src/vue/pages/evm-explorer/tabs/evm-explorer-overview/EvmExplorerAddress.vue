@@ -41,7 +41,16 @@
       </div>
 
       <evm-transactions-list
+        class="evm-explorer-address__list"
         :address-hash="result.address.hash"
+        :time-now="timeNow"
+        :no-data-message="$t('evm-explorer-page.evm-explorer-address.no-data-message-transactions')"
+      />
+
+      <evm-token-transfers-list
+        class="evm-explorer-address__list"
+        :address-hash="result.address.hash"
+        :time-now="timeNow"
         :no-data-message="$t('evm-explorer-page.evm-explorer-address.no-data-message-transactions')"
       />
       <!-- eslint-enable  max-len-->
@@ -79,6 +88,7 @@
 <script>
 import InfoValue from '@evm-explorer-page/tabs/evm-explorer-overview/InfoValue'
 import EvmTransactionsList from '@evm-explorer-page/tabs/evm-explorer-overview/EvmTransactionsList'
+import EvmTokenTransfersList from '@evm-explorer-page/tabs/evm-explorer-overview/EvmTokenTransfersList'
 import Loader from '@/vue/common/Loader'
 import ErrorMessage from '@/vue/common/ErrorMessage'
 import Drawer from '@/vue/common/Drawer'
@@ -86,8 +96,9 @@ import Drawer from '@/vue/common/Drawer'
 import QrCodeWrapper from '@/vue/common/QrCodeWrapper'
 import { ClipboardField } from '@/vue/fields'
 
-import { reactive, ref, computed, watch } from 'vue'
+import { reactive, ref, watch } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
+import { useTimeNow } from '@/vue/composables'
 
 import CONFIG from '@/config'
 import GET_ADDRESS from '@/graphql/queries/getAddress.gql'
@@ -100,6 +111,7 @@ export default {
     Loader,
     ErrorMessage,
     EvmTransactionsList,
+    EvmTokenTransfersList,
     Drawer,
     QrCodeWrapper,
     ClipboardField,
@@ -110,6 +122,7 @@ export default {
   },
 
   setup (props) {
+    const timeNow = useTimeNow()
     const isQrDrawerOpen = ref(false)
     const accountVariables = reactive({
       hash: props.hash,
@@ -119,10 +132,6 @@ export default {
     const { result, loading, error } =
       useQuery(GET_ADDRESS, accountVariables)
 
-    const transactions = computed(() =>
-      result.value?.address?.transactions?.edges,
-    )
-
     function selectHash () {
       accountVariables.hash = props.hash
     }
@@ -130,11 +139,11 @@ export default {
     watch(() => props.hash, selectHash)
 
     return {
+      timeNow,
       isQrDrawerOpen,
       result,
       loading,
       error,
-      transactions,
       CONFIG,
     }
   },
@@ -164,8 +173,8 @@ export default {
   }
 }
 
-.evm-explorer-address__info {
-  margin-bottom: 4rem;
+.evm-explorer-address__list {
+  margin-top: 4rem;
 }
 
 .evm-explorer-address__drawer-body {

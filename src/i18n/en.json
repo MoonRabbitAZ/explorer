@@ -1064,12 +1064,22 @@
       "status-success": "Success"
     },
     "evm-explorer-overview": {
-      "no-data-message-blocks": "No blocks available"
+      "no-data-message-blocks": "No blocks available",
+      "no-data-message-transactions": "No transactions available"
     },
     "evm-block-list": {
       "last-blocks-header": "Last Blocks",
       "transactions-header": "Transactions",
       "time-header": "Time"
+    },
+    "evm-token-transfers-list": {
+      "token-transfers-header": "Token Transfers",
+      "from-header": "From",
+      "to-header": "To",
+      "amount-header": "Amount",
+      "result-header": "Result",
+      "time-header": "Time",
+      "block-header": "Block"
     }
   }
 }

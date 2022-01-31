@@ -1,5 +1,4 @@
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client/core'
-// import { offsetLimitPagination } from '@apollo/client/utilities'
 
 export const apolloClient = new ApolloClient({
   cache: new InMemoryCache({
@@ -7,6 +6,9 @@ export const apolloClient = new ApolloClient({
       Query: {
         fields: {
           transactions: {
+            keyArgs: false,
+          },
+          tokenTransfers: {
             keyArgs: false,
           },
         },

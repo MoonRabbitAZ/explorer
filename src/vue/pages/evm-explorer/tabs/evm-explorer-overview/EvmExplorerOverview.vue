@@ -1,39 +1,49 @@
 <template>
   <div class="evm-explorer-overview">
     <evm-block-list
-      :blocks="HURDCODE_BLOCKS"
+      class="evm-explorer-overview__list"
+      :poll-interval="POOL_INTERVAL"
+      :time-now="timeNow"
       :no-data-message="
         $t('evm-explorer-page.evm-explorer-overview.no-data-message-blocks')
       "
     />
+    <!-- eslint-disable max-len -->
+    <evm-transactions-list
+      class="evm-explorer-overview__list"
+      :no-data-message="$t('evm-explorer-page.evm-explorer-address.no-data-message-transactions')"
+      :poll-interval="POOL_INTERVAL"
+      :time-now="timeNow"
+      :with-pagination="false"
+    />
+    <!-- eslint-disable max-len -->
   </div>
 </template>
 
 <script>
 import EvmBlockList from '@evm-explorer-page/tabs/evm-explorer-overview/EvmBlockList'
+import EvmTransactionsList from '@evm-explorer-page/tabs/evm-explorer-overview/EvmTransactionsList'
 
+import { useTimeNow } from '@/vue/composables'
+
+const POOL_INTERVAL = 10000
 export default {
   name: 'evm-explorer-overview',
 
-  components: { EvmBlockList },
+  components: { EvmBlockList, EvmTransactionsList },
 
   setup () {
-    const HURDCODE_BLOCKS = [
-      {
-        blockNumber: 204324,
-        miner: '0xa3ea6588F988D35B78927707C13a3e785f2B05D9',
-        transactions: 23,
-        timestamp: '2022-01-19 16:52:48.000000Z',
-      },
-    ]
+    const timeNow = useTimeNow()
 
-    return { HURDCODE_BLOCKS }
+    return { timeNow, POOL_INTERVAL }
   },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '~@scss/mixins';
-@import '~@scss/variables';
-
+.evm-explorer-overview__list {
+  & + & {
+    margin-top: 3rem;
+  }
+}
 </style>
