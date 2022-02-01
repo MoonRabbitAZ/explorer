@@ -119,8 +119,10 @@ export default {
       count: PAGE_LIMIT,
       last: PAGE_LIMIT,
     })
+
     const options = reactive({
       ...(props.pollInterval ? { pollInterval: props.pollInterval } : {}),
+      fetchPolicy: 'network-only',
     })
 
     const { result, loading, error, fetchMore, refetch, onResult } =

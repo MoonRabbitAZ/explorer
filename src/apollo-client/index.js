@@ -1,4 +1,5 @@
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client/core'
+import CONFIG from '@/config'
 
 export const apolloClient = new ApolloClient({
   cache: new InMemoryCache({
@@ -15,6 +16,6 @@ export const apolloClient = new ApolloClient({
       },
     },
   }),
-  link: createHttpLink({ uri: 'https://stage.evm.exp.moonrabbit.com/graphiql' }),
+  link: createHttpLink({ uri: CONFIG.EVM_GRAPHQL_URL }),
   connectToDevTools: process.env.NODE_ENV !== 'production',
 })

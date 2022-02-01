@@ -1,5 +1,5 @@
 <template>
-  <div class="evm-explorer-block">
+  <div class="evm-explorer-block" :key="blockNumber">
     <template v-if="loading">
       <loader/>
     </template>

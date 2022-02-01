@@ -1,5 +1,5 @@
 <template>
-  <div class="evm-explorer-transaction">
+  <div class="evm-explorer-transaction" :key="hash">
     <template v-if="loading">
       <loader/>
     </template>

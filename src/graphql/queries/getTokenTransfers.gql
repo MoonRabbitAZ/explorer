@@ -24,6 +24,13 @@ query getTokenTransfers(
       edges {
         node {
           ...fragTokenTransfer
+          transaction {
+            hash,
+            createdContractAddressHash,
+            fromAddressHash,
+            toAddressHash,
+            cumulativeGasUsed,
+          }
         }
       }
       pageInfo {

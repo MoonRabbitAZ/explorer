@@ -1,0 +1,6 @@
+#import "../fragments/fragChainData.gql"
+query getChainData {
+  chainData {
+    ...fragChainData
+  },
+}

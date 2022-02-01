@@ -1013,6 +1013,16 @@
     "evm-explorer-address": {
       "address-details-header": "Address Details",
       "balance-header": "Balance",
+      "transactions-header": "Transactions",
+      "transfers-header": "Transfers",
+      "gas-used-header": "Gas Used",
+      "last-balance-update-header": "Last Balance Update",
+      "blocks-validated-header": "Block Validated",
+      "blocks-validated-info": "Gas used by the address.",
+      "last-balance-update-info": "Block number in which the address was updated.",
+      "gas-used-info": "Gas used by the address.",
+      "transfers-info": "Number of transfers to/from this address.",
+      "transactions-info": "Number of transactions related to this address.",
       "balance-info": "Address balance in xDAI (doesn't include ERC20, ERC721, ERC1155 tokens).",
       "no-data-message-transactions": "There are no transactions for this address.",
       "qr-drawer-title": "QR Code",
@@ -1074,12 +1084,25 @@
     },
     "evm-token-transfers-list": {
       "token-transfers-header": "Token Transfers",
+      "tx-hash-header": "Transaction Hash",
       "from-header": "From",
       "to-header": "To",
       "amount-header": "Amount",
       "result-header": "Result",
-      "time-header": "Time",
+      "fee-header": "Fee",
       "block-header": "Block"
+    },
+    "evm-token-transfer-full-row": {
+      "burning-type": "Token Burning",
+      "minting-type": "Token Mining",
+      "spawning-type": "Token Creating",
+      "transfer-type": "Token Transfer"
+    },
+    "evm-overview-summary": {
+      "average-block-time-header": "Average Block Time",
+      "total-transactions-header": "Total Transactions",
+      "total-blocks-header": "Total Blocks",
+      "wallet-addresses-header": "Wallet Addresses"
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="evm-explorer-address">
+  <div class="evm-explorer-address" :key="hash">
     <template v-if="loading">
       <loader/>
     </template>
@@ -18,6 +18,7 @@
               {{ result.address.hash }}
             </h3>
             <app-button
+              class="evm-explorer-address__qr-button"
               mdi-icon-name="mdi-qrcode"
               size="small"
               scheme="secondary"
@@ -36,6 +37,53 @@
               CONFIG.EVM_TOKEN_DECIMAL,
               CONFIG.EVM_TOKEN_TICKER
             )"
+          />
+
+          <info-value
+            class="evm-explorer-address__info-row"
+            :header="$t('evm-explorer-page.evm-explorer-address.transactions-header')"
+            :info-tooltip="
+              $t('evm-explorer-page.evm-explorer-address.transactions-info')
+            "
+            :value="$fnumber(result.address.transactionCount)"
+          />
+
+          <info-value
+            class="evm-explorer-address__info-row"
+            :header="$t('evm-explorer-page.evm-explorer-address.transfers-header')"
+            :info-tooltip="
+              $t('evm-explorer-page.evm-explorer-address.transfers-info')
+            "
+            :value="$fnumber(result.address.transferCount)"
+          />
+
+          <info-value
+            class="evm-explorer-address__info-row"
+            :header="$t('evm-explorer-page.evm-explorer-address.gas-used-header')"
+            :info-tooltip="
+              $t('evm-explorer-page.evm-explorer-address.gas-used-info')
+            "
+            :value="$fnumber(result.address.gasUsed)"
+          />
+
+          <info-value
+            v-if="result.address.fetchedCoinBalanceBlockNumber"
+            class="evm-explorer-address__info-row"
+            :header="$t('evm-explorer-page.evm-explorer-address.last-balance-update-header')"
+            :info-tooltip="
+              $t('evm-explorer-page.evm-explorer-address.last-balance-update-info')
+            "
+            :value="$fnumber(result.address.fetchedCoinBalanceBlockNumber)"
+          />
+
+          <info-value
+            v-if="result.address.validationCount"
+            class="evm-explorer-address__info-row"
+            :header="$t('evm-explorer-page.evm-explorer-address.blocks-validated-header')"
+            :info-tooltip="
+              $t('evm-explorer-page.evm-explorer-address.blocks-validated-info')
+            "
+            :value="$fnumber(result.address.validationCount)"
           />
         </div>
       </div>
@@ -165,6 +213,12 @@ export default {
   display: flex;
   justify-content: space-between;
   margin-bottom: 4rem;
+}
+
+.evm-explorer-address__hash {
+  overflow: visible;
+  word-break: break-all;
+  margin-right: 2rem;
 }
 
 .evm-explorer-address__info-row {

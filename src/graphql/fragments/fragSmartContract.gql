@@ -1,8 +1,0 @@
-fragment fragSmartContract on SmartContract {
-  abi
-  addressHash
-  compilerVersion
-  contractSourceCode
-  name
-  optimization
-}

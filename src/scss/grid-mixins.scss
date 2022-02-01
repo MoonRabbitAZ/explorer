@@ -119,3 +119,22 @@
 
   @include default-grid-row($alignItems, $paddingVertical);
 }
+
+@mixin evm-token-transfer-grid-row ($alignItems, $paddingVertical: 0) {
+  grid-template-columns: repeat(4, minmax(15rem, 1fr)) 10rem;
+
+  @include default-grid-row($alignItems, $paddingVertical);
+}
+
+@mixin evm-token-transfer-full-grid-row ($alignItems, $paddingVertical: 0) {
+  grid-template-columns: 
+    minmax(20rem, 1fr)
+    1.6rem
+    minmax(15rem, 1fr)
+    minmax(15rem, 1fr)
+    10rem
+    10rem
+    13.5rem;
+
+  @include default-grid-row($alignItems, $paddingVertical);
+}

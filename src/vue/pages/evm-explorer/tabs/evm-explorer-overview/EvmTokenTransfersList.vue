@@ -24,6 +24,9 @@
             {{ $t('evm-explorer-page.evm-token-transfers-list.token-transfers-header') }}
           </h1>
           <template v-if="tokenTransfers?.length">
+            <h4 v-if="!addressHash">
+              {{ $t('evm-explorer-page.evm-token-transfers-list.tx-hash-header') }}
+            </h4>
             <h4>
               {{ $t('evm-explorer-page.evm-token-transfers-list.from-header') }}
             </h4>
@@ -33,27 +36,39 @@
             <h4>
               {{ $t('evm-explorer-page.evm-token-transfers-list.amount-header') }}
             </h4>
-            <h4>
-              {{ $t('evm-explorer-page.evm-token-transfers-list.time-header') }}
-            </h4>
-            <h4>
-              {{ $t('evm-explorer-page.evm-token-transfers-list.block-header') }}
-            </h4>
+            <template v-if="addressHash">
+              <h4>
+                {{ $t('evm-explorer-page.evm-token-transfers-list.fee-header') }}
+              </h4>
+              <h4>
+                {{ $t('evm-explorer-page.evm-token-transfers-list.block-header') }}
+              </h4>
+            </template>
           </template>
           <!-- eslint-enable  max-len -->
         </div>
         <template v-if="tokenTransfers.length">
-          <evm-token-transfer-row
-            v-for="({node: tokenTransfer }) in tokenTransfers"
-            :key="tokenTransfer.id"
-            :token-transfer="tokenTransfer"
-          />
+          <template v-if="addressHash">
+            <evm-token-transfer-full-row
+              v-for="({node: tokenTransfer }) in tokenTransfers"
+              :key="tokenTransfer.id"
+              :time-now="timeNow"
+              :token-transfer="tokenTransfer"
+              :current-address="addressHash"
+            />
+          </template>
+          <template v-else>
+            <evm-token-transfer-row
+              v-for="({node: tokenTransfer }) in tokenTransfers"
+              :key="tokenTransfer.id"
+              :token-transfer="tokenTransfer"
+            />
+          </template>
         </template>
         <template v-else>
           <no-data-message
             class="evm-token-transfers-list__no-data"
             :message="noDataMessage"
-            :time-now="timeNow"
             is-row-block
           />
         </template>
@@ -73,6 +88,7 @@
 </template>
 
 <script>
+import EvmTokenTransferFullRow from '@evm-explorer-page/tabs/evm-explorer-overview/EvmTokenTransferFullRow'
 import EvmTokenTransferRow from '@evm-explorer-page/tabs/evm-explorer-overview/EvmTokenTransferRow'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 import Pagination from '@/vue/common/Pagination'
@@ -93,6 +109,7 @@ export default {
     Loader,
     ErrorMessage,
     NoDataMessage,
+    EvmTokenTransferFullRow,
     EvmTokenTransferRow,
     Pagination,
   },
@@ -115,8 +132,7 @@ export default {
         ? { transactionHash: props.transactionHash }
         : {}
       ),
-      count: PAGE_LIMIT,
-      last: PAGE_LIMIT,
+      first: PAGE_LIMIT,
     })
 
     const { result, loading, error, fetchMore, refetch, onResult } =
@@ -186,19 +202,15 @@ export default {
   padding: 0 1.6rem;
 
   &--grid {
-    & > :nth-child(5) {
-      grid-column: 6/7;
-    }
-
-    @include evm-transaction-grid-row(flex-end);
+    @include evm-token-transfer-grid-row(flex-end);
   }
 
   &--grid-with-direction {
-    & > :nth-child(5) {
-      grid-column: 6/8;
+    & > :first-child {
+      grid-column: 1/3;
     }
 
-    @include evm-transaction-with-direction-grid-row(flex-end);
+    @include evm-token-transfer-full-grid-row(flex-end);
   }
 }
 
