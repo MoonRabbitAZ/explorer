@@ -29,6 +29,7 @@ const app = createApp({
       formatDateDMY,
       formatDateDDMY,
       formatDateDMYT,
+      formatDateDMYTS,
       formatCalendar,
       formatCalendarInline,
     } = useFormatDate()
@@ -40,6 +41,7 @@ const app = createApp({
     app.appContext.config.globalProperties.$fddmy = formatDateDMY
     app.appContext.config.globalProperties.$fdddmy = formatDateDDMY
     app.appContext.config.globalProperties.$fddmyt = formatDateDMYT
+    app.appContext.config.globalProperties.$fddmyts = formatDateDMYTS
     app.appContext.config.globalProperties.$fcalend = formatCalendar
     app.appContext.config.globalProperties.$fcalendi = formatCalendarInline
     app.appContext.config.globalProperties.$fbalance = toBalance

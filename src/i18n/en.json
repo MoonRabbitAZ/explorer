@@ -31,6 +31,7 @@
       "ddmy": "dddd, D MMMM YYYY",
       "dmy": "DD.MM.YYYY",
       "dmyt": "DD.MM.YYYY [at] H:mm",
+      "dmyts": "DD.MM.YYYY [at] H:mm:ss",
       "calendar": {
         "sameDay": "[Today at] H:mm",
         "lastDay": "[Yesterday at] H:mm",
@@ -985,6 +986,7 @@
       "search-field-placeholder": "Search by hash or block number"
     },
     "evm-explorer-block": {
+      "block-details-header": "Block details",
       "block-height-header": "Block Height",
       "timestamp-header": "Timestamp",
       "transactions-header": "Transactions",
@@ -1042,6 +1044,7 @@
       "status-out": "Out"
     },
     "evm-explorer-transaction": {
+      "transaction-details-header": "Transaction Details",
       "transaction-hash-header": "Transaction Hash",
       "result-header": "Result",
       "value-header": "Value",
@@ -1071,7 +1074,9 @@
     },
     "transaction-status": {
       "status-error": "Error",
-      "status-success": "Success"
+      "status-success": "Success",
+      "status-pending": "Pending",
+      "status-unknown": "Unknown status"
     },
     "evm-explorer-overview": {
       "no-data-message-blocks": "No blocks available",

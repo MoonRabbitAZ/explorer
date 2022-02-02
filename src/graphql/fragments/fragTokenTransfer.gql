@@ -7,8 +7,8 @@ fragment fragTokenTransfer on TokenTransfer {
   toAddressHash
   tokenContractAddressHash
   tokenId
-  transactionHash,
-  timestamp
+  timestamp,
+  tokenStatus,
 
   amount,
   tokenId,

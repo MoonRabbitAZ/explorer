@@ -34,6 +34,7 @@ export function useFormatDate () {
   const formatDateDDMY = val => moment(val).format(t('formats.dates.ddmy'))
   const formatDateDMY = val => moment(val).format(t('formats.dates.dmy'))
   const formatDateDMYT = val => moment(val).format(t('formats.dates.dmyt'))
+  const formatDateDMYTS = val => moment(val).format(t('formats.dates.dmyts'))
   const formatCalendar = val => moment(val).calendar(null, calendar)
   const formatCalendarInline = val => moment(val).calendar(null, calendarInline)
 
@@ -43,6 +44,7 @@ export function useFormatDate () {
     formatDateDMY,
     formatDateDDMY,
     formatDateDMYT,
+    formatDateDMYTS,
     formatCalendar,
     formatCalendarInline,
   }

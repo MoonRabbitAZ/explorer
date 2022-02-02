@@ -4,9 +4,7 @@
       class="evm-block-row__block-number"
       :to="{
         ...$routes.evmExplorerBlock,
-        params: {
-          blockNumber: block.number,
-        },
+        query: { blockNumber: block.number },
       }"
     >
       {{ block.number }}
@@ -15,13 +13,13 @@
       class="evm-block-row__column"
       :to="{
         ...$routes.evmExplorerAddress,
-        params: { hash: block.minerHash },
+        query: { hash: block.minerHash },
       }"
     >
       {{ block.minerHash }}
     </router-link>
     <p>
-      <!-- {{ block.transactions }} -->
+      {{ block.totalTransactionCount }}
     </p>
     <p :key="timeNow">
       {{ timeAgo() }}

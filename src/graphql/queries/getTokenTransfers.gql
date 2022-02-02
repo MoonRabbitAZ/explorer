@@ -30,6 +30,8 @@ query getTokenTransfers(
             fromAddressHash,
             toAddressHash,
             cumulativeGasUsed,
+            status,
+            timestamp,
           }
         }
       }

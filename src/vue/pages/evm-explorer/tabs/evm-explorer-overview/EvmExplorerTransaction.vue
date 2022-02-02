@@ -10,6 +10,9 @@
     </template>
     <template v-else>
       <!-- eslint-disable  max-len-->
+      <h1 class="evm-explorer-transaction__header">
+        {{ $t('evm-explorer-page.evm-explorer-transaction.transaction-details-header') }}
+      </h1>
       <div class="evm-explorer-transaction__info">
         <info-value
           class="evm-explorer-transaction__info-row"
@@ -36,9 +39,7 @@
           :value="result.transaction.blockNumber"
           :route-to="{
             ...$routes.evmExplorerBlock,
-            params: {
-              blockNumber: result.transaction.blockNumber,
-            },
+            query: { blockNumber: result.transaction.blockNumber },
           }"
         />
 
@@ -46,7 +47,7 @@
           class="evm-explorer-transaction__info-row"
           :header="$t('evm-explorer-page.evm-explorer-transaction.timestamp-header')"
           :info-tooltip="$t('evm-explorer-page.evm-explorer-transaction.timestamp-info')"
-          :value="$fddmyt(result.transaction.timestamp)"
+          :value="$fddmyts(result.transaction.timestamp)"
         />
 
         <info-value
@@ -56,7 +57,7 @@
           :value="result.transaction.fromAddressHash"
           :route-to="{
             ...$routes.evmExplorerAddress,
-            params: {
+            query: {
               hash: result.transaction.fromAddressHash,
             },
           }"
@@ -72,7 +73,7 @@
           "
           :route-to="{
             ...$routes.evmExplorerAddress,
-            params: {
+            query: {
               hash: result.transaction.toAddressHash
                 || result.transaction.createdContractAddressHash,
             },
@@ -107,7 +108,7 @@
           class="evm-explorer-transaction__info-row"
           :header="$t('evm-explorer-page.evm-explorer-transaction.gas-price-header')"
           :info-tooltip="$t('evm-explorer-page.evm-explorer-transaction.gas-price-info')"
-          :value="result.transaction.gasPrice"
+          :value="gasPrice"
         />
       </div>
 
@@ -145,7 +146,7 @@
 
       <evm-token-transfers-list
         class="evm-explorer-transaction__list"
-        :transaction-hash="result.transaction.hash"
+        :transaction-hash="hash"
         :time-now="timeNow"
         :no-data-message="$t('evm-explorer-page.evm-explorer-address.no-data-message-transactions')"
       />
@@ -164,11 +165,12 @@ import ErrorMessage from '@/vue/common/ErrorMessage'
 import { watch, computed } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
 import { BN } from '@polkadot/util'
-import { useTimeNow } from '@/vue/composables'
+import { useTimeNow, useWeb3 } from '@/vue/composables'
 
 import CONFIG from '@/config'
 import GET_TRANSACTION from '@/graphql/queries/getTransaction.gql'
 
+const ETHERE_UNIT_GWEI = 'Gwei'
 export default {
   name: 'evm-explorer-transaction',
 
@@ -185,6 +187,7 @@ export default {
   },
 
   setup (props) {
+    const { web3 } = useWeb3()
     const timeNow = useTimeNow()
     const { result, variables, loading, error } =
       useQuery(GET_TRANSACTION, { hash: props.hash })
@@ -205,6 +208,16 @@ export default {
       return `${gas} | ${percent.toFixed(2)}%`
     })
 
+    const gasPrice = computed(() => {
+      if (!result.value?.transaction?.gasPrice) return
+      const amount = web3.value.utils.fromWei(
+        result.value.transaction.gasPrice,
+        ETHERE_UNIT_GWEI,
+      )
+
+      return `${amount} ${ETHERE_UNIT_GWEI}`
+    })
+
     watch(() => props.hash, selectHash)
 
     return {
@@ -214,6 +227,7 @@ export default {
       error,
       CONFIG,
       percentGasUsed,
+      gasPrice,
     }
   },
 }
@@ -222,6 +236,10 @@ export default {
 <style lang="scss" scoped>
 @import '~@scss/mixins';
 @import '~@scss/variables';
+
+.evm-explorer-transaction__header {
+  margin-bottom: 3rem;
+}
 
 .evm-explorer-transaction__info {
   @include content-block;

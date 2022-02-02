@@ -90,14 +90,14 @@
 
       <evm-transactions-list
         class="evm-explorer-address__list"
-        :address-hash="result.address.hash"
+        :address-hash="hash"
         :time-now="timeNow"
         :no-data-message="$t('evm-explorer-page.evm-explorer-address.no-data-message-transactions')"
       />
 
       <evm-token-transfers-list
         class="evm-explorer-address__list"
-        :address-hash="result.address.hash"
+        :address-hash="hash"
         :time-now="timeNow"
         :no-data-message="$t('evm-explorer-page.evm-explorer-address.no-data-message-transactions')"
       />

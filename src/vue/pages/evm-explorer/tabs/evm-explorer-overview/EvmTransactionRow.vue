@@ -7,7 +7,7 @@
       class="evm-transaction-row__column"
       :to="{
         ...$routes.evmExplorerTransaction,
-        params: {
+        query: {
           hash: transaction.hash,
         },
       }"
@@ -18,7 +18,7 @@
       class="evm-transaction-row__column"
       :to="{
         ...$routes.evmExplorerAddress,
-        params: { hash: transaction?.fromAddressHash},
+        query: { hash: transaction?.fromAddressHash},
       }"
     >
       {{ transaction.fromAddressHash }}
@@ -27,7 +27,7 @@
       class="evm-transaction-row__column"
       :to="{
         ...$routes.evmExplorerAddress,
-        params: {
+        query: {
           hash: transaction?.toAddressHash ||
             transaction.createdContractAddressHash
           },
@@ -55,7 +55,7 @@
       class="evm-transaction-row__block-link"
       :to="{
         ...$routes.evmExplorerBlock,
-        params: { blockNumber: transaction.blockNumber },
+        query: { blockNumber: transaction.blockNumber },
       }"
     >
       {{ $fnumber(transaction.blockNumber) }}

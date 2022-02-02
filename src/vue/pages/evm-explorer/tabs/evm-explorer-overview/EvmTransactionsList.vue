@@ -117,7 +117,7 @@ export default {
       ...(props.blockNumber ? { blockNumber: props.blockNumber } : {}),
       ...(props.addressHash ? { addressHash: props.addressHash } : {}),
       count: PAGE_LIMIT,
-      last: PAGE_LIMIT,
+      first: PAGE_LIMIT,
     })
 
     const options = reactive({

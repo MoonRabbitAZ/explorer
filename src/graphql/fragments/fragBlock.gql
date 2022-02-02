@@ -1,4 +1,5 @@
 fragment fragBlock on Block {
+  totalTransactionCount,
   consensus
   difficulty
   gasLimit

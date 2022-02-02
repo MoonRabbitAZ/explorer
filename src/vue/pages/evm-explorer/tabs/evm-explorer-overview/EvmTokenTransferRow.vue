@@ -12,7 +12,7 @@
       class="evm-token-transfer-row__column"
       :to="{
         ...$routes.evmExplorerAddress,
-        params: { hash: tokenTransfer.fromAddressHash},
+        query: { hash: tokenTransfer.fromAddressHash},
       }"
     >
       {{ tokenTransfer.fromAddressHash }}
@@ -21,7 +21,7 @@
       class="evm-token-transfer-row__column"
       :to="{
         ...$routes.evmExplorerAddress,
-        params: {
+        query: {
           hash: tokenTransfer.toAddressHash
         },
       }"
@@ -40,11 +40,9 @@
 </template>
 
 <script>
-import { useI18n } from 'vue-i18n'
+import { useTokenTransferType } from '@evm-explorer-page/composables/useTokenTransferType'
 
 import CONFIG from '@/config'
-import { EVM_TOKEN_TRANSFERS_TYPES } from '@/js/const/evm-transaction-types.const'
-
 export default {
   name: 'evm-token-transfer-row',
 
@@ -53,26 +51,7 @@ export default {
   },
 
   setup (props) {
-    const { t } = useI18n()
-
-    let type
-
-    switch (props.tokenTransfer.type) {
-      case EVM_TOKEN_TRANSFERS_TYPES.burning:
-        type = t('evm-explorer-page.evm-token-transfer-row.burning-type')
-        break
-      case EVM_TOKEN_TRANSFERS_TYPES.spawning:
-        type = t('evm-explorer-page.evm-token-transfer-row.spawning-type')
-        break
-      case EVM_TOKEN_TRANSFERS_TYPES.minting:
-        type = t('evm-explorer-page.evm-token-transfer-row.minting-type')
-        break
-      case EVM_TOKEN_TRANSFERS_TYPES.transfer:
-        type = t('evm-explorer-page.evm-token-transfer-row.transfer-type')
-        break
-      default:
-        type = 'undefined'
-    }
+    const type = useTokenTransferType(props.tokenTransfer.tokenStatus)
 
     return {
       type,

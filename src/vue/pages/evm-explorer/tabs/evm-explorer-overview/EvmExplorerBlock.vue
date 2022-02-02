@@ -1,5 +1,5 @@
 <template>
-  <div class="evm-explorer-block" :key="blockNumber">
+  <div class="evm-explorer-block" :key="blockNumber || hash">
     <template v-if="loading">
       <loader/>
     </template>
@@ -7,6 +7,9 @@
       <error-message :message="error.message"/>
     </template>
     <template v-else>
+      <h1 class="evm-explorer-block__header">
+        {{ $t('evm-explorer-page.evm-explorer-block.block-details-header') }}
+      </h1>
       <div class="evm-explorer-block__info">
         <info-value
           class="evm-explorer-block__info-row"
@@ -16,7 +19,7 @@
           :info-tooltip="
             $t('evm-explorer-page.evm-explorer-block.block-height-info')
           "
-          :value="result.block.number"
+          :value="result.block.number.toString()"
         />
 
         <info-value
@@ -24,7 +27,7 @@
           :header="
             $t('evm-explorer-page.evm-explorer-block.timestamp-header')
           "
-          :value="$fddmyt(result.block.timestamp)"
+          :value="$fddmyts(result.block.timestamp)"
           :info-tooltip="
             $t('evm-explorer-page.evm-explorer-block.timestamp-info')
           "
@@ -36,7 +39,7 @@
           :value="result.block.minerHash"
           :route-to="{
             ...$routes.evmExplorerAddress,
-            params: {
+            query: {
               hash: result.block.minerHash,
             },
           }"
@@ -73,7 +76,10 @@
             $t('evm-explorer-page.evm-explorer-block.parent-hash-header')
           "
           :value="result.block.parentHash"
-          :route-to="$routes.app"
+          :route-to="{
+            ...$routes.evmExplorerBlock,
+            query: { hash: result.block.parentHash },
+          }"
           :info-tooltip="
             $t('evm-explorer-page.evm-explorer-block.parent-hash-info')
           "
@@ -129,7 +135,7 @@
       <!-- eslint-disable max-len -->
       <evm-transactions-list
         class="evm-explorer-block__transactions-list"
-        :block-number="result.block.number"
+        :block-number="+blockNumber"
         :time-now="timeNow"
         :no-data-message="$t('evm-explorer-page.evm-explorer-address.no-data-message-transactions')"
       />
@@ -144,7 +150,7 @@ import InfoValue from '@evm-explorer-page/tabs/evm-explorer-overview/InfoValue'
 import Loader from '@/vue/common/Loader'
 import ErrorMessage from '@/vue/common/ErrorMessage'
 
-import { watch } from 'vue'
+import { watch, toRefs } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
 import { useTimeNow } from '@/vue/composables'
 
@@ -156,28 +162,33 @@ export default {
   components: { EvmTransactionsList, InfoValue, Loader, ErrorMessage },
 
   props: {
-    blockNumber: { type: String, required: true },
+    blockNumber: { type: String, default: '' },
+    hash: { type: String, default: '' },
   },
 
   setup (props) {
+    const { blockNumber, hash } = toRefs(props)
     const timeNow = useTimeNow()
 
     const { result, variables, loading, error } =
-      useQuery(GET_BLOCK, { number: +props.blockNumber })
+      useQuery(GET_BLOCK, {
+        ...(blockNumber.value ? { number: +blockNumber.value } : {}),
+        ...(hash.value ? { hash: hash.value } : {}),
+      })
 
     function selectBlockNumber () {
       variables.value = {
-        number: +props.blockNumber,
+        ...(blockNumber.value ? { number: +blockNumber.value } : {}),
+        ...(hash.value ? { hash: hash.value } : {}),
       }
     }
 
-    watch(() => props.blockNumber, selectBlockNumber)
+    watch([blockNumber, hash], selectBlockNumber)
 
     return {
       result,
       loading,
       error,
-      console,
       timeNow,
     }
   },
@@ -187,6 +198,10 @@ export default {
 <style lang="scss" scoped>
 @import '~@scss/mixins';
 @import '~@scss/variables';
+
+.evm-explorer-block__header {
+  margin-bottom: 2rem;
+}
 
 .evm-explorer-block__info {
   @include content-block;

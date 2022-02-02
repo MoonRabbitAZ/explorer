@@ -1,9 +1,13 @@
 <template>
   <div
     class="transaction-status"
-    :class="{'transaction-status--error': isError}"
+    :class="{
+      'transaction-status--error': status === STATUSES.error,
+      'transaction-status--success': status === STATUSES.success,
+    }"
   >
     <icon
+      v-if="iconName"
       class="transaction-status__icon"
       :name="iconName"
     />
@@ -19,7 +23,12 @@ import Icon from '@/vue/common/Icon'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-const STATUS_ERROR = 'ERROR'
+const STATUSES = {
+  error: 'error',
+  success: 'success',
+  pending: 'pending',
+}
+
 export default {
   name: 'transaction-status',
 
@@ -31,23 +40,36 @@ export default {
 
   setup (props) {
     const { t } = useI18n()
-    const isError = computed(() => props.status === STATUS_ERROR)
-    const iconName = computed(() =>
-      isError.value
-        ? 'alert'
-        : 'success',
-    )
+    const iconName = computed(() => {
+      switch (props.status) {
+        case STATUSES.error:
+          return 'alert'
+        case STATUSES.success:
+          return 'success'
+        case STATUSES.pending:
+          return 'rotate'
+        default:
+          return ''
+      }
+    })
 
-    const message = computed(() =>
-      isError.value
-        ? t('evm-explorer-page.transaction-status.status-error')
-        : t('evm-explorer-page.transaction-status.status-success'),
-    )
+    const message = computed(() => {
+      switch (props.status) {
+        case STATUSES.error:
+          return t('evm-explorer-page.transaction-status.status-error')
+        case STATUSES.success:
+          return t('evm-explorer-page.transaction-status.status-success')
+        case STATUSES.pending:
+          return t('evm-explorer-page.transaction-status.status-pending')
+        default:
+          return t('evm-explorer-page.transaction-status.status-unknown')
+      }
+    })
 
     return {
       iconName,
       message,
-      isError,
+      STATUSES,
     }
   },
 }
@@ -61,6 +83,12 @@ export default {
   display: flex;
   align-items: center;
 
+  &--success {
+    .transaction-status__icon {
+      color: $col-app-accent;
+    }
+  }
+
   &--error {
     .transaction-status__icon,
     .transaction-status__message {
@@ -72,7 +100,6 @@ export default {
 .transaction-status__icon {
   width: 1.6rem;
   height: 1.6rem;
-  color: $col-app-accent;
   margin-right: 0.6rem;
 }
 </style>

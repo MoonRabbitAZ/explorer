@@ -5,7 +5,7 @@
       class="evm-token-transfer-full-row__column"
       :to="{
         ...$routes.evmExplorerTransaction,
-        params: {
+        query: {
           hash: tokenTransfer.transaction.hash,
         },
       }"
@@ -19,7 +19,7 @@
       class="evm-token-transfer-full-row__column"
       :to="{
         ...$routes.evmExplorerAddress,
-        params: { hash: tokenTransfer.transaction.fromAddressHash},
+        query: { hash: tokenTransfer.transaction.fromAddressHash},
       }"
     >
       {{ tokenTransfer.transaction.fromAddressHash }}
@@ -28,7 +28,7 @@
       class="evm-token-transfer-full-row__column"
       :to="{
         ...$routes.evmExplorerAddress,
-        params: {
+        query: {
           hash: tokenTransfer.transaction.toAddressHash ||
             tokenTransfer.transaction.createdContractAddressHash
           },
@@ -56,7 +56,7 @@
       class="evm-token-transfer-full-row__block-link"
       :to="{
         ...$routes.evmExplorerBlock,
-        params: { blockNumber: tokenTransfer.blockNumber },
+        query: { blockNumber: tokenTransfer.blockNumber },
       }"
     >
       {{ $fnumber(tokenTransfer.blockNumber) }}
@@ -88,7 +88,7 @@
       class="evm-token-transfer-full-row__column"
       :to="{
         ...$routes.evmExplorerTransaction,
-        params: {
+        query: {
           hash: tokenTransfer.fromAddressHash,
         },
       }"
@@ -100,7 +100,7 @@
       class="evm-token-transfer-full-row__column"
       :to="{
         ...$routes.evmExplorerTransaction,
-        params: {
+        query: {
           hash: tokenTransfer.toAddressHash,
         },
       }"
@@ -122,7 +122,7 @@
       {{ tokenTransfer.token.type }}
     </p>
 
-    <transaction-status :status="tokenTransfer.status"/>
+    <transaction-status :status="tokenTransfer.transaction.status"/>
 
     <p :key="timeNow">
       {{ timeAgo() }}
@@ -133,11 +133,10 @@
 <script>
 import TransactionStatus from '@evm-explorer-page/tabs/evm-explorer-overview/TransactionStatus'
 
-import { useI18n } from 'vue-i18n'
+import { useTokenTransferType } from '@evm-explorer-page/composables/useTokenTransferType'
 import moment from 'moment'
 
 import CONFIG from '@/config'
-import { EVM_TOKEN_TRANSFERS_TYPES } from '@/js/const/evm-transaction-types.const'
 
 export default {
   name: 'evm-token-transfer-full-row',
@@ -151,31 +150,11 @@ export default {
   },
 
   setup (props) {
-    const { t } = useI18n()
-    const timeMoment = moment(props.tokenTransfer.timestamp)
+    const timeMoment = moment(props.tokenTransfer.transaction.timestamp)
     const timeAgo = _ => timeMoment.fromNow()
-
     const isOutTransfer =
       props.currentAddress === props.tokenTransfer.fromAddressHash
-
-    let type
-
-    switch (type) {
-      case EVM_TOKEN_TRANSFERS_TYPES.burning:
-        type = t('evm-explorer-page.evm-token-transfer-full-row.burning-type')
-        break
-      case EVM_TOKEN_TRANSFERS_TYPES.spawning:
-        type = t('evm-explorer-page.evm-token-transfer-full-row.spawning-type')
-        break
-      case EVM_TOKEN_TRANSFERS_TYPES.minting:
-        type = t('evm-explorer-page.evm-token-transfer-full-row.minting-type')
-        break
-      case EVM_TOKEN_TRANSFERS_TYPES.transfer:
-        type = t('evm-explorer-page.evm-token-transfer-full-row.transfer-type')
-        break
-      default:
-        type = 'undefined'
-    }
+    const type = useTokenTransferType(props.tokenTransfer.tokenStatus)
 
     return {
       isOutTransfer,
@@ -207,7 +186,6 @@ export default {
 
 .evm-token-transfer-full-row__type {
   font-size: 1.6rem;
-  margin-bottom: 1rem;
 }
 
 .evm-token-transfer-full-row__arrow-icon {

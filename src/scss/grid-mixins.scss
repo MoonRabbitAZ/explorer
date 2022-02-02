@@ -121,7 +121,7 @@
 }
 
 @mixin evm-token-transfer-grid-row ($alignItems, $paddingVertical: 0) {
-  grid-template-columns: repeat(4, minmax(15rem, 1fr)) 10rem;
+  grid-template-columns: minmax(20rem, 1fr) repeat(3, minmax(15rem, 1fr)) 10rem;
 
   @include default-grid-row($alignItems, $paddingVertical);
 }
