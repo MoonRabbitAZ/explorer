@@ -14,5 +14,6 @@ fragment fragTransaction on Transaction {
   status
   toAddressHash
   timestamp
+  type
   value
 }

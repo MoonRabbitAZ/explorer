@@ -982,6 +982,21 @@
     }
   },
   "evm-explorer-page": {
+    "use-transaction-type": {
+      "token-burning-type": "Token Burning",
+      "token-creation-type": "Token Creation",
+      "token-minting-type": "Token Minting",
+      "token-transfer-type": "Token Transfer",
+      "contract-creation-type": "Contract Creation",
+      "contract-call-type": "Contract Call",
+      "transaction-type": "Transaction"
+    },
+    "use-token-transfer-type": {
+      "burning-type": "Token Burning",
+      "minting-type": "Token Mining",
+      "spawning-type": "Token Creating",
+      "transfer-type": "Token Transfer"
+    },
     "evm-explorer-overview-tab": {
       "search-field-placeholder": "Search by hash or block number"
     },
@@ -1096,12 +1111,6 @@
       "result-header": "Result",
       "fee-header": "Fee",
       "block-header": "Block"
-    },
-    "evm-token-transfer-full-row": {
-      "burning-type": "Token Burning",
-      "minting-type": "Token Mining",
-      "spawning-type": "Token Creating",
-      "transfer-type": "Token Transfer"
     },
     "evm-overview-summary": {
       "average-block-time-header": "Average Block Time",

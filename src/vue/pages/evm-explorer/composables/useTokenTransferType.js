@@ -7,19 +7,19 @@ export function useTokenTransferType (type) {
 
   switch (type) {
     case EVM_TOKEN_TRANSFERS_TYPES.burning:
-      translation = t('evm-explorer-page.evm-token-transfer-full-row.burning-type')
+      translation = t('evm-explorer-page.use-token-transfer-type.burning-type')
       break
     case EVM_TOKEN_TRANSFERS_TYPES.spawning:
-      translation = t('evm-explorer-page.evm-token-transfer-full-row.spawning-type')
+      translation = t('evm-explorer-page.use-token-transfer-type.spawning-type')
       break
     case EVM_TOKEN_TRANSFERS_TYPES.minting:
-      translation = t('evm-explorer-page.evm-token-transfer-full-row.minting-type')
+      translation = t('evm-explorer-page.use-token-transfer-type.minting-type')
       break
     case EVM_TOKEN_TRANSFERS_TYPES.transfer:
-      translation = t('evm-explorer-page.evm-token-transfer-full-row.transfer-type')
+      translation = t('evm-explorer-page.use-token-transfer-type.transfer-type')
       break
     default:
-      translation = 'undefined'
+      translation = 'Unknown type'
   }
 
   return translation

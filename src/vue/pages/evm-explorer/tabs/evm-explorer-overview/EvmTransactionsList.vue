@@ -4,9 +4,7 @@
       <loader/>
     </template>
     <template v-else-if="error">
-      <error-message
-        :message="error.message"
-      />
+      <error-message :message="error.message"/>
     </template>
     <template v-else>
       <div class="evm-transactions-list__body">
@@ -30,6 +28,9 @@
             </h4>
             <h4>
               {{ $t('evm-explorer-page.evm-transactions-list.to-header') }}
+            </h4>
+            <h4>
+              {{ $t('evm-explorer-page.evm-transactions-list.amount-header') }}
             </h4>
             <h4>
               {{ $t('evm-explorer-page.evm-transactions-list.amount-header') }}
@@ -190,16 +191,16 @@ export default {
   padding: 0 1.6rem;
 
   &--grid {
-    & > :nth-child(5) {
-      grid-column: 6/7;
+    & > :nth-child(6) {
+      grid-column: 7/8;
     }
 
     @include evm-transaction-grid-row(flex-end);
   }
 
   &--grid-with-direction {
-    & > :nth-child(5) {
-      grid-column: 6/8;
+    & > :nth-child(6) {
+      grid-column: 7/9;
     }
 
     @include evm-transaction-with-direction-grid-row(flex-end);

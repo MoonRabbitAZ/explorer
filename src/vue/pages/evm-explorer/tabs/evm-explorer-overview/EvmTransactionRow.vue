@@ -3,17 +3,21 @@
     class="evm-transaction-row"
     :class="{'evm-transaction-row--with-direction': currentAddress}"
   >
-    <router-link
-      class="evm-transaction-row__column"
-      :to="{
-        ...$routes.evmExplorerTransaction,
-        query: {
-          hash: transaction.hash,
-        },
-      }"
-    >
-      {{ transaction.hash }}
-    </router-link>
+    <div class="evm-transaction-row__column">
+      <p class="evm-transaction-row__type">
+        {{ type }}
+      </p>
+      <router-link
+        :to="{
+          ...$routes.evmExplorerTransaction,
+          query: {
+            hash: transaction.hash,
+          },
+        }"
+      >
+        {{ transaction.hash }}
+      </router-link>
+    </div>
     <router-link
       class="evm-transaction-row__column"
       :to="{
@@ -38,6 +42,13 @@
     <p>
       {{ $fExternalBalance(
         transaction.value,
+        CONFIG.EVM_TOKEN_DECIMAL,
+        CONFIG.EVM_TOKEN_TICKER
+      ) }}
+    </p>
+    <p>
+      {{ $fExternalBalance(
+        transaction.cumulativeGasUsed,
         CONFIG.EVM_TOKEN_DECIMAL,
         CONFIG.EVM_TOKEN_TICKER
       ) }}
@@ -67,6 +78,7 @@
 import TransactionStatus from '@evm-explorer-page/tabs/evm-explorer-overview/TransactionStatus'
 import TransactionDirection from '@evm-explorer-page/tabs/evm-explorer-overview/TransactionDirection'
 
+import { useTransactionType } from '@evm-explorer-page/composables/useTransactionType'
 import moment from 'moment'
 
 import CONFIG from '@/config'
@@ -83,11 +95,13 @@ export default {
   },
 
   setup (props) {
+    const type = useTransactionType(props.transaction.type)
     const timeMoment = moment(props.transaction.timestamp)
 
     const timeAgo = _ => timeMoment.fromNow()
 
     return {
+      type,
       timeAgo,
       CONFIG,
     }
@@ -106,6 +120,11 @@ export default {
   &--with-direction {
     @include evm-transaction-with-direction-grid-row(center, 1rem);
   }
+}
+
+.evm-transaction-row__type {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
 }
 
 .evm-transaction-row__column {
