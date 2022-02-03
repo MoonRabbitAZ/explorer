@@ -1112,6 +1112,16 @@
       "fee-header": "Fee",
       "block-header": "Block"
     },
+    "evm-token-transfer-info": {
+      "from-header": "From",
+      "to-header": "To",
+      "for-header": "For",
+      "token-type-header": "Token Type",
+      "token-id-header": "Token ID",
+      "value-header": "Value",
+      "symbol-header": "Symbol",
+      "amount-header": "Amount"
+    },
     "evm-overview-summary": {
       "average-block-time-header": "Average Block Time",
       "total-transactions-header": "Total Transactions",

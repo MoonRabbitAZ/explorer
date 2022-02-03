@@ -87,7 +87,7 @@
     <router-link
       class="evm-token-transfer-full-row__column"
       :to="{
-        ...$routes.evmExplorerTransaction,
+        ...$routes.evmExplorerAddress,
         query: {
           hash: tokenTransfer.fromAddressHash,
         },
@@ -99,7 +99,7 @@
     <router-link
       class="evm-token-transfer-full-row__column"
       :to="{
-        ...$routes.evmExplorerTransaction,
+        ...$routes.evmExplorerAddress,
         query: {
           hash: tokenTransfer.toAddressHash,
         },
@@ -108,18 +108,8 @@
       {{ tokenTransfer.toAddressHash }}
     </router-link>
 
-    <p v-if="tokenTransfer.token.type === 'ERC-721'">
-      {{ tokenTransfer.token.symbol }}
-    </p>
-    <p v-else-if="tokenTransfer.token.type === 'ERC-20'">
-      {{ $fExternalBalance(
-        tokenTransfer.amount,
-        +tokenTransfer.token.decimals,
-        tokenTransfer.token.symbol
-      ) }}
-    </p>
-    <p v-else-if="tokenTransfer.token.type === 'ERC-1155'">
-      {{ tokenTransfer.token.type }}
+    <p>
+      {{ tokenDisplay }}
     </p>
 
     <transaction-status :status="tokenTransfer.transaction.status"/>
@@ -133,9 +123,12 @@
 <script>
 import TransactionStatus from '@evm-explorer-page/tabs/evm-explorer-overview/TransactionStatus'
 
+import { computed } from 'vue'
 import { useTokenTransferType } from '@evm-explorer-page/composables/useTokenTransferType'
+import { useFormatBalance } from '@/vue/composables'
 import moment from 'moment'
 
+import { EVM_TOKEN_TYPES } from '@/js/const/evm-types.const'
 import CONFIG from '@/config'
 
 export default {
@@ -150,16 +143,33 @@ export default {
   },
 
   setup (props) {
+    const { toExternalBalance } = useFormatBalance()
     const timeMoment = moment(props.tokenTransfer.transaction.timestamp)
     const timeAgo = _ => timeMoment.fromNow()
     const isOutTransfer =
       props.currentAddress === props.tokenTransfer.fromAddressHash
     const type = useTokenTransferType(props.tokenTransfer.tokenStatus)
 
+    const tokenDisplay = computed(() => {
+      const type = props.tokenTransfer.token.type
+      if (type === EVM_TOKEN_TYPES.erc1155) {
+        return type
+      } else if (type === EVM_TOKEN_TYPES.erc20) {
+        return toExternalBalance(
+          props.tokenTransfer.amount,
+          +props.tokenTransfer.token.decimals,
+          props.tokenTransfer.token.symbol,
+        )
+      } else {
+        return props.tokenTransfer.token.symbol
+      }
+    })
+
     return {
       isOutTransfer,
       type,
       timeAgo,
+      tokenDisplay,
       CONFIG,
     }
   },

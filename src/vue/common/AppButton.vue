@@ -90,7 +90,7 @@ export default {
   background-color: transparent;
   width: inherit;
   height: inherit;
-  border-radius: 0.4rem;
+  border-radius: 0.8rem;
   border: none;
   line-height: 1;
   white-space: nowrap;

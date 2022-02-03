@@ -1,4 +1,4 @@
-import { EVM_TOKEN_TRANSFERS_TYPES } from '@/js/const/evm-transaction-types.const'
+import { EVM_TOKEN_TRANSFERS_TYPES } from '@/js/const/evm-types.const'
 import { useI18n } from 'vue-i18n'
 
 export function useTokenTransferType (type) {

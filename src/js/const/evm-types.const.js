@@ -14,3 +14,9 @@ export const EVM_TRANSACTION_TYPES = Object.freeze({
   contractCall: 'contract_call',
   transaction: 'transaction',
 })
+
+export const EVM_TOKEN_TYPES = Object.freeze({
+  erc721: 'ERC-721',
+  erc1155: 'ERC-1155',
+  erc20: 'ERC-20',
+})

@@ -62,6 +62,7 @@
               v-for="({node: tokenTransfer }) in tokenTransfers"
               :key="tokenTransfer.id"
               :token-transfer="tokenTransfer"
+              @open-info="openInfo"
             />
           </template>
         </template>
@@ -84,16 +85,30 @@
         :is-loaded="isLoadedPage"
       />
     </template>
+
+    <drawer
+      v-model:is-shown="isInfoOpen"
+      is-default-body
+    >
+      <template #heading>
+        {{ currentTransferType }}
+      </template>
+      <evm-token-transfer-info
+        :token-transfer="currentTransfer"
+      />
+    </drawer>
   </div>
 </template>
 
 <script>
 import EvmTokenTransferFullRow from '@evm-explorer-page/tabs/evm-explorer-overview/EvmTokenTransferFullRow'
 import EvmTokenTransferRow from '@evm-explorer-page/tabs/evm-explorer-overview/EvmTokenTransferRow'
+import EvmTokenTransferInfo from '@evm-explorer-page/tabs/evm-explorer-overview/EvmTokenTransferInfo'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 import Pagination from '@/vue/common/Pagination'
 import Loader from '@/vue/common/Loader'
 import ErrorMessage from '@/vue/common/ErrorMessage'
+import Drawer from '@/vue/common/Drawer'
 
 import { reactive, toRefs, computed } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
@@ -110,8 +125,10 @@ export default {
     ErrorMessage,
     NoDataMessage,
     EvmTokenTransferFullRow,
+    EvmTokenTransferInfo,
     EvmTokenTransferRow,
     Pagination,
+    Drawer,
   },
 
   props: {
@@ -125,6 +142,9 @@ export default {
     const state = reactive({
       paginationPage: 1,
       isLoadedPage: false,
+      isInfoOpen: false,
+      currentTransfer: {},
+      currentTransferType: '',
     })
     const variables = reactive({
       ...(props.addressHash ? { actorAddressHash: props.addressHash } : {}),
@@ -174,8 +194,17 @@ export default {
       refetch(variables)
     }
 
+    function openInfo (value) {
+      state.currentTransfer = tokenTransfers.value
+        .find(({ node }) => node.id === value.id)
+        ?.node
+      state.currentTransferType = value.type
+      state.isInfoOpen = true
+    }
+
     return {
       ...toRefs(state),
+      openInfo,
       loading,
       error,
       tokenTransfers,

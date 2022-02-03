@@ -1,12 +1,14 @@
 fragment fragTokenTransfer on TokenTransfer {
-  amount
-  blockNumber
-  fromAddressHash
-  id
-  logIndex
-  toAddressHash
-  tokenContractAddressHash
-  tokenId
+  amount,
+  amounts,
+  blockNumber,
+  fromAddressHash,
+  id,
+  logIndex,
+  toAddressHash,
+  tokenContractAddressHash,
+  tokenId,
+  tokenIds,
   timestamp,
   tokenStatus,
 
