@@ -1,6 +1,7 @@
 
 import { createRouter, createWebHistory } from 'vue-router'
 import { vueRoutes } from '@/vue-router/routes'
+import GUARDS from '@/vue-router/guards'
 
 const routes = [
   {
@@ -267,7 +268,7 @@ const routes = [
         redirect: vueRoutes.evmExplorerOverviewTab,
         children: [
           {
-            path: '/evm-explorer/overview',
+            path: '/evm-explorer-overview',
             name: vueRoutes.evmExplorerOverviewTab.name,
             component: () => import(/* webpackChunkName: "evm-explorer" */ '@evm-explorer-page/tabs/EvmExplorerOverviewTab'),
             redirect: vueRoutes.evmExplorerOverview,
@@ -285,18 +286,26 @@ const routes = [
                   blockNumber: route.query?.blockNumber,
                   hash: route.query?.hash,
                 }),
+                beforeEnter: GUARDS.evmExplorerBlockGuard,
               },
               {
                 path: '/evm-explorer/address',
                 name: vueRoutes.evmExplorerAddress.name,
                 component: () => import(/* webpackChunkName: "evm-explorer" */ '@evm-explorer-page/tabs/evm-explorer-overview/EvmExplorerAddress'),
                 props: route => ({ hash: route.query?.hash }),
+                beforeEnter: GUARDS.evmExplorerAddressGuard,
               },
               {
                 path: '/evm-explorer/transaction',
                 name: vueRoutes.evmExplorerTransaction.name,
                 component: () => import(/* webpackChunkName: "evm-explorer" */ '@evm-explorer-page/tabs/evm-explorer-overview/EvmExplorerTransaction'),
                 props: route => ({ hash: route.query?.hash }),
+                beforeEnter: GUARDS.evmExplorerTransactionGuard,
+              },
+              {
+                path: '/evm-explorer/search-error',
+                name: vueRoutes.evmExplorerSearchError.name,
+                component: () => import(/* webpackChunkName: "evm-explorer" */ '@evm-explorer-page/tabs/evm-explorer-overview/EvmExplorerSearchError'),
               },
             ],
           },

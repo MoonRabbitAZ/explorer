@@ -4,7 +4,7 @@
       <!-- eslint-disable max-len -->
       <info-block
         :title="$t('evm-explorer-page.evm-overview-summary.average-block-time-header')"
-        :value="result?.chainData.averageBlockTime"
+        :value="averageBlockTime"
       />
       <info-block
         :title="$t('evm-explorer-page.evm-overview-summary.total-transactions-header')"
@@ -26,8 +26,9 @@
 <script>
 import InfoBlock from '@/vue/common/InfoBlock'
 
-import { reactive } from 'vue'
+import { reactive, computed } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
+import { useFormatTime } from '@/vue/composables'
 import GET_CHAIN_DATA from '@/graphql/queries/getChainData.gql'
 
 export default {
@@ -40,13 +41,18 @@ export default {
   },
 
   setup (props) {
+    const { formatDuration } = useFormatTime()
     const options = reactive({
       ...(props.pollInterval ? { pollInterval: props.pollInterval } : {}),
       fetchPolicy: 'network-only',
     })
     const { result } = useQuery(GET_CHAIN_DATA, {}, options)
+    const averageBlockTime = computed(() => {
+      if (!result.value) return
+      return formatDuration(result.value.chainData.averageBlockTime, true)
+    })
 
-    return { result }
+    return { result, averageBlockTime }
   },
 }
 </script>

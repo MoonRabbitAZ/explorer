@@ -10,7 +10,7 @@
       <!-- eslint-disable  max-len-->
       <div class="evm-explorer-address__info">
         <h1>
-          {{ $t('evm-explorer-page.evm-explorer-address.address-details-header') }}
+          {{ headerTranslation }}
         </h1>
         <div class="evm-explorer-address__info-block">
           <div class="evm-explorer-address__hash-wrap">
@@ -144,7 +144,8 @@ import Drawer from '@/vue/common/Drawer'
 import QrCodeWrapper from '@/vue/common/QrCodeWrapper'
 import { ClipboardField } from '@/vue/fields'
 
-import { reactive, ref, watch } from 'vue'
+import { reactive, ref, watch, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useQuery } from '@vue/apollo-composable'
 import { useTimeNow } from '@/vue/composables'
 
@@ -170,6 +171,7 @@ export default {
   },
 
   setup (props) {
+    const { t } = useI18n()
     const timeNow = useTimeNow()
     const isQrDrawerOpen = ref(false)
     const accountVariables = reactive({
@@ -184,6 +186,11 @@ export default {
       accountVariables.hash = props.hash
     }
 
+    const headerTranslation = computed(() =>
+      result.value?.address?.contractCode
+        ? t('evm-explorer-page.evm-explorer-address.contract-address-details-header')
+        : t('evm-explorer-page.evm-explorer-address.address-details-header'),
+    )
     watch(() => props.hash, selectHash)
 
     return {
@@ -192,6 +199,7 @@ export default {
       result,
       loading,
       error,
+      headerTranslation,
       CONFIG,
     }
   },

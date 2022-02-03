@@ -1029,6 +1029,7 @@
     },
     "evm-explorer-address": {
       "address-details-header": "Address Details",
+      "contract-address-details-header": "Contract Address Details",
       "balance-header": "Balance",
       "transactions-header": "Transactions",
       "transfers-header": "Transfers",
@@ -1127,6 +1128,10 @@
       "total-transactions-header": "Total Transactions",
       "total-blocks-header": "Total Blocks",
       "wallet-addresses-header": "Wallet Addresses"
+    },
+    "evm-explorer-search-error": {
+      "header": "Nothing found",
+      "message": "Please try entering other data in the search bar"
     }
   }
 }
