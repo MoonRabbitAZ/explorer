@@ -20,7 +20,7 @@
       />
     </div>
 
-    <template v-if="isSearchProcessing">
+    <template v-if="loading">
       <loader/>
     </template>
     <template v-else>
@@ -33,7 +33,7 @@
 import { InputField } from '@/vue/fields'
 import Loader from '@/vue/common/Loader'
 
-import { reactive, toRefs, computed, ref } from 'vue'
+import { reactive, computed, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { vueRoutes } from '@/vue-router'
 import { useForm, useValidators } from '@/vue/composables'
@@ -50,7 +50,6 @@ export default {
   setup () {
     const route = useRoute()
     const router = useRouter()
-    const state = reactive({ isSearchProcessing: false })
     const variables = ref({
       parameter: route?.query
         ? route?.query?.blockNumber || route?.query?.hash
@@ -74,19 +73,18 @@ export default {
       },
     })
 
-    const { onResult } = useQuery(GET_SEARCH_RESULT, variables, options)
+    const { onResult, loading } =
+      useQuery(GET_SEARCH_RESULT, variables, options)
 
     function searchBlock () {
       const searchValue = formController.form.search.value
       if (formController.isFormValid() && searchValue) {
         variables.value = { parameter: searchValue }
-        state.isSearchProcessing = true
         formController.clearFields()
       }
     }
 
     onResult(({ data }) => {
-      state.isSearchProcessing = false
       if (data?.searchResult?.addressHash) {
         router.push({
           ...vueRoutes.evmExplorerAddress,
@@ -109,7 +107,7 @@ export default {
 
     return {
       ...formController,
-      ...toRefs(state),
+      loading,
       searchBlock,
     }
   },
