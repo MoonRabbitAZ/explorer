@@ -4,7 +4,9 @@
       <loader/>
     </template>
     <template v-else-if="error">
-      <error-message :message="error.message" />
+      <error-message
+        :message="$t('evm-explorer-page.evm-explorer-address.balance-header')"
+      />
     </template>
     <template v-else>
       <!-- eslint-disable  max-len-->

@@ -5,7 +5,9 @@
     </template>
     <template v-else-if="error">
       <error-message
-        :message="error.message"
+        :message="
+          $t('evm-explorer-page.evm-token-transfers-list.error-message')
+        "
       />
     </template>
     <template v-else>

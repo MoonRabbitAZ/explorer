@@ -4,7 +4,9 @@
       <loader/>
     </template>
     <template v-else-if="error">
-      <error-message :message="error.message"/>
+      <error-message
+        :message="$t('evm-explorer-page.evm-explorer-block.error-message')"
+      />
     </template>
     <template v-else>
       <h1 class="evm-explorer-block__header">

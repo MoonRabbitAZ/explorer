@@ -1025,7 +1025,8 @@
       "total-difficulty-info": "Total difficulty of the chain until this block.",
       "gas-used-info": "The total gas amount used in the block and its percentage of gas filled in the block.",
       "gas-limit-info": "Total gas limit provided by all transactions in the block.",
-      "nonce-info": "64-bit hash of value verifying proof-of-work (note: null for POA chains)."
+      "nonce-info": "64-bit hash of value verifying proof-of-work (note: null for POA chains).",
+      "error-message": "There was an error while loading."
     },
     "evm-explorer-address": {
       "address-details-header": "Address Details",
@@ -1044,7 +1045,8 @@
       "balance-info": "Address balance in xDAI (doesn't include ERC20, ERC721, ERC1155 tokens).",
       "no-data-message-transactions": "There are no transactions for this address.",
       "qr-drawer-title": "QR Code",
-      "address-drawer-title": "Address"
+      "address-drawer-title": "Address",
+      "error-message": "There was an error while loading."
     },
     "evm-transactions-list": {
       "transactions-header": "Transactions",
@@ -1053,7 +1055,8 @@
       "amount-header": "Amount",
       "result-header": "Result",
       "time-header": "Time",
-      "block-header": "Block"
+      "block-header": "Block",
+      "error-message": "There was an error while loading."
     },
     "transaction-direction": {
       "status-to": "To",
@@ -1086,7 +1089,8 @@
       "value-info": "Value sent in the native token if applicable.",
       "total-fee-info": "Total transaction fee.",
       "transaction-hash-info": "Unique character string (TxID) assigned to every verified transaction.",
-      "result-info": "Current transaction state: Success, Failed (Error), or Pending (In Process)"
+      "result-info": "Current transaction state: Success, Failed (Error), or Pending (In Process)",
+      "error-message": "There was an error while loading."
     },
     "transaction-status": {
       "status-error": "Error",
@@ -1101,7 +1105,8 @@
     "evm-block-list": {
       "last-blocks-header": "Last Blocks",
       "transactions-header": "Transactions",
-      "time-header": "Time"
+      "time-header": "Time",
+      "error-message": "There was an error while loading."
     },
     "evm-token-transfers-list": {
       "token-transfers-header": "Token Transfers",
@@ -1111,7 +1116,8 @@
       "amount-header": "Amount",
       "result-header": "Result",
       "fee-header": "Fee",
-      "block-header": "Block"
+      "block-header": "Block",
+      "error-message": "There was an error while loading."
     },
     "evm-token-transfer-info": {
       "from-header": "From",
@@ -1127,7 +1133,8 @@
       "average-block-time-header": "Average Block Time",
       "total-transactions-header": "Total Transactions",
       "total-blocks-header": "Total Blocks",
-      "wallet-addresses-header": "Wallet Addresses"
+      "wallet-addresses-header": "Wallet Addresses",
+      "error-message": "There was an error while loading."
     },
     "evm-explorer-search-error": {
       "header": "Nothing found",

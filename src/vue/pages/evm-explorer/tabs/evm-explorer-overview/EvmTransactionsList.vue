@@ -4,7 +4,9 @@
       <loader/>
     </template>
     <template v-else-if="error">
-      <error-message :message="error.message"/>
+      <error-message
+        :message="$t('evm-explorer-page.evm-transactions-list.error-message')"
+      />
     </template>
     <template v-else>
       <div class="evm-transactions-list__body">
