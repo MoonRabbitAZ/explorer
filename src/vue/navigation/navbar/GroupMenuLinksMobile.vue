@@ -8,12 +8,22 @@
   >
     <template v-if="groupRouters.links.length === 1">
       <router-link
+        v-if="groupRouters.links[0].route"
         class="group-menu-links-mobile__link"
         @click="$emit(EVENTS.clickRoute, $event)"
         :to="groupRouters.links[0].route"
       >
         {{ groupRouters.links[0].translationName }}
       </router-link>
+      <a
+        v-else
+        :href="groupRouters.links[0].link"
+        target="_blank"
+        rel="noopener"
+        class="group-menu-links-mobile__link"
+      >
+        {{ groupRouters.links[0].translationName }}
+      </a>
     </template>
     <template v-else>
       <div
@@ -29,15 +39,28 @@
         ref="dropdown"
         class="group-menu-links-mobile__dropdown"
       >
-        <router-link
+        <template
           v-for="(link, id) in groupRouters.links"
-          class="group-menu-links-mobile__dropdown-link"
-          @click="$emit(EVENTS.clickRoute, $event)"
-          :to="link.route"
           :key="id"
         >
-          {{ link.translationName }}
-        </router-link>
+          <router-link
+            v-if="link.route"
+            class="group-menu-links-mobile__dropdown-link"
+            @click="$emit(EVENTS.clickRoute, $event)"
+            :to="link.route"
+          >
+            {{ link.translationName }}
+          </router-link>
+          <a
+            v-else
+            :href="link.link"
+            target="_blank"
+            rel="noopener"
+            class="group-menu-links-mobile__dropdown-link"
+          >
+            {{ link.translationName }}
+          </a>
+        </template>
       </div>
     </template>
   </div>
@@ -67,7 +90,7 @@ export default {
 
     const isActiveRouter = computed(
       () => routers.matched.some(({ name }) =>
-        !!props.groupRouters.links.find(link => link.route.name === name)),
+        !!props.groupRouters.links.find(link => link.route?.name === name)),
     )
 
     const toggleOpenDropdown = () => {

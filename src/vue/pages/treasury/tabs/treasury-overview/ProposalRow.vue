@@ -31,7 +31,7 @@ export default {
   components: { AccountAddress },
 
   props: {
-    /** @type {import("@polkadot/api-derive/types").DeriveTreasuryProposal}  */
+    /** @type {import('@polkadot/api-derive/types').DeriveTreasuryProposal}  */
     proposal: { type: Object, required: true },
   },
 }

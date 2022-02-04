@@ -96,7 +96,7 @@
       "name": "Accounts",
       "routers": {
         "wallet": "Wallet",
-        "bridge": "Bridge"
+        "bridge": "Metabridge"
       }
     },
     "settings": {
@@ -119,6 +119,14 @@
       "name": "EVM explorer",
       "routers": {
         "evm-explorer": "EVM explorer"
+      }
+    },
+    "links": {
+      "name": "Links",
+      "routers": {
+        "smart-contracts-explorer": "Smart Contracts Explorer",
+        "tutorials": "Tutorials",
+        "nft": "NFT"
       }
     }
   },
@@ -181,7 +189,7 @@
   },
   "navigation": {
     "app-footer": {
-      "all-rights": "Moon Rabbit AngoZaibatsu LLC © 2021. All Rights Reserved. This is not an investment solicitation or offering. USofA citizens, residents and legal entities are fully excluded. Versetti&Co Family Organisation"
+      "all-rights": "Moon Rabbit AngoZaibatsu LLC © 2022. All Rights Reserved. This is not an investment solicitation or offering. USofA citizens, residents and legal entities are fully excluded."
     }
   },
   "blockchain-events" :{
@@ -395,8 +403,8 @@
       "more-btn": "More"
     },
     "metamask-form": {
-      "create-msg": "To continue working with the Bridge, please create the MetaMask wallet.",
-      "connect-msg": "To continue working with the Bridge, please connect the MetaMask wallet.",
+      "create-msg": "To continue working with the Metabridge, please create the MetaMask wallet.",
+      "connect-msg": "To continue working with the Metabridge, please connect the MetaMask wallet.",
       "mobile-open-msg": "To continue, open metamask in your browser",
       "connect-btn": "Connect Wallet",
       "download-btn": "Download Now",
@@ -934,12 +942,13 @@
       "default-error-message": "There was an error while loading.",
       "chain-error-part-1": "Please switch to the network \"{ network }\" in the MetaMask wallet in order to continue. ({ link })",
       "chain-error-link-part-1": "Here's how",
-      "chain-error-part-2": "Remember! You must have enough ETH on your account to cover gas fees.",
+      "chain-error-part-2": "Remember! You must have enough { ticker } on your account to cover gas fees.",
       "chain-error-part-3": "If you were unable to deposit, switch to the \"Unfinished flows\" tab.",
       "base-chain-name": "Network Name: { name }",
       "base-chain-rps-url": "New RPC URL: { url }",
       "base-chain-id": "Chain ID: { id }",
-      "base-chain-symbol": "Currency Symbol: { symbol }"
+      "base-chain-symbol": "Currency Symbol: { symbol }",
+      "connect-chain-btn": "Connect Chain"
     },
     "bridge-confirmation-transfer-step": {
       "asset-header": "Asset",
@@ -957,7 +966,8 @@
       "confirm-chain-status-msg": "The network \"{ network }\" in the MetaMask wallet was successfully switched.",
       "deposit-btn": "Deposit",
       "withdraw-btn": "Withdraw",
-      "native-token-info-msg": "Your deposit for processing. Expect transaction within 10 minutes."
+      "native-token-info-msg": "Your deposit for processing. Expect transaction within 10 minutes.",
+      "connect-chain-btn": "Connect Chain"
     },
     "unfinished-flows-tab": {
       "error-header": "Error",
@@ -978,7 +988,8 @@
       "alert-chain-status-msg": "Please switch to the network \"{ network }\" in the MetaMask wallet in order to continue.",
       "confirm-chain-status-msg": "The network \"{ network }\" in the MetaMask wallet was successfully switched.",
       "deposit-btn": "Deposit",
-      "withdraw-btn": "Withdraw"
+      "withdraw-btn": "Withdraw",
+      "connect-chain-btn": "Connect Chain"
     }
   },
   "evm-explorer-page": {

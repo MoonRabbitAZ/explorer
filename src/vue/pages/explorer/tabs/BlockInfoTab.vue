@@ -195,7 +195,7 @@ export default {
   max-width: 100%;
   grid-template-columns: repeat(2, minmax(35rem, 1fr));
 
-  @include respond-to($sidebar-hide-bp) {
+  @include respond-to($media-small-tablet) {
     grid-template-columns: minmax(30rem, 1fr);
   }
 }

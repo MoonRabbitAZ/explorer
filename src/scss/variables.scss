@@ -12,12 +12,13 @@ $media-desktop: 1130px;
 $medium: 1024px;
 $media-small-desktop: 960px;
 $tablet: 820px;
+$media-small-tablet: 768px;
 
 $small: 600px;
 $x-small: 480px;
 
 $status-message-reposition-bp: 470px;
-$sidebar-hide-bp: 768px;
+$sidebar-hide-bp: $media-desktop;
 
 $content-side-paddings-sm: 2rem;
 

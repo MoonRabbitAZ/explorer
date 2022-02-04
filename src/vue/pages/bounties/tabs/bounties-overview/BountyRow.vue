@@ -53,6 +53,7 @@ export default {
   },
 
   props: {
+    /** @type {import('@polkadot/types/interfaces').Bounty}  */
     bounty: { type: Object, required: true },
     index: { type: BN, required: true },
     bestNumber: { type: BN, required: true },

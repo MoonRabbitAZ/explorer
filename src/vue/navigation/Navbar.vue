@@ -29,13 +29,15 @@
         <logo class="navbar__logo"/>
       </template>
       <div class="navbar__drawer-content">
-        <group-menu-links-mobile
-          class="navbar__links-group-mobile"
-          v-for="(group, id) in linksGroups"
-          @click-route="isSidebarOpen = false"
-          :key="group.name + id"
-          :group-routers="group"
-        />
+        <div>
+          <group-menu-links-mobile
+            class="navbar__links-group-mobile"
+            v-for="(group, id) in linksGroups"
+            @click-route="isSidebarOpen = false"
+            :key="group.name + id"
+            :group-routers="group"
+          />
+        </div>
 
         <chain-info
           class="navbar__chain-info-mobile"

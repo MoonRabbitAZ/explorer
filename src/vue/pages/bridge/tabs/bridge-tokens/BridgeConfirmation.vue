@@ -24,13 +24,22 @@
         <icon
           class="bridge-confirmation__chain-status-icon"
           :class="{
-            'bridge-confirmation__chain-status-icon--success': isToChainActive
+            'bridge-confirmation__chain-status-icon--success': isChainActive
           }"
           :name="chainStatusIconName"
         />
         <p class="bridge-confirmation__chain-status-msg">
           {{ chainStatusMsg }}
         </p>
+
+        <app-button
+          v-if="!isChainActive"
+          class="bridge-confirmation__connect-chain-btn"
+          scheme="primary"
+          :text="$t('bridge-page.bridge-confirmation.connect-chain-btn')"
+          :disabled="isConnectChainBtnDisabled"
+          @click="connectEthereumChain"
+        />
       </div>
 
       <app-button
@@ -58,6 +67,7 @@ import { Bus } from '@/js/helpers/event-bus'
 import { ChainRecord } from '@/js/records/chain.record'
 import { TokenRecord } from '@/js/records/token.record'
 import { Erc721TokenRecord } from '@/js/records/erc721-token.record'
+import { switchOrAddEthereumChain } from '@/js/helpers/metamask-helper'
 
 const STEPS = {
   depositOrWithdrawFirstStep: 1,
@@ -113,17 +123,18 @@ export default {
       txHash: '',
       currentStep: STEPS.depositOrWithdrawFirstStep,
       processing: false,
+      isConnectChainBtnDisabled: false,
     })
 
-    const isToChainActive = computed(() =>
+    const isChainActive = computed(() =>
       +web3ChainId.value === props.toChain.id,
     )
     const chainStatusIconName = computed(() =>
-      isToChainActive.value ? 'success' : 'alert',
+      isChainActive.value ? 'success' : 'alert',
     )
 
     const chainStatusMsg = computed(() =>
-      isToChainActive.value
+      isChainActive.value
         ? t('bridge-page.bridge-confirmation.confirm-chain-status-msg', {
           network: props.toChain.name,
         })
@@ -133,7 +144,7 @@ export default {
     )
 
     const isButtonDisabled = computed(() =>
-      state.processing || !isToChainActive.value,
+      state.processing || !isChainActive.value,
     )
 
     const buttonTranslation = computed(() =>
@@ -311,15 +322,35 @@ export default {
       state.processing = false
     }
 
+    async function connectEthereumChain () {
+      state.isConnectChainBtnDisabled = true
+
+      try {
+        await switchOrAddEthereumChain({
+          hexId: props.toChain.hexId,
+          name: props.toChain.name,
+          nativeCurrencyName: props.toChain.nativeCurrencyName,
+          rpcUrl: props.toChain.rpcUrl,
+          blockExplorerUrl: props.toChain.blockExplorerUrl,
+          nativeSymbol: props.toChain.nativeSymbol,
+          nativeDecimals: props.toChain.nativeDecimals,
+        })
+      } catch (e) {
+        ErrorHandler.processWithoutFeedback(e)
+      }
+      state.isConnectChainBtnDisabled = false
+    }
+
     return {
       ...toRefs(state),
       chainStatusMsg,
       chainStatusIconName,
-      isToChainActive,
+      isChainActive,
       depositOrWithdrawFirstStep,
       depositOrWithdrawSecondStep,
       isButtonDisabled,
       buttonTranslation,
+      connectEthereumChain,
       STEPS,
     }
   },
@@ -362,6 +393,10 @@ export default {
   font-size: 1.4rem;
   max-width: 25rem;
   text-align: center;
+}
+
+.bridge-confirmation__connect-chain-btn {
+  margin-top: 2rem;
 }
 
 .bridge-confirmation__mint-btn {

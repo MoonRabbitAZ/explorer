@@ -19,11 +19,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Treasury summary
 - `Tips list` on `Treasury tab`
 - `Bounties list` and `Bounty summary`
+- Connect Metamask chain button
+- Connect Metamask chain button on Unfinished flow
 
 #### Fixed
 - Collected winning data on auction tab
 - Proposal cell display
 - Tooltip display
+- Error message on Bridge tokens form
 
 #### Removed
 - Scrolling when the drover is open

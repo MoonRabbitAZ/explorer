@@ -8,9 +8,8 @@
           :label="$t('bridge-page.bridge-tokens-form.asset-lbl')"
           :options="tokens"
           :can-deselect="false"
-          value-prop="ticker"
-          option-label="ticker"
-          track-by="ticker"
+          track-by="id"
+          value-prop="id"
           object
           searchable
           clear-on-search
@@ -160,9 +159,7 @@
             />
           </template>
           <template v-else>
-            <error-message
-              class="bridge-tokens-form__error"
-            >
+            <error-message class="bridge-tokens-form__error">
               <i18n-t
                 class="bridge-tokens-form__error-chain-msg"
                 keypath="bridge-page.bridge-tokens-form.chain-error-part-1"
@@ -187,7 +184,9 @@
                 </template>
               </i18n-t>
               <p class="bridge-tokens-form__error-chain-msg">
-                {{ $t('bridge-page.bridge-tokens-form.chain-error-part-2') }}
+                {{ $t('bridge-page.bridge-tokens-form.chain-error-part-2', {
+                  ticker: fromChain.nativeSymbol
+                }) }}
               </p>
               <p class="bridge-tokens-form__error-chain-msg">
                 {{ $t('bridge-page.bridge-tokens-form.chain-error-part-3') }}
@@ -219,6 +218,13 @@
                 </p>
               </template>
             </error-message>
+            <app-button
+              class="bridge-tokens-form__connect-chain-btn"
+              :text="$t('bridge-page.bridge-tokens-form.connect-chain-btn')"
+              :disabled="isConnectChainBtnDisabled"
+              scheme="primary"
+              @click="connectEthereumChain"
+            />
           </template>
         </template>
       </template>
@@ -276,7 +282,7 @@ import BridgeConfirmation from '@bridge-page/tabs/bridge-tokens/BridgeConfirmati
 import ErrorMessage from '@/vue/common/ErrorMessage'
 import Loader from '@/vue/common/Loader'
 
-import { reactive, toRefs, computed, watch } from 'vue'
+import { reactive, toRefs, toRef, computed, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { apiCaller } from '@api'
 import { useForm, useValidators, useWeb3, useFormatBalance } from '@/vue/composables'
@@ -284,6 +290,7 @@ import { ErrorHandler } from '@/js/helpers/error-handler'
 import { ERC721_ABI } from '@/js/const/erc721-abi.const'
 import { ERC20_ABI } from '@/js/const/erc20-abi.const'
 import { Erc721TokenRecord } from '@/js/records/erc721-token.record'
+import { switchOrAddEthereumChain } from '@/js/helpers/metamask-helper'
 import CONFIG from '@/config'
 import debounce from 'lodash/debounce'
 
@@ -331,6 +338,7 @@ export default {
       isLoadFailed: false,
       erc721Token: null,
       displaySelectValue: true,
+      isConnectChainBtnDisabled: false,
     })
 
     const { required, amountRange } = useValidators()
@@ -366,25 +374,18 @@ export default {
       ),
     })
 
+    const currentToken = toRef(formController.form.currentToken, 'value')
+
     const fromChain = computed(() =>
       state.isWithdraw
         ? state.baseChain
-        : props.chains.find(i =>
-          i.id === formController.form.currentToken.value.chainId),
+        : props.chains.find(i => i.id === currentToken.value.chainId),
     )
 
     const toChain = computed(() =>
       state.isWithdraw
-        ? props.chains.find(i =>
-          i.id === formController.form.currentToken.value.chainId)
+        ? props.chains.find(i => i.id === currentToken.value.chainId)
         : state.baseChain,
-    )
-
-    const currentToken = computed(() =>
-      props.tokens.find(i =>
-        i.ticker === formController.form.currentToken.value.ticker &&
-          i.chainId === formController.form.currentToken.value.chainId,
-      ),
     )
 
     const currentFormatedBalance = computed(() =>
@@ -517,6 +518,24 @@ export default {
       }
     }
 
+    async function connectEthereumChain () {
+      state.isConnectChainBtnDisabled = true
+      try {
+        await switchOrAddEthereumChain({
+          hexId: fromChain.value.hexId,
+          name: fromChain.value.name,
+          nativeCurrencyName: fromChain.value.nativeCurrencyName,
+          rpcUrl: fromChain.value.rpcUrl,
+          blockExplorerUrl: fromChain.value.blockExplorerUrl,
+          nativeSymbol: fromChain.value.nativeSymbol,
+          nativeDecimals: fromChain.value.nativeDecimals,
+        })
+      } catch (e) {
+        ErrorHandler.processWithoutFeedback(e)
+      }
+      state.isConnectChainBtnDisabled = false
+    }
+
     watch(
       [currentToken, web3Account, toChain, web3ChainId],
       init,
@@ -541,6 +560,7 @@ export default {
       isDisplayForm,
       errorMessage,
       currentFullBalance,
+      connectEthereumChain,
       CONFIG,
     }
   },
@@ -641,5 +661,9 @@ export default {
 .bridge-tokens-form__mainnet-transfer-msg {
   text-align: center;
   margin-top: 2rem;
+}
+
+.bridge-tokens-form__connect-chain-btn {
+  margin: 0 auto;
 }
 </style>

@@ -141,7 +141,7 @@ export default {
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 3rem;
 
-  @include respond-to($sidebar-hide-bp) {
+  @include respond-to($media-small-tablet) {
     grid-template-columns: 1fr;
   }
 }
