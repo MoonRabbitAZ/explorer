@@ -73,6 +73,7 @@
         />
 
         <info-value
+          v-if="result.block.parentHash"
           class="evm-explorer-block__info-row"
           :header="
             $t('evm-explorer-page.evm-explorer-block.parent-hash-header')
@@ -138,6 +139,7 @@
       <evm-transactions-list
         class="evm-explorer-block__transactions-list"
         :block-number="+blockNumber"
+        :block-hash="hash"
         :time-now="timeNow"
         :no-data-message="$t('evm-explorer-page.evm-explorer-address.no-data-message-transactions')"
       />

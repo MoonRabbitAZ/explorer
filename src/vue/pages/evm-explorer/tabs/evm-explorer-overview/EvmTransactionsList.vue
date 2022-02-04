@@ -35,7 +35,7 @@
               {{ $t('evm-explorer-page.evm-transactions-list.amount-header') }}
             </h4>
             <h4>
-              {{ $t('evm-explorer-page.evm-transactions-list.amount-header') }}
+              {{ $t('evm-explorer-page.evm-transactions-list.fee-header') }}
             </h4>
             <h4>
               {{ $t('evm-explorer-page.evm-transactions-list.time-header') }}
@@ -106,7 +106,8 @@ export default {
     timeNow: { type: Date, required: true },
     noDataMessage: { type: String, required: true },
     blockNumber: { type: Number, default: null },
-    addressHash: { type: String, default: null },
+    addressHash: { type: String, default: '' },
+    blockHash: { type: String, default: '' },
     withPagination: { type: Boolean, default: true },
     pollInterval: { type: Number, default: 0 },
   },
@@ -119,6 +120,7 @@ export default {
     const variables = reactive({
       ...(props.blockNumber ? { blockNumber: props.blockNumber } : {}),
       ...(props.addressHash ? { addressHash: props.addressHash } : {}),
+      ...(props.blockHash ? { blockHash: props.blockHash } : {}),
       count: PAGE_LIMIT,
       first: PAGE_LIMIT,
     })
@@ -143,6 +145,7 @@ export default {
         variables: {
           ...(props.blockNumber ? { blockNumber: props.blockNumber } : {}),
           ...(props.addressHash ? { addressHash: props.addressHash } : {}),
+          ...(props.blockHash ? { blockHash: props.blockHash } : {}),
           ...(isNext
             ? {
                 after: pageInfo.value.endCursor,

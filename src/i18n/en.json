@@ -1064,6 +1064,7 @@
       "from-header": "From",
       "to-header": "To",
       "amount-header": "Amount",
+      "fee-header": "Fee",
       "result-header": "Result",
       "time-header": "Time",
       "block-header": "Block",

@@ -176,10 +176,7 @@ export default {
     const { t } = useI18n()
     const timeNow = useTimeNow()
     const isQrDrawerOpen = ref(false)
-    const accountVariables = reactive({
-      hash: props.hash,
-      transactionFirst: 6,
-    })
+    const accountVariables = reactive({ hash: props.hash })
 
     const { result, loading, error } =
       useQuery(GET_ADDRESS, accountVariables)
