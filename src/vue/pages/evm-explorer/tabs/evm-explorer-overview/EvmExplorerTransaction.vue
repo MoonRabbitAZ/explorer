@@ -167,8 +167,9 @@ import ErrorMessage from '@/vue/common/ErrorMessage'
 import { watch, computed } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
 import { BN } from '@polkadot/util'
-import { useTimeNow, useWeb3 } from '@/vue/composables'
+import { useTimeNow } from '@/vue/composables'
 
+import Web3 from 'web3'
 import CONFIG from '@/config'
 import GET_TRANSACTION from '@/graphql/queries/getTransaction.gql'
 
@@ -189,7 +190,7 @@ export default {
   },
 
   setup (props) {
-    const { web3 } = useWeb3()
+    const web3 = new Web3()
     const timeNow = useTimeNow()
     const { result, variables, loading, error } =
       useQuery(GET_TRANSACTION, { hash: props.hash })
@@ -212,7 +213,7 @@ export default {
 
     const gasPrice = computed(() => {
       if (!result.value?.transaction?.gasPrice) return
-      const amount = web3.value.utils.fromWei(
+      const amount = web3.utils.fromWei(
         result.value.transaction.gasPrice,
         ETHERE_UNIT_GWEI,
       )
