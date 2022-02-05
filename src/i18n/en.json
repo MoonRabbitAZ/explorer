@@ -1125,7 +1125,7 @@
       "tx-hash-header": "Transaction Hash",
       "from-header": "From",
       "to-header": "To",
-      "amount-header": "Amount",
+      "value-header": "Value",
       "result-header": "Result",
       "fee-header": "Fee",
       "block-header": "Block",

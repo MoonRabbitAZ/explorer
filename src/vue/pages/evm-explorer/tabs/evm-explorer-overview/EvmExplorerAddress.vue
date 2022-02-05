@@ -5,7 +5,7 @@
     </template>
     <template v-else-if="error">
       <error-message
-        :message="$t('evm-explorer-page.evm-explorer-address.balance-header')"
+        :message="$t('evm-explorer-page.evm-explorer-address.error-message')"
       />
     </template>
     <template v-else>

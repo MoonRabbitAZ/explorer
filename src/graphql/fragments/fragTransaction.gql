@@ -1,7 +1,6 @@
 fragment fragTransaction on Transaction {
   blockNumber
   createdContractAddressHash
-  cumulativeGasUsed
   fromAddressHash
   gasUsed
   gas

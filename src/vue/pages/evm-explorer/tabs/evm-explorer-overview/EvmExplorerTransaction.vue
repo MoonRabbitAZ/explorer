@@ -100,7 +100,7 @@
           :header="$t('evm-explorer-page.evm-explorer-transaction.total-fee-header')"
           :info-tooltip="$t('evm-explorer-page.evm-explorer-transaction.total-fee-info')"
           :value="$fFullBalance(
-            result.transaction.cumulativeGasUsed,
+            result.transaction.gasUsed,
             CONFIG.EVM_TOKEN_DECIMAL,
             CONFIG.EVM_TOKEN_TICKER
           )"
@@ -208,7 +208,7 @@ export default {
         .muln(10000)
         .div(new BN(gas))
         .toNumber() / 100
-      return `${gas} | ${percent.toFixed(2)}%`
+      return `${result.value.transaction.gasUsed} | ${percent.toFixed(2)}%`
     })
 
     const gasPrice = computed(() => {

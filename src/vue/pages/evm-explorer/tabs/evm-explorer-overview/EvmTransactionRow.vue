@@ -48,7 +48,7 @@
     </p>
     <p>
       {{ $fExternalBalance(
-        transaction.cumulativeGasUsed,
+        transaction.gasUsed,
         CONFIG.EVM_TOKEN_DECIMAL,
         CONFIG.EVM_TOKEN_TICKER
       ) }}

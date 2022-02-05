@@ -29,7 +29,7 @@ query getTokenTransfers(
             createdContractAddressHash,
             fromAddressHash,
             toAddressHash,
-            cumulativeGasUsed,
+            gasUsed,
             status,
             timestamp,
           }

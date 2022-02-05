@@ -36,7 +36,7 @@
               {{ $t('evm-explorer-page.evm-token-transfers-list.to-header') }}
             </h4>
             <h4>
-              {{ $t('evm-explorer-page.evm-token-transfers-list.amount-header') }}
+              {{ $t('evm-explorer-page.evm-token-transfers-list.value-header') }}
             </h4>
             <template v-if="addressHash">
               <h4>
