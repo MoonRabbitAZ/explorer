@@ -19,7 +19,7 @@
       {{ block.minerHash }}
     </router-link>
     <p>
-      {{ block.totalTransactionCount }}
+      {{ $fnumber(block.totalTransactionCount) }}
     </p>
     <p :key="timeNow">
       {{ timeAgo() }}

@@ -37,6 +37,17 @@
 
         <info-value
           class="evm-explorer-block__info-row"
+          :header="
+            $t('evm-explorer-page.evm-explorer-block.transactions-header')
+          "
+          :value="$fnumber(result.block.totalTransactionCount)"
+          :info-tooltip="
+            $t('evm-explorer-page.evm-explorer-block.transactions-info')
+          "
+        />
+
+        <info-value
+          class="evm-explorer-block__info-row"
           :header="$t('evm-explorer-page.evm-explorer-block.validator-header')"
           :value="result.block.minerHash"
           :route-to="{
@@ -55,7 +66,7 @@
           class="evm-explorer-block__info-row"
           :header="$t('evm-explorer-page.evm-explorer-block.size-header')"
           :value="$t('evm-explorer-page.evm-explorer-block.size-bytes-value', {
-            size: result.block.size
+            size: $fnumber(result.block.size)
           })"
           :info-tooltip="
             $t('evm-explorer-page.evm-explorer-block.size-info')
@@ -114,7 +125,7 @@
         <info-value
           class="evm-explorer-block__info-row"
           :header="$t('evm-explorer-page.evm-explorer-block.gas-used-header')"
-          :value="result.block.gasUsed"
+          :value="$fnumber(result.block.gasUsed)"
           :info-tooltip="
             $t('evm-explorer-page.evm-explorer-block.gas-used-info')
           "

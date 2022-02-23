@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Connect Metamask chain button
 - Connect Metamask chain button on Unfinished flow
 - EVM Explorer page
+- Count transactions on evm block details
 
 #### Fixed
 - Collected winning data on auction tab

@@ -1026,6 +1026,7 @@
       "gas-limit-header": "Gas Limit",
       "nonce-header": "Nonce",
       "size-bytes-value": "{ size } bytes",
+      "transactions-info": "The number of transactions in the block.",
       "block-height-info": "The block height of a particular block is defined as the number of blocks preceding it in the blockchain.",
       "timestamp-info": "Date & time at which block was produced.",
       "validator-info": "A block producer who successfully included the block onto the blockchain.",
