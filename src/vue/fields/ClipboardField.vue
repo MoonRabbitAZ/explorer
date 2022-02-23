@@ -81,11 +81,6 @@ export default {
     onMounted(() => {
       if (!clipboardBtn.value) return
       clipboard.value = new Clipboard(clipboardBtn.value)
-      clipboard.value.on('success', event => {
-        setTimeout(() => {
-          event.clearSelection()
-        }, HIDE_TOOLTIP_TIMEOUT)
-      })
     })
 
     return {

@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Proposal cell display
 - Tooltip display
 - Error message on Bridge tokens form
+- Clipboard focus
 
 #### Removed
 - Scrolling when the drover is open
