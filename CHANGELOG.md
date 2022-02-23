@@ -29,6 +29,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Tooltip display
 - Error message on Bridge tokens form
 - Clipboard focus
+- Page position after navigating the route
+
 
 #### Removed
 - Scrolling when the drover is open
