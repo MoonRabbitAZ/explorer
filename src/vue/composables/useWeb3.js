@@ -7,6 +7,7 @@ import { ETHEREUM_BRIDGE_ABI } from '@/js/const/ethereum-bridge-abi.const'
 import { NATIVE_TOKEN_ABI } from '@/js/const/native-abi.const'
 
 import config from '@/config'
+import { ERC1155_ABI } from '@/js/const/erc1155-abi.const'
 
 const MAIN_CHAIN_ID = '0x1'
 const RINKEBY_CHAIN_ID = '0x4'
@@ -44,6 +45,22 @@ export function useWeb3 () {
 
     return await contract.methods
       .transferFrom(fromAddress, toAddress, tokenId)
+      .send({ from: web3Account.value })
+  }
+
+  async function transferErc1155 ({
+    contractAddress,
+    fromAddress,
+    toAddress,
+    tokenId,
+    amount,
+  }) {
+    const contract = new web3.value.eth.Contract(ERC1155_ABI, contractAddress)
+    const hex = web3.value.utils.stringToHex('data')
+    const bytes = web3.value.utils.hexToBytes(hex)
+
+    return await contract.methods
+      .safeTransferFrom(fromAddress, toAddress, tokenId, amount, bytes)
       .send({ from: web3Account.value })
   }
 
@@ -193,6 +210,7 @@ export function useWeb3 () {
     loadWeb3Account,
 
     transferErc721,
+    transferErc1155,
     transferNative,
     burnErc20,
     transferErc20,

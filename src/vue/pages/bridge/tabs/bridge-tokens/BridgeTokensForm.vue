@@ -293,6 +293,7 @@ import { Erc721TokenRecord } from '@/js/records/erc721-token.record'
 import { switchOrAddEthereumChain } from '@/js/helpers/metamask-helper'
 import CONFIG from '@/config'
 import debounce from 'lodash/debounce'
+import { ERC1155_ABI } from '@/js/const/erc1155-abi.const'
 
 const MIN_TRANSFER_AMOUNT = 1
 const DEBOUNCE_DELAY = 500 // ms
@@ -321,6 +322,7 @@ export default {
       required: true,
     },
     isErc721: { type: Boolean, required: false },
+    isErc1155: { type: Boolean, required: false },
   },
 
   setup (props) {
@@ -442,7 +444,11 @@ export default {
       try {
         if (isFromChainActive.value && !state.isFormConfirmationOpen) {
           if (props.isErc721) {
-            await initErc721()
+            if (state.isWithdraw) {
+              await initErc721()
+            } else {
+              await initErc1155()
+            }
           } else {
             await initErc20()
           }
@@ -477,6 +483,36 @@ export default {
         state.currentBalance = balance
         state.currentTokenDecimals = +decimals
       }
+    }
+
+    async function initErc1155 () {
+      state.erc1155Token = null
+      if (!formController.form.tokenId.value) return
+      const contractAddress = state.isWithdraw
+        ? currentToken.value.internalContract
+        : currentToken.value.originalContract
+
+      const contract = new web3.value.eth.Contract(
+        ERC1155_ABI,
+        contractAddress,
+      )
+
+      const tokenAmount = await contract.methods
+        .balanceOf(web3Account.value, formController.form.tokenId.value)
+        .call()
+
+      if (tokenAmount < 1) return
+
+      const tokentUri = await contract.methods
+        .uri(formController.form.tokenId.value)
+        .call()
+
+      const tokenDetails = await getTokenDetailsByURI(tokentUri)
+      state.erc721Token = new Erc721TokenRecord({
+        ...tokenDetails,
+        tokentUri,
+        id: formController.form.tokenId.value,
+      })
     }
 
     async function initErc721 () {

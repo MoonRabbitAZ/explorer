@@ -79,7 +79,7 @@ export default {
           bridgeEthereumApi.get('/bridge/tokens', {
             filter: {
               token_type: props.isErc721
-                ? TOKEN_TYPES.erc721
+                ? `${TOKEN_TYPES.erc721},${TOKEN_TYPES.erc1155}`
                 : `${TOKEN_TYPES.native},${TOKEN_TYPES.erc20}`,
             },
           }),

@@ -109,6 +109,7 @@ export default {
     const {
       web3ChainId,
       transferErc721,
+      transferErc1155,
       transferNative,
       burnErc20,
       transferErc20,
@@ -163,6 +164,13 @@ export default {
         })
 
         state.txHash = transactionHash
+      } else if (props.currentToken.isOriginalTypeErc20) {
+        const { transactionHash } = await transferErc20({
+          contractAddress: props.currentToken.originalContract,
+          recipientAddress: props.fromChain.bridgeContract,
+          amount: props.amount,
+        })
+        state.txHash = transactionHash
       } else if (props.currentToken.isOriginalTypeNative) {
         const { transactionHash } = await transferNative({
           fromAddress: props.web3Account,
@@ -171,11 +179,14 @@ export default {
         })
         state.txHash = transactionHash
       } else {
-        const { transactionHash } = await transferErc20({
+        const { transactionHash } = await transferErc1155({
           contractAddress: props.currentToken.originalContract,
-          recipientAddress: props.fromChain.bridgeContract,
-          amount: props.amount,
+          fromAddress: props.web3Account,
+          toAddress: props.fromChain.bridgeContract,
+          tokenId: props.erc721Token.id,
+          amount: '1',
         })
+
         state.txHash = transactionHash
       }
 
@@ -203,6 +214,15 @@ export default {
           fromAddress: props.web3Account,
           toAddress: props.currentToken.internalContract,
           tokenId: props.erc721Token.id,
+        })
+
+        state.txHash = transactionHash
+      } else if (props.currentToken.isInternalTypeErc1155) {
+        const { transactionHash } = await transferErc1155({
+          contractAddress: props.currentToken.internalContract,
+          fromAddress: props.web3Account,
+          toAddress: props.currentToken.internalContract,
+          tokenId: props.erc1155Token.id,
         })
 
         state.txHash = transactionHash
