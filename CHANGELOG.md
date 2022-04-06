@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `Bounties list` and `Bounty summary`
 - Connect Metamask chain button
 - Connect Metamask chain button on Unfinished flow
+- Staking option
 
 #### Fixed
 - Collected winning data on auction tab

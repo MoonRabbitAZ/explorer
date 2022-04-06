@@ -238,7 +238,8 @@
       "type-3": "Perception Temple { percent }",
       "type-4": "Enlightenment Temple { percent }",
       "type-5": "Transcendence Temple { percent }",
-      "type-6": "Immortality Temple { percent }"
+      "type-6": "Immortality Temple { percent }",
+      "type-7": "Longevity Temple { percent }"
     }
   },
   "forms": {
@@ -321,6 +322,7 @@
       "info-staking-type-4": "500% APY, lock-up for 12 moons (355 days), rewards unlocked at the end of staking",
       "info-staking-type-5": "400% APY, lock-up for 24 moons (710 days), 1/4 of the Year 1 rewards are unlocked at the end of Year 1; the remainder is unlocked at  the end of staking",
       "info-staking-type-6": "300% APY, lock-up for 48 moons (1420 days),  1/3 of Year 1 rewards is unlocked at the end of Year 1; 1/3 of Year 2 rewards is unlocked at the end of Year 2; 1/3 of Year 3 rewards is unlocked at the end of Year 3; the remainder is unlocked at  the end of staking.",
+      "info-staking-type-7": "100% APY, lock-up for 12 moons (355 days), rewards unlocked at the end of staking",
       "error-message-header": "Insufficient funds",
       "error-message-commission": "You do not have enough funds to pay the commission ({ amount }). Please change amount to continue the operation.",
       "error-message-amount": "You do not have enough funds. Please change amount to continue the operation",

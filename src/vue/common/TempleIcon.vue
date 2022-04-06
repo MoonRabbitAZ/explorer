@@ -7,6 +7,7 @@
     <enlightenment-temple-icon v-if="ICON_IDS.enlightenment === stakingTypeId" />
     <transcendence-temple-icon v-if="ICON_IDS.transcendence === stakingTypeId" />
     <immortality-temple-icon v-if="ICON_IDS.immortality === stakingTypeId" />
+    <longevity-temple-icon v-if="ICON_IDS.longevity === stakingTypeId" />
 
     <!-- eslint-enable max-len -->
   </div>
@@ -19,6 +20,7 @@ import PerceptionTempleIcon from '@/vue/common/temples-icons/Perception-temple-i
 import EnlightenmentTempleIcon from '@/vue/common/temples-icons/Enlightenment-temple-icon'
 import TranscendenceTempleIcon from '@/vue/common/temples-icons/Transcendence-temple-icon'
 import ImmortalityTempleIcon from '@/vue/common/temples-icons/Immortality-temple-icon'
+import LongevityTempleIcon from '@/vue/common/temples-icons/Longevity-temple-icon'
 
 const ICON_IDS = {
   awakening: '1',
@@ -27,6 +29,7 @@ const ICON_IDS = {
   enlightenment: '4',
   transcendence: '5',
   immortality: '6',
+  longevity: '7',
 }
 
 export default {
@@ -38,6 +41,7 @@ export default {
     EnlightenmentTempleIcon,
     TranscendenceTempleIcon,
     ImmortalityTempleIcon,
+    LongevityTempleIcon,
   },
   props: {
     stakingTypeId: {
