@@ -114,9 +114,7 @@
           </template>
 
           <template
-            v-if="isErc721 && (erc721Token?.name ||
-              erc721Token?.imageUrl ||
-              erc721Token?.image)
+            v-if="isErc721 && (erc721Token?.name || erc721Token?.imageUrl)
             "
           >
             <bridge-info-block
@@ -127,12 +125,12 @@
               :value="erc721Token.name"
             />
             <div
-              v-if="erc721Token.imageUrl || erc721Token.image"
+              v-if="erc721Token.imageUrl"
               class="bridge-tokens-form__token-img-wrap"
             >
               <img
                 class="bridge-tokens-form__token-img"
-                :src="erc721Token.imageUrl || erc721Token.image"
+                :src="erc721Token.imageUrl"
                 alt="token image"
               >
             </div>
@@ -551,7 +549,7 @@ export default {
     async function getTokenDetailsByURI (tokentUri) {
       try {
         const proxifiedUri = tokentUri.replace('gateway.ipfs.io', 'ipfs.polkadot.tokend.io')
-        const { data } = apiCaller.withBaseURL(proxifiedUri).getRaw('')
+        const { data } = await apiCaller.withBaseURL(proxifiedUri).getRaw('')
         return data
       } catch (e) {
         ErrorHandler.processWithoutFeedback(e)
