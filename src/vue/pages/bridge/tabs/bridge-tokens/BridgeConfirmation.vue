@@ -117,7 +117,7 @@ export default {
       mintErc721,
       withdrawErc20,
       withdrawNative,
-      withdrawErc721,
+      withdrawErc1155,
     } = useWeb3()
     const state = reactive({
       parameters: null,
@@ -256,18 +256,21 @@ export default {
 
     async function withdrawSecondStep () {
       const withdrawParams = {
+        tokenUri: state.parameters.details.tokenUri,
+        nativeChainAddress: state.parameters.details.internalTokenAddress,
         txHash: state.parameters.details.txHash,
         signatureR: [state.parameters.signature.r],
         signatureS: [state.parameters.signature.s],
         signatureV: [state.parameters.signature.v],
       }
 
-      if (props.currentToken.isOriginalTypeErc721) {
-        await withdrawErc721({
+      // FIXME FIXME FIXME isOriginalTypeErc1155 && isOriginalTypeErc721 not working here?
+      if (props.currentToken.isOriginalTypeErc20) {
+        await withdrawErc20({
           ...withdrawParams,
           contractAddress: props.toChain.bridgeContract,
           address: props.currentToken.originalContract,
-          tokenId: state.parameters.details.tokenId,
+          amount: state.parameters.details.amount,
         })
       } else if (props.currentToken.isOriginalTypeNative) {
         await withdrawNative({
@@ -276,11 +279,11 @@ export default {
           amount: state.parameters.details.amount,
         })
       } else {
-        await withdrawErc20({
+        await withdrawErc1155({
           ...withdrawParams,
           contractAddress: props.toChain.bridgeContract,
           address: props.currentToken.originalContract,
-          amount: state.parameters.details.amount,
+          tokenId: state.parameters.details.tokenId,
         })
       }
     }

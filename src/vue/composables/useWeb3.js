@@ -124,6 +124,36 @@ export function useWeb3 () {
       .send({ from: web3Account.value })
   }
 
+  async function withdrawErc1155 ({
+    contractAddress,
+    address,
+    txHash,
+    tokenUri,
+    nativeChainAddress,
+    tokenId,
+    signatureR: r,
+    signatureS: s,
+    signatureV: v,
+  }) {
+    const contract = new web3.value.eth.Contract(
+      ETHEREUM_BRIDGE_ABI,
+      contractAddress,
+    )
+
+    return await contract.methods
+      .withdrawERC1155(
+        address,
+        txHash,
+        tokenUri,
+        nativeChainAddress,
+        tokenId,
+        r,
+        s,
+        v,
+      )
+      .send({ from: web3Account.value })
+  }
+
   async function withdrawErc20 ({
     contractAddress,
     address,
@@ -220,5 +250,6 @@ export function useWeb3 () {
     withdrawWithNativeAbi,
     withdrawNative,
     withdrawErc721,
+    withdrawErc1155,
   }
 }
