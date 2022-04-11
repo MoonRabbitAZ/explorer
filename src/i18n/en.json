@@ -31,6 +31,7 @@
       "ddmy": "dddd, D MMMM YYYY",
       "dmy": "DD.MM.YYYY",
       "dmyt": "DD.MM.YYYY [at] H:mm",
+      "dmyts": "DD.MM.YYYY [at] H:mm:ss",
       "calendar": {
         "sameDay": "[Today at] H:mm",
         "lastDay": "[Yesterday at] H:mm",
@@ -114,6 +115,12 @@
         "tech-comm": "Tech. Comm."
       }
     },
+    "evm-explorer": {
+      "name": "EVM explorer",
+      "routers": {
+        "evm-explorer": "EVM explorer"
+      }
+    },
     "links": {
       "name": "Links",
       "routers": {
@@ -175,6 +182,9 @@
       "tokens": "Tokens",
       "nft": "NFT",
       "unfinished-flows": "Unfinished flows"
+    },
+    "evm-explorer": {
+      "overview": "Overview"
     }
   },
   "navigation": {
@@ -982,6 +992,168 @@
       "deposit-btn": "Deposit",
       "withdraw-btn": "Withdraw",
       "connect-chain-btn": "Connect Chain"
+    }
+  },
+  "evm-explorer-page": {
+    "use-transaction-type": {
+      "token-burning-type": "Token Burning",
+      "token-creation-type": "Token Creation",
+      "token-minting-type": "Token Minting",
+      "token-transfer-type": "Token Transfer",
+      "contract-creation-type": "Contract Creation",
+      "contract-call-type": "Contract Call",
+      "transaction-type": "Transaction"
+    },
+    "use-token-transfer-type": {
+      "burning-type": "Token Burning",
+      "minting-type": "Token Mining",
+      "spawning-type": "Token Creating",
+      "transfer-type": "Token Transfer"
+    },
+    "evm-explorer-overview-tab": {
+      "search-field-placeholder": "Search by hash or block number"
+    },
+    "evm-explorer-block": {
+      "block-details-header": "Block details",
+      "block-height-header": "Block Height",
+      "timestamp-header": "Timestamp",
+      "transactions-header": "Transactions",
+      "validator-header": "Validator",
+      "size-header": "Size",
+      "hash-header": "Hash",
+      "parent-hash-header": "Parent Hash",
+      "difficulty-header": "Difficulty",
+      "total-difficulty-header": "Total Difficulty",
+      "gas-used-header": "Gas Used",
+      "gas-limit-header": "Gas Limit",
+      "nonce-header": "Nonce",
+      "size-bytes-value": "{ size } bytes",
+      "transactions-info": "The number of transactions in the block.",
+      "block-height-info": "The block height of a particular block is defined as the number of blocks preceding it in the blockchain.",
+      "timestamp-info": "Date & time at which block was produced.",
+      "validator-info": "A block producer who successfully included the block onto the blockchain.",
+      "size-info": "Size of the block in bytes.",
+      "hash-info": "The SHA256 hash of the block.",
+      "parent-hash-info": "The hash of the block from which this block was generated.",
+      "difficulty-info": "Block difficulty for miner, used to calibrate block generation time (Note: constant in POA based networks).",
+      "total-difficulty-info": "Total difficulty of the chain until this block.",
+      "gas-used-info": "The total gas amount used in the block and its percentage of gas filled in the block.",
+      "gas-limit-info": "Total gas limit provided by all transactions in the block.",
+      "nonce-info": "64-bit hash of value verifying proof-of-work (note: null for POA chains).",
+      "error-message": "There was an error while loading."
+    },
+    "evm-explorer-address": {
+      "address-details-header": "Address Details",
+      "contract-address-details-header": "Contract Address Details",
+      "balance-header": "Balance",
+      "transactions-header": "Transactions",
+      "transfers-header": "Transfers",
+      "gas-used-header": "Gas Used",
+      "last-balance-update-header": "Last Balance Update",
+      "blocks-validated-header": "Block Validated",
+      "blocks-validated-info": "Gas used by the address.",
+      "last-balance-update-info": "Block number in which the address was updated.",
+      "gas-used-info": "Gas used by the address.",
+      "transfers-info": "Number of transfers to/from this address.",
+      "transactions-info": "Number of transactions related to this address.",
+      "balance-info": "Address balance in xDAI (doesn't include ERC20, ERC721, ERC1155 tokens).",
+      "no-data-message-transactions": "There are no transactions for this address.",
+      "qr-drawer-title": "QR Code",
+      "address-drawer-title": "Address",
+      "error-message": "There was an error while loading."
+    },
+    "evm-transactions-list": {
+      "transactions-header": "Transactions",
+      "from-header": "From",
+      "to-header": "To",
+      "amount-header": "Amount",
+      "fee-header": "Fee",
+      "result-header": "Result",
+      "time-header": "Time",
+      "block-header": "Block",
+      "error-message": "There was an error while loading."
+    },
+    "transaction-direction": {
+      "status-to": "To",
+      "status-out": "Out"
+    },
+    "evm-explorer-transaction": {
+      "transaction-details-header": "Transaction Details",
+      "transaction-hash-header": "Transaction Hash",
+      "result-header": "Result",
+      "value-header": "Value",
+      "total-fee-header": "Total fee",
+      "gas-price-header": "Gas price",
+      "gas-limit-header": "Gas Limit",
+      "gas-limit-info": "Maximum gas amount approved for the transaction.",
+      "gas-used-by-transaction-header": "Gas Used by Transaction",
+      "gas-used-by-transaction-info": "Actual gas amount used by the transaction.",
+      "nonce-header": "Nonce",
+      "raw-input-header": "Raw input",
+      "block-header": "Block",
+      "timestamp-header": "Timestamp",
+      "from-address-header": "From",
+      "to-address-header": "Interacted With (To)",
+      "from-address-info": "Address (external or contract) sending the transaction.",
+      "to-address-info": "Address (external or contract) receiving the transaction.",
+      "timestamp-info": "Date & time of transaction inclusion, including length of time for confirmation.",
+      "block-info": "Block number containing the transaction.",
+      "raw-input-info": "Binary data included with the transaction. See input / logs below for additional info.",
+      "nonce-info": "Transaction number from the sending address. Each transaction sent from an address increments the nonce by 1.",
+      "gas-price-info": "Price per unit of gas specified by the sender. Higher gas prices can prioritize transaction inclusion during times of high usage.",
+      "value-info": "Value sent in the native token if applicable.",
+      "total-fee-info": "Total transaction fee.",
+      "transaction-hash-info": "Unique character string (TxID) assigned to every verified transaction.",
+      "result-info": "Current transaction state: Success, Failed (Error), or Pending (In Process)",
+      "error-message": "There was an error while loading."
+    },
+    "transaction-status": {
+      "status-error": "Error",
+      "status-success": "Success",
+      "status-pending": "Pending",
+      "status-unknown": "Unknown status"
+    },
+    "evm-explorer-overview": {
+      "no-data-message-blocks": "No blocks available",
+      "no-data-message-transactions": "No transactions available"
+    },
+    "evm-block-list": {
+      "last-blocks-header": "Last Blocks",
+      "transactions-header": "Transactions",
+      "time-header": "Time",
+      "error-message": "There was an error while loading."
+    },
+    "evm-token-transfers-list": {
+      "token-transfers-header": "Token Transfers",
+      "tx-hash-header": "Transaction Hash",
+      "from-header": "From",
+      "to-header": "To",
+      "value-header": "Value",
+      "result-header": "Result",
+      "fee-header": "Fee",
+      "block-header": "Block",
+      "error-message": "There was an error while loading."
+    },
+    "evm-token-transfer-info": {
+      "from-header": "From",
+      "to-header": "To",
+      "for-header": "For",
+      "token-type-header": "Token Type",
+      "token-id-header": "Token ID",
+      "value-header": "Value",
+      "symbol-header": "Symbol",
+      "amount-header": "Amount"
+    },
+    "evm-overview-summary": {
+      "average-block-time-header": "Average Block Time",
+      "total-transactions-header": "Total Transactions",
+      "total-blocks-header": "Total Blocks",
+      "wallet-addresses-header": "Wallet Addresses",
+      "error-message": "There was an error while loading."
+    },
+    "evm-explorer-search-error": {
+      "header": "Nothing found",
+      "message": "Please try entering other data in the search bar"
     }
   }
 }

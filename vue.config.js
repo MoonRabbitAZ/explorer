@@ -84,6 +84,7 @@ module.exports = {
         '@bounties-page': `${root}/vue/pages/bounties`,
         '@tech-comm-page': `${root}/vue/pages/tech-comm`,
         '@bridge-page': `${root}/vue/pages/bridge`,
+        '@evm-explorer-page': `${root}/vue/pages/evm-explorer`,
       },
     },
   },
@@ -121,5 +122,12 @@ module.exports = {
       .test(/^((?!\/node_modules).)*(\.png|\.jpg|\.jpeg)$/)
       .use('url-loader')
       .loader('url-loader')
+
+    config.module
+      .rule('graphql')
+      .test(/\.(graphql|gql)$/)
+      .use('graphql-tag/loader')
+      .loader('graphql-tag/loader')
+      .end()
   },
 }

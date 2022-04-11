@@ -144,6 +144,13 @@ export function usePagesTabs () {
         route: vueRoutes.unfinishedFlowsTab,
       },
     ],
+
+    evmExplorer: [
+      {
+        translationName: t('page-tabs.evm-explorer.overview'),
+        route: vueRoutes.evmExplorerOverviewTab,
+      },
+    ],
   })
 
   return {

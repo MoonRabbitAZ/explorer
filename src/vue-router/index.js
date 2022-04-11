@@ -1,6 +1,7 @@
 
 import { createRouter, createWebHistory } from 'vue-router'
 import { vueRoutes } from '@/vue-router/routes'
+import GUARDS from '@/vue-router/guards'
 
 const routes = [
   {
@@ -260,6 +261,56 @@ const routes = [
           },
         ],
       },
+      {
+        path: '/evm-explorer',
+        name: vueRoutes.evmExplorerPage.name,
+        component: () => import(/* webpackChunkName: "evm-explorer" */ '@evm-explorer-page/EvmExplorer'),
+        redirect: vueRoutes.evmExplorerOverviewTab,
+        children: [
+          {
+            path: '/evm-explorer-overview',
+            name: vueRoutes.evmExplorerOverviewTab.name,
+            component: () => import(/* webpackChunkName: "evm-explorer" */ '@evm-explorer-page/tabs/EvmExplorerOverviewTab'),
+            redirect: vueRoutes.evmExplorerOverview,
+            children: [
+              {
+                path: '/evm-explorer/overview',
+                name: vueRoutes.evmExplorerOverview.name,
+                component: () => import(/* webpackChunkName: "evm-explorer" */ '@evm-explorer-page/tabs/evm-explorer-overview/EvmExplorerOverview'),
+              },
+              {
+                path: '/evm-explorer/block',
+                name: vueRoutes.evmExplorerBlock.name,
+                component: () => import(/* webpackChunkName: "evm-explorer" */ '@evm-explorer-page/tabs/evm-explorer-overview/EvmExplorerBlock'),
+                props: route => ({
+                  blockNumber: route.query?.blockNumber,
+                  hash: route.query?.hash,
+                }),
+                beforeEnter: GUARDS.evmExplorerBlockGuard,
+              },
+              {
+                path: '/evm-explorer/address',
+                name: vueRoutes.evmExplorerAddress.name,
+                component: () => import(/* webpackChunkName: "evm-explorer" */ '@evm-explorer-page/tabs/evm-explorer-overview/EvmExplorerAddress'),
+                props: route => ({ hash: route.query?.hash }),
+                beforeEnter: GUARDS.evmExplorerAddressGuard,
+              },
+              {
+                path: '/evm-explorer/transaction',
+                name: vueRoutes.evmExplorerTransaction.name,
+                component: () => import(/* webpackChunkName: "evm-explorer" */ '@evm-explorer-page/tabs/evm-explorer-overview/EvmExplorerTransaction'),
+                props: route => ({ hash: route.query?.hash }),
+                beforeEnter: GUARDS.evmExplorerTransactionGuard,
+              },
+              {
+                path: '/evm-explorer/search-error',
+                name: vueRoutes.evmExplorerSearchError.name,
+                component: () => import(/* webpackChunkName: "evm-explorer" */ '@evm-explorer-page/tabs/evm-explorer-overview/EvmExplorerSearchError'),
+              },
+            ],
+          },
+        ],
+      },
     ],
   },
 ]
@@ -267,7 +318,7 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
-  scrollBehavior: _ => ({ x: 0, y: 0 }),
+  scrollBehavior: _ => ({ left: 0, top: 0 }),
 })
 
 export default router

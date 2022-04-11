@@ -1,6 +1,6 @@
 {
   "name": "moon_rabbit",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "vue-cli-service serve",
@@ -14,6 +14,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@apollo/client": "^3.5.7",
     "@mdi/font": "^5.9.55",
     "@polkadot/api": "^6.9.2",
     "@polkadot/api-derive": "^6.9.2",
@@ -23,11 +24,14 @@
     "@polkadot/ui-keyring": "^0.86.7",
     "@polkadot/util": "^7.9.2",
     "@polkadot/util-crypto": "^7.9.2",
+    "@vue/apollo-composable": "^4.0.0-alpha.16",
     "@vueform/multiselect": "^2.1.2",
     "axios": "^0.21.1",
     "bn.js": "^5.2.0",
     "clipboard": "^2.0.8",
     "core-js": "^3.6.5",
+    "graphql": "^16.2.0",
+    "graphql-tag": "^2.12.6",
     "i18next": "^20.3.2",
     "i18next-browser-languagedetector": "^6.1.2",
     "jsona": "^1.8.0",

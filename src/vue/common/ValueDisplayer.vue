@@ -58,6 +58,7 @@
         v-else-if="route"
         v-tooltip="tooltip"
         class="value-displayer__value value-displayer__link"
+        :class="{'value-displayer__value--full': isFullValue }"
         :to="route"
       >
         {{ value }}

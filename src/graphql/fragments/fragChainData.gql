@@ -1,0 +1,6 @@
+fragment fragChainData on ChainData {
+  addressCount
+  averageBlockTime
+  totalBlocks
+  totalTransactions
+}

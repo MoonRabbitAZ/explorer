@@ -1,0 +1,6 @@
+#import "../fragments/fragSearchResult.gql"
+query getSearchResult($parameter: String!) {
+  searchResult(parameter: $parameter) {
+    ...fragSearchResult
+  },
+}

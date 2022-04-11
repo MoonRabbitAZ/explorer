@@ -11,10 +11,12 @@ import { store } from '@/vuex'
 import { vueRoutes } from '@/vue-router/routes'
 import { i18n } from '@/i18n'
 import { ripple, clickOutside } from '@/vue/directives'
-import { createApp, h, getCurrentInstance } from 'vue'
+import { createApp, h, getCurrentInstance, provide } from 'vue'
 import { useFormatDate, useFormatBalance } from '@/vue/composables'
 import { formatNumber } from '@polkadot/util'
 import { initApi } from '@api'
+import { DefaultApolloClient } from '@vue/apollo-composable'
+import { apolloClient } from '@/apollo-client'
 
 const app = createApp({
   setup () {
@@ -27,6 +29,7 @@ const app = createApp({
       formatDateDMY,
       formatDateDDMY,
       formatDateDMYT,
+      formatDateDMYTS,
       formatCalendar,
       formatCalendarInline,
     } = useFormatDate()
@@ -38,12 +41,15 @@ const app = createApp({
     app.appContext.config.globalProperties.$fddmy = formatDateDMY
     app.appContext.config.globalProperties.$fdddmy = formatDateDDMY
     app.appContext.config.globalProperties.$fddmyt = formatDateDMYT
+    app.appContext.config.globalProperties.$fddmyts = formatDateDMYTS
     app.appContext.config.globalProperties.$fcalend = formatCalendar
     app.appContext.config.globalProperties.$fcalendi = formatCalendarInline
     app.appContext.config.globalProperties.$fbalance = toBalance
     app.appContext.config.globalProperties.$fFullBalance = toFullBalance
     app.appContext.config.globalProperties.$fExternalBalance = toExternalBalance
     app.appContext.config.globalProperties.$fnumber = formatNumber
+
+    provide(DefaultApolloClient, apolloClient)
   },
   render: () => h(App),
 })

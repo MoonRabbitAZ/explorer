@@ -44,6 +44,7 @@ const SIZE = {
   big: 'big',
   medium: 'medium',
   small: 'small',
+  xSmall: 'x-small',
 }
 
 export default {
@@ -89,7 +90,7 @@ export default {
   background-color: transparent;
   width: inherit;
   height: inherit;
-  border-radius: 0.4rem;
+  border-radius: 0.8rem;
   border: none;
   line-height: 1;
   white-space: nowrap;
@@ -117,11 +118,11 @@ export default {
   &--secondary {
     background: transparent;
     color: $col-app-accent;
-    border: 0.1rem solid $col-app-accent;
+    border: 0.2rem solid $col-app-accent;
 
     &[disabled] {
       color: $col-app-button-disabled;
-      border: 0.1rem solid $col-app-button-disabled;
+      border: 0.2rem solid $col-app-button-disabled;
     }
 
     &:not([disabled]):hover {
@@ -166,6 +167,19 @@ export default {
       font-size: 1.33rem;
       width: 1.33rem;
       height: 1.33rem;
+    }
+  }
+
+  &--x-small {
+    height: 2.4rem;
+    min-width: 2.4rem;
+    font-size: 1.6rem;
+    padding: 0 0.53rem;
+
+    .app-button__icon {
+      font-size: 1.2rem;
+      width: 1.2rem;
+      height: 1.2rem;
     }
   }
 

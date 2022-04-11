@@ -41,6 +41,24 @@ export default Object.assign(
     STAKING_SYSTEM_ADDRESS: 'GsvVmjr1CBHwQHw84pPHMDxgNY3iBLz6Qn7qS3CH8qPhrHz',
 
     /**
+     *  EVM graphql http url
+     */
+
+    EVM_GRAPHQL_URL: 'https://stage.evm.exp.moonrabbit.com/graphiql',
+
+    /**
+     *  EVM token ticker
+     */
+
+    EVM_TOKEN_TICKER: 'AAA',
+
+    /**
+     *  EVM token decimals
+     */
+
+    EVM_TOKEN_DECIMAL: 18,
+
+    /**
      * Default page limit for requests
      */
 

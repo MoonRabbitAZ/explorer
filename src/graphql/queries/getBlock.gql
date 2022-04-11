@@ -1,0 +1,6 @@
+#import "../fragments/fragBlock.gql"
+query getBock($number: Int, $hash: FullHash) {
+  block(number: $number, hash: $hash) {
+    ...fragBlock
+  },
+}

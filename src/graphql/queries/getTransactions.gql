@@ -1,0 +1,31 @@
+#import "../fragments/fragTransaction.gql"
+#import "../fragments/fragPageInfo.gql"
+
+query getTransactions(
+  $addressHash: AddressHash,
+  $blockNumber: Int,
+  $blockHash: FullHash,
+  $after: String,
+  $before: String,
+  $first: Int,
+  $last: Int
+  ) {
+  transactions(
+      after: $after,
+      before: $before,
+      first: $first,
+      last: $last,
+      addressHash: $addressHash,
+      blockHash: $blockHash,
+      blockNumber: $blockNumber
+    ) { 
+      edges {
+        node {
+          ...fragTransaction
+        }
+      }
+      pageInfo {
+        ...fragPageInfo,
+      }
+     }
+}

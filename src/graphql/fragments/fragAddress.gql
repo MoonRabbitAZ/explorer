@@ -1,0 +1,10 @@
+fragment fragAddress on Address {
+  contractCode
+  fetchedCoinBalance
+  hash
+  transactionCount,
+  transferCount,
+  gasUsed,
+  fetchedCoinBalanceBlockNumber,
+  validationCount,
+}

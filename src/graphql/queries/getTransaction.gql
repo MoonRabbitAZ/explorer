@@ -1,0 +1,6 @@
+#import "../fragments/fragTransaction.gql"
+query getTransaction($hash: FullHash!) {
+  transaction(hash: $hash) {
+    ...fragTransaction
+  },
+}
