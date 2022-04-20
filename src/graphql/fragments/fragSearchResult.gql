@@ -1,0 +1,13 @@
+fragment fragSearchResult on SearchResult {
+  addressHash
+  blockHash
+  blockNumber
+  foreignChainId
+  foreignTokenHash
+  holderCount
+  insertedAt
+  name
+  symbol
+  txHash
+  type
+}

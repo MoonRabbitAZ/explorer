@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.1.0] - 2022-04-11
+#### Added
+- Staking option
+
+## [1.0.0] - 2022-04-11
 #### Added
 - Gilt queue list
 - Gilt summary
@@ -21,12 +25,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `Bounties list` and `Bounty summary`
 - Connect Metamask chain button
 - Connect Metamask chain button on Unfinished flow
+- EVM Explorer page
+- Count transactions on evm block details
 
 #### Fixed
 - Collected winning data on auction tab
 - Proposal cell display
 - Tooltip display
 - Error message on Bridge tokens form
+- Clipboard focus
+- Page position after navigating the route
+
 
 #### Removed
 - Scrolling when the drover is open
@@ -170,7 +179,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Initial project release
 - Initiated project with vue cli
 
-[Unreleased]: https://gitlab.com/tokend/polkadot/new-web-client/compare/0.1.0...HEAD
+[Unreleased]: https://gitlab.com/tokend/polkadot/new-web-client/compare/1.1.0...HEAD
+[1.0.0]: https://gitlab.com/tokend/polkadot/new-web-client/compare/1.0.0...1.1.0
+[1.0.0]: https://gitlab.com/tokend/polkadot/new-web-client/compare/0.1.0...1.0.0
 [0.1.0]: https://gitlab.com/tokend/polkadot/new-web-client/compare/0.1.0-rc.3...0.1.0
 [0.1.0-rc.3]: https://gitlab.com/tokend/polkadot/new-web-client/compare/0.1.0-rc.2...0.1.0-rc.3
 [0.1.0-rc.2]: https://gitlab.com/tokend/polkadot/new-web-client/compare/0.1.0-rc.1...0.1.0-rc.2

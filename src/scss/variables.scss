@@ -18,14 +18,14 @@ $small: 600px;
 $x-small: 480px;
 
 $status-message-reposition-bp: 470px;
-$sidebar-hide-bp: $media-small-desktop;
+$sidebar-hide-bp: $media-desktop;
 
 $content-side-paddings-sm: 2rem;
 
 // z indexes
 $z-status-message: 210;
 $z-group-menu-links-dropdown: 1;
-$z-drawer: 10;
+$z-drawer: 11;
 $z-drawer-backdrop: -1;
 $z-app-background: -1000;
 $z-app-init-logo: -999;

@@ -88,6 +88,16 @@ export function useMenuLinksGroups () {
       ],
     },
 
+    evmExplorer: {
+      name: 'evm-explorer',
+      groupTranslationName: t('routers-groups.evm-explorer.name'),
+      links: [
+        {
+          translationName: t('routers-groups.evm-explorer.routers.evm-explorer'),
+          route: vueRoutes.evmExplorerPage,
+        },
+      ],
+    },
     links: {
       name: 'links',
       groupTranslationName: t('routers-groups.links.name'),

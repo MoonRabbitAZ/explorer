@@ -1,0 +1,18 @@
+fragment fragTransaction on Transaction {
+  blockNumber
+  createdContractAddressHash
+  fromAddressHash
+  gasUsed
+  gas
+  gasPrice
+  hash
+  id
+  index
+  input
+  nonce
+  status
+  toAddressHash
+  timestamp
+  type
+  value
+}

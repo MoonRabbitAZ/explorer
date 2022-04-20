@@ -1,0 +1,15 @@
+fragment fragBlock on Block {
+  totalTransactionCount,
+  consensus
+  difficulty
+  gasLimit
+  gasUsed
+  hash
+  minerHash
+  nonce
+  number
+  parentHash
+  size
+  timestamp
+  totalDifficulty
+}

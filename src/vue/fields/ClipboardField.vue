@@ -4,13 +4,27 @@
       {{ label }}
     </label>
 
-    <div class="clipboard-field__body">
-      <p
-        class="clipboard-field__value"
-        :id="`clipboard-target-${uid}`"
-      >
-        {{ value }}
-      </p>
+    <div
+      class="clipboard-field__body"
+      :class="{'clipboard-field__body--full': isFullValue}"
+    >
+      <template v-if="routeTo">
+        <router-link
+          class="clipboard-field__value"
+          :id="`clipboard-target-${uid}`"
+          :to="routeTo"
+        >
+          {{ value }}
+        </router-link>
+      </template>
+      <template v-else>
+        <p
+          class="clipboard-field__value"
+          :id="`clipboard-target-${uid}`"
+        >
+          {{ value }}
+        </p>
+      </template>
 
       <button
         ref="clipboardBtn"
@@ -45,6 +59,8 @@ export default {
   props: {
     value: { type: String, default: '' },
     label: { type: String, default: '' },
+    routeTo: { type: Object, default: null },
+    isFullValue: { type: Boolean, default: false },
   },
 
   setup () {
@@ -65,11 +81,6 @@ export default {
     onMounted(() => {
       if (!clipboardBtn.value) return
       clipboard.value = new Clipboard(clipboardBtn.value)
-      clipboard.value.on('success', event => {
-        setTimeout(() => {
-          event.clearSelection()
-        }, HIDE_TOOLTIP_TIMEOUT)
-      })
     })
 
     return {
@@ -102,6 +113,14 @@ export default {
 .clipboard-field__body {
   display: flex;
   align-items: center;
+
+  &--full {
+    .clipboard-field__value {
+      overflow: visible;
+      text-overflow: none;
+      word-break: break-all;
+    }
+  }
 }
 
 .clipboard-field__button {

@@ -1,0 +1,25 @@
+#import "../fragments/fragBlock.gql"
+#import "../fragments/fragPageInfo.gql"
+
+query getBlockList(
+  $after: String,
+  $before: String,
+  $first: Int,
+  $last: Int
+) {
+  blockList(
+    after: $after,
+    before: $before,
+    first: $first,
+    last: $last,
+  ) {
+    edges {
+      node {
+        ...fragBlock
+      }
+    }
+    pageInfo {
+      ...fragPageInfo,
+    }
+  },
+}

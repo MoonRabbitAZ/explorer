@@ -1,0 +1,21 @@
+fragment fragTokenTransfer on TokenTransfer {
+  amount,
+  amounts,
+  blockNumber,
+  fromAddressHash,
+  id,
+  logIndex,
+  toAddressHash,
+  tokenContractAddressHash,
+  tokenId,
+  tokenIds,
+  timestamp,
+  tokenStatus,
+
+  amount,
+  tokenId,
+  token {
+    symbol,
+    type
+  }
+}

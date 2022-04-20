@@ -2,6 +2,13 @@ import moment from 'moment-timezone'
 import { useI18n } from 'vue-i18n'
 import { reactive } from 'vue'
 
+moment.relativeTimeThreshold('M', 12)
+moment.relativeTimeThreshold('d', 30)
+moment.relativeTimeThreshold('h', 24)
+moment.relativeTimeThreshold('m', 60)
+moment.relativeTimeThreshold('s', 60)
+moment.relativeTimeThreshold('ss', 1)
+
 export function useFormatDate () {
   const { t } = useI18n()
 
@@ -27,6 +34,7 @@ export function useFormatDate () {
   const formatDateDDMY = val => moment(val).format(t('formats.dates.ddmy'))
   const formatDateDMY = val => moment(val).format(t('formats.dates.dmy'))
   const formatDateDMYT = val => moment(val).format(t('formats.dates.dmyt'))
+  const formatDateDMYTS = val => moment(val).format(t('formats.dates.dmyts'))
   const formatCalendar = val => moment(val).calendar(null, calendar)
   const formatCalendarInline = val => moment(val).calendar(null, calendarInline)
 
@@ -36,6 +44,7 @@ export function useFormatDate () {
     formatDateDMY,
     formatDateDDMY,
     formatDateDMYT,
+    formatDateDMYTS,
     formatCalendar,
     formatCalendarInline,
   }

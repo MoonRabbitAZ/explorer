@@ -64,7 +64,7 @@ export function useValidators () {
   }
 
   const blockIdent = val => {
-    return isHex(val, 256) || /^$|[0-9]+$/i.test(val)
+    return isHex(val, 256) || /^[0-9]+$/i.test(val)
       ? ''
       : t('validation.field-error_blockIdent')
   }
@@ -122,6 +122,12 @@ export function useValidators () {
     }
   }
 
+  const evmSearch = val => {
+    return !val || /^[0-9]+$/i.test(val) || isHex(val, 160) || isHex(val, 256)
+      ? ''
+      : t('validation.field-error_blockIdent')
+  }
+
   return {
     required,
     minLength,
@@ -136,5 +142,6 @@ export function useValidators () {
     mnemonicSed,
     hexSeed,
     amountRange,
+    evmSearch,
   }
 }
