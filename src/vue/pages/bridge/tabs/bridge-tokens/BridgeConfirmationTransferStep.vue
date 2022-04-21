@@ -18,11 +18,11 @@
         </h1>
 
         <!-- eslint-disable -->
-        <template v-if="isErc721 && erc721Token?.imageUrl || erc721Token.image">
+        <template v-if="isErc721 && erc721Token?.imageUrl">
           <div class="bridge-confirmation-transfer-step__token-img-wrap">
             <img
               class="bridge-confirmation-transfer-step__token-img"
-              :src="erc721Token.imageUrl || erc721Token.image"
+              :src="erc721Token.imageUrl"
               alt="token image"
             >
           </div>
