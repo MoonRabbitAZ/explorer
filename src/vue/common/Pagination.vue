@@ -75,6 +75,7 @@ export default {
 .pagination {
   display: flex;
   width: max-content;
+  align-items: center;
 }
 
 .pagination__first-page-btn {
@@ -84,5 +85,6 @@ export default {
 .pagination__page-number {
   margin: 0 2rem;
   font-size: 1.6rem;
+  line-height: 1;
 }
 </style>

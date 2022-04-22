@@ -19,6 +19,9 @@
           </h1>
           <template v-if="blocks?.length">
             <h4>
+              {{ $t('evm-explorer-page.evm-block-list.miner-header') }}
+            </h4>
+            <h4>
               {{ $t('evm-explorer-page.evm-block-list.transactions-header') }}
             </h4>
             <h4>
@@ -114,10 +117,6 @@ export default {
   padding: 0 1.6rem;
 
   &--grid {
-    & > :first-child {
-      grid-column: 1/3;
-    }
-
     @include evm-block-grid-row(flex-end);
   }
 }

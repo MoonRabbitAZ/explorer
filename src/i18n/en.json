@@ -1119,6 +1119,7 @@
     },
     "evm-block-list": {
       "last-blocks-header": "Last Blocks",
+      "miner-header": "Miner",
       "transactions-header": "Transactions",
       "time-header": "Time",
       "error-message": "There was an error while loading."

@@ -155,6 +155,7 @@
         <template v-else>
           <template v-if="isFromChainActive">
             <error-message
+              v-if="errorMessage"
               class="bridge-tokens-form__error"
               :message="errorMessage"
             />
@@ -424,7 +425,10 @@ export default {
     })
 
     const errorMessage = computed(() => {
-      if (props.isErc721 && !state.erc721Token) {
+      if (state.isLoaded ||
+        (props.isErc721 && !formController.form.tokenId.value)) {
+        return ''
+      } else if (props.isErc721 && !state.erc721Token) {
         return t('bridge-page.bridge-tokens-form.nft-error-message')
       } else if (!props.isErc721 && !+state.currentBalance) {
         return t('bridge-page.bridge-tokens-form.balance-error-message')
@@ -504,14 +508,14 @@ export default {
 
       if (tokenAmount < 1) return
 
-      const tokentUri = await contract.methods
+      const tokenUri = await contract.methods
         .uri(formController.form.tokenId.value)
         .call()
 
-      const tokenDetails = await getTokenDetailsByURI(tokentUri)
+      const tokenDetails = await getTokenDetailsByURI(tokenUri)
       state.erc721Token = new Erc721TokenRecord({
         ...tokenDetails,
-        tokentUri,
+        tokenUri,
         id: formController.form.tokenId.value,
       })
     }
