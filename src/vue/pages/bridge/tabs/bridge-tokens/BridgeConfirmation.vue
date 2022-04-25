@@ -222,7 +222,7 @@ export default {
           contractAddress: props.currentToken.internalContract,
           fromAddress: props.web3Account,
           toAddress: props.currentToken.internalContract,
-          tokenId: props.erc1155Token.id,
+          tokenId: props.erc721Token.id,
         })
 
         state.txHash = transactionHash
@@ -256,8 +256,6 @@ export default {
 
     async function withdrawSecondStep () {
       const withdrawParams = {
-        tokenUri: state.parameters.details.tokenUri,
-        nativeChainAddress: state.parameters.details.internalTokenAddress,
         txHash: state.parameters.details.txHash,
         signatureR: [state.parameters.signature.r],
         signatureS: [state.parameters.signature.s],
@@ -281,6 +279,8 @@ export default {
       } else {
         await withdrawErc1155({
           ...withdrawParams,
+          tokenUri: state.parameters.details.tokenUri,
+          nativeChainAddress: state.parameters.details.internalTokenAddress,
           contractAddress: props.toChain.bridgeContract,
           address: props.currentToken.originalContract,
           tokenId: state.parameters.details.tokenId,

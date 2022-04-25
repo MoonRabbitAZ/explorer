@@ -491,7 +491,7 @@ export default {
     }
 
     async function initErc1155 () {
-      state.erc1155Token = null
+      state.erc721Token = null
       if (!formController.form.tokenId.value) return
       const contractAddress = state.isWithdraw
         ? currentToken.value.internalContract

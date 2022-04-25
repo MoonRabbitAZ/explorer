@@ -70,7 +70,7 @@ export default {
       mintErc721,
       withdrawErc20,
       withdrawNative,
-      withdrawErc721,
+      withdrawErc1155,
     } = useWeb3()
     const state = reactive({
       parameters: null,
@@ -136,12 +136,12 @@ export default {
         signatureV: [state.parameters.signature.v],
       }
 
-      if (props.unfinishedFlow.token.isOriginalTypeErc721) {
-        await withdrawErc721({
+      if (props.unfinishedFlow.token.isOriginalTypeErc20) {
+        await withdrawErc20({
           ...withdrawParams,
           contractAddress: toChain.value.bridgeContract,
           address: props.unfinishedFlow.token.originalContract,
-          tokenId: state.parameters.details.tokenId,
+          amount: state.parameters.details.amount,
         })
       } else if (props.unfinishedFlow.token.isOriginalTypeNative) {
         await withdrawNative({
@@ -150,11 +150,13 @@ export default {
           amount: state.parameters.details.amount,
         })
       } else {
-        await withdrawErc20({
+        await withdrawErc1155({
           ...withdrawParams,
           contractAddress: toChain.value.bridgeContract,
           address: props.unfinishedFlow.token.originalContract,
-          amount: state.parameters.details.amount,
+          tokenId: state.parameters.details.tokenId,
+          tokenUri: state.parameters.details.tokenUri,
+          nativeChainAddress: state.parameters.details.internalTokenAddress,
         })
       }
     }
