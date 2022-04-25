@@ -425,7 +425,7 @@ export default {
     })
 
     const errorMessage = computed(() => {
-      if (state.isLoaded ||
+      if (!state.isLoaded ||
         (props.isErc721 && !formController.form.tokenId.value)) {
         return ''
       } else if (props.isErc721 && !state.erc721Token) {
