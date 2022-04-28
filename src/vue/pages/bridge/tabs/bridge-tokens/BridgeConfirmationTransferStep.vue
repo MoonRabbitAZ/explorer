@@ -19,13 +19,10 @@
 
         <!-- eslint-disable -->
         <template v-if="isErc721 && erc721Token?.imageUrl">
-          <div class="bridge-confirmation-transfer-step__token-img-wrap">
-            <img
-              class="bridge-confirmation-transfer-step__token-img"
-              :src="erc721Token.imageUrl"
-              alt="token image"
-            >
-          </div>
+          <bridge-nft-image
+            class="bridge-confirmation-transfer-step__nft-img"
+            :img-url="erc721Token.imageUrl"
+          />
         </template>
 
         <bridge-info-block
@@ -131,6 +128,7 @@
 import { TickField } from '@/vue/fields'
 import BridgeInfoBlock from '@bridge-page/tabs/bridge-tokens/BridgeInfoBlock'
 import ErrorMessage from '@/vue/common/ErrorMessage'
+import BridgeNftImage from '@bridge-page/tabs/bridge-tokens/BridgeNftImage'
 
 import { ref, computed } from 'vue'
 import { useFormatBalance } from '@/vue/composables'
@@ -150,6 +148,7 @@ export default {
     BridgeInfoBlock,
     TickField,
     ErrorMessage,
+    BridgeNftImage,
   },
 
   props: {
@@ -227,17 +226,8 @@ export default {
   text-align: center;
 }
 
-.bridge-confirmation-transfer-step__token-img-wrap {
-  max-width: max-content;
+.bridge-confirmation-transfer-step__nft-img {
   margin: 2rem auto;
-}
-
-.bridge-confirmation-transfer-step__token-img {
-  object-fit: contain;
-  max-width: 100%;
-  max-height: 15.4rem;
-  border-radius: 1.2rem;
-  overflow: hidden;
 }
 
 .bridge-confirmation-transfer-step__item {

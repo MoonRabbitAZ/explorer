@@ -241,27 +241,14 @@ export const ERC1155_ABI = [
   {
     inputs: [
       {
-        internalType: 'uint256',
-        name: '_tokenId',
-        type: 'uint256',
-      },
-    ],
-    name: 'burn',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
         internalType: 'address',
         name: '_nativeChain',
         type: 'address',
       },
       {
-        internalType: 'uint128',
+        internalType: 'uint256',
         name: '_tokenId',
-        type: 'uint128',
+        type: 'uint256',
       },
     ],
     name: 'checkForExistance',
@@ -324,9 +311,33 @@ export const ERC1155_ABI = [
     name: 'getCollectionId',
     outputs: [
       {
-        internalType: 'uint128',
+        internalType: 'uint256',
         name: '',
-        type: 'uint128',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_nativeChainAddress',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: '_tokenId',
+        type: 'uint256',
+      },
+    ],
+    name: 'getTokenId',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
       },
     ],
     stateMutability: 'view',
@@ -379,9 +390,9 @@ export const ERC1155_ABI = [
         type: 'address',
       },
       {
-        internalType: 'uint128',
+        internalType: 'uint256',
         name: '_tokenId',
-        type: 'uint128',
+        type: 'uint256',
       },
       {
         internalType: 'bytes32[]',
@@ -428,9 +439,9 @@ export const ERC1155_ABI = [
         type: 'address',
       },
       {
-        internalType: 'uint128',
+        internalType: 'uint256',
         name: '_tokenId',
-        type: 'uint128',
+        type: 'uint256',
       },
       {
         internalType: 'bytes32[]',
@@ -666,19 +677,6 @@ export const ERC1155_ABI = [
       },
     ],
     stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: 'tokenID',
-        type: 'uint256',
-      },
-    ],
-    name: 'withdraw',
-    outputs: [],
-    stateMutability: 'nonpayable',
     type: 'function',
   },
 ]

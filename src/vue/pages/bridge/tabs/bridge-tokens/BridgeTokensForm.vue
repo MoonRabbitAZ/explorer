@@ -124,16 +124,12 @@
               "
               :value="erc721Token.name"
             />
-            <div
+
+            <bridge-nft-image
               v-if="erc721Token.imageUrl"
-              class="bridge-tokens-form__token-img-wrap"
-            >
-              <img
-                class="bridge-tokens-form__token-img"
-                :src="erc721Token.imageUrl"
-                alt="token image"
-              >
-            </div>
+              class="bridge-tokens-form__nft-img"
+              :img-url="erc721Token.imageUrl"
+            />
           </template>
 
           <bridge-info-block
@@ -280,6 +276,7 @@
 import { SelectField, AmountField, InputField } from '@/vue/fields'
 import Drawer from '@/vue/common/Drawer'
 import BridgeInfoBlock from '@bridge-page/tabs/bridge-tokens/BridgeInfoBlock'
+import BridgeNftImage from '@bridge-page/tabs/bridge-tokens/BridgeNftImage'
 import BridgeConfirmation from '@bridge-page/tabs/bridge-tokens/BridgeConfirmation'
 import ErrorMessage from '@/vue/common/ErrorMessage'
 import Loader from '@/vue/common/Loader'
@@ -312,6 +309,7 @@ export default {
     BridgeConfirmation,
     ErrorMessage,
     Loader,
+    BridgeNftImage,
   },
 
   props: {
@@ -502,21 +500,26 @@ export default {
         contractAddress,
       )
 
+      const tokenId = await contract.methods
+        .getTokenId(currentToken.value.internalContract,
+          formController.form.tokenId.value)
+        .call()
+
       const tokenAmount = await contract.methods
-        .balanceOf(web3Account.value, formController.form.tokenId.value)
+        .balanceOf(web3Account.value, tokenId)
         .call()
 
       if (tokenAmount < 1) return
 
       const tokenUri = await contract.methods
-        .uri(formController.form.tokenId.value)
+        .uri(tokenId)
         .call()
 
       const tokenDetails = await getTokenDetailsByURI(tokenUri)
       state.erc721Token = new Erc721TokenRecord({
         ...tokenDetails,
         tokenUri,
-        id: formController.form.tokenId.value,
+        id: tokenId,
       })
     }
 
@@ -538,21 +541,21 @@ export default {
 
       if (tokenOwner !== web3Account.value) return
 
-      const tokentUri = await contract.methods
+      const tokenUri = await contract.methods
         .tokenURI(formController.form.tokenId.value)
         .call()
 
-      const tokenDetails = await getTokenDetailsByURI(tokentUri)
+      const tokenDetails = await getTokenDetailsByURI(tokenUri)
       state.erc721Token = new Erc721TokenRecord({
         ...tokenDetails,
-        tokentUri,
+        tokenUri,
         id: formController.form.tokenId.value,
       })
     }
 
-    async function getTokenDetailsByURI (tokentUri) {
+    async function getTokenDetailsByURI (tokenUri) {
       try {
-        const proxifiedUri = tokentUri.replace('gateway.ipfs.io', 'ipfs.polkadot.tokend.io')
+        const proxifiedUri = tokenUri.replace('gateway.ipfs.io', 'ipfs.polkadot.tokend.io')
         const { data } = await apiCaller.withBaseURL(proxifiedUri).getRaw('')
         return data
       } catch (e) {
@@ -668,17 +671,8 @@ export default {
   }
 }
 
-.bridge-tokens-form__token-img-wrap {
-  max-width: max-content;
+.bridge-tokens-form__nft-img {
   margin: 2rem auto 0;
-}
-
-.bridge-tokens-form__token-img {
-  object-fit: contain;
-  max-width: 100%;
-  max-height: 15.4rem;
-  border-radius: 1.2rem;
-  overflow: hidden;
 }
 
 .bridge-tokens-form__error {

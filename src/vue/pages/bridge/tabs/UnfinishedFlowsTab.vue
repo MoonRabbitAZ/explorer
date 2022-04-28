@@ -59,6 +59,7 @@ export default {
         const [flows, chains, tokens] = await Promise.all([
           bridgeEthereumApi.get('/oracle/flows', {
             page: {
+              order: 'desc',
               limit: 100,
             },
             filter: {
