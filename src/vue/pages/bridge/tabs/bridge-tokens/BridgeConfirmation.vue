@@ -114,7 +114,7 @@ export default {
       burnErc20,
       transferErc20,
       mintErc20,
-      mintErc721,
+      withdrawErc721,
       withdrawErc20,
       withdrawNative,
       withdrawErc1155,
@@ -212,7 +212,7 @@ export default {
         const { transactionHash } = await transferErc721({
           contractAddress: props.currentToken.internalContract,
           fromAddress: props.web3Account,
-          toAddress: props.currentToken.internalContract,
+          toAddress: props.fromChain.bridgeContract,
           tokenId: props.erc721Token.id,
         })
 
@@ -290,7 +290,6 @@ export default {
 
     async function depositSecondStep () {
       const depositParams = {
-        contractAddress: props.currentToken.internalContract,
         txHash: state.parameters.details.txHash,
         signatureR: [state.parameters.signature.r],
         signatureS: [state.parameters.signature.s],
@@ -298,14 +297,16 @@ export default {
       }
 
       if (props.currentToken.isInternalTypeErc721) {
-        await mintErc721({
+        await withdrawErc721({
           ...depositParams,
-          tokenUrl: state.parameters.details.tokenUrl,
+          contractAddress: props.toChain.bridgeContract,
+          address: state.parameters.details.internalTokenAddress,
           tokenId: state.parameters.details.tokenId,
         })
       } else {
         await mintErc20({
           ...depositParams,
+          contractAddress: props.currentToken.internalContract,
           amount: state.parameters.details.amount,
           receiverAddress: props.web3Account,
         })
