@@ -36,7 +36,7 @@
       <skeleton-loader
         v-for="(item, id) in 4"
         :key="id"
-        class="account-balances__sceleton-loader"
+        class="account-balances__skeleton-loader"
       />
     </template>
   </div>
@@ -107,7 +107,7 @@ export default {
   margin-top: 2rem;
 }
 
-.account-balances__sceleton-loader {
+.account-balances__skeleton-loader {
   height: 1.2rem;
 
   & + & {

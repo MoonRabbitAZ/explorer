@@ -7,7 +7,13 @@
     <template v-if="!isMetamaskConnected">
       <div class="bridge__wrap">
         <div class="bridge__metamask-wrap">
-          <metamask-form class="bridge__metamask-form"/>
+          <metamask-form
+            class="bridge__metamask-form"
+            :create-message="$t('bridge-page.bridge-page.create-metamask-msg')"
+            :connect-message="
+              $t('bridge-page.bridge-page.connect-metamask-msg')
+            "
+          />
         </div>
       </div>
     </template>

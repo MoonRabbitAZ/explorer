@@ -26,6 +26,15 @@
       <div class="account-row__actions">
         <app-button
           v-tooltip.bottom="
+            $t('wallet-page.account-row.assign-account-button-tooltip')
+          "
+          class="account-row__button"
+          scheme="secondary"
+          icon-name="ethereum"
+          @click="isAssingEvmAccountFormOpen = true"
+        />
+        <app-button
+          v-tooltip.bottom="
             $t('wallet-page.account-row.deposit-button-tooltip')
           "
           class="account-row__button"
@@ -44,6 +53,19 @@
         />
       </div>
     </div>
+
+    <drawer
+      v-model:is-shown="isAssingEvmAccountFormOpen"
+      is-default-body
+      :close-by-click-outside="false"
+    >
+      <template #heading>
+        {{ $t('wallet-page.account-row.assign-account-drawer-title') }}
+      </template>
+      <assign-evm-account-form
+        :current-account-address="account.address"
+      />
+    </drawer>
 
     <drawer
       v-model:is-shown="isTransferFormOpen"
@@ -79,6 +101,7 @@ import SkeletonLoader from '@/vue/common/SkeletonLoader'
 import Drawer from '@/vue/common/Drawer'
 import TransferForm from '@/vue/forms/TransferForm'
 import AccountDeposit from '@wallet-page/tabs/my-accounts/AccountDeposit'
+import AssignEvmAccountForm from '@wallet-page/tabs/my-accounts/AssignEvmAccountForm'
 
 import { computed, watch, reactive, toRefs } from 'vue'
 import { useCryptoType, useCall } from '@/vue/composables'
@@ -97,6 +120,7 @@ export default {
     Drawer,
     TransferForm,
     AccountDeposit,
+    AssignEvmAccountForm,
   },
 
   props: {
@@ -109,6 +133,7 @@ export default {
     const state = reactive({
       isTransferFormOpen: false,
       isAccountDepositOpen: false,
+      isAssingEvmAccountFormOpen: false,
     })
     const { cryptoType } = useCryptoType(props.account.address)
     const balancesAll = useCall(
@@ -143,7 +168,7 @@ export default {
 .account-row__body {
   display: grid;
   grid-gap: 2rem;
-  grid-template-columns: repeat(2, 1fr) 15rem 11rem;
+  grid-template-columns: repeat(2, 1fr) 15rem 17.2rem;
   align-items: center;
   padding: 1rem 1.6rem;
 

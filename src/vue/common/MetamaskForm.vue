@@ -33,7 +33,12 @@ export default {
 
   components: { Icon },
 
-  setup () {
+  props: {
+    connectMessage: { type: String, default: 'common.metamask-form.connect-msg' },
+    createMessage: { type: String, default: 'common.metamask-form.create-msg' },
+  },
+
+  setup (props) {
     const isMetamaskProcessing = ref(false)
     const { t } = useI18n()
     const {
@@ -49,11 +54,11 @@ export default {
 
     const messageTranslation = computed(() => {
       if (isMetamaskEnabled.value) {
-        return t('common.metamask-form.connect-msg')
+        return t(props.connectMessage)
       } else if (isMobile.value) {
         return t('common.metamask-form.mobile-open-msg')
       } else {
-        return t('common.metamask-form.create-msg')
+        return t(props.createMessage)
       }
     })
 

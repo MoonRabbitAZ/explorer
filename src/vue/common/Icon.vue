@@ -10,6 +10,7 @@
     <rotate-icon v-if="ICON_NAMES.rotate === name" />
     <metamask-icon v-if="ICON_NAMES.metamask === name" />
     <crown-icon v-if="ICON_NAMES.crown === name" />
+    <ethereum-icon v-if="ICON_NAMES.ethereum === name" />
 
     <!-- Socila icons -->
     <discord-icon v-if="ICON_NAMES.discord === name" />
@@ -49,6 +50,7 @@ import InfoIcon from '@/vue/common/icons/Info-icon'
 import RotateIcon from '@/vue/common/icons/Rotate-icon'
 import MetamaskIcon from '@/vue/common/icons/Metamask-icon'
 import CrownIcon from '@/vue/common/icons/Crown-icon'
+import EthereumIcon from '@/vue/common/icons/Ethereum-icon'
 
 // Socila icons
 import DiscordIcon from '@/vue/common/icons/social/Discord-icon'
@@ -84,6 +86,7 @@ const ICON_NAMES = {
   rotate: 'rotate',
   metamask: 'metamask',
   crown: 'crown',
+  ethereum: 'ethereum',
 
   // Socila icons
   discord: 'discord',
@@ -144,6 +147,7 @@ export default {
     WeiboIcon,
     MetamaskIcon,
     CrownIcon,
+    EthereumIcon,
   },
   props: {
     name: {

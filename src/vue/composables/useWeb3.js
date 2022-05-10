@@ -35,6 +35,22 @@ export function useWeb3 () {
     await store.dispatch(vuexTypes.LOAD_WEB3_ACCOUNT)
   }
 
+  async function getPersonalSign (message) {
+    const params = {
+      method: 'personal_sign',
+      params: [web3Account.value, message],
+      from: web3Account.value,
+    }
+    /* eslint-disable-next-line promise/avoid-new */
+    return new Promise((resolve, reject) => {
+      web3.value.currentProvider
+        .sendAsync(params, function (err, result) {
+          if (err) reject(err)
+          resolve(result)
+        })
+    })
+  }
+
   async function transferErc721 ({
     contractAddress,
     fromAddress,
@@ -238,6 +254,7 @@ export function useWeb3 () {
     connectWeb3,
     initWeb3,
     loadWeb3Account,
+    getPersonalSign,
 
     transferErc721,
     transferErc1155,

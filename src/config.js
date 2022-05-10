@@ -30,7 +30,7 @@ export default Object.assign(
 
     BUILD_VERSION: packageJson.version,
 
-    WSS_NODE: 'wss://node.polkadot.tokend.io',
+    WSS_NODE: 'wss://node.testnet.moonrabbit.com',
 
     BRIDGE_API_URL: 'https://bridge.hole.moonrabbit.com/',
 
@@ -39,6 +39,8 @@ export default Object.assign(
     BRIDGE_ETHEREUM_API_URL: '',
 
     STAKING_SYSTEM_ADDRESS: 'GsvVmjr1CBHwQHw84pPHMDxgNY3iBLz6Qn7qS3CH8qPhrHz',
+
+    ADDRESS_STORAGE_API_URL: 'https://address-storage.testnet.moonrabbit.com/',
 
     /**
      *  EVM graphql http url

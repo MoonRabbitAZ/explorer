@@ -352,8 +352,11 @@
   },
   "common": {
     "account-address": {
-      "information-title": "Information",
-      "balance-header": "Balance"
+      "information-title": "Information"
+    },
+    "account-address-details": {
+      "balance-header": "Balance",
+      "assigned-evm-addresses-header": "Assigned EVM Addresses"
     },
     "account-balances": {
       "transferrable-lbl": "Transferrable",
@@ -405,8 +408,8 @@
       "more-btn": "More"
     },
     "metamask-form": {
-      "create-msg": "To continue working with the Metabridge, please create the MetaMask wallet.",
-      "connect-msg": "To continue working with the Metabridge, please connect the MetaMask wallet.",
+      "create-msg": "To continue working, please create the MetaMask wallet.",
+      "connect-msg": "To continue working, please connect the MetaMask wallet.",
       "mobile-open-msg": "To continue, open metamask in your browser",
       "connect-btn": "Connect Wallet",
       "download-btn": "Download Now",
@@ -465,12 +468,20 @@
       "deposit-button-tooltip": "Deposit",
       "transfer-button-tooltip": "Send",
       "transfer-drawer-title": "Send Funds",
-      "deposit-drawer-title": "Deposit"
+      "deposit-drawer-title": "Deposit",
+      "assign-account-drawer-title": "Assign EVM Account",
+      "assign-account-button-tooltip": "Assign EVM Account"
     },
     "account-deposit": {
       "info-text": "To receive tokens inside Moon Rabbit network transfer ERC20 token to this address:",
       "error-header": "Error",
       "error-message": "There was an error while loading."
+    },
+    "assign-evm-account-form": {
+      "assign-btn": "Assign",
+      "current-address-title": "Current Account Address",
+      "evm-address-title": "EVM Account Address",
+      "assigned-success-msg": "Account { address } assigned successfully"
     }
   },
   "explorer-page": {
@@ -919,6 +930,10 @@
     }
   },
   "bridge-page": {
+    "bridge-page": {
+      "create-metamask-msg": "To continue working with the Metabridge, please create the MetaMask wallet.",
+      "connect-metamask-msg": "To continue working with the Metabridge, please connect the MetaMask wallet."
+    },
     "bridge-tokens-tab": {
       "error-header": "Error",
       "error-message": "There was an error while loading. Try hard reload page.",
