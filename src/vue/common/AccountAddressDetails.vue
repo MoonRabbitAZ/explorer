@@ -43,7 +43,7 @@ import { addressStorageApi } from '@api'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 
 export default {
-  name: 'account-address',
+  name: 'account-address-details',
 
   components: {
     AccountBalances,
