@@ -4,34 +4,60 @@
       <metamask-form class="bridge__metamask-form"/>
     </template>
     <template v-else>
-      <h3 class="assign-evm-account-form__send-title">
-        {{ $t('wallet-page.assign-evm-account-form.current-address-title') }}
-      </h3>
-      <div class="assign-evm-account-form__address-wrap">
-        <account-address-row
-          :account-address="currentAccountAddress"
-          icon-size="big"
-        />
-      </div>
-      <div class="assign-evm-account-form__content">
-        <value-displayer
-          class="assign-evm-account-form__evm-account"
-          :header="
-            $t('wallet-page.assign-evm-account-form.evm-address-title')
-          "
-          :value="web3Account"
-          :value-level="1"
-        />
-        <div class="assign-evm-account-form__actions-wrap">
-          <app-button
-            size="big"
-            scheme="primary"
-            @click="assignAccount"
-            :text="$t('wallet-page.assign-evm-account-form.assign-btn')"
-            :disabled="isProcessing"
+      <form
+        class="assign-evm-account-form__form"
+        novalidate
+        @submit.prevent="isFormValid() && submit()"
+      >
+        <h3 class="assign-evm-account-form__send-title">
+          {{ $t('wallet-page.assign-evm-account-form.current-address-title') }}
+        </h3>
+        <div class="assign-evm-account-form__address-wrap">
+          <account-address-row
+            :account-address="currentAccountAddress"
+            icon-size="big"
           />
         </div>
-      </div>
+        <div class="assign-evm-account-form__content">
+          <value-displayer
+            class="assign-evm-account-form__evm-account"
+            :header="
+              $t('wallet-page.assign-evm-account-form.evm-address-title')
+            "
+            :value="web3Account"
+            :value-level="1"
+          />
+
+          <div
+            v-if="!accountPair.meta.isTesting"
+            class="app__form-row"
+          >
+            <div class="app__form-field">
+              <input-field
+                v-model="form.password.value"
+                @blur="form.password.blur"
+                type="password"
+                name="assign-evm-account-password"
+                :error-message="form.password.errorMessage"
+                :label="
+                  $t('forms.transfer-form-authorize-step.password-input-lbl')
+                "
+                :disabled="isFormDisabled"
+              />
+            </div>
+          </div>
+
+          <div class="assign-evm-account-form__actions-wrap">
+            <app-button
+              size="big"
+              scheme="primary"
+              type="submit"
+              :text="$t('wallet-page.assign-evm-account-form.assign-btn')"
+              :disabled="isFormDisabled"
+            />
+          </div>
+        </div>
+      </form>
     </template>
   </div>
 </template>
@@ -40,19 +66,20 @@
 import ValueDisplayer from '@/vue/common/ValueDisplayer'
 import AccountAddressRow from '@/vue/common/AccountAddressRow'
 import MetamaskForm from '@/vue/common/MetamaskForm'
+import { InputField } from '@/vue/fields'
 
-import { ref } from 'vue'
+import { ref, toRefs, computed } from 'vue'
 import { addressStorageApi } from '@api'
-import { getAccountPair } from '@/js/helpers/account-helper'
+import { getAccountPair, unlockAccount, lockAccount } from '@/js/helpers/account-helper'
+import { useForm, useWeb3, useValidators } from '@/vue/composables'
 import { stringToU8a, u8aToHex } from '@polkadot/util'
-import { useWeb3 } from '@/vue/composables'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { Bus } from '@/js/helpers/event-bus'
 
 export default {
   name: 'assign-evm-account-form',
 
-  components: { MetamaskForm, ValueDisplayer, AccountAddressRow },
+  components: { MetamaskForm, ValueDisplayer, AccountAddressRow, InputField },
 
   props: {
     currentAccountAddress: {
@@ -62,17 +89,26 @@ export default {
   },
 
   setup (props) {
-    const isProcessing = ref(false)
+    const accountPair = ref(getAccountPair(props.currentAccountAddress))
     const { isMetamaskConnected, web3Account, getPersonalSign } = useWeb3()
+    const { required } = useValidators()
 
-    async function assignAccount () {
-      isProcessing.value = true
+    const formController = useForm({
+      password: { value: '' },
+      validators: computed(() => ({
+        ...(accountPair.value?.meta.isTesting ? {} : { required }),
+      })),
+    })
+
+    async function submit () {
+      formController.disableForm()
       try {
         // TODO: change message after added on backend
         const message = `Assign ${web3Account.value} to ${props.currentAccountAddress}`
         const messageU8a = stringToU8a(message)
-        const acc = getAccountPair(props.currentAccountAddress)
-        const mrSignature = u8aToHex(acc.sign(messageU8a))
+        unlockAccount(accountPair.value, formController.form.password.value)
+        const mrSignature = u8aToHex(accountPair.value.sign(messageU8a))
+        lockAccount(accountPair.value)
 
         const evmSignature = await getPersonalSign(message)
 
@@ -96,14 +132,15 @@ export default {
       } catch (e) {
         ErrorHandler.process(e)
       }
-      isProcessing.value = false
+      formController.enableForm()
     }
 
     return {
-      isProcessing,
+      ...toRefs(formController),
+      accountPair,
       isMetamaskConnected,
       web3Account,
-      assignAccount,
+      submit,
     }
   },
 }
@@ -117,6 +154,12 @@ export default {
   height: 100%;
   display: flex;
   flex-direction: column;
+}
+
+.assign-evm-account-form__form {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .assign-evm-account-form__send-title {

@@ -12,18 +12,26 @@
       </h3>
       <account-balances :account-address="accountAddress"/>
       <template v-if="isLoaded">
-        <template v-if="!isLoadFailed && accountAddress.length">
+        <template v-if="!isLoadFailed">
           <h3 class="account-address-details__evm-accounts-header">
             <!-- eslint-disable-next-line max-len -->
             {{ $t('common.account-address-details.assigned-evm-addresses-header') }}
           </h3>
-          <p
-            v-for="acc in assignedEvmAccounts"
-            :key="acc.id"
-            class="account-address-details__evm-account"
-          >
-            {{ acc.id }}
-          </p>
+          <template v-if="assignedEvmAccounts.length">
+            <p
+              v-for="acc in assignedEvmAccounts"
+              :key="acc.id"
+              class="account-address-details__evm-account"
+            >
+              {{ acc.id }}
+            </p>
+          </template>
+          <template v-else>
+            <no-data-message
+              class="account-address-details__no-data"
+              :message="$t('common.account-address-details.no-data-message')"
+            />
+          </template>
         </template>
       </template>
       <template v-else>
@@ -37,6 +45,7 @@
 import AccountBalances from '@/vue/common/AccountBalances'
 import AccountAddressRow from '@/vue/common/AccountAddressRow'
 import SkeletonLoader from '@/vue/common/SkeletonLoader'
+import NoDataMessage from '@/vue/common/NoDataMessage'
 
 import { reactive, toRefs } from 'vue'
 import { addressStorageApi } from '@api'
@@ -49,6 +58,7 @@ export default {
     AccountBalances,
     AccountAddressRow,
     SkeletonLoader,
+    NoDataMessage,
   },
 
   props: {
@@ -121,5 +131,10 @@ export default {
 .account-address-details__skeleton-loader {
   height: 4.4rem;
   margin-top: 2rem;
+}
+
+.account-address-details__no-data {
+  padding: 0;
+  margin-top: 1rem;
 }
 </style>

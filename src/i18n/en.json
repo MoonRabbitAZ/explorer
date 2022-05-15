@@ -2,6 +2,7 @@
   "errors": {
     "default": "Something bad happened. Please try again later or contact the system owner.",
     "network": "Network error. Please re-check your internet connection and try again.",
+    "conflict": "Such item already exists.",
     "transaction": "Transaction error. Please try again later or contact the system owner.",
     "blockchain-event-type": "We should not get here, unhandled { type }"
   },
@@ -356,7 +357,8 @@
     },
     "account-address-details": {
       "balance-header": "Balance",
-      "assigned-evm-addresses-header": "Assigned EVM Addresses"
+      "assigned-evm-addresses-header": "Assigned EVM Addresses",
+      "no-data-message": "No accounts assigned yet"
     },
     "account-balances": {
       "transferrable-lbl": "Transferrable",

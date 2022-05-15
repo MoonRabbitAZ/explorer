@@ -41,6 +41,9 @@ export class ErrorHandler {
       case errors.TransactionError:
         translationId = 'errors.transaction'
         break
+      case errors.ConflictError:
+        translationId = 'errors.conflict'
+        break
       default:
         translationId = 'errors.default'
     }
